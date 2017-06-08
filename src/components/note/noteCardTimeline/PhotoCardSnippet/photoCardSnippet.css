@@ -123,3 +123,7 @@
     box-shadow: 0 11px 17px 0 rgba(0, 0, 0, 0.2), 0 2px 7px 0 rgba(0, 0, 0, 0.35);
     transition: all 0.2s linear;
 }
+
+g #heartSvg:hover {
+    fill: #FF698E;
+}
