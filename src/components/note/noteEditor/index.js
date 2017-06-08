@@ -1,6 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 import 'froala-editor/js/froala_editor.pkgd.min';
+import 'froala-editor/js/plugins/quote.min.js';
+import 'froala-editor/css/plugins/image.min.css';
+import 'froala-editor/css/plugins/table.min.css';
+import 'froala-editor/css/plugins/colors.min.css';
+import 'froala-editor/css/plugins/table.min.css';
 import FroalaEditor from 'react-froala-wysiwyg';
 import screenfull from 'screenfull';
 import TagBar from './TagBar/index';
@@ -99,26 +104,81 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
       charCounterCount: false,
       tabSpaces: 8,
       toolbarInline: true,
-      toolbarButtons: [
+      toolbarVisibleWithoutSelection: true,
+      colorsDefaultTab: 'background',
+      colorsBackground: ['#FFFAA5', '#9BDBFF', '#FF3466', 'REMOVE'],
+      colorsText: ['#FFFAA5', '#9BDBFF', '#FF3466', 'REMOVE'],
+      toolbarButtonsMD: [
         'bold',
+        'color',
         'italic',
         'underline',
-        'strikeThrough',
-        '|',
         'paragraphFormat',
         'align',
         'formatOL',
         'formatUL',
         'outdent',
         'indent',
-        '-',
         'insertLink',
-        '|',
         'insertHR',
-        '|',
         'print',
+        'insertTable',
         'html',
-        '|',
+      ],
+      toolbarButtonsSM: [
+        'bold',
+        'color',
+        'italic',
+        'underline',
+        'strikeThrough',
+        'paragraphFormat',
+        'align',
+        'formatOL',
+        'formatUL',
+        'outdent',
+        'indent',
+        'insertLink',
+        'insertHR',
+        'print',
+        'insertTable',
+        'html',
+      ],
+      toolbarButtonsXS: [
+        'bold',
+        'color',
+        'italic',
+        'underline',
+        'strikeThrough',
+        'paragraphFormat',
+        'align',
+        'formatOL',
+        'formatUL',
+        'outdent',
+        'indent',
+        'insertLink',
+        'insertHR',
+        'print',
+        'insertTable',
+        'html',
+      ],
+      toolbarButtons: [
+        'bold',
+        'color',
+        'italic',
+        'underline',
+        'strikeThrough',
+
+        'paragraphFormat',
+        'align',
+        'formatOL',
+        'formatUL',
+        'outdent',
+        'indent',
+        'insertLink',
+        'insertHR',
+        'print',
+        'insertTable',
+        'html',
       ],
       paragraphFormat: {
         N: 'Normal',
