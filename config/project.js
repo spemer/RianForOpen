@@ -14,5 +14,5 @@ export const CSS_VARIABLES = {
   headerHeight: '70px',
   navWidth: '120px',
   timelineWidth: '300px',
-  rianColor: '#00da82',
+  rianColor: '#ff3466;',
 };

@@ -59,7 +59,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 
   componentDidMount() {
     this.initControls.initialize();
-    this.initControls.getEditor()('toolbar.hide');
+    // this.initControls.getEditor()('toolbar.hide');
   }
 
   screenfull: any;
@@ -99,6 +99,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
   render() {
     const config = {
       spellcheck: false,
+      placeholderText: 'Rian',
       editorClass: 'mainEditor',
       width: '100%',
       charCounterCount: false,
@@ -167,7 +168,6 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
         'italic',
         'underline',
         'strikeThrough',
-
         'paragraphFormat',
         'align',
         'formatOL',

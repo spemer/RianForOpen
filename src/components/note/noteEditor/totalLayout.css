@@ -24,7 +24,7 @@
 				width: 100%;
 				border: none;
 				font-size: 30px;
-				color: #FF3466;
+				color: var(--rianColor);;
 				height: 40px;
 				margin: 0px;
 				resize: none;
