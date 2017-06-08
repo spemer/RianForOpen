@@ -63,7 +63,6 @@ class NoteTimeLine extends Component<DefaultProps, Props, State> {
 
   _rowRenderer({ index, isScrolling, key, style }) {
     const data = this.state.List[index];
-    console.log('index', index);
     return (
       <TimelineSnippet
         key={index}
@@ -75,20 +74,13 @@ class NoteTimeLine extends Component<DefaultProps, Props, State> {
     );
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log(this.props.sideBar, nextProps.sideBar);
-    console.log(this.props.sideBar === nextProps.sideBar);
-    console.log(this.count);
-    this.count++;
-    if (this.props.sideBar === nextProps.sideBar) {
-      return false;
-    }
-    return true;
-  }
   render() {
-    console.log(this.state.List.length, 'sdfs');
     return (
-      <Motion style={{ x: spring(this.props.sideBar ? 260 : 0) }}>
+      <Motion
+        style={{
+          x: spring(this.props.sideBar && this.props.mode === 'List' ? 242 : 0),
+        }}
+      >
         {({ x }) => (
           <div className={css.noteList} style={{ width: `${x}px` }}>
             <TagSearch />
