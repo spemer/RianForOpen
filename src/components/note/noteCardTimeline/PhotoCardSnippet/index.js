@@ -13,7 +13,8 @@ type Props = {
   tag: Array<string>,
   photo?: string,
   publish?: number,
-  themeColor: string
+  themeColor: string,
+  backgroundImage: string
 };
 
 const CardSnippet = ({
@@ -23,9 +24,15 @@ const CardSnippet = ({
   tag = [],
   publish,
   themeColor = '#ff3466',
+  backgroundImage = '',
 }: Props) => (
   <div className={css.container}>
-    <div className={css.head}>
+    <div
+      className={css.head}
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+      }}
+    >
       <div className={css.title}>
         <div className={css.block} />
         <div className={css.text}>{title}</div>
