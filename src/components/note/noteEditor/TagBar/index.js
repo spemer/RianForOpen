@@ -39,6 +39,9 @@ class TagBar extends Component<DefaultProps, Props, State> {
 
   addTagInList(tagName: string) {
     if (!tagName) return; // 빈 태그내임이 들어왔을때 무시하는 Edge Case 처리
+    if (this.state.selectedTag.includes(tagName)) {
+      return this.handleSearchInputChange('');
+    } // 이미 있는거 또 쳤을때는 무시
     this.setState((prevState: State) => ({
       selectedTag: prevState.selectedTag.concat(tagName),
       searchInput: '',
@@ -49,7 +52,7 @@ class TagBar extends Component<DefaultProps, Props, State> {
     const deleteItemInArray = (name: string, array: Array<string>) => {
       let result = Array.prototype.slice.call(array);
       const index = result.indexOf(name);
-      result.splice(index, index + 1);
+      result.splice(index, 1);
       return result;
     };
     this.setState((prevState: State) => ({
@@ -67,7 +70,8 @@ class TagBar extends Component<DefaultProps, Props, State> {
                 <div key={index} className={css.oneOfTag}>
                   <div
                     className={css.delete}
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
                       this.deleteTagInList(tag);
                     }}
                   />
@@ -95,7 +99,9 @@ class TagBar extends Component<DefaultProps, Props, State> {
                     return this.handleSearchInputChange('');
                   }
                   // 그 외의 경우 태그 추가
-                  return this.addTagInList(currentTarget.value);
+                  return this.addTagInList(
+                    currentTarget.value.replace(/ /g, ''),
+                  );
                 }
                 // because eslint
                 return undefined;
