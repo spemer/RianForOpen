@@ -137,4 +137,7 @@
       }
     }
 }
+#hoverNav::-webkit-scrollbar {
+  display: none;
+} 
 

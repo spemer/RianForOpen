@@ -9,6 +9,7 @@ import TimelineSnippet from './TimelineSnippet/index';
 import TagSearch from './TagSearch/index';
 import { getNoteList } from '../../../graphqls/TimelineGraphQl';
 import css from './noteTimeline.css';
+import './scroll.global.css';
 import Mock from '../MOCKNOTE';
 
 const mapState = state => ({
