@@ -67,7 +67,7 @@
   	margin-bottom: 20px;
   }
   & .toolIcon {
-  	margin: 10px auto 10px auto;
+  	padding: 10px;
   }
 }
 .move {
