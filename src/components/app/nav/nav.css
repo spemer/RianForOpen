@@ -20,7 +20,7 @@
 		width: 38px;
 		height: 38px;
 		border-radius: 8px;
-		background-color: #ff3466;
+		background-color: var(--rianColor);
 		color: #ffffff;
 		font-size: 20px;
 		align-items: center;
@@ -37,7 +37,7 @@
   & .how {	
 	display: flex;  
 	margin: 2px auto 2px auto;
-	border: solid 1px #ff3466;
+	border: solid 1px var(--rianColor);
 	width: 35px;
 	height: 18px;
 	border-radius: 8px;
@@ -45,12 +45,12 @@
 	font-weight: 500;
 	font-family: 'Lato';
 	text-align: center;
-	color: #ff3466;
+	color: var(--rianColor);
 	align-items: center;
 	justify-content: center;
   }
   & .how:hover {
-  	background-color: #ff3466;
+  	background-color: var(--rianColor);
   	color: #ffffff;
   }
 }
@@ -67,7 +67,7 @@
   	margin-bottom: 20px;
   }
   & .toolIcon {
-  	margin: 10px auto 10px auto;
+  	padding: 10px;
   }
 }
 .move {
@@ -87,7 +87,7 @@
 		font-family: 'Lato';
 		font-size: 10px;
 		font-weight: 700;
-		color: #ff3466;
+		color: var(--rianColor);
 		width: 40px;
 	}
 	& .moveIcon:hover {
@@ -98,7 +98,7 @@
 		font-weight: 700;
 		color:#ffffff;
 		width: 40px;
-		background-color: #ff3466;
+		background-color: var(--rianColor);
 	}
 }
 
@@ -127,7 +127,7 @@
         align-items: center;
       }
       & .text:hover {
-        color: #ff3466;
+        color: var(--rianColor);
       }
       & .facebookButton {
         display: flex;

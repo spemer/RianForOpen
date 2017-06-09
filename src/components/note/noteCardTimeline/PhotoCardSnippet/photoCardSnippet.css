@@ -33,7 +33,7 @@
                 left: 15px;
                 width: 8px;
                 height: 22px;
-                background-color: #FE6C8F;
+                background-color: var(--rianColor)
             }
             & .text{
                 position: absolute;
@@ -81,7 +81,7 @@
                 & .number {
                     margin: 10px 0px 0px 2px;
                     font-size: 10px;
-	                color: #ff698e;
+	                color: var(--rianColor)
                 }
             }
         }
@@ -106,7 +106,7 @@
                     overflow: hidden;
                     letter-spacing: 0.1em;
                     font-size: 10px;
-                    color: #ff698e;
+                    color: var(--rianColor)
                 }
             }      
         }     
@@ -122,4 +122,8 @@
     transition-delay: 1s;
     box-shadow: 0 11px 17px 0 rgba(0, 0, 0, 0.2), 0 2px 7px 0 rgba(0, 0, 0, 0.35);
     transition: all 0.2s linear;
+}
+
+g #heartSvg:hover {
+    fill: var(--rianColor)
 }

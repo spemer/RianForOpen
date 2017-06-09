@@ -1,6 +1,6 @@
 export const mockContent = `<h3>자바의 이해</h3>
 
-<p><u>Hello, Java!: 세상에서 가장 사랑받는 프로그래밍 언어</u></p>
+<p><u>Hello, &nbsp;Java!: 세상에서 가장 사랑받는 프로그래밍 언어</u></p>
 
 <h4>public class HelloWorld {
 	<br>&nbsp; &nbsp;public static void main(String[] args) {
@@ -14,7 +14,7 @@ export const mockContent = `<h3>자바의 이해</h3>
 	<li>객체지향이란 무엇인가
 
 		<ul>
-			<li>즉, 객체 지향 프로그래밍이란 각각의 컴퓨터 부품을 만들고 그 부품들을 조립하여 컴퓨터를 만들 듯이 객체를 만들고 그 객체들을 조립하여 소프트웨어를 만드는 기법이다. 객체 지향 프로그래밍의 특징은 다음과 같다</li>
+			<li>즉, 객체 지향 프로그래밍이란 각각의 컴퓨터 부품을 만들고 그 부품들을 조립하여 컴퓨터를 만들 듯이 객체를 만들고 그 <span style="background-color: rgb(255, 250, 165);">객체들을 조립하여 소프트웨어를 만드는 기법</span>이다. 객체 지향 프로그래밍의 특징은 다음과 같다</li>
 		</ul>
 	</li>
 	<li>상속
@@ -30,10 +30,10 @@ export const mockContent = `<h3>자바의 이해</h3>
 
 <p>자바와 정적 타입</p>
 
-<ul>
+<ol>
 	<li>정적타입의 장점</li>
 	<li>안정성을 고려한 개발</li>
-</ul>
+</ol>
 
 <h3>자바와 스프링 프레임워크</h3>
 
@@ -47,8 +47,64 @@ export const mockContent = `<h3>자바의 이해</h3>
 
 <p>MVC 패턴의 이해</p>
 
-<ul>
-	<li>모델</li>
-	<li>뷰</li>
-	<li>컨트롤러</li>
-</ul>`;
+<table style="width: 100%;">
+	<tbody>
+		<tr>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+			<td style="width: 25.0000%;">
+				<br>
+			</td>
+		</tr>
+	</tbody>
+</table>
+`;

@@ -29,6 +29,9 @@ class NotAuth extends Component<DefaultProps, Props, State> {
     showLogin: false,
   };
 
+  hoverLogin: Function;
+  unhoverLogin: Function;
+
   hoverLogin() {
     this.setState({
       showLogin: true,

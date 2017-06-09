@@ -25,18 +25,18 @@
                     align-items: center;
                     padding: 1px 6px 1px 6px;
                     border-radius: 8px;
-                    border: solid 1px #FF3466;
+                    border: solid 1px var(--rianColor);;
                     margin: auto 2px auto 2px;
                     text-align: center;
                     height: 14px;
                     font-weight: 300;
                     letter-spacing: 0.1em;
                     font-size: 10px;
-                    color: #FF3466;
+                    color: var(--rianColor);;
                 }
                 & .oneOfTag:hover {
                     color: #ffffff;
-                    background-color: #FF3466;
+                    background-color: var(--rianColor);;
                 }
             }
             & .tagSearchInput {
