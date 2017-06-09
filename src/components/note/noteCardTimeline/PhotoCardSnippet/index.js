@@ -12,7 +12,8 @@ type Props = {
   time?: string,
   tag: Array<string>,
   photo?: string,
-  publish?: number
+  publish?: number,
+  themeColor: string
 };
 
 const CardSnippet = ({
@@ -21,6 +22,7 @@ const CardSnippet = ({
   time = '2017.08.24',
   tag = [],
   publish,
+  themeColor = '#ff3466',
 }: Props) => (
   <div className={css.container}>
     <div className={css.head}>
@@ -48,7 +50,7 @@ const CardSnippet = ({
                 <g
                   id={css.heartSvg}
                   transform="translate(-716.000000, -400.000000)"
-                  stroke="#FF698E"
+                  stroke={themeColor}
                 >
                   <g id="Group-5" transform="translate(207.000000, 146.000000)">
                     <g id="Group-8" transform="translate(0.000000, -5.000000)">

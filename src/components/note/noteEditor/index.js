@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import 'froala-editor/js/froala_editor.pkgd.min';
-import 'froala-editor/js/plugins/quote.min.js';
 import 'froala-editor/css/plugins/image.min.css';
 import 'froala-editor/css/plugins/table.min.css';
 import 'froala-editor/css/plugins/colors.min.css';

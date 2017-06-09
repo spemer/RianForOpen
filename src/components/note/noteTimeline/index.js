@@ -9,7 +9,8 @@ import TimelineSnippet from './TimelineSnippet/index';
 import TagSearch from './TagSearch/index';
 import { getNotelineNumber } from '../../../graphqls/TimelineGraphQl';
 import css from './noteTimeline.css';
-import Mock from '../MOCKNOTE.js';
+import Mock from '../MOCKNOTE';
+
 const mapState = state => ({
   Note: state.Note,
   // userId: state.User._id,
@@ -31,11 +32,13 @@ type ListAr = {
   tag: string
 };
 type DefaultProps = {
-  sideBar: boolean
+  sideBar: boolean,
+  mode: "List" | "Card"
 };
 
 type Props = {
-  sideBar: boolean
+  sideBar: boolean,
+  mode: "List" | "Card"
 };
 
 type State = {
@@ -47,21 +50,21 @@ type State = {
 class NoteTimeLine extends Component<DefaultProps, Props, State> {
   static defaultProps = {
     sideBar: false,
+    mode: 'Card',
   };
 
   constructor(props: Props) {
     super(props);
-    this._rowRenderer = this._rowRenderer.bind(this);
-    this.count = 0;
+    this.rowRenderer = this.rowRenderer.bind(this);
   }
 
   state = {
     List: Mock,
   };
 
-  _rowRenderer: Function;
+  rowRenderer: Function;
 
-  _rowRenderer({ index, isScrolling, key, style }) {
+  rowRenderer({ index, style }) {
     const data = this.state.List[index];
     return (
       <TimelineSnippet
@@ -88,7 +91,7 @@ class NoteTimeLine extends Component<DefaultProps, Props, State> {
               <AutoSizer>
                 {({ height, width }) => (
                   <List
-                    rowRenderer={this._rowRenderer}
+                    rowRenderer={this.rowRenderer}
                     height={height}
                     width={width}
                     rowHeight={120}
