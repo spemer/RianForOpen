@@ -62,7 +62,8 @@ class TagSearch extends Component<DefaultProps, Props, State> {
             <div className={css.selectedTagList}>
               {this.state.selectedTag.map((tag: string, index: number) => (
                 <div key={index} className={css.oneOfTag}>
-                  {'#' + tag}
+                  <div className={css.delete} />
+                  <div className={css.name}>{tag}</div>
                 </div>
               ))}
             </div>

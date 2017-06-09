@@ -38,18 +38,22 @@ class TagBar extends Component<DefaultProps, Props, State> {
   }
 
   addTagInList(tagName: string) {
+    if (!tagName) return; // 빈 태그내임이 들어왔을때 무시하는 Edge Case 처리
     this.setState((prevState: State) => ({
       selectedTag: prevState.selectedTag.concat(tagName),
       searchInput: '',
     }));
   }
 
-  deleteTagInList() {
+  deleteTagInList(tag: string) {
+    const deleteItemInArray = (name: string, array: Array<string>) => {
+      let result = Array.prototype.slice.call(array);
+      const index = result.indexOf(name);
+      result.splice(index, index + 1);
+      return result;
+    };
     this.setState((prevState: State) => ({
-      selectedTag: prevState.selectedTag.slice(
-        0,
-        prevState.selectedTag.length - 1,
-      ),
+      selectedTag: deleteItemInArray(tag, prevState.selectedTag),
     }));
   }
 
@@ -61,7 +65,13 @@ class TagBar extends Component<DefaultProps, Props, State> {
             <div className={css.selectedTagList}>
               {this.state.selectedTag.map((tag: string, index: number) => (
                 <div key={index} className={css.oneOfTag}>
-                  {`#${tag}`}
+                  <div
+                    className={css.delete}
+                    onClick={() => {
+                      this.deleteTagInList(tag);
+                    }}
+                  />
+                  <div className={css.name}>{tag}</div>
                 </div>
               ))}
             </div>
@@ -79,9 +89,6 @@ class TagBar extends Component<DefaultProps, Props, State> {
                 keyCode: number,
                 currentTarget: { value: string }
               }) => {
-                if (keyCode === 8 && currentTarget.value === '') {
-                  return this.deleteTagInList();
-                }
                 if (keyCode === 32 || keyCode === 13) {
                   if (currentTarget.value === ' ') {
                     // 공백에서 스페이스 or Enter를 치면 다시 공백으로 돌린다
