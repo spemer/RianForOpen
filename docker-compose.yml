@@ -1,31 +1,21 @@
-version: '3'
+version: "3"
 services:
+
   mongodb:
     image: mongo:3.4.3
     networks:
       - webnet
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-    logging:
-      driver: "json-file"
-  web:
-    image: ceruberu/rian-note:latest
-    deploy:
-      replicas: 1
+  rian:
+    image: riandocker/rian:1.0.1
     ports:
       - "4000:4000"
-      - "5000:5000"
-      - "8080:8080"
-    volumes:
-      - data:/data/db
-    depends_on:
-      - mongodb
-    logging:
-      driver: "json-file"
     networks:
       - webnet
+    depends_on:
+      - mongodb
+
 networks:
   webnet:
+
 volumes:
-  data:
+  db-data:
