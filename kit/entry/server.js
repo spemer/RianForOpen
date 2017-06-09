@@ -67,7 +67,7 @@ import { serverClient } from 'kit/lib/apollo';
 // of Apollo, so we can apply our own reducers and make use of the Redux dev
 // tools in the browser
 import createNewStore from 'kit/lib/redux';
-
+import { userInformationInject } from 'src/actions/UserActions';
 // Initial view to send back HTML render
 import Html from 'kit/views/ssr';
 
@@ -147,6 +147,9 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 
       // Create a new Redux store for this request
       const store = createNewStore(client, preloadedState);
+
+      // inject initial state to serverSideRendering Html Store
+      store.dispatch(userInformationInject({ email: 'cci45@naver.com' }));
 
       // Generate the HTML from our React tree.  We're wrapping the result
       // in `react-router`'s <StaticRouter> which will pull out URL info and
