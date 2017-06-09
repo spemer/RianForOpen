@@ -1,10 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import 'froala-editor/js/froala_editor.pkgd.min';
-import 'froala-editor/css/plugins/image.min.css';
-import 'froala-editor/css/plugins/table.min.css';
-import 'froala-editor/css/plugins/colors.min.css';
-import 'froala-editor/css/plugins/table.min.css';
 import FroalaEditor from 'react-froala-wysiwyg';
 import screenfull from 'screenfull';
 import TagBar from './TagBar/index';

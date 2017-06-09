@@ -7,23 +7,23 @@ import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
 import TimelineSnippet from './TimelineSnippet/index';
 import TagSearch from './TagSearch/index';
-import { getNotelineNumber } from '../../../graphqls/TimelineGraphQl';
+import { getNoteList } from '../../../graphqls/TimelineGraphQl';
 import css from './noteTimeline.css';
 import Mock from '../MOCKNOTE';
 
 const mapState = state => ({
   Note: state.Note,
-  // userId: state.User._id,
 });
 
-const getTimelineQuery = graphql(getNotelineNumber, {
-  options: () => ({
+const getNoteListQuery = graphql(getNoteList, {
+  options: props => ({
     variables: {
-      userId: '5923b81861322804b81cecb6', // 임시 키
+      sortby: props.userId, // 여기서 아폴로 쿼리의 변수 선언
     },
-    ssr: false,
+    ssr: true,
   }),
   name: 'noteData',
+  skip: process.env.NODE_ENV === 'development' && true,
 });
 
 type ListAr = {
@@ -45,7 +45,7 @@ type State = {
   List: Array<ListAr>
 };
 
-@compose(getTimelineQuery)
+@compose(getNoteListQuery)
 @connect(mapState)
 class NoteTimeLine extends Component<DefaultProps, Props, State> {
   static defaultProps = {

@@ -38,7 +38,8 @@ export const resolvers = {
   },
 
   NoteHead: {
-    notes(ojb, args, context) {
+    notes(obj, args, context) {
+      console.log('Notehead args', args);
       const startPoint = MockData.find(data => data._id.$oid === args.after);
       let result = [];
       const startIndex = MockData.indexOf(startPoint) + 1;

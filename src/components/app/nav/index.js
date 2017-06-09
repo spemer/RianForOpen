@@ -17,8 +17,11 @@ import HoverNav from './hoverNav';
 // <NoteTimeline /> Component
 import NoteTimeline from '../../note/noteTimeline';
 
-const mapState = (state: { Note: { mode: "List" | "Card" } }) => ({
+const mapState = (
+  state: { Note: { mode: "List" | "Card" }, userId: { email: string } },
+) => ({
   Mode: state.Note.mode,
+  userId: state.User.email,
 });
 
 const mapDispatch = dispatch => ({
@@ -173,7 +176,11 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
           </div>
         </div>
         <HoverNav sideBar={this.state.sideBar} />
-        <NoteTimeline sideBar={this.state.sideBar} mode={Mode} />
+        <NoteTimeline
+          sideBar={this.state.sideBar}
+          mode={Mode}
+          userId={this.props.userId}
+        />
       </div>
     );
   }
