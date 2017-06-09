@@ -1,0 +1,21 @@
+version: "3"
+services:
+
+  mongodb:
+    image: mongo:3.4.3
+    networks:
+      - webnet
+  rian:
+    image: riandocker/rian:1.0.1
+    ports:
+      - "4000:4000"
+    networks:
+      - webnet
+    depends_on:
+      - mongodb
+
+networks:
+  webnet:
+
+volumes:
+  db-data:
