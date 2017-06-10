@@ -3,14 +3,14 @@ import {
 } from '../constants';
 
 export function modeChange(mode) {
-  return {
-    type: NOTE_MODE_CHANGE,
-    mode,
-  };
+	return {
+		type: NOTE_MODE_CHANGE,
+		mode,
+	};
 }
 
 export function basic() {
-  return {
+	return {
 
-  };
+	};
 }

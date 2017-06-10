@@ -25,78 +25,78 @@ import PATHS from '../../config/paths';
 export default new WebpackConfig().extend('[root]/base.js').merge({
 
   // This is where webpack will start crunching our source code
-  entry: {
+	entry: {
     // Client specific source code.  This is the stuff we write.
-    browser: [
+		browser: [
       // Entry point for the browser
-      path.join(PATHS.entry, 'browser.js'),
-    ],
-  },
+			path.join(PATHS.entry, 'browser.js'),
+		],
+	},
 
   // Set-up some common mocks/polyfills for features available in node, so
   // the browser doesn't balk when it sees this stuff
-  node: {
-    console: true,
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-  },
+	node: {
+		console: true,
+		fs: 'empty',
+		net: 'empty',
+		tls: 'empty',
+	},
 
   // Modules specific to our browser bundle
-  module: {
-    loaders: [
+	module: {
+		loaders: [
       // .js(x) loading
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loaders: [
-          {
-            loader: 'babel-loader',
-            query: {
+			{
+				test: /\.jsx?$/,
+				exclude: /node_modules/,
+				loaders: [
+					{
+						loader: 'babel-loader',
+						query: {
               // Ignore the .babelrc at the root of our project-- that's only
               // used to compile our webpack settings, NOT for bundling
-              babelrc: false,
-              presets: [
-                ['env', {
+							babelrc: false,
+							presets: [
+								['env', {
                   // Enable tree-shaking by disabling commonJS transformation
-                  modules: false,
+									modules: false,
                   // Exclude default regenerator-- we want to enable async/await
                   // so we'll do that with a dedicated plugin
-                  exclude: ['transform-regenerator'],
-                }],
+									exclude: ['transform-regenerator'],
+								}],
                 // Transpile JSX code
-                'react',
-              ],
-              plugins: [
-                'transform-object-rest-spread',
-                'syntax-dynamic-import',
-                'transform-regenerator',
-                'transform-class-properties',
-                'transform-decorators-legacy',
-              ],
-            },
-          },
-        ],
-      },
-    ],
-  },
+								'react',
+							],
+							plugins: [
+								'transform-object-rest-spread',
+								'syntax-dynamic-import',
+								'transform-regenerator',
+								'transform-class-properties',
+								'transform-decorators-legacy',
+							],
+						},
+					},
+				],
+			},
+		],
+	},
 
-  plugins: [
+	plugins: [
     // Separate our third-party/vendor modules into a separate chunk, so that
     // we can load them independently of our app-specific code changes
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: module => (
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'vendor',
+			minChunks: module => (
          // this assumes your vendor imports exist in the node_modules directory
          module.context && module.context.indexOf('node_modules') !== -1
       ),
-    }),
+		}),
 
     // Create a `SERVER` constant that's false in the browser-- we'll use this to
     // determine whether we're running on a Node server and set this to true
     // in the server.js config
-    new webpack.DefinePlugin({
-      SERVER: false
-    })
-  ],
+		new webpack.DefinePlugin({
+			SERVER: false,
+		}),
+	],
 });

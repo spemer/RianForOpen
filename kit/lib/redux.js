@@ -11,13 +11,13 @@ import Reducers from 'src/reducers';
 // ----------------------
 
 export default function createNewStore(apolloClient, preloadedState) {
-  const store = createStore(
+	const store = createStore(
     // By default, we'll use just the apollo reducer.  We can easily add our
     // own here, for global store management outside of Apollo
     combineReducers({
-      apollo: apolloClient.reducer(),
-      ...Reducers,
-    }),
+	apollo: apolloClient.reducer(),
+	...Reducers,
+}),
     // Initial server state, provided by the server.  Only relevant in the
     // browser -- on the server, we'll start with a blank object
     // eslint-disable-next-line no-underscore-dangle
@@ -32,8 +32,8 @@ export default function createNewStore(apolloClient, preloadedState) {
     ),
   );
 
-  if (!SERVER) {
-    console.log('FIRST STORE: ', store.getState());
-  }
-  return store;
+	if (!SERVER) {
+		console.log('FIRST STORE: ', store.getState());
+	}
+	return store;
 }

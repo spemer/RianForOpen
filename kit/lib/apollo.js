@@ -14,18 +14,18 @@ import { APOLLO, IP_ENV } from 'config/project';
 // Note:  By default in this kit, we'll connect to a sample endpoint that
 // repsonds with simple messages.  Update [root]/config.js as needed.
 const networkInterface = createNetworkInterface({
-  uri: APOLLO.uri,
+	uri: APOLLO.uri,
 });
 
 // Helper function to create a new Apollo client, by merging in
 // passed options alongside the defaults
 function createClient(opt = {}) {
-  return new ApolloClient(
+	return new ApolloClient(
     Object.assign(
-      {
-        reduxRootSelector: state => state.apollo,
-        networkInterface,
-      },
+	{
+		reduxRootSelector: state => state.apollo,
+		networkInterface,
+	},
       opt,
     ),
   );
@@ -34,23 +34,23 @@ function createClient(opt = {}) {
 // Helper function that will merge a passed object with the expected
 // React propTypes 'shape', for use with the `react-apollo` `graphql` HOC
 export function mergeData(toMerge) {
-  return PropTypes.shape(
+	return PropTypes.shape(
     Object.assign(
-      {
-        loading: PropTypes.bool.isRequired,
-      },
+	{
+		loading: PropTypes.bool.isRequired,
+	},
       toMerge,
     ),
   );
 }
 // Creates a new browser client
 export function browserClient() {
-  return createClient({ connectToDevTools: true });
+	return createClient({ connectToDevTools: true });
 }
 
 // Creates a new server-side client
 export function serverClient() {
-  return createClient({
-    ssrMode: true,
-  });
+	return createClient({
+		ssrMode: true,
+	});
 }
