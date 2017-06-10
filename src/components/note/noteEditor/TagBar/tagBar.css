@@ -53,6 +53,9 @@
                     background-color: var(--rianColor);;
                 }
             }
+            & .tagContent::-webkit-scrollbar {
+                display: none;
+            }        
             & .tagSearchInput {
                 border: none;
                 outline: none;
