@@ -20,7 +20,9 @@
 		margin-top: 20px;
 		overflow: scroll;
 	}
-
+	& .timelineList::-webkit-scrollbar {
+                display: none;
+    }        
 }
 
 .noteList::-webkit-scrollbar {
