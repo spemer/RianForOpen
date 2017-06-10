@@ -41,3 +41,7 @@
     overflow: scroll;
 }
 
+.mansory::-webkit-scrollbar {
+  display: none;
+} 
+

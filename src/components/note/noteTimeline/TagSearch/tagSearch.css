@@ -1,21 +1,21 @@
 .timelineSearchBar {
         display: flex;
+        flex: 1;
         flex-direction: row;
+        border: solid 1px #eaeaea;
         justify-content: flex-start;
         align-items: center;
 
         width: 240px;
         height: 30px;
         box-sizing: border-box;
-        flex: 1;
         background-color: #ffffff;
-        border: solid 1px #eaeaea;
         border-radius: 8px;
         padding-left: 10px;
         & .tagContent {
-            width: 200px;
             display: flex;
             flex-direction: row;
+            width: 200px;
             justify-content: flex-start;
             overflow: scroll;
             & .selectedTagList {
@@ -50,6 +50,9 @@
                 outline: none;
             }
         }
+        & .tagContent::-webkit-scrollbar {
+            display: none;
+        } 
         & .expandingIcon {
             width: 16px;
             height: 16px;
