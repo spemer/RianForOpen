@@ -96,8 +96,27 @@
 .signUp:hover {
 	border-color: var(--rianColor);
 	background-color: var(--rianColor);
-	color: white !important;
-	
+	color: white !important;	
+}
+
+.signOut {
+	display: flex;
+	margin: 30px 15px 15px 15px;
+	padding: 5px 10px 5px 10px;
+	border: 1px gray(75%) solid;
+	justify-content: center;
+	color: gray(75%);
+	border-radius: 8px;
+	font-size: 11px;
+	order: 2;
+	cursor: default;
+	text-decoration: none;
+}
+
+.signOut:hover {
+	border-color: var(--rianColor);
+	background-color: var(--rianColor);
+	color: white !important;	
 }
 .profileButton {
 	display: flex;

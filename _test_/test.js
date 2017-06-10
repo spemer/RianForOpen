@@ -5,20 +5,15 @@ import NoteCardTimeLine from '../src/components/note/noteCardTimeline/index.js';
 
 describe('TEST JEST', () => {
 	it('Test!', () => {
-
-		const Mock = () => {
-			return <div className='container'></div>
-		}
-		const noteContainer = shallow(<Mock className='container'/>);
+		const Mock = () => <div className="container" />;
+		const noteContainer = shallow(<Mock className="container" />);
 		expect(noteContainer.find(Mock)).to.have.length(1);
 	});
 });
 
 describe('NoteCardTimeLine', () => {
 	it('canRenderNoteCardTimeLine', () => {
-		const wrapper = shallow(<NoteCardTimeLine  />);
+		const wrapper = shallow(<NoteCardTimeLine />);
 		expect(wrapper.find('.container')).to.have.length(1);
 	});
-
-
 });

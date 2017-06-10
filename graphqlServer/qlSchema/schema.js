@@ -17,7 +17,7 @@ const SchemaDefinition = `
 `;
 
 const schema = makeExecutableSchema({
-  typeDefs: [SchemaDefinition, RootQuery, NoteSchema, TagSchema],
-  resolvers,
+	typeDefs: [SchemaDefinition, RootQuery, NoteSchema, TagSchema],
+	resolvers,
 });
 export { schema };

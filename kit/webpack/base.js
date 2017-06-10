@@ -41,138 +41,138 @@ import { CSS_VARIABLES } from '../../config/project';
 export default new WebpackConfig().merge({
 
   // Javascript file extensions that webpack will resolve
-  resolve: {
+	resolve: {
     // I tend to use .js exclusively, but .jsx is also allowed
-    extensions: ['.js', '.jsx'],
+		extensions: ['.js', '.jsx'],
 
     // When we do an `import x from 'x'`, webpack will first look in our
     // root folder to try to resolve the package this.  This allows us to
     // short-hand imports without knowing the full/relative path.  If it
     // doesn't find anything, then it'll check `node_modules` as normal
-    modules: [
-      PATHS.root,
-      'node_modules',
-    ],
-  },
+		modules: [
+			PATHS.root,
+			'node_modules',
+		],
+	},
 
   // File type config and the loaders that will handle them.  This makes it
   // possible to do crazy things like `import css from './style.css'` and
   // actually get that stuff working in *Javascript* -- woot!
-  module: {
-    loaders: [
+	module: {
+		loaders: [
         // Fonts
-        
-      {
-        test: /\.(woff|woff2|ttf|eot)$/i,
-        loader: 'file-loader',
-        query: {
-          name: 'assets/fonts/[name].[hash].[ext]',
-        },
-      },
+
+			{
+				test: /\.(woff|woff2|ttf|eot)$/i,
+				loader: 'file-loader',
+				query: {
+					name: 'assets/fonts/[name].[hash].[ext]',
+				},
+			},
 
       // Images.  By default, we'll just use the file loader.  In production,
       // we'll also crunch the images first -- so let's set up `loaders` to
       // be an array to make extending this easier
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-          {
-            loader: 'file-loader',
-            query: {
-              name: 'assets/img/[name].[hash].[ext]',
-            },
-          },
-        ],
-      },
-    ],
-  },
+			{
+				test: /\.(jpe?g|png|gif|svg)$/i,
+				loaders: [
+					{
+						loader: 'file-loader',
+						query: {
+							name: 'assets/img/[name].[hash].[ext]',
+						},
+					},
+				],
+			},
+		],
+	},
 
   // Output settings.  Where our files will wind up, and what we consider
   // to be the root public path for dev-server.
-  output: {
+	output: {
 
     // Our compiled bundles/static files will wind up in `dist`
-    path: PATHS.public,
+		path: PATHS.public,
 
     // Deem the `dist` folder to be the root of our web server
-    publicPath: '/',
+		publicPath: '/',
 
     // Filenames will simply be <name>.js
-    filename: '[name].js',
-  },
+		filename: '[name].js',
+	},
 
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        AWS_IP: JSON.stringify(process.env.AWS_IP),
-        IS_DOCKER: JSON.stringify(process.env.IS_DOCKER)
-      }
-    }),
-    //Jquery for Froala Editor
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
-    }),
+	plugins: [
+		new webpack.DefinePlugin({
+			'process.env': {
+				AWS_IP: JSON.stringify(process.env.AWS_IP),
+				IS_DOCKER: JSON.stringify(process.env.IS_DOCKER),
+			},
+		}),
+    // Jquery for Froala Editor
+		new webpack.ProvidePlugin({
+			$: 'jquery',
+			jQuery: 'jquery',
+		}),
     // Progress bar + options
-    new ProgressBarPlugin({
-      format: ` ${chalk.magenta.bold('ReactQL')} building [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
-    }),
+		new ProgressBarPlugin({
+			format: ` ${chalk.magenta.bold('ReactQL')} building [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
+		}),
 
     // Options that our module loaders will pull from
-    new webpack.LoaderOptionsPlugin({
+		new webpack.LoaderOptionsPlugin({
 
       // Switch loaders to `minimize mode` where possible
-      minimize: true,
+			minimize: true,
 
       // Turn off `debug mode` where possible
-      debug: false,
-      options: {
+			debug: false,
+			options: {
 
         // The 'context' that our loaders will use as the root folder
-        context: PATHS.src,
+				context: PATHS.src,
 
         // PostCSS -- @import, cssnext
-        postcss() {
-          return {
-            plugins: [
-              postcssNested(),
-              cssnext({
-                features: {
-                  customProperties: {
-                    warnings: false,
-                    variables: CSS_VARIABLES
-                  }
-                }
-              }),
-              cssnano({
+				postcss() {
+					return {
+						plugins: [
+							postcssNested(),
+							cssnext({
+								features: {
+									customProperties: {
+										warnings: false,
+										variables: CSS_VARIABLES,
+									},
+								},
+							}),
+							cssnano({
                 // Disable autoprefixer-- CSSNext already used it
-                autoprefixer: false,
-              }),
-            ],
-          };
-        },
+								autoprefixer: false,
+							}),
+						],
+					};
+				},
 
         // image-webpack-loader image crunching options
-        imageWebpackLoader: {
-          mozjpeg: {
-            quality: 65,
-          },
-          pngquant: {
-            quality: '65-90',
-            speed: 4,
-          },
-          svgo: {
-            plugins: [
-              {
-                removeViewBox: false,
-              },
-              {
-                removeEmptyAttrs: false,
-              },
-            ],
-          },
-        },
-      },
-    }),
-  ],
+				imageWebpackLoader: {
+					mozjpeg: {
+						quality: 65,
+					},
+					pngquant: {
+						quality: '65-90',
+						speed: 4,
+					},
+					svgo: {
+						plugins: [
+							{
+								removeViewBox: false,
+							},
+							{
+								removeEmptyAttrs: false,
+							},
+						],
+					},
+				},
+			},
+		}),
+	],
 });

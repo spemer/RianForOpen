@@ -11,6 +11,6 @@ const Note = new Schema({
 	created_at: String,
 	final_modified_at: String,
 	publish: { type: Boolean, required: true, default: false },
-})
+});
 
-export default mongoose.model('Notes', Note)
+export default mongoose.model('Notes', Note);

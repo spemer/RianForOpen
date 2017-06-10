@@ -48,143 +48,143 @@ import { BUNDLE_ANALYZER, IP_ENV } from '../../config/project';
 // The final CSS file will wind up in `dist/public/assets/css/style.[contenthash].css`
 
 const extractCSS = new ExtractTextPlugin({
-  filename: 'assets/css/style.[contenthash].css',
-  allChunks: true,
+	filename: 'assets/css/style.[contenthash].css',
+	allChunks: true,
 });
 
 // Extend the `browser.js` config
 export default new WebpackConfig().extend({
-  '[root]/browser.js': config => {
+	'[root]/browser.js': (config) => {
     // Optimise images
-    config.module.loaders.find(l => l.test.toString() === /\.(jpe?g|png|gif|svg)$/i.toString())
+		config.module.loaders.find(l => l.test.toString() === /\.(jpe?g|png|gif|svg)$/i.toString())
       .loaders.push({
-        loader: 'image-webpack-loader',
+	loader: 'image-webpack-loader',
         // workaround for https://github.com/tcoopman/image-webpack-loader/issues/88
-        options: {},
-      });
+	options: {},
+});
 
-    return config;
-  },
+		return config;
+	},
 }).merge({
-  output: {
+	output: {
     // Filenames will be <name>.<chunkhas>.js in production on the browser
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].js',
-  },
-  module: {
-    loaders: [
+		filename: '[name].[chunkhash].js',
+		chunkFilename: '[name].[chunkhash].js',
+	},
+	module: {
+		loaders: [
       // CSS loaders
-      ...(function* loadCss() {
-        for (const loader of css.loaders) {
+			...(function* loadCss() {
+				for (const loader of css.loaders) {
           // Iterate over CSS/SASS/LESS and yield local and global mod configs
-          for (const mod of css.getModuleRegExp(loader.ext)) {
-            yield {
-              test: new RegExp(mod[0]),
-              loader: extractCSS.extract({
-                use: [
-                  {
-                    loader: 'css-loader',
-                    query: Object.assign({}, css.loaderDefaults, mod[1]),
-                  },
-                  'postcss-loader',
-                  ...loader.use,
-                ],
-                fallback: 'style-loader',
-              }),
-            };
-          }
-        }
-      }()),
-    ],
-  },
+					for (const mod of css.getModuleRegExp(loader.ext)) {
+						yield {
+							test: new RegExp(mod[0]),
+							loader: extractCSS.extract({
+								use: [
+									{
+										loader: 'css-loader',
+										query: Object.assign({}, css.loaderDefaults, mod[1]),
+									},
+									'postcss-loader',
+									...loader.use,
+								],
+								fallback: 'style-loader',
+							}),
+						};
+					}
+				}
+			}()),
+		],
+	},
   // Minify, optimise
-  plugins: [
+	plugins: [
 
     // Set NODE_ENV to 'production', so that React will minify our bundle
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-        AWS_IP: JSON.stringify(process.env.AWS_IP)
-      }
-    }),
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('production'),
+				AWS_IP: JSON.stringify(process.env.AWS_IP),
+			},
+		}),
 
     // Check for errors, and refuse to emit anything with issues
-    new webpack.NoEmitOnErrorsPlugin(),
+		new webpack.NoEmitOnErrorsPlugin(),
 
     // Minimize
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: true,
-      compress: {
-        warnings: false, // Suppress uglification warnings
-        pure_getters: true,
-        unsafe: true,
-        unsafe_comps: true,
-        screw_ie8: true,
-      },
-      output: {
-        comments: false,
-      },
-      exclude: [/\.min\.js$/gi], // skip pre-minified libs
-    }),
+		new webpack.optimize.UglifyJsPlugin({
+			mangle: true,
+			compress: {
+				warnings: false, // Suppress uglification warnings
+				pure_getters: true,
+				unsafe: true,
+				unsafe_comps: true,
+				screw_ie8: true,
+			},
+			output: {
+				comments: false,
+			},
+			exclude: [/\.min\.js$/gi], // skip pre-minified libs
+		}),
 
     // Optimise chunk IDs
-    new webpack.optimize.OccurrenceOrderPlugin(),
+		new webpack.optimize.OccurrenceOrderPlugin(),
 
     // A plugin for a more aggressive chunk merging strategy
-    new webpack.optimize.AggressiveMergingPlugin(),
+		new webpack.optimize.AggressiveMergingPlugin(),
 
     // Compress assets into .gz files, so that our Koa static handler can
     // serve those instead of the full-sized version
-    new CompressionPlugin({
+		new CompressionPlugin({
       // Overwrite the default 80% compression-- anything is better than
       // nothing
-      minRatio: 0.99,
-    }),
+			minRatio: 0.99,
+		}),
 
     // Fire up CSS extraction
-    extractCSS,
+		extractCSS,
 
     // Extract webpack bootstrap logic into a separate file
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      minChunks: Infinity,
-    }),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'manifest',
+			minChunks: Infinity,
+		}),
 
     // Map hash to module id
-    new webpack.HashedModuleIdsPlugin(),
+		new webpack.HashedModuleIdsPlugin(),
 
     // Compute chunk hash
-    new WebpackChunkHash(),
+		new WebpackChunkHash(),
 
     // Generate chunk manifest
-    new ChunkManifestPlugin({
+		new ChunkManifestPlugin({
       // Put this in `dist` rather than `dist/public`
-      filename: '../chunk-manifest.json',
-      manifestVariable: 'webpackManifest',
-    }),
+			filename: '../chunk-manifest.json',
+			manifestVariable: 'webpackManifest',
+		}),
 
     // Generate assets manifest
-    new ManifestPlugin({
+		new ManifestPlugin({
       // Put this in `dist` rather than `dist/public`
-      fileName: '../manifest.json',
+			fileName: '../manifest.json',
       // Prefix assets with '/' so that they can be referenced from any route
-      publicPath: '/',
-    }),
+			publicPath: '/',
+		}),
 
     // Output interactive bundle report
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      reportFilename: join(PATHS.dist, 'report.html'),
-      openAnalyzer: BUNDLE_ANALYZER.openAnalyzer,
-    }),
+		new BundleAnalyzerPlugin({
+			analyzerMode: 'static',
+			reportFilename: join(PATHS.dist, 'report.html'),
+			openAnalyzer: BUNDLE_ANALYZER.openAnalyzer,
+		}),
 
     // Copy files from `PATHS.static` to `dist/public`.  No transformations
     // will be performed on the files-- they'll be copied as-is
-    new CopyWebpackPlugin([
-      {
-        from: PATHS.static,
-        force: true, // This flag forces overwrites between versions
-      },
-    ]),
-  ],
+		new CopyWebpackPlugin([
+			{
+				from: PATHS.static,
+				force: true, // This flag forces overwrites between versions
+			},
+		]),
+	],
 });

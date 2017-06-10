@@ -24,129 +24,129 @@ const PORT = 8080;
 const LOCAL = `http://${HOST}:${PORT}`;
 
 export default new WebpackConfig().extend({
-  '[root]/browser.js': conf => {
+	'[root]/browser.js': (conf) => {
     // Add `webpack-dev-server` polyfills needed to communicate with the browser
 
-    conf.entry.browser.unshift(
+		conf.entry.browser.unshift(
       'react-hot-loader/patch',
       `webpack-dev-server/client?${LOCAL}`,
       'webpack/hot/only-dev-server',
     );
 
     // Add React-specific hot loading
-    conf.module.loaders.find(l => l.test.toString() === /\.jsx?$/.toString())
+		conf.module.loaders.find(l => l.test.toString() === /\.jsx?$/.toString())
       .loaders.unshift({
-        loader: 'react-hot-loader/webpack',
-      });
+	loader: 'react-hot-loader/webpack',
+});
 
-    return conf;
-  },
+		return conf;
+	},
 }).merge({
 
   // Add source maps
-  devtool: 'cheap-module-source-map',
+	devtool: 'cheap-module-source-map',
 
   // Dev server configuration
-  devServer: {
+	devServer: {
 
     // bind our dev server to the correct host and port
-    host: HOST,
-    port: PORT,
+		host: HOST,
+		port: PORT,
 
     // link HTTP -> app/public, so static assets are being pulled from
     // our source directory and not the `dist/public` we'd normally use in
     // production.  Use `PATH.views` as a secondary source, for serving
     // the /webpack.html fallback
-    contentBase: [
-      PATHS.static,
-      PATHS.views,
-    ],
+		contentBase: [
+			PATHS.static,
+			PATHS.views,
+		],
 
     // Enables compression to better represent build sizes
-    compress: true,
+		compress: true,
 
     // Assume app/public is the root of our dev server
-    publicPath: '/',
+		publicPath: '/',
 
     // Inline our code, so we wind up with one, giant bundle
-    inline: true,
+		inline: true,
 
     // Hot reload FTW! Every change is pushed down to the browser
     // with no refreshes
-    hot: true,
+		hot: true,
 
     // Disable build's information
-    noInfo: false,
+		noInfo: false,
 
     // Show a full-screen overlay in the browser when there is a
     // compiler error
-    overlay: true,
+		overlay: true,
 
     // We're using React Router for all routes, so redirect 404s
     // back to the webpack-dev-server bootstrap HTML
-    historyApiFallback: {
-      index: '/webpack.html',
-    },
+		historyApiFallback: {
+			index: '/webpack.html',
+		},
 
     // Displays neater and more compact statistics
-    stats: {
-      chunks: false,
-      colors: true,
-      errors: true,
-      hash: true,
-      performance: true,
-      version: true,
-      warnings: true,
-    },
-  },
+		stats: {
+			chunks: false,
+			colors: true,
+			errors: true,
+			hash: true,
+			performance: true,
+			version: true,
+			warnings: true,
+		},
+	},
 
-  module: {
-    loaders: [
+	module: {
+		loaders: [
       // CSS loaders
-      ...(function* loadCss() {
-        for (const loader of css.loaders) {
+			...(function* loadCss() {
+				for (const loader of css.loaders) {
           // Iterate over CSS/SASS/LESS and yield local and global mod configs
-          for (const mod of css.getModuleRegExp(loader.ext)) {
-            yield {
-              test: new RegExp(mod[0]),
-              loader: [
-                'style-loader',
-                {
-                  loader: 'css-loader',
-                  query: Object.assign({}, css.loaderDefaults, {
+					for (const mod of css.getModuleRegExp(loader.ext)) {
+						yield {
+							test: new RegExp(mod[0]),
+							loader: [
+								'style-loader',
+								{
+									loader: 'css-loader',
+									query: Object.assign({}, css.loaderDefaults, {
                     // Use sourcemaps in development
-                    sourceMap: true,
-                  }, mod[1]),
-                },
-                'postcss-loader',
-                ...loader.use,
-              ],
-            };
-          }
-        }
-      }()),
-    ],
-  },
+										sourceMap: true,
+									}, mod[1]),
+								},
+								'postcss-loader',
+								...loader.use,
+							],
+						};
+					}
+				}
+			}()),
+		],
+	},
 
   // Extra output options, specific to the dev server -- source maps and
   // our public path
-  output: {
-    sourceMapFilename: '[file].map',
-    publicPath: `${LOCAL}/`,
-  },
+	output: {
+		sourceMapFilename: '[file].map',
+		publicPath: `${LOCAL}/`,
+	},
 
-  plugins: [
-    new webpack.NamedModulesPlugin(),
+	plugins: [
+		new webpack.NamedModulesPlugin(),
 
     // Activate the hot-reloader, so changes can be pushed to the browser
-    new webpack.HotModuleReplacementPlugin(),
+		new webpack.HotModuleReplacementPlugin(),
 
     // Set NODE_ENV to 'development', in case we need verbose debug logs
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('development')
-      }
-    })
-  ],
-  
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('development'),
+			},
+		}),
+	],
+
 });

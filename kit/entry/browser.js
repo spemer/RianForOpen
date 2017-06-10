@@ -46,8 +46,8 @@ const store = createNewStore(client);
 // (i.e. if we're in development), then we'll wrap the whole thing in an
 // <AppContainer>.  Otherwise, we'll jump straight to the browser router
 function doRender() {
-  ReactDOM.render(
-    <Root />,
+	ReactDOM.render(
+		<Root />,
     document.getElementById('main'),
   );
 }
@@ -61,41 +61,41 @@ function doRender() {
 const Root = (() => {
   // Wrap the component hierarchy in <BrowserRouter>, so that our children
   // can respond to route changes
-  const Chain = () => (
-    <ApolloProvider store={store} client={client}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ApolloProvider>
+	const Chain = () => (
+		<ApolloProvider store={store} client={client}>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</ApolloProvider>
   );
 
   // React hot reloading -- only enabled in development.  This branch will
   // be shook from production, so we can run a `require` statement here
   // without fear that it'll inflate the bundle size
-  if (module.hot) {
+	if (module.hot) {
     // <AppContainer> will respond to our Hot Module Reload (HMR) changes
     // back from WebPack, and handle re-rendering the chain as needed
-    const AppContainer = require('react-hot-loader').AppContainer;
+		const AppContainer = require('react-hot-loader').AppContainer;
 
     // Start our 'listener' at the root component, so that any changes that
     // occur in the hierarchy can be captured
-    module.hot.accept('src/components/app', () => {
+		module.hot.accept('src/components/app', () => {
       // Refresh the entry point of our app, to get the changes.
 
       // eslint-disable-next-line
       require('src/components/app').default;
 
       // Re-render the hierarchy
-      doRender();
-    });
+			doRender();
+		});
 
-    return () => (
-      <AppContainer>
-        <Chain />
-      </AppContainer>
+		return () => (
+			<AppContainer>
+				<Chain />
+			</AppContainer>
     );
-  }
-  return Chain;
+	}
+	return Chain;
 })();
 
 doRender();

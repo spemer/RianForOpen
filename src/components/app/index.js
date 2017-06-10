@@ -45,9 +45,9 @@ const Page = ({ match }) => <h1>Changed route: {match.params.name}</h1>;
 // Specify PropTypes if the `match` object, which is injected to props by
 // the <Route> component
 Page.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.object,
-  }).isRequired,
+	match: PropTypes.shape({
+		params: PropTypes.object,
+	}).isRequired,
 };
 
 // Stats pulled from the environment.  This demonstrates how data will
@@ -86,50 +86,50 @@ const query = gql`
 // once the GraphQL API request has been completed
 @graphql(query)
 class GraphQLMessage extends React.PureComponent {
-  static propTypes = {
-    data: mergeData({
-      allMessages: PropTypes.arrayOf(
+	static propTypes = {
+		data: mergeData({
+			allMessages: PropTypes.arrayOf(
         PropTypes.shape({
-          text: PropTypes.string.isRequired,
-        }),
+	text: PropTypes.string.isRequired,
+}),
       ),
-    }),
-  };
+		}),
+	};
 
-  render() {
-    const { data } = this.props;
-    const message = data.allMessages && data.allMessages[0].text;
-    const isLoading = data.loading ? 'yes' : 'nope';
-    return (
-      <div>
-        <h2>Message from GraphQL server: <em>{message}</em></h2>
-        <h2>Currently loading?: {isLoading}</h2>
-      </div>
-    );
-  }
+	render() {
+		const { data } = this.props;
+		const message = data.allMessages && data.allMessages[0].text;
+		const isLoading = data.loading ? 'yes' : 'nope';
+		return (
+			<div>
+				<h2>Message from GraphQL server: <em>{message}</em></h2>
+				<h2>Currently loading?: {isLoading}</h2>
+			</div>
+		);
+	}
 }
 
 // Export a simple component that allows clicking on list items to change
 // the route, along with a <Route> 'listener' that will conditionally display
 // the <Page> component based on the route name
 export default () => (
-  <div id={css.app}>
-    <Helmet
-      title="ReactQL application"
-      meta={[
-        {
-          name: 'description',
-          content: 'ReactQL starter kit app',
-        },
-      ]}
-    />
-    <Nav />
-    <div id={css.mainComponent}>
-      <NoteAuth />
-      <Switch>
-        <Route exact path="/" component={Note} />
-        <Route exact path="/timeline" component={Timeline} />
-      </Switch>
-    </div>
-  </div>
+	<div id={css.app}>
+		<Helmet
+			title="ReactQL application"
+			meta={[
+				{
+					name: 'description',
+					content: 'ReactQL starter kit app',
+				},
+			]}
+		/>
+		<Nav />
+		<div id={css.mainComponent}>
+			<NoteAuth />
+			<Switch>
+				<Route exact path="/" component={Note} />
+				<Route exact path="/timeline" component={Timeline} />
+			</Switch>
+		</div>
+	</div>
 );

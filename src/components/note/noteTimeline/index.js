@@ -13,18 +13,18 @@ import './scroll.global.css';
 import Mock from '../MOCKNOTE';
 
 const mapState = state => ({
-  Note: state.Note,
+	Note: state.Note,
 });
 
 const getNoteListQuery = graphql(getNoteList, {
-  options: props => ({
-    variables: {
-      sortby: props.userId, // 여기서 아폴로 쿼리의 변수 선언
-    },
-    ssr: true,
-  }),
-  name: 'noteData',
-  skip: process.env.NODE_ENV === 'development' && true,
+	options: props => ({
+		variables: {
+			sortby: props.userId, // 여기서 아폴로 쿼리의 변수 선언
+		},
+		ssr: true,
+	}),
+	name: 'noteData',
+	skip: process.env.NODE_ENV === 'development' && true,
 });
 
 type ListAr = {
@@ -49,65 +49,65 @@ type State = {
 @compose(getNoteListQuery)
 @connect(mapState)
 class NoteTimeLine extends Component<DefaultProps, Props, State> {
-  static defaultProps = {
-    sideBar: false,
-    mode: 'Card',
-  };
+	static defaultProps = {
+		sideBar: false,
+		mode: 'Card',
+	};
 
-  constructor(props: Props) {
-    super(props);
-    this.rowRenderer = this.rowRenderer.bind(this);
-  }
+	constructor(props: Props) {
+		super(props);
+		this.rowRenderer = this.rowRenderer.bind(this);
+	}
 
-  state = {
-    List: Mock,
-  };
+	state = {
+		List: Mock,
+	};
 
-  rowRenderer: Function;
+	rowRenderer: Function;
 
-  rowRenderer({ index, style }) {
-    const data = this.state.List[index];
-    return (
-      <TimelineSnippet
-        key={index}
-        title={data.title}
-        preview={data.preview}
-        tag={[data.tag]}
-        style={style}
-      />
-    );
-  }
+	rowRenderer({ index, style }) {
+		const data = this.state.List[index];
+		return (
+			<TimelineSnippet
+				key={index}
+				title={data.title}
+				preview={data.preview}
+				tag={[data.tag]}
+				style={style}
+			/>
+		);
+	}
 
-  render() {
-    return (
-      <Motion
-        style={{
-          x: spring(this.props.sideBar && this.props.mode === 'List' ? 242 : 0),
-        }}
-      >
-        {({ x }) => (
-          <div className={css.noteList} style={{ width: `${x}px` }}>
-            <TagSearch />
-            <div className={css.timelineList}>
-              <AutoSizer>
-                {({ height, width }) => (
-                  <List
-                    rowRenderer={this.rowRenderer}
-                    height={height}
-                    width={width}
-                    rowHeight={120}
-                    rowCount={this.state.List.length}
-                    style={{ outline: 'none' }}
-                  />
+	render() {
+		return (
+			<Motion
+				style={{
+					x: spring(this.props.sideBar && this.props.mode === 'List' ? 242 : 0),
+				}}
+			>
+				{({ x }) => (
+					<div className={css.noteList} style={{ width: `${x}px` }}>
+						<TagSearch />
+						<div className={css.timelineList}>
+							<AutoSizer>
+								{({ height, width }) => (
+									<List
+										rowRenderer={this.rowRenderer}
+										height={height}
+										width={width}
+										rowHeight={120}
+										rowCount={this.state.List.length}
+										style={{ outline: 'none' }}
+									/>
                 )}
-              </AutoSizer>
+							</AutoSizer>
 
-            </div>
-          </div>
+						</div>
+					</div>
         )}
-      </Motion>
-    );
-  }
+			</Motion>
+		);
+	}
 }
 
 export default NoteTimeLine;

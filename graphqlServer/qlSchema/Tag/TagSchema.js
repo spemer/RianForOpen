@@ -3,6 +3,6 @@ const Tag = `
 		_id: ID!
 		name: String!
 	}
-`
+`;
 
-export default () => [Tag]
+export default () => [Tag];

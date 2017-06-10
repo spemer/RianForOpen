@@ -67,7 +67,7 @@ import { serverClient } from 'kit/lib/apollo';
 // of Apollo, so we can apply our own reducers and make use of the Redux dev
 // tools in the browser
 import createNewStore from 'kit/lib/redux';
-import { userInformationInject } from 'src/actions/UserActions';
+import { userLogin, userInformationInject } from 'src/actions/UserActions';
 // Initial view to send back HTML render
 import Html from 'kit/views/ssr';
 
@@ -113,132 +113,141 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 // Run the server
 (async function server() {
   // 몽고DB 연결
-  mongoose.Promise = global.Promise;
-  mongoose.connect(mongoConfig.mongoURL).then(
+	mongoose.Promise = global.Promise;
+	mongoose.connect(mongoConfig.mongoURL).then(
     () => {
-      console.log(`connected to RockofMongo: ${mongoConfig.mongoURL}`);
-    },
+	console.log(`connected to RockofMongo: ${mongoConfig.mongoURL}`);
+},
     (error) => {
-      console.error('Mongo is Rock City');
-      throw error;
-    },
+	console.error('Mongo is Rock City');
+	throw error;
+},
   );
 
   // Set up routes
-  const router = new KoaRouter()
+	const router = new KoaRouter()
     .post('/api/graphql', graphqlKoa({ schema }))
     .get('/api/graphiql', graphiqlKoa({ endpointURL: '/api/graphql' }))
     // Set-up a general purpose /ping route to check the server is alive
     .get('/ping', async (ctx) => {
-      ctx.body = 'pong';
-    })
+	ctx.body = 'pong';
+})
     // Favicon.ico.  By default, we'll serve this as a 204 No Content.
     // If /favicon.ico is available as a static file, it'll try that first
     .get('/favicon.ico', async (ctx) => {
-      ctx.res.statusCode = 204;
-    })
+	ctx.res.statusCode = 204;
+})
+    // Sign out
+    .get('/auth/signout', (ctx) => {
+	ctx.logout();
+	ctx.redirect('/');
+})
     // Everything else is React
-    .get('/*', isLoggedIn, async (ctx) => {
-      const preloadedState = ctx.state.initial || {};
-      const route = {};
+    .get('/*', async (ctx) => {
+      // const preloadedState = ctx.state.initial || {};
+	const route = {};
 
       // Create a new server Apollo client for this request
-      const client = serverClient();
+	const client = serverClient();
 
       // Create a new Redux store for this request
-      const store = createNewStore(client, preloadedState);
+	const store = createNewStore(client);
+      // const store = createNewStore(client, preloadedState);
 
       // inject initial state to serverSideRendering Html Store
-      store.dispatch(userInformationInject({ email: 'cci45@naver.com' }));
+	if (ctx.isAuthenticated()) {
+		store.dispatch(userLogin(ctx.state.user));
+	}
+      // store.dispatch(userInformationInject({ email: 'cci45@naver.com' }));
 
       // Generate the HTML from our React tree.  We're wrapping the result
       // in `react-router`'s <StaticRouter> which will pull out URL info and
       // store it in our empty `route` object
-      const components = (
-        <StaticRouter location={ctx.request.url} context={route}>
-          <ApolloProvider store={store} client={client}>
-            <App />
-          </ApolloProvider>
-        </StaticRouter>
+	const components = (
+		<StaticRouter location={ctx.request.url} context={route}>
+			<ApolloProvider store={store} client={client}>
+				<App />
+			</ApolloProvider>
+		</StaticRouter>
       );
 
       // Wait for GraphQL data to be available in our initial render,
       // before dumping HTML back to the client
-      await getDataFromTree(components);
+	await getDataFromTree(components);
 
       // Full React HTML render
-      const html = ReactDOMServer.renderToString(components);
+	const html = ReactDOMServer.renderToString(components);
 
       // Render the view with our injected React data.  We'll pass in the
       // Helmet component to generate the <head> tag, as well as our Redux
       // store state so that the browser can continue from the server
-      ctx.body = `<!DOCTYPE html>\n${ReactDOMServer.renderToStaticMarkup(<Html html={html} head={Helmet.rewind()} window={{ webpackManifest: chunkManifest, __STATE__: store.getState() }} scripts={scripts} css={manifest['browser.css']} />)}`;
-    });
+	ctx.body = `<!DOCTYPE html>\n${ReactDOMServer.renderToStaticMarkup(<Html html={html} head={Helmet.rewind()} window={{ webpackManifest: chunkManifest, __STATE__: store.getState() }} scripts={scripts} css={manifest['browser.css']} />)}`;
+});
 
   // Create WebSocket listener server
-  const websocketServer = createServer((request, response) => {
-    response.writeHead(404);
-    response.end();
-  });
+	const websocketServer = createServer((request, response) => {
+		response.writeHead(404);
+		response.end();
+	});
   // Bind it to port and start listening
 
   // Start Koa
 
-  const app = new Koa();
-  app.keys = ['your-session-secret'];
-  app.use(session(cookieConfig, app));
-  app.use(bodyParser());
-  app.use(koaBody());
+	const app = new Koa();
+	app.keys = ['your-session-secret'];
+	app.use(session(cookieConfig, app));
+	app.use(bodyParser());
+	app.use(koaBody());
   // Preliminary security for HTTP headers
-  app.use(koaHelmet());
+	app.use(koaHelmet());
   // Passport 설정 실행 및 각 로컬 및 소셜 로그인 Strategy 추가
-  passportConfig(passport);
-  app.use(passport.initialize());
-  app.use(passport.session());
-  const authRoute = passportRoutes(passport);
-  app.use(authRoute.routes());
-  app.use(authRoute.allowedMethods());
+	passportConfig(passport);
+	app.use(passport.initialize());
+	app.use(passport.session());
+	const authRoute = passportRoutes(passport);
+	app.use(authRoute.routes());
+	app.use(authRoute.allowedMethods());
   // Error wrapper.  If an error manages to slip through the middleware
   // chain, it will be caught and logged back here
-  app.use(async (ctx, next) => {
-    try {
-      await next();
-    } catch (e) {
+	app.use(async (ctx, next) => {
+		try {
+			await next();
+		} catch (e) {
       // TODO we've used rudimentary console logging here.  In your own
       // app, I'd recommend you implement third-party logging so you can
       // capture errors properly
-      console.log('Error', e.message);
-      ctx.body = 'There was an error. Please try again later.';
-    }
-  });
+			console.log('Error', e.message);
+			ctx.body = 'There was an error. Please try again later.';
+		}
+	});
 
   // It's useful to see how long a request takes to respond.  Add the
   // timing to a HTTP Response header
-  app.use(async (ctx, next) => {
-    const start = ms.now();
-    await next();
-    const end = ms.parse(ms.since(start));
-    const total = end.microseconds + end.milliseconds * 1e3 + end.seconds * 1e6;
-    ctx.set('Response-Time', `${total / 1e3}ms`);
-  });
+	app.use(async (ctx, next) => {
+		const start = ms.now();
+		await next();
+		const end = ms.parse(ms.since(start));
+		const total = end.microseconds + end.milliseconds * 1e3 + end.seconds * 1e6;
+		ctx.set('Response-Time', `${total / 1e3}ms`);
+	});
 
   // Serve static files from our dist/public directory, which is where
   // the compiled JS, images, etc will wind up.  Note this is being checked
   // FIRST before any routes -- static files always take priority
-  app.use(
+	app.use(
     koaStatic(PATHS.public, {
       // All asset names contain the hashes of their contents so we can
       // assume they are immutable for caching
-      maxage: 31536000000,
+	maxage: 31536000000,
       // Don't defer to middleware.  If we have a file, serve it immediately
-      defer: false,
-    }),
+	defer: false,
+}),
   );
 
   // If the requests makes it here, we'll assume they need to be handled
   // by the router
-  app.use(router.routes());
-  app.use(router.allowedMethods());
+	app.use(router.routes());
+	app.use(router.allowedMethods());
   // Bind to the specified port
-  app.listen(PORT, () => console.log('Rock Spirit comes from ', PORT));
+	app.listen(PORT, () => console.log('Rock Spirit comes from ', PORT));
 }());
