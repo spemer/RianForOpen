@@ -47,11 +47,12 @@ type State = {
 class NoteEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		themeColor: '#FF3466',
-		userid: 'none'
+		userid: 'none',
 	};
 
 	constructor(props: Props) {
 		super(props);
+		this.autoSave = this.autoSave.bind(this);
 		this.handleModelChange = this.handleModelChange.bind(this);
 		this.handleController = this.handleController.bind(this);
 		this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -70,10 +71,21 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		this.initControls.getEditor()('toolbar.hide');
 	}
 
+	autoSave: Function;
 	handleModelChange: Function;
 	handleController: Function;
 	handleTitleChange: Function;
 	initControls: any;
+
+	autoSave() {
+		const data = this.initControls.getEditor()('snapshot.get');
+		this.props.autosave(
+      this.props.userid,
+      this.state.title,
+      this.state.tag,
+      data,
+    );
+	}
 
 	handleModelChange(model: string) {
 		this.setState(() => ({ content: model }));
