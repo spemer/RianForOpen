@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
+import { graphql, compose } from 'react-apollo';
 import 'froala-editor/js/froala_editor.pkgd.min';
 import FroalaEditor from 'react-froala-wysiwyg';
-import screenfull from 'screenfull';
 import TagBar from './TagBar/index';
 import css from '../note.css';
 import totalCss from './totalLayout.css';
@@ -10,37 +10,51 @@ import './etc.global.css';
 import './froalaEditor.global.css';
 import './fontawesome.global.css';
 import { mockContent } from './mock';
+import editorConfig from './editorConfig';
+import { autoSave } from '../../../graphqls/NoteEditorGraphQl';
 // import { XYruler } from './util';
 
+const autoSaveMutation = graphql(autoSave, {
+	props: ({ mutate }) => ({
+		autosave: (userid, title, tag, data) =>
+      mutate({ variables: { userid, title, tag, data } }),
+	}),
+	options: () => ({
+		ssr: true,
+	}),
+	name: 'autoSave',
+	skip: process.env.NODE_ENV === 'development' && false,
+});
+
 type DefaultProps = {
-  sideBar: boolean
+  themeColor: string,
+  userid: string
 };
 
 type Props = {
-  sideBar: boolean
+  themeColor: string,
+  userid: string
 };
 
 type State = {
   title: string,
   initControls: string,
   content: string,
-  typewrite: boolean,
   selectedTag: Array<string>
 };
 
+@compose(autoSaveMutation)
 class NoteEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		sideBar: false,
+		themeColor: '#FF3466',
+		userid: 'none'
 	};
 
 	constructor(props: Props) {
 		super(props);
-		this.screenfull = screenfull;
 		this.handleModelChange = this.handleModelChange.bind(this);
 		this.handleController = this.handleController.bind(this);
 		this.handleTitleChange = this.handleTitleChange.bind(this);
-		this.fullScreen = this.fullScreen.bind(this);
-		this.typeWrite = this.typeWrite.bind(this);
 	}
 
 	state = {
@@ -48,21 +62,17 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		options: {},
 		initControls: '',
 		content: mockContent,
-		typewrite: false,
 		selectedTag: ['수명', '자바'],
 	};
 
 	componentDidMount() {
 		this.initControls.initialize();
-    // this.initControls.getEditor()('toolbar.hide');
+		this.initControls.getEditor()('toolbar.hide');
 	}
 
-	screenfull: any;
 	handleModelChange: Function;
 	handleController: Function;
 	handleTitleChange: Function;
-	fullScreen: Function;
-	typeWrite: Function;
 	initControls: any;
 
 	handleModelChange(model: string) {
@@ -77,118 +87,12 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		this.setState({ title: event.currentTarget.value });
 	}
 
-	fullScreen() {
-		if (this.screenfull.enabled) {
-			this.screenfull.request();
-		} else {
-      // Ignore or do something else
-		}
-	}
-
-	typeWrite() {
-		this.setState(prevState => ({
-			typewrite: !prevState.typewrite,
-		}));
-	}
-
 	render() {
-		const config = {
-			spellcheck: false,
-			placeholderText: 'Rian',
-			editorClass: 'mainEditor',
-			width: '100%',
-			charCounterCount: false,
-			tabSpaces: 8,
-			toolbarInline: true,
-			toolbarVisibleWithoutSelection: true,
-			colorsDefaultTab: 'background',
-			colorsBackground: ['#FFFAA5', '#9BDBFF', '#FF3466', 'REMOVE'],
-			colorsText: ['#FFFAA5', '#9BDBFF', '#FF3466', 'REMOVE'],
-			toolbarButtonsMD: [
-				'bold',
-				'color',
-				'italic',
-				'underline',
-				'paragraphFormat',
-				'align',
-				'formatOL',
-				'formatUL',
-				'outdent',
-				'indent',
-				'insertLink',
-				'insertHR',
-				'print',
-				'insertTable',
-				'html',
-			],
-			toolbarButtonsSM: [
-				'bold',
-				'color',
-				'italic',
-				'underline',
-				'strikeThrough',
-				'paragraphFormat',
-				'align',
-				'formatOL',
-				'formatUL',
-				'outdent',
-				'indent',
-				'insertLink',
-				'insertHR',
-				'print',
-				'insertTable',
-				'html',
-			],
-			toolbarButtonsXS: [
-				'bold',
-				'color',
-				'italic',
-				'underline',
-				'strikeThrough',
-				'paragraphFormat',
-				'align',
-				'formatOL',
-				'formatUL',
-				'outdent',
-				'indent',
-				'insertLink',
-				'insertHR',
-				'print',
-				'insertTable',
-				'html',
-			],
-			toolbarButtons: [
-				'bold',
-				'color',
-				'italic',
-				'underline',
-				'strikeThrough',
-				'paragraphFormat',
-				'align',
-				'formatOL',
-				'formatUL',
-				'outdent',
-				'indent',
-				'insertLink',
-				'insertHR',
-				'print',
-				'insertTable',
-				'html',
-			],
-			paragraphFormat: {
-				N: 'Normal',
-				H4: 'Code',
-				H3: 'Head 3',
-				H2: 'Head 2',
-				H1: 'Head 1',
-			},
-		};
-
+		const config = editorConfig;
 		return (
 			<div className={css.paper}>
 				<div className={totalCss.container}>
 					<div className={totalCss.mainBox}>
-						{!this.state.typewrite &&
 						<div className={totalCss.head}>
 							<textarea
 								className={totalCss.title}
@@ -197,7 +101,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 								onChange={this.handleTitleChange}
 							/>
 							<TagBar />
-						</div>}
+						</div>
 						<FroalaEditor
 							tag="mainwriting"
 							model={this.state.content}
@@ -206,18 +110,6 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 							onManualControllerReady={this.handleController}
 						/>
 					</div>
-					{/* <div className={totalCss.optionBox}>
-            <div
-              className="fa fa-etsy richstyle fa-lg"
-              aria-hidden="true"
-              onClick={this.typeWrite}
-            />
-            <div
-              className="fa fa-square-o mode fa-lg"
-              aria-hidden="true"
-              onClick={this.fullScreen}
-            />
-          </div>*/}
 				</div>
 			</div>
 		);
