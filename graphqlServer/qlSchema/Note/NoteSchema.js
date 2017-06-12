@@ -21,7 +21,7 @@ const Note = `
 		isLastPage: Boolean
 	}
 
-	type SaveNote {
+	type Success {
 		success: Boolean
 	}
 `;

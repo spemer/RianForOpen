@@ -11,7 +11,7 @@ import './froalaEditor.global.css';
 import './fontawesome.global.css';
 import { mockContent } from './mock';
 import editorConfig from './editorConfig';
-import { autoSave } from '../../../graphqls/NoteEditorGraphQl';
+import { autoSave, saveTheme } from '../../../graphqls/NoteEditorGraphQl';
 // import { XYruler } from './util';
 
 type DefaultProps = {
@@ -32,10 +32,15 @@ type State = {
 };
 
 type SaveFormat = {
-  userid: string,
+  _id: string,
   title: string,
   tag: Array<string>,
   notedata: string
+};
+
+type ThemeFormat = {
+  tag: Array<string>,
+  themedata: string
 };
 
 const autoSaveMutation = graphql(autoSave, {
@@ -46,16 +51,26 @@ const autoSaveMutation = graphql(autoSave, {
 	skip: process.env.NODE_ENV === 'development' && false,
 });
 
-@compose(autoSaveMutation)
+const saveThemeMutation = graphql(saveTheme, {
+	options: () => ({
+		ssr: true,
+	}),
+	name: 'saveTheme',
+	skip: process.env.NODE_ENV === 'development' && false,
+});
+
+@compose(autoSaveMutation, saveThemeMutation)
 class NoteEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		userid: 'none',
 		autoSave: null,
+		saveTheme: null,
 	};
 
 	constructor(props: Props) {
 		super(props);
 		this.autoSaveInterval = this.autoSaveInterval.bind(this);
+		this.saveAsTheme = this.saveAsTheme.bind(this);
 		this.handleModelChange = this.handleModelChange.bind(this);
 		this.handleController = this.handleController.bind(this);
 		this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -82,6 +97,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	autoSaveInterval: Function;
+	saveAsTheme: Function;
 	handleModelChange: Function;
 	handleController: Function;
 	handleTitleChange: Function;
@@ -94,14 +110,28 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 			tag: this.state.selectedTag,
 			notedata: this.state.content,
 		};
-    // console.log('variables', variables);
 		this.props
       .autoSave({ variables })
       .then((data) => {
-        // console.log('notedata', data);
+        // console.log('notedata succes', data);
 })
       .catch((error) => {
         // console.log('autosave error', save)
+});
+	}
+
+	saveAsTheme() {
+		const variables: ThemeFormat = {
+			_id: this.props.userid,
+			tag: this.state.selectedTag,
+			themedata: this.state.content,
+		};
+		this.props.saveTheme({ variables })
+      .then((data) => {
+	console.log('themesave success', data);
+})
+      .catch((error) => {
+	console.log('themesave error', error);
 });
 	}
 

@@ -6,3 +6,11 @@ export const autoSave = gql`
         }
     }
 `;
+
+export const saveTheme = gql`
+    mutation saveThemeMutation($_id: ID!, $tag: [String], $themedata: String){
+        saveTheme(_id: $_id, tag: $tag, themedata: $themedata) {
+            success
+        }
+    }
+`;
