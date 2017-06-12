@@ -1,4 +1,4 @@
-import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+import { makeExecutableSchema } from 'graphql-tools';
 import NoteSchema from './Note/NoteSchema';
 import TagSchema from './Tag/TagSchema';
 import { resolvers } from '../resolvers/resolvers.js';
@@ -10,14 +10,20 @@ const RootQuery = `
   }
 `;
 
+const RootMutation = `
+  type Mutation {
+    autoSave(_id: ID title: String tag:[String] data: String): SaveNote
+  }
+`;
 const SchemaDefinition = `
   schema {
      query: Query
+     mutation: Mutation
   }
 `;
 
 const schema = makeExecutableSchema({
-	typeDefs: [SchemaDefinition, RootQuery, NoteSchema, TagSchema],
+	typeDefs: [SchemaDefinition, RootQuery, RootMutation, NoteSchema, TagSchema],
 	resolvers,
 });
 export { schema };

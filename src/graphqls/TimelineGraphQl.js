@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 export const getNoteList = gql`
-	query  getNoteList($sortby: String){
+	query  getNoteListQuery($sortby: String){
 		getNoteList{
 			tag
 			totalCount

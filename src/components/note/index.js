@@ -5,9 +5,15 @@ import css from './note.css';
 import NoteCardTimeline from './noteCardTimeline';
 import NoteEditor from './noteEditor';
 
-const mapState = (state: { Note: { mode: "List" | "Card" } }) => ({
+const mapState = (
+  state: {
+    Note: { mode: "List" | "Card" },
+    User: { themeColor: string, userid: string }
+  },
+) => ({
 	Mode: state.Note.mode,
 	themeColor: state.User.themeColor,
+	userid: state.User._id,
 });
 
 type DefaultProps = {
@@ -40,7 +46,10 @@ class Note extends Component<DefaultProps, Props, State> {
 		return (
 			<div id={css.note}>
 				{Mode === 'List'
-          ? <NoteEditor themeColor={this.props.themeColor} />
+          ? <NoteEditor
+	themeColor={this.props.themeColor}
+	userid={this.props._id}
+          />
           : <NoteCardTimeline themeColor={this.props.themeColor} />}
 			</div>
 		);

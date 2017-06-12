@@ -13,12 +13,16 @@ const Note = `
 		image: String
 		publish: Boolean
 		star: Int
-		created_at: String,
+		created_at: String
 		final_modified_at: String
 	}
 	type Page {
 		endCursor: ID!
 		isLastPage: Boolean
+	}
+
+	type SaveNote {
+		success: Boolean
 	}
 `;
 

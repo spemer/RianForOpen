@@ -22,6 +22,8 @@ class Authorized extends Component<DefaultProps, Props, State> {
 		console.log('AUTH USER PROPS: ', props.User);
 	}
 
+	state = {};
+
 	render() {
 		return (
 			<div className={css.loginContainer}>
