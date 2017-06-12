@@ -1,0 +1,122 @@
+.signUpModal {
+		display: flex;
+		position: absolute;
+		flex-direction: column;
+		top: 50%;
+		right: auto;
+		bottom: auto;
+		left: 50%;
+		background: #fff;
+		border-radius: 8px;
+		margin-right: -50%;
+		transform: translate(-50%, -50%);
+		overflow: auto;
+		outline: none;
+}
+
+.signUpModalOverlay {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+}
+
+.signUpHeader {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 150px;
+	width: 400px;
+	background-color: #ff3466;
+	color: white;
+}
+
+.rianLogoWhite {
+		display: flex; 
+		width: 38px;
+		height: 38px;
+		border-radius: 8px;
+		margin-bottom: 10px;
+		background-color: white;
+		color: var(--rianColor);
+		font-size: 20px;
+		align-items: center;
+		justify-content: center;
+		font-family: 'Lato';
+}
+
+.signUpContent{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	font-size: 13px;
+	height: 400px;
+	width: 400px;
+}
+
+.signUpWelcome{
+	display: flex;
+	flex: 1;
+	align-items: center;
+	text-align: center;
+}
+
+
+.signUpSocial{
+	display: flex;
+	flex: 3;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.signUpButton {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 200px;
+	height:30px;
+	font-size: 13px;
+	border-radius: 8px;
+}
+
+.signUpFacebook {
+	border: 1px solid #435f9c;
+	color: #435f9c;
+}
+
+.signUpGoogle {
+	border: 1px solid #ea4335;
+	color: #ea4335;
+}
+
+.signUpKakao {
+	border: 1px solid #382422;
+	color: #382422;
+}
+
+.signUpNaver {
+	border: 1px solid #89e87e;
+	color: #89e87e;
+}
+
+.signUpEmail {
+	border: 1px solid #ff3466;
+	color: #ff3466;
+}
+
+.socialIcon {
+	width: 14px;
+	height: 14px;
+}
+
+.signUpFooter{
+	display: flex;
+	flex: 1;
+	text-align: center;
+	color: gray(75%);
+	align-items: center;
+}
