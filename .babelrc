@@ -12,6 +12,9 @@
       }
     ]
   ],
+  "ignore": [
+    "MockData"
+  ],
   "plugins": [
     "transform-decorators-legacy",
     [
