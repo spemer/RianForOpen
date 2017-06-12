@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { Motion, spring } from 'react-motion';
+import SignUpModal from './signUp';
 
 import css from './noteAuth.css';
 import facebookLogo from './icons/Facebook.svg';
@@ -13,7 +14,8 @@ type DefaultProps = {};
 type Props = {};
 
 type State = {
-  showLogin: boolean
+	showLogin: boolean,
+	modalIsOpen: boolean
 };
 
 class Unauthorized extends Component<DefaultProps, Props, State> {
@@ -23,14 +25,21 @@ class Unauthorized extends Component<DefaultProps, Props, State> {
 		super(props);
 		this.hoverLogin = this.hoverLogin.bind(this);
 		this.unhoverLogin = this.unhoverLogin.bind(this);
+		this.openModal = this.openModal.bind(this);
+		this.afterOpenModal = this.afterOpenModal.bind(this);
+		this.closeModal = this.closeModal.bind(this);
 	}
 
 	state = {
 		showLogin: false,
+		modalIsOpen: false,
 	};
 
 	hoverLogin: Function;
 	unhoverLogin: Function;
+	openModal: Function;
+	afterOpenModal: Function;
+	closeModal: Function;
 
 	hoverLogin() {
 		this.setState({
@@ -42,6 +51,19 @@ class Unauthorized extends Component<DefaultProps, Props, State> {
 		this.setState({
 			showLogin: false,
 		});
+	}
+
+	openModal() {
+		this.setState({ modalIsOpen: true, showLogin: false });
+	}
+
+	afterOpenModal() {
+		// references are now sync'd and can be accessed.
+		// this.subtitle.style.color = '#f00';
+	}
+
+	closeModal() {
+		this.setState({ modalIsOpen: false });
 	}
 
 	render() {
@@ -56,38 +78,38 @@ class Unauthorized extends Component<DefaultProps, Props, State> {
 						<img
 							className={css.toolIcon}
 							src={facebookLogo}
-              // src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
-              // onClick={this.props.changeMode}
-              // onMouseOver={this.changeListHover}
-              // onMouseOut={this.changeListHover}
+							// src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
+							// onClick={this.props.changeMode}
+							// onMouseOver={this.changeListHover}
+							// onMouseOut={this.changeListHover}
 							alt="facebook"
 						/>
 					</a>
 					<img
 						className={css.toolIcon}
 						src={googleLogo}
-            // src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
-            // onClick={this.props.changeMode}
-            // onMouseOver={this.changeListHover}
-            // onMouseOut={this.changeListHover}
+						// src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
+						// onClick={this.props.changeMode}
+						// onMouseOver={this.changeListHover}
+						// onMouseOut={this.changeListHover}
 						alt="google"
 					/>
 					<img
 						className={css.toolIcon}
 						src={naverLogo}
-            // src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
-            // onClick={this.props.changeMode}
-            // onMouseOver={this.changeListHover}
-            // onMouseOut={this.changeListHover}
+						// src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
+						// onClick={this.props.changeMode}
+						// onMouseOver={this.changeListHover}
+						// onMouseOut={this.changeListHover}
 						alt="naver"
 					/>
 					<img
 						className={css.toolIcon}
 						src={kakaoLogo}
-            // src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
-            // onClick={this.props.changeMode}
-            // onMouseOver={this.changeListHover}
-            // onMouseOut={this.changeListHover}
+						// src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
+						// onClick={this.props.changeMode}
+						// onMouseOver={this.changeListHover}
+						// onMouseOut={this.changeListHover}
 						alt="kakao"
 					/>
 				</div>
@@ -111,7 +133,7 @@ class Unauthorized extends Component<DefaultProps, Props, State> {
 									paddingRight: `${z}px`,
 								}}
 							/>
-            )}
+						)}
 					</Motion>
 					<Motion
 						style={{
@@ -132,7 +154,7 @@ class Unauthorized extends Component<DefaultProps, Props, State> {
 									paddingRight: `${z}px`,
 								}}
 							/>
-            )}
+						)}
 					</Motion>
 					<Motion
 						style={{
@@ -152,7 +174,7 @@ class Unauthorized extends Component<DefaultProps, Props, State> {
 									style={{
 										color: `rgb(${red}, ${green}, ${blue})`,
 										borderColor: `rgb(${red}, ${green}, ${blue})`,
-                    // backgroundColor: `rgb(${rgb.r}, ${rgb.r}, ${rgb.r})`,
+										// backgroundColor: `rgb(${rgb.r}, ${rgb.r}, ${rgb.r})`,
 									}}
 									type="submit"
 									value="로그인"
@@ -161,9 +183,15 @@ class Unauthorized extends Component<DefaultProps, Props, State> {
 						}}
 					</Motion>
 				</form>
-				<div className={css.signUp}>
-          간편가입
-        </div>
+
+				<div className={css.signUp} onClick={this.openModal}>
+					간편가입
+				</div>
+				<SignUpModal
+					modalIsOpen={this.state.modalIsOpen}
+					afterOpenModal={this.afterOpenModal}
+					closeModal={this.closeModal}
+				/>
 				<div className={css.profileButton}>
 					<svg width="25px" height="25px" viewBox="0 0 25 25">
 						<g

@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 import { Motion, spring } from 'react-motion';
 
 import css from './noteAuth.css';
-import facebookLogo from './icons/Facebook.svg';
-import googleLogo from './icons/Google.svg';
-import naverLogo from './icons/naver.svg';
-import kakaoLogo from './icons/kakaotalk.svg';
 
 type DefaultProps = {};
 
@@ -19,7 +15,6 @@ class Authorized extends Component<DefaultProps, Props, State> {
 
 	constructor(props: Props) {
 		super(props);
-		console.log('AUTH USER PROPS: ', props.User);
 	}
 
 	state = {};

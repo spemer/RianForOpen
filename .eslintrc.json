@@ -15,11 +15,7 @@
     "rules": {
         "indent": [
             2,
-            "tab",
-            {
-                "SwitchCase": 2,
-                "VariableDeclarator": 1
-            }
+            "tab"
         ],
         "no-tabs": 0,
         "react/prop-types": 0,
