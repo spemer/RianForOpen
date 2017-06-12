@@ -48,7 +48,7 @@ class Note extends Component<DefaultProps, Props, State> {
 				{Mode === 'List'
           ? <NoteEditor
 	themeColor={this.props.themeColor}
-	userid={this.props._id}
+	userid={this.props.userid}
           />
           : <NoteCardTimeline themeColor={this.props.themeColor} />}
 			</div>

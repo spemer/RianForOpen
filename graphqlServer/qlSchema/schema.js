@@ -12,7 +12,7 @@ const RootQuery = `
 
 const RootMutation = `
   type Mutation {
-    autoSave(_id: ID title: String tag:[String] data: String): SaveNote
+    autoSave(_id: ID title: String tag:[String] notedata: String): SaveNote
   }
 `;
 const SchemaDefinition = `

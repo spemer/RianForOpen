@@ -16,7 +16,7 @@ export const resolvers = {
 
 		getNoteList(obj, args, context) {
       // 태그 상관없이 전체 노트 쿼리
-			// console.log('getNoteList args', args, context);
+      // console.log('getNoteList args', args, context);
 			if (!args.tag) {
 				return {
 					tag: [''],
@@ -39,7 +39,7 @@ export const resolvers = {
 
 	NoteHead: {
 		notes(obj, args, context) {
-			// console.log('Notehead args', args, context);
+      // console.log('Notehead args', args, context);
 			const startPoint = MockData.find(data => data._id.$oid === args.after);
 			const result = [];
 			const startIndex = MockData.indexOf(startPoint) + 1;
@@ -66,7 +66,7 @@ export const resolvers = {
 		},
 
 		pageInfo(obj, args, context) {
-			// console.log('pageInfo', obj, context);
+      // console.log('pageInfo', obj, context);
 			return {
 				endCursor: '12341231111a',
 				isLastPage: false,
@@ -76,6 +76,7 @@ export const resolvers = {
 
 	Mutation: {
 		autoSave(obj, args, context) {
+			console.log('autoSAve!!!!!!!', args);
 			return {
 				success: true,
 			};
