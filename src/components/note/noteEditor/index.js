@@ -11,29 +11,17 @@ import './froalaEditor.global.css';
 import './fontawesome.global.css';
 import { mockContent } from './mock';
 import editorConfig from './editorConfig';
-import { autoSave } from '../../../graphqls/NoteEditorGraphQl';
+import { autoSave, saveTheme } from '../../../graphqls/NoteEditorGraphQl';
 // import { XYruler } from './util';
 
-const autoSaveMutation = graphql(autoSave, {
-	props: ({ mutate }) => ({
-		autosave: (userid, title, tag, data) =>
-      mutate({ variables: { userid, title, tag, data } }),
-	}),
-	options: () => ({
-		ssr: true,
-	}),
-	name: 'autoSave',
-	skip: process.env.NODE_ENV === 'development' && false,
-});
-
 type DefaultProps = {
-  themeColor: string,
-  userid: string
+  userid: string,
+  autoSave: null
 };
 
 type Props = {
-  themeColor: string,
-  userid: string
+  userid: string,
+  autoSave: Function
 };
 
 type State = {
@@ -43,16 +31,46 @@ type State = {
   selectedTag: Array<string>
 };
 
-@compose(autoSaveMutation)
+type SaveFormat = {
+  _id: string,
+  title: string,
+  tag: Array<string>,
+  notedata: string
+};
+
+type ThemeFormat = {
+  tag: Array<string>,
+  themedata: string
+};
+
+const autoSaveMutation = graphql(autoSave, {
+	options: () => ({
+		ssr: true,
+	}),
+	name: 'autoSave',
+	skip: process.env.NODE_ENV === 'development' && false,
+});
+
+const saveThemeMutation = graphql(saveTheme, {
+	options: () => ({
+		ssr: true,
+	}),
+	name: 'saveTheme',
+	skip: process.env.NODE_ENV === 'development' && false,
+});
+
+@compose(autoSaveMutation, saveThemeMutation)
 class NoteEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		themeColor: '#FF3466',
 		userid: 'none',
+		autoSave: null,
+		saveTheme: null,
 	};
 
 	constructor(props: Props) {
 		super(props);
-		this.autoSave = this.autoSave.bind(this);
+		this.autoSaveInterval = this.autoSaveInterval.bind(this);
+		this.saveAsTheme = this.saveAsTheme.bind(this);
 		this.handleModelChange = this.handleModelChange.bind(this);
 		this.handleController = this.handleController.bind(this);
 		this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -69,22 +87,52 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	componentDidMount() {
 		this.initControls.initialize();
 		this.initControls.getEditor()('toolbar.hide');
+		if (process.env.NODE_ENV !== 'development') {
+			setInterval(this.autoSaveInterval, 15000);
+		}
 	}
 
-	autoSave: Function;
+	componentWillReceiveProps(nextProps: Props) {
+		console.log('nextProps', nextProps);
+	}
+
+	autoSaveInterval: Function;
+	saveAsTheme: Function;
 	handleModelChange: Function;
 	handleController: Function;
 	handleTitleChange: Function;
 	initControls: any;
 
-	autoSave() {
-		const data = this.initControls.getEditor()('snapshot.get');
-		this.props.autosave(
-      this.props.userid,
-      this.state.title,
-      this.state.tag,
-      data,
-    );
+	autoSaveInterval() {
+		const variables: SaveFormat = {
+			_id: this.props.userid,
+			title: this.state.title,
+			tag: this.state.selectedTag,
+			notedata: this.state.content,
+		};
+		this.props
+      .autoSave({ variables })
+      .then((data) => {
+        // console.log('notedata succes', data);
+})
+      .catch((error) => {
+        // console.log('autosave error', save)
+});
+	}
+
+	saveAsTheme() {
+		const variables: ThemeFormat = {
+			_id: this.props.userid,
+			tag: this.state.selectedTag,
+			themedata: this.state.content,
+		};
+		this.props.saveTheme({ variables })
+      .then((data) => {
+	console.log('themesave success', data);
+})
+      .catch((error) => {
+	console.log('themesave error', error);
+});
 	}
 
 	handleModelChange(model: string) {
