@@ -156,7 +156,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 						<div className={totalCss.head}>
 							<textarea
 								className={totalCss.title}
-								placeholder="title"
+								placeholder="소중한 순간에 제목을 지어주세요"
 								value={this.state.title}
 								onChange={this.handleTitleChange}
 							/>
