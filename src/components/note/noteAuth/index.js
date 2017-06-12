@@ -23,6 +23,8 @@ class NoteAuth extends Component<DefaultProps, Props, State> {
 		super(props);
 	}
 
+	state = {};
+
 	render() {
 		const { User } = this.props;
 		if (User._id) {
