@@ -16,12 +16,16 @@ import { autoSave, saveTheme } from '../../../graphqls/NoteEditorGraphQl';
 
 type DefaultProps = {
   userid: string,
-  autoSave: null
+  autoSave: null, 
+  saveTheme: null,
+  autoSaveDispatch: null,
 };
 
 type Props = {
   userid: string,
-  autoSave: Function
+  autoSave: Function,
+  saveTheme: Function,
+  autoSaveDispatch: Function
 };
 
 type State = {
@@ -65,6 +69,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		userid: 'none',
 		autoSave: null,
 		saveTheme: null,
+		autoSaveDispatch: null
 	};
 
 	constructor(props: Props) {
@@ -87,9 +92,11 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	componentDidMount() {
 		this.initControls.initialize();
 		this.initControls.getEditor()('toolbar.hide');
-		if (process.env.NODE_ENV !== 'development') {
-			setInterval(this.autoSaveInterval, 15000);
-		}
+		// if (process.env.NODE_ENV !== 'development') {
+			setInterval(() => {
+				console.log('setINterval')
+				this.props.autoSaveDispatch(this.autoSaveInterval)}, 15000);
+		// }
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
@@ -110,14 +117,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 			tag: this.state.selectedTag,
 			notedata: this.state.content,
 		};
-		this.props
-      .autoSave({ variables })
-      .then((data) => {
-        // console.log('notedata succes', data);
-})
-      .catch((error) => {
-        // console.log('autosave error', save)
-});
+		return this.props.autoSave({ variables })
 	}
 
 	saveAsTheme() {
@@ -156,7 +156,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 						<div className={totalCss.head}>
 							<textarea
 								className={totalCss.title}
-								placeholder="title"
+								placeholder="소중한 순간에 제목을 지어주세요"
 								value={this.state.title}
 								onChange={this.handleTitleChange}
 							/>

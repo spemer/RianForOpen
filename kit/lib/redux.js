@@ -7,8 +7,12 @@ own reducers for store state outside of Apollo
 // ----------------------
 // IMPORTS
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { createEpicMiddleware } from 'redux-observable';
+import rootEpic from 'src/epics/index.js';
 import Reducers from 'src/reducers';
 // ----------------------
+
+const epicMiddleware = createEpicMiddleware(rootEpic);
 
 export default function createNewStore(apolloClient, preloadedState) {
 	const store = createStore(
@@ -23,7 +27,7 @@ export default function createNewStore(apolloClient, preloadedState) {
     // eslint-disable-next-line no-underscore-dangle
     !SERVER ? window.__STATE__ : preloadedState, // initial state
     compose(
-      applyMiddleware(apolloClient.middleware()),
+      applyMiddleware(apolloClient.middleware(), epicMiddleware),
       // Enable Redux Devtools on the browser, for easy state debugging
       // eslint-disable-next-line no-underscore-dangle
       !SERVER && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined'
