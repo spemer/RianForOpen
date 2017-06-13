@@ -81,31 +81,53 @@
 	height:30px;
 	font-size: 13px;
 	border-radius: 8px;
+	cursor: default;
 }
 
 .signUpFacebook {
 	border: 1px solid #435f9c;
 	color: #435f9c;
 }
+.signUpFacebook:hover {
+	color: white;
+	background-color: #435f9c;
+}
+
 
 .signUpGoogle {
 	border: 1px solid #ea4335;
 	color: #ea4335;
+}
+.signUpGoogle:hover {
+	color: white;
+	background-color: #ea4335;
 }
 
 .signUpKakao {
 	border: 1px solid #382422;
 	color: #382422;
 }
+.signUpKakao:hover {
+	color: white;
+	background-color: #382422;
+}
 
 .signUpNaver {
 	border: 1px solid #89e87e;
 	color: #89e87e;
 }
+.signUpNaver:hover {
+	color: white;
+	background-color: #89e87e;
+}
 
 .signUpEmail {
 	border: 1px solid #ff3466;
 	color: #ff3466;
+}
+.signUpEmail:hover {
+	color: white;
+	background-color: #ff3466;
 }
 
 .socialIcon {
