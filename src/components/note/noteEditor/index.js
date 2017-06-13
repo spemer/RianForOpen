@@ -99,7 +99,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		this.initControls.initialize();
 		this.initControls.getEditor()('toolbar.hide');
 		if (process.env.NODE_ENV !== 'development' && this.props.userId) {
-			setInterval(() => { this.props.autoSaveDispatch(this.autoSaveInterval); }, 15000);
+			this.Interval = setInterval(() => { this.props.autoSaveDispatch(this.autoSaveInterval); }, 15000);
 		}
 	}
 
@@ -108,6 +108,10 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		if (this.props.themesave === 'nothing' && nextProps.themesave === 'click') {
 			this.props.themeSaveDispatch(this.saveAsTheme);
 		}
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.Interval)
 	}
 
 	autoSaveInterval: Function;
