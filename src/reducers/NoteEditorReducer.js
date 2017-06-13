@@ -1,12 +1,12 @@
-import { AUTO_SAVE_PROGRESS, AUTO_SAVE_COMPLETE } from '../constants';
+import { AUTO_SAVE_COMPLETE, AUTO_SAVE_REQUEST } from '../constants';
 
 const NoteEditorState = {
-	autosave: 'Completed',
+	autosave: 'completed',
 };
 
 export default function NoteEditor(state = NoteEditorState, action) {
 	switch (action.type) {
-	case AUTO_SAVE_PROGRESS:
+	case AUTO_SAVE_REQUEST:
 		return Object.assign({}, state, {
 			autosave: 'progress',
 		});

@@ -76,7 +76,7 @@ export const resolvers = {
 
 	Mutation: {
 		autoSave(obj, args, context) {
-      // console.log('autoSAve!!!!!!!', args);
+			console.log('autoSAve!!!!!!!', args);
 			return {
 				success: true,
 			};

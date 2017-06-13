@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import css from './note.css';
 import NoteCardTimeline from './noteCardTimeline';
 import NoteEditor from './noteEditor';
+import { autoSaveRequest } from '../../actions/NoteEditorActions';
 
 const mapState = (
   state: {
@@ -16,23 +17,35 @@ const mapState = (
 	userid: state.User._id,
 });
 
+const mapDispatch = dispatch => ({
+	autoSaveDispatch: (method) => {
+		dispatch(autoSaveRequest(method));
+	},
+});
+
 type DefaultProps = {
   Mode: "List" | "Card",
-  themeColor: string
+  themeColor: string,
+  userid: string,
+  autoSaveDispatch: Function
 };
 
 type Props = {
   Mode: "List" | "Card",
-  themeColor: string
+  themeColor: string,
+  userid: string,
+  autoSaveDispatch: Function
 };
 
 type State = {};
 
-@connect(mapState)
+@connect(mapState, mapDispatch)
 class Note extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		Mode: 'List',
 		themeColor: '#ff3466',
+		userid: 'none',
+		autoSaveDispatch: Function,
 	};
 
 	constructor(props: Props) {
@@ -49,6 +62,7 @@ class Note extends Component<DefaultProps, Props, State> {
           ? <NoteEditor
 	themeColor={this.props.themeColor}
 	userid={this.props.userid}
+	autoSaveDispatch={this.props.autoSaveDispatch}
           />
           : <NoteCardTimeline themeColor={this.props.themeColor} />}
 			</div>
