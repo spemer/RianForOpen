@@ -81,7 +81,7 @@ export const resolvers = {
 				success: true,
 			};
 		},
-		saveThemeMutation(obj, args, context) {
+		saveTheme(obj, args, context) {
 			return {
 				success: true,
 			};
