@@ -105,9 +105,15 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 	}
 
 	changeSideBar(argu: boolean) {
-		this.setState({
-			sideBar: argu,
-		});
+		if (typeof argu === 'boolean') {
+			this.setState({
+				sideBar: argu,
+			});
+		} else {
+			this.setState((prevState) => ({
+				sideBar: !prevState.sideBar
+			}))
+		}
 	}
 	changeStarHover() {
 		this.setState((prevState: State) => ({
@@ -139,14 +145,6 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 		return (
 			<div
 				className={css.nav}
-				onMouseOver={() => {
-					if (!this.state.sideBar) {
-						this.changeSideBar(true);
-					}
-				}}
-				onMouseOut={() => {
-					this.changeSideBar(false);
-				}}
 			>
 				<div className={css.menu}>
 					<div className={css.head}>
@@ -173,6 +171,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 							className={css.toolIcon}
 							src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
 							onClick={() => {
+								this.changeSideBar(true);
 								this.props.changeMode(ModeSelect);
 							}}
 							onMouseOver={this.changeListHover}
@@ -184,6 +183,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 							src={!this.state.trashHover ? trashIcon : trashIconHover}
 							onMouseOver={this.changeTrashHover}
 							onMouseOut={this.changeTrashHover}
+							onClick={this.changeSideBar}
 							alt="alt"
 						/>
 					</div>

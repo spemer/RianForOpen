@@ -99,7 +99,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		this.initControls.initialize();
 		this.initControls.getEditor()('toolbar.hide');
 		if (process.env.NODE_ENV !== 'development' && this.props.userId) {
-			setInterval(() => { this.props.autoSaveDispatch(this.autoSaveInterval); }, 5000);
+			setInterval(() => { this.props.autoSaveDispatch(this.autoSaveInterval); }, 15000);
 		}
 	}
 
