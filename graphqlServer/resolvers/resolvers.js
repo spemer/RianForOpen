@@ -1,7 +1,5 @@
-import { pubsub } from '../pubsub/pubsub.js';
-import Note from 'database/models/note.model.js';
+import { getMyNoteListInfo } from 'database/controllers/note_ctrl.js';
 import Tag from 'database/models/tag.model.js';
-import MockData from 'MockData/MockNoteData.js';
 export const resolvers = {
 	Query: {
 		getTagList(obj, args, context) {
@@ -14,69 +12,45 @@ export const resolvers = {
 });
 		},
 
-		getNoteList(obj, args, context) {
-      // 태그 상관없이 전체 노트 쿼리
-      // console.log('getNoteList args', args, context);
-			if (!args.tag) {
-				return {
-					tag: [''],
-					totalCount: MockData.length,
-				};
-			}
-      // 특정 태그 찝는 쿼리
-			let count = 0;
-			MockData.forEach((data) => {
-				if (data.tag === args.tag) {
-					count++;
-				}
-			});
+		async getNoteList(obj, args, context) {
+			console.log('getNoteList', args);
+			const infor = {
+				userId: args.userId ? args.userId : '593e422abfc14bfb57224337',
+				tags: args.tags ? args.tags : ['성찬'],
+				updatedAt: args.after ? args.after : '2013-08-12T15:02:28.854Z',
+				limitCnt: args.limit ? args.limit : 10,
+			};
+			console.log('getNoteList Infor', infor);
+			const result = await getMyNoteListInfo(infor);
+			console.log('getNoteList result', result);
 			return {
-				tag: [''],
-				totalCount: count,
+				tags: args.tags,
+				totalCount: result.totalCount,
+				hasNext: result.hasNext,
+				cursor: result.cursor,
 			};
 		},
 	},
 
 	NoteHead: {
-		notes(obj, args, context) {
-      // console.log('Notehead args', args, context);
-			const startPoint = MockData.find(data => data._id.$oid === args.after);
-			const result = [];
-			const startIndex = MockData.indexOf(startPoint) + 1;
-			const endIndex = startIndex + (args.limit ? args.limit : MockData.length);
-			for (let i = startIndex; i < endIndex; i++) {
-				result.push(MockData[i]);
-			}
-			if (result.length === 0) {
-				return [
-					{
-						_id: '12341231111a',
-						title: '',
-						preview: '',
-						tag: '',
-						image: '',
-						publish: false,
-						star: 30,
-						created_at: '2013/03/29',
-						final_modified_at: '2015/03/29',
-					},
-				];
-			}
-			return result;
-		},
-
-		pageInfo(obj, args, context) {
-      // console.log('pageInfo', obj, context);
-			return {
-				endCursor: '12341231111a',
-				isLastPage: false,
+		async notes(obj, args, context) {
+			console.log('NoteHead', args);
+			const infor = {
+				userId: args.userId ? args.userId : '593e422abfc14bfb57224337',
+				tags: args.tags ? args.tags : ['성찬'],
+				updatedAt: args.after ? args.after : '2013-08-12T15:02:28.854Z',
+				limitCnt: args.limit ? args.limit : 10,
 			};
+			console.log('NoteHead infor', infor);
+			const result = await getMyNoteListInfo(infor);
+			console.log('getNoteHEad result', result);
+			return result.notes;
 		},
 	},
 
 	Mutation: {
 		autoSave(obj, args, context) {
-			console.log('autoSAve!!!!!!!', args);
+      // console.log('autoSAve!!!!!!!', args);
 			return {
 				success: true,
 			};

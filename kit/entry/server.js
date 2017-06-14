@@ -118,7 +118,7 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 	mongoose.Promise = global.Promise;
 	// mongoConfig.mongoLocalMockDataURL
 	// mongoConfig.mongoURL
-	mongoose.connect(mongoConfig.mongoURL).then(
+	mongoose.connect(mongoConfig.mongoLocalMockDataURL).then(
     () => {
 	console.log(`connected to RockofMongo: ${mongoConfig.mongoURL}`);
 },

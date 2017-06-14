@@ -6,7 +6,7 @@ import { resolvers } from '../resolvers/resolvers.js';
 const RootQuery = `
   type Query {
      getTagList(userId: ID!): [Tag]
-     getNoteList(tag: [String]): NoteHead
+     getNoteList(userId: ID tags: [String] after: String limit: Int sortby: String): NoteHead
   }
 `;
 

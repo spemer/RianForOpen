@@ -1,24 +1,23 @@
 const Note = `	
 	type NoteHead {
-		tag: [String]
 		totalCount: Int
-		notes(tag: [String], after:ID, limit:Int, sortby: String): [Note]
-		pageInfo(tag: [String], after:ID, limit: Int): Page
+		tags: [String]
+		notes(userId: ID tags: [String] after: String limit: Int sortby: String): [Note]
+		hasNext: Boolean		
+		cursor: String
 	}
 	type Note {
 		_id: ID!
+		user_id: ID!
 		title: String
+		data: String
+		created_at: String
+		updated_at: String
+		tags: String
 		preview: String
-		tag: String
 		image: String
 		publish: Boolean
 		star: Int
-		created_at: String
-		final_modified_at: String
-	}
-	type Page {
-		endCursor: ID!
-		isLastPage: Boolean
 	}
 
 	type Success {
