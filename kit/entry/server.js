@@ -116,12 +116,12 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 (async function server() {
   // 몽고DB 연결
 	mongoose.Promise = global.Promise;
-	//mongoConfig.mongoLocalMockDataURL
-	//mongoConfig.mongoURL
-	mongoose.connect(mongoConfig.mongoLocalMockDataURL).then(
+	// mongoConfig.mongoLocalMockDataURL
+	// mongoConfig.mongoURL
+	mongoose.connect(mongoConfig.mongoURL).then(
     () => {
-		console.log(`connected to RockofMongo: ${mongoConfig.mongoURL}`);
-	},
+	console.log(`connected to RockofMongo: ${mongoConfig.mongoURL}`);
+},
     (error) => {
 	console.error('Mongo is Rock City');
 	throw error;
@@ -134,44 +134,43 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
     .get('/api/graphiql', graphiqlKoa({ endpointURL: '/api/graphql' }))
     // Set-up a general purpose /ping route to check the server is alive
     .get('/ping', async (ctx) => {
-			ctx.body = 'pong';
-		})
+	ctx.body = 'pong';
+})
     // Favicon.ico.  By default, we'll serve this as a 204 No Content.
     // If /favicon.ico is available as a static file, it'll try that first
     .get('/favicon.ico', async (ctx) => {
-			ctx.res.statusCode = 204;
-		})
+	ctx.res.statusCode = 204;
+})
     // Sign out
     .get('/auth/signout', (ctx) => {
-			ctx.logout();
-			ctx.redirect('/');
-		})
+	ctx.logout();
+	ctx.redirect('/');
+})
 		.get('/api/test', async (ctx) => {
-			
-			let arg = {
-				userId : "593e422abfc14bfb57224337", //9번 user
-				tags : ["성찬","문규"],
-				updatedAt : "2013-08-12T15:02:28.854Z"
-			}			
-			
-			let myNoteListInfo = await getMyNoteListInfo(arg).then((result) => result); 
-			
+			const arg = {
+				userId: '593e422abfc14bfb57224337', // 9번 user
+				tags: ['성찬', '문규'],
+				updatedAt: '2013-08-12T15:02:28.854Z',
+			};
+
+			const myNoteListInfo = await getMyNoteListInfo(arg).then(result => result);
+
 			ctx.body = myNoteListInfo;
-		})		
+		})
     // Everything else is React
     .get('/*', async (ctx) => {
       // const preloadedState = ctx.state.initial || {};
-			const route = {};
+	const route = {};
 
 					// Create a new server Apollo client for this request
-			const client = serverClient();
+	const client = serverClient();
 
 					// Create a new Redux store for this request
-			const store = createNewStore(client);
+	const store = createNewStore(client);
 					// const store = createNewStore(client, preloadedState);
 
 					// inject initial state to serverSideRendering Html Store
-			if (ctx.isAuthenticated()) {
+	if (ctx.isAuthenticated()) {
 				store.dispatch(userLogin(ctx.state.user));
 			}
 					// store.dispatch(userInformationInject({ email: 'cci45@naver.com' }));
@@ -179,7 +178,7 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 					// Generate the HTML from our React tree.  We're wrapping the result
 					// in `react-router`'s <StaticRouter> which will pull out URL info and
 					// store it in our empty `route` object
-			const components = (
+	const components = (
 				<StaticRouter location={ctx.request.url} context={route}>
 					<ApolloProvider store={store} client={client}>
 						<App />
@@ -189,16 +188,16 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 
 					// Wait for GraphQL data to be available in our initial render,
 					// before dumping HTML back to the client
-			await getDataFromTree(components);
+	await getDataFromTree(components);
 
 					// Full React HTML render
-			const html = ReactDOMServer.renderToString(components);
+	const html = ReactDOMServer.renderToString(components);
 
 					// Render the view with our injected React data.  We'll pass in the
 					// Helmet component to generate the <head> tag, as well as our Redux
 					// store state so that the browser can continue from the server
-			ctx.body = `<!DOCTYPE html>\n${ReactDOMServer.renderToStaticMarkup(<Html html={html} head={Helmet.rewind()} window={{ webpackManifest: chunkManifest, __STATE__: store.getState() }} scripts={scripts} css={manifest['browser.css']} />)}`;
-		});
+	ctx.body = `<!DOCTYPE html>\n${ReactDOMServer.renderToStaticMarkup(<Html html={html} head={Helmet.rewind()} window={{ webpackManifest: chunkManifest, __STATE__: store.getState() }} scripts={scripts} css={manifest['browser.css']} />)}`;
+});
 
   // Create WebSocket listener server
 	const websocketServer = createServer((request, response) => {
