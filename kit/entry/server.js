@@ -116,8 +116,6 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 (async function server() {
   // 몽고DB 연결
 	mongoose.Promise = global.Promise;
-	// mongoConfig.mongoLocalMockDataURL
-	// mongoConfig.mongoURL
 	mongoose.connect(mongoConfig.mongoURL).then(
     () => {
 	console.log(`connected to RockofMongo: ${mongoConfig.mongoURL}`);
@@ -171,19 +169,19 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 
 					// inject initial state to serverSideRendering Html Store
 	if (ctx.isAuthenticated()) {
-				store.dispatch(userLogin(ctx.state.user));
-			}
+		store.dispatch(userLogin(ctx.state.user));
+	}
 					// store.dispatch(userInformationInject({ email: 'cci45@naver.com' }));
 
 					// Generate the HTML from our React tree.  We're wrapping the result
 					// in `react-router`'s <StaticRouter> which will pull out URL info and
 					// store it in our empty `route` object
 	const components = (
-				<StaticRouter location={ctx.request.url} context={route}>
-					<ApolloProvider store={store} client={client}>
-						<App />
-					</ApolloProvider>
-				</StaticRouter>
+		<StaticRouter location={ctx.request.url} context={route}>
+			<ApolloProvider store={store} client={client}>
+				<App />
+			</ApolloProvider>
+		</StaticRouter>
 					);
 
 					// Wait for GraphQL data to be available in our initial render,
