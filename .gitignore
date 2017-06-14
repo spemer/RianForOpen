@@ -44,3 +44,6 @@ dist
 
 # MongoDB
 data
+
+# VSCode config
+.vscode
