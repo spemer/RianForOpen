@@ -91,6 +91,8 @@ import passportRoutes from 'config/routes';
 import passportConfig from 'config/passport';
 import cookieConfig from 'config/cookie';
 
+import { getMyNoteListInfo } from 'database/controllers/note_ctrl';
+
 // GraphQL Server
 import { graphqlKoa, graphiqlKoa } from 'graphql-server-koa';
 import { SubscriptionManager, PubSub } from 'graphql-subscriptions';
@@ -114,6 +116,8 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 (async function server() {
   // 몽고DB 연결
 	mongoose.Promise = global.Promise;
+	// mongoConfig.mongoLocalMockDataURL
+	// mongoConfig.mongoURL
 	mongoose.connect(mongoConfig.mongoURL).then(
     () => {
 	console.log(`connected to RockofMongo: ${mongoConfig.mongoURL}`);
@@ -142,45 +146,56 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 	ctx.logout();
 	ctx.redirect('/');
 })
+		.get('/api/test', async (ctx) => {
+			const arg = {
+				userId: '593e422abfc14bfb57224337', // 9번 user
+				tags: ['성찬', '문규'],
+				updatedAt: '2013-08-12T15:02:28.854Z',
+			};
+
+			const myNoteListInfo = await getMyNoteListInfo(arg).then(result => result);
+
+			ctx.body = myNoteListInfo;
+		})
     // Everything else is React
     .get('/*', async (ctx) => {
       // const preloadedState = ctx.state.initial || {};
 	const route = {};
 
-      // Create a new server Apollo client for this request
+					// Create a new server Apollo client for this request
 	const client = serverClient();
 
-      // Create a new Redux store for this request
+					// Create a new Redux store for this request
 	const store = createNewStore(client);
-      // const store = createNewStore(client, preloadedState);
+					// const store = createNewStore(client, preloadedState);
 
-      // inject initial state to serverSideRendering Html Store
+					// inject initial state to serverSideRendering Html Store
 	if (ctx.isAuthenticated()) {
-		store.dispatch(userLogin(ctx.state.user));
-	}
-      // store.dispatch(userInformationInject({ email: 'cci45@naver.com' }));
+				store.dispatch(userLogin(ctx.state.user));
+			}
+					// store.dispatch(userInformationInject({ email: 'cci45@naver.com' }));
 
-      // Generate the HTML from our React tree.  We're wrapping the result
-      // in `react-router`'s <StaticRouter> which will pull out URL info and
-      // store it in our empty `route` object
+					// Generate the HTML from our React tree.  We're wrapping the result
+					// in `react-router`'s <StaticRouter> which will pull out URL info and
+					// store it in our empty `route` object
 	const components = (
-		<StaticRouter location={ctx.request.url} context={route}>
-			<ApolloProvider store={store} client={client}>
-				<App />
-			</ApolloProvider>
-		</StaticRouter>
-      );
+				<StaticRouter location={ctx.request.url} context={route}>
+					<ApolloProvider store={store} client={client}>
+						<App />
+					</ApolloProvider>
+				</StaticRouter>
+					);
 
-      // Wait for GraphQL data to be available in our initial render,
-      // before dumping HTML back to the client
+					// Wait for GraphQL data to be available in our initial render,
+					// before dumping HTML back to the client
 	await getDataFromTree(components);
 
-      // Full React HTML render
+					// Full React HTML render
 	const html = ReactDOMServer.renderToString(components);
 
-      // Render the view with our injected React data.  We'll pass in the
-      // Helmet component to generate the <head> tag, as well as our Redux
-      // store state so that the browser can continue from the server
+					// Render the view with our injected React data.  We'll pass in the
+					// Helmet component to generate the <head> tag, as well as our Redux
+					// store state so that the browser can continue from the server
 	ctx.body = `<!DOCTYPE html>\n${ReactDOMServer.renderToStaticMarkup(<Html html={html} head={Helmet.rewind()} window={{ webpackManifest: chunkManifest, __STATE__: store.getState() }} scripts={scripts} css={manifest['browser.css']} />)}`;
 });
 
