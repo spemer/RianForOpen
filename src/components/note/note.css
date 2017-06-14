@@ -15,12 +15,11 @@
         display: none;
     } 
     & .card-List {
+
         display: flex;
         flex: 1;
         flex-direction: column;
         z-index: 0;
-        margin-left: 50px;
-        justify-content: flex-start;
         align-items: center;
     }
     & .hover {

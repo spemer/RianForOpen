@@ -6,6 +6,8 @@
 }
 
 .title {
+    padding: 10px 10px 10px 10px;
+    border: solid 1px #d0d0d0;
     resize: none;
     text-align: justify;
     margin-top: 30px;
@@ -13,11 +15,9 @@
     height: 20px;
     border-radius: 8px;
     background-color: #ffffff;
-    border: solid 1px #d0d0d0;
     font-family: 'Lato';
     font-size: 15px;
     color: #BCBCBC;
-    padding: 10px 10px 10px 10px;
   }
 
 .title::placeholder {
@@ -33,10 +33,11 @@
 }
 
 .mansory {
-    margin-top: 30px;
-    flex: 1 0;
     display: flex;
+    flex: 1 0;
     flex-direction: row;
+    justify-content: center;
+    margin-top: 30px;
     flex-wrap: wrap;
     overflow: scroll;
 }

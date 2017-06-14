@@ -43,15 +43,6 @@ class NoteCardTimeline extends Component<DefaultProps, Props, State> {
 	render() {
 		return (
 			<div className={ContainerCss['card-List']}>
-				<div className={css.head}>
-					<textarea
-						className={css.title}
-						placeholder="SEARCH TAG"
-						value={this.state.title}
-						onChange={this.handleTitleChange}
-					/>
-					<TagInformation noteCount={this.state.noteCount} />
-				</div>
 				<div className={css.mansory}>
 					<PhotoCardSnippet
 						title="The Universe Through A Child S "
