@@ -13,7 +13,7 @@ const RootQuery = `
 const RootMutation = `
   type Mutation {
     autoSave(_id: ID! title: String tag:[String] notedata: String): Success
-    saveThemeMutation(_id: ID! tag: [String] themedata: String): Success
+    saveTheme(_id: ID! tag: [String] themedata: String): Success
   }
 `;
 const SchemaDefinition = `

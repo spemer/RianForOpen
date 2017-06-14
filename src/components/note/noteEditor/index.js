@@ -15,17 +15,21 @@ import { autoSave, saveTheme } from '../../../graphqls/NoteEditorGraphQl';
 // import { XYruler } from './util';
 
 type DefaultProps = {
-  userid: string,
-  autoSave: null, 
+  userId: string,
+  autoSave: null,
   saveTheme: null,
-  autoSaveDispatch: null,
+  themesave: "click" | "progress" | "nothing",
+  autoSaveDispatch: Function,
+  themeSaveDispatch: Function
 };
 
 type Props = {
-  userid: string,
+  userId: string,
   autoSave: Function,
   saveTheme: Function,
-  autoSaveDispatch: Function
+  themesave: "click" | "progress" | "nothing",
+  autoSaveDispatch: Function,
+  themeSaveDispatch: Function
 };
 
 type State = {
@@ -66,10 +70,12 @@ const saveThemeMutation = graphql(saveTheme, {
 @compose(autoSaveMutation, saveThemeMutation)
 class NoteEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		userid: 'none',
+		userId: 'none',
 		autoSave: null,
 		saveTheme: null,
-		autoSaveDispatch: null
+		themesave: 'click',
+		autoSaveDispatch: () => {},
+		themeSaveDispatch: () => {},
 	};
 
 	constructor(props: Props) {
@@ -92,15 +98,20 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	componentDidMount() {
 		this.initControls.initialize();
 		this.initControls.getEditor()('toolbar.hide');
-		// if (process.env.NODE_ENV !== 'development') {
-			setInterval(() => {
-				console.log('setINterval')
-				this.props.autoSaveDispatch(this.autoSaveInterval)}, 15000);
-		// }
+		if (process.env.NODE_ENV !== 'development' && this.props.userId) {
+			this.Interval = setInterval(() => { this.props.autoSaveDispatch(this.autoSaveInterval); }, 15000);
+		}
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
-		console.log('nextProps', nextProps);
+		// console.log('nextProps', nextProps);
+		if (this.props.themesave === 'nothing' && nextProps.themesave === 'click') {
+			this.props.themeSaveDispatch(this.saveAsTheme);
+		}
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.Interval)
 	}
 
 	autoSaveInterval: Function;
@@ -112,27 +123,21 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 
 	autoSaveInterval() {
 		const variables: SaveFormat = {
-			_id: this.props.userid,
+			_id: this.props.userId,
 			title: this.state.title,
 			tag: this.state.selectedTag,
 			notedata: this.state.content,
 		};
-		return this.props.autoSave({ variables })
+		return this.props.autoSave({ variables });
 	}
 
 	saveAsTheme() {
 		const variables: ThemeFormat = {
-			_id: this.props.userid,
+			_id: this.props.userId,
 			tag: this.state.selectedTag,
 			themedata: this.state.content,
 		};
-		this.props.saveTheme({ variables })
-      .then((data) => {
-	console.log('themesave success', data);
-})
-      .catch((error) => {
-	console.log('themesave error', error);
-});
+		return this.props.saveTheme({ variables });
 	}
 
 	handleModelChange(model: string) {

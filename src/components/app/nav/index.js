@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import screenfull from 'screenfull';
 import { modeChange } from '../../../actions/NoteActions';
+import { themeSaveClick } from '../../../actions/NoteEditorActions';
 import css from './nav.css';
 import trashIcon from './icons/TrashIcon.svg';
 import trashIconHover from './icons/TrashIcon-hover.svg';
@@ -18,26 +19,40 @@ import HoverNav from './hoverNav';
 import NoteTimeline from '../../note/noteTimeline';
 
 const mapState = (
-  state: { Note: { mode: "List" | "Card" }, userId: { email: string } },
+  state: {
+    Note: { mode: "List" | "Card" },
+    User: { _id: string },
+    NoteEditor: { autosave: boolean }
+  },
 ) => ({
 	Mode: state.Note.mode,
-	userId: state.User.email,
+	userId: state.User._id,
+	autosave: state.NoteEditor.autosave,
 });
 
 const mapDispatch = dispatch => ({
 	changeMode(mode: "List" | "Card") {
 		dispatch(modeChange(mode));
 	},
+	clickThemeSave() {
+		dispatch(themeSaveClick());
+	},
 });
 
 type DefaultProps = {
-  sideBar: boolean,
-  Mode: "List" | "Card"
+  Mode: "List" | "Card",
+  userId: string,
+  changeMode: Function,
+  clickThemeSave: Function,
+  autosave: boolean
 };
 
 type Props = {
+  Mode: "List" | "Card",
+  userId: string,
   changeMode: Function,
-  Mode: "List" | "Card"
+  clickThemeSave: Function,
+  autosave: boolean
 };
 
 type State = {
@@ -50,8 +65,11 @@ type State = {
 @connect(mapState, mapDispatch)
 class NoteSideBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		sideBar: false,
 		Mode: 'Card',
+		userId: 'none',
+		changeMode: () => {},
+		clickThemeSave: () => {},
+		autsosave: false,
 	};
 
 	constructor(props: Props) {
@@ -87,9 +105,15 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 	}
 
 	changeSideBar(argu: boolean) {
-		this.setState({
-			sideBar: argu,
-		});
+		if (typeof argu === 'boolean') {
+			this.setState({
+				sideBar: argu,
+			});
+		} else {
+			this.setState((prevState) => ({
+				sideBar: !prevState.sideBar
+			}))
+		}
 	}
 	changeStarHover() {
 		this.setState((prevState: State) => ({
@@ -121,14 +145,6 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 		return (
 			<div
 				className={css.nav}
-				onMouseOver={() => {
-					if (!this.state.sideBar) {
-						this.changeSideBar(true);
-					}
-				}}
-				onMouseOut={() => {
-					this.changeSideBar(false);
-				}}
 			>
 				<div className={css.menu}>
 					<div className={css.head}>
@@ -155,6 +171,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 							className={css.toolIcon}
 							src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
 							onClick={() => {
+								this.changeSideBar(true);
 								this.props.changeMode(ModeSelect);
 							}}
 							onMouseOver={this.changeListHover}
@@ -166,6 +183,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 							src={!this.state.trashHover ? trashIcon : trashIconHover}
 							onMouseOver={this.changeTrashHover}
 							onMouseOut={this.changeTrashHover}
+							onClick={this.changeSideBar}
 							alt="alt"
 						/>
 					</div>
@@ -174,6 +192,13 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 						<div className={css.moveIcon}>N-LIST</div>
 						<div className={css.moveIcon}>SOCIAL</div>
 					</div>
+					{Mode === 'List' &&
+					<div className={css.status}>
+						<div className={css.border} />
+						<div className={css.logo} onClick={this.props.clickThemeSave}>T</div>
+						{this.props.autosave && <div className={css.logo}>S</div>}
+					</div>
+					}
 				</div>
 				<HoverNav sideBar={this.state.sideBar} />
 				<NoteTimeline
