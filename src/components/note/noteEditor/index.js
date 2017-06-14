@@ -82,6 +82,8 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		super(props);
 		this.autoSaveInterval = this.autoSaveInterval.bind(this);
 		this.saveAsTheme = this.saveAsTheme.bind(this);
+		this.updateTagInList = this.updateTagInList.bind(this);
+		this.removeTagInList = this.removeTagInList.bind(this);
 		this.handleModelChange = this.handleModelChange.bind(this);
 		this.handleController = this.handleController.bind(this);
 		this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -99,23 +101,27 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		this.initControls.initialize();
 		this.initControls.getEditor()('toolbar.hide');
 		if (process.env.NODE_ENV !== 'development' && this.props.userId) {
-			this.Interval = setInterval(() => { this.props.autoSaveDispatch(this.autoSaveInterval); }, 15000);
+			this.Interval = setInterval(() => {
+				this.props.autoSaveDispatch(this.autoSaveInterval);
+			}, 15000);
 		}
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
-		// console.log('nextProps', nextProps);
+    // console.log('nextProps', nextProps);
 		if (this.props.themesave === 'nothing' && nextProps.themesave === 'click') {
 			this.props.themeSaveDispatch(this.saveAsTheme);
 		}
 	}
 
 	componentWillUnmount() {
-		clearInterval(this.Interval)
+		clearInterval(this.Interval);
 	}
 
 	autoSaveInterval: Function;
 	saveAsTheme: Function;
+	updateTagInList: Function;
+	removeTagInList: Function;
 	handleModelChange: Function;
 	handleController: Function;
 	handleTitleChange: Function;
@@ -138,6 +144,24 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 			themedata: this.state.content,
 		};
 		return this.props.saveTheme({ variables });
+	}
+
+	updateTagInList(tagName: string) {
+		this.setState((prevState: State) => ({
+			selectedTag: prevState.selectedTag.concat(tagName),
+		}));
+	}
+
+	removeTagInList(tag: string) {
+		const deleteItemInArray = (name: string, array: Array<string>) => {
+			const result = Array.prototype.slice.call(array);
+			const index = result.indexOf(name);
+			result.splice(index, 1);
+			return result;
+		};
+		this.setState((prevState: State) => ({
+			selectedTag: deleteItemInArray(tag, prevState.selectedTag),
+		}));
 	}
 
 	handleModelChange(model: string) {
@@ -165,7 +189,11 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 								value={this.state.title}
 								onChange={this.handleTitleChange}
 							/>
-							<TagBar />
+							<TagBar
+								selectedTag={this.state.selectedTag}
+								updateTagInList={this.updateTagInList}
+								removeTagInList={this.removeTagInList}
+							/>
 						</div>
 						<FroalaEditor
 							tag="mainwriting"

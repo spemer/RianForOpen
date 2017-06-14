@@ -3,17 +3,28 @@ import React, { Component } from 'react';
 import editorCss from '../totalLayout.css';
 import css from './tagBar.css';
 
-type DefaultProps = {};
+type DefaultProps = {
+  selectedTag: Array<string>,
+  updateTagInList: Function,
+  removeTagInList: Function
+};
 
-type Props = {};
+type Props = {
+  selectedTag: Array<string>,
+  updateTagInList: Function,
+  removeTagInList: Function
+};
 
 type State = {
-  selectedTag: Array<string>,
   searchInput: string
 };
 
 class TagBar extends Component<DefaultProps, Props, State> {
-	static defaultProps = {};
+	static defaultProps = {
+		selectedTag: [],
+		updateTagInList: () => {},
+		removeTagInList: () => {},
+	};
 
 	constructor(props: Props) {
 		super(props);
@@ -23,7 +34,6 @@ class TagBar extends Component<DefaultProps, Props, State> {
 	}
 
 	state = {
-		selectedTag: ['자바', '3학년1학기', '컴퓨터공학'],
 		searchInput: '',
 	};
 
@@ -39,25 +49,18 @@ class TagBar extends Component<DefaultProps, Props, State> {
 
 	addTagInList(tagName: string) {
 		if (!tagName) return; // 빈 태그내임이 들어왔을때 무시하는 Edge Case 처리
-		if (this.state.selectedTag.includes(tagName)) {
-			return this.handleSearchInputChange('');
+		if (this.props.selectedTag.includes(tagName)) {
+			this.handleSearchInputChange('');
+			return;
 		} // 이미 있는거 또 쳤을때는 무시
-		this.setState((prevState: State) => ({
-			selectedTag: prevState.selectedTag.concat(tagName),
+		this.props.updateTagInList(tagName);
+		this.setState({
 			searchInput: '',
-		}));
+		});
 	}
 
 	deleteTagInList(tag: string) {
-		const deleteItemInArray = (name: string, array: Array<string>) => {
-			const result = Array.prototype.slice.call(array);
-			const index = result.indexOf(name);
-			result.splice(index, 1);
-			return result;
-		};
-		this.setState((prevState: State) => ({
-			selectedTag: deleteItemInArray(tag, prevState.selectedTag),
-		}));
+		this.props.removeTagInList(tag);
 	}
 
 	render() {
@@ -66,14 +69,14 @@ class TagBar extends Component<DefaultProps, Props, State> {
 				<div className={css.tagBar}>
 					<div className={css.tagContent}>
 						<div className={css.selectedTagList}>
-							{this.state.selectedTag.map((tag: string, index: number) => (
+							{this.props.selectedTag.map((tag: string, index: number) => (
 								<div key={index} className={css.oneOfTag}>
 									<div
 										className={css.delete}
 										onClick={(e) => {
-											e.preventDefault();
-											this.deleteTagInList(tag);
-										}}
+										e.preventDefault();
+										this.deleteTagInList(tag);
+									}}
 									/>
 									<div className={css.name}>{tag}</div>
 								</div>
