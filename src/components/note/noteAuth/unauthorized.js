@@ -145,7 +145,7 @@ class Unauthorized extends Component<DefaultProps, Props, State> {
 						{({ x, y, z }) => (
 							<input
 								className={css.signInPassword}
-								type="text"
+								type="password"
 								placeholder="PASSWORD"
 								style={{
 									width: `${x}px`,
