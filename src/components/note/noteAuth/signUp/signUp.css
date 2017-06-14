@@ -30,7 +30,7 @@
 	justify-content: center;
 	height: 150px;
 	width: 400px;
-	background-color: #ff3466;
+	background-color: var(--rianColor);
 	color: white;
 }
 
@@ -122,12 +122,12 @@
 }
 
 .signUpEmail {
-	border: 1px solid #ff3466;
-	color: #ff3466;
+	border: 1px solid var(--rianColor);
+	color: var(--rianColor);
 }
 .signUpEmail:hover {
 	color: white;
-	background-color: #ff3466;
+	background-color: var(--rianColor);
 }
 
 .socialIcon {
@@ -142,3 +142,68 @@
 	color: gray(75%);
 	align-items: center;
 }
+
+
+/*=============================================
+=            SIGN UP FORM            =
+=============================================*/
+
+.signUpForm {
+	display: flex;
+	flex: 3;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: stretch;
+	width:60%;
+}
+
+.signUpFormInput {
+	display: flex;
+	flex-direction: column;
+	font-weight: bold;
+	color: var(--rianColor);
+	& input {
+		border: none;
+		border-bottom: 1px solid gray(75%);
+	}
+}
+
+.signUpFormInputText {
+	cursor: default;
+	margin-bottom: 5px;
+}
+
+.signUpFormEmail {
+	padding: 5px;
+}
+
+.signUpFormPassword {
+	padding: 5px;
+}
+
+.signUpFormSubmitButton {
+	border: 1px solid var(--rianColor);
+	color: var(--rianColor);
+	background-color: white;
+	border-radius: 8px;
+	font-weight: bold;
+	height: 30px;
+}
+.signUpFormSubmitButton:hover {
+	color: white;
+	background-color: var(--rianColor);
+}
+
+.signUpFormGoBack {
+	display: flex;
+	justify-content: center;
+	color: var(--rianColor);
+	letter-spacing: -0.4px;
+	font-size: 11px;
+	cursor: default;
+}
+.signUpFormGoBack:hover {
+	font-weight:bold;
+}
+/*=====  End of SIGN UP FORM  ======*/
+
