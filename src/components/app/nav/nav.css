@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:700,900');
-@import url('https://fonts.googleapis.com/css?family=Lato');
 
 .nav {
 	display: flex;
@@ -83,7 +82,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
   & .toolIcon {
   	padding: 10px;
   }
@@ -93,7 +91,6 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	margin-bottom: 25px;
 	& .border {
   		height: 1px;
   		width: 18.5px;
@@ -187,6 +184,7 @@
 							}
 							& .text:hover {
 								color: var(--rianColor);
+								font-weight: 700;
 							}
 						}
 					}
