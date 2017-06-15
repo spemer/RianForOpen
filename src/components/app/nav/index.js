@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import screenfull from 'screenfull';
+import { fullScreenChange } from '../../../actions/AppActions';
 import { modeChange } from '../../../actions/NoteActions';
 import { themeSaveClick } from '../../../actions/NoteEditorActions';
 import css from './nav.css';
@@ -37,6 +38,9 @@ const mapDispatch = dispatch => ({
 	clickThemeSave() {
 		dispatch(themeSaveClick());
 	},
+	changeFullScreenApp(argu) {
+		dispatch(fullScreenChange(argu))
+	}
 });
 
 type DefaultProps = {
@@ -44,7 +48,8 @@ type DefaultProps = {
   userId: string,
   changeMode: Function,
   clickThemeSave: Function,
-  autosave: boolean
+  changeFullScreenApp: Function,
+  autosave: boolean,
 };
 
 type Props = {
@@ -52,6 +57,7 @@ type Props = {
   userId: string,
   changeMode: Function,
   clickThemeSave: Function,
+  changeFullScreenApp: Function,
   autosave: boolean
 };
 
@@ -69,6 +75,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 		userId: 'none',
 		changeMode: () => {},
 		clickThemeSave: () => {},
+		changeFullScreenApp: () => {},
 		autsosave: false,
 	};
 
@@ -89,6 +96,17 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 		trashHover: false,
 	};
 
+	componentDidMount(){
+		this.screenfull.onchange(() => {
+			if (this.screenfull.isFullscreen) {
+	this.props.changeFullScreenApp(true);
+} else {
+	this.props.changeFullScreenApp(false);
+}
+
+		});
+	}
+	
 	screenfull: any;
 	fullScreen: Function;
 	changeSideBar: Function;
@@ -98,7 +116,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 
 	fullScreen() {
 		if (this.screenfull.enabled) {
-			this.screenfull.request();
+			this.screenfull.toggle();
 		} else {
       // Ignore or do something else
 		}

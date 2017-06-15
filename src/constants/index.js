@@ -2,6 +2,9 @@
 export const USER_INFORMATION_INJECT = 'USER_INFORMATION_INJECT';
 export const USER_LOGIN = 'USER_LOGIN';
 
+/* ----------  APP  ----------*/
+export const CHANGE_FULL_SCREEN = 'CHANGE_FULL_SCREEN';
+
 /* ----------  NOTE  ----------*/
 export const NOTE_MODE_CHANGE = 'NOTE_MODE_CHANGE';
 

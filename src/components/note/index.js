@@ -11,13 +11,14 @@ import {
 
 const mapState = (
   state: {
+    App: { themeColor: string },
     Note: { mode: "List" | "Card" },
-    User: { themeColor: string, _id: string },
+    User: { _id: string },
     NoteEditor: { themesave: "click" | "progress" | "nothing" }
   },
 ) => ({
 	Mode: state.Note.mode,
-	themeColor: state.User.themeColor,
+	themeColor: state.App.themeColor,
 	userId: state.User._id,
 	themesave: state.NoteEditor.themesave,
 });
