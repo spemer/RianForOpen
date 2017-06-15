@@ -15,6 +15,7 @@ import { autoSave, saveTheme } from '../../../graphqls/NoteEditorGraphQl';
 // import { XYruler } from './util';
 
 type DefaultProps = {
+  full: boolean,
   userId: string,
   autoSave: null,
   saveTheme: null,
@@ -24,6 +25,7 @@ type DefaultProps = {
 };
 
 type Props = {
+  full: boolean,
   userId: string,
   autoSave: Function,
   saveTheme: Function,
@@ -70,6 +72,7 @@ const saveThemeMutation = graphql(saveTheme, {
 @compose(autoSaveMutation, saveThemeMutation)
 class NoteEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
+		full: false,
 		userId: 'none',
 		autoSave: null,
 		saveTheme: null,
@@ -178,10 +181,12 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const config = editorConfig;
+		const { full } = this.props;
 		return (
 			<div className={css.paper}>
 				<div className={totalCss.container}>
 					<div className={totalCss.mainBox}>
+						{!full &&
 						<div className={totalCss.head}>
 							<textarea
 								className={totalCss.title}
@@ -194,7 +199,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 								updateTagInList={this.updateTagInList}
 								removeTagInList={this.removeTagInList}
 							/>
-						</div>
+						</div>}
 						<FroalaEditor
 							tag="mainwriting"
 							model={this.state.content}

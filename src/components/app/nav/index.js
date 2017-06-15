@@ -21,11 +21,13 @@ import NoteTimeline from '../../note/noteTimeline';
 
 const mapState = (
   state: {
+	App: { full: boolean },
     Note: { mode: "List" | "Card" },
     User: { _id: string },
     NoteEditor: { autosave: boolean }
   },
 ) => ({
+	full: state.App.full,
 	Mode: state.Note.mode,
 	userId: state.User._id,
 	autosave: state.NoteEditor.autosave,
@@ -45,6 +47,7 @@ const mapDispatch = dispatch => ({
 
 type DefaultProps = {
   Mode: "List" | "Card",
+  full: boolean,
   userId: string,
   changeMode: Function,
   clickThemeSave: Function,
@@ -54,6 +57,7 @@ type DefaultProps = {
 
 type Props = {
   Mode: "List" | "Card",
+  full: boolean,
   userId: string,
   changeMode: Function,
   clickThemeSave: Function,
@@ -72,6 +76,7 @@ type State = {
 class NoteSideBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		Mode: 'Card',
+		full: false,
 		userId: 'none',
 		changeMode: () => {},
 		clickThemeSave: () => {},
@@ -152,7 +157,11 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		const { Mode } = this.props;
+		const { Mode, full } = this.props;
+		//풀스크린 모드일때는 사이드바 없에버림
+		if (full) {
+			return <div></div>
+		}
 		let ModeSelect;
 		if (Mode === 'List') {
 			ModeSelect = 'Card';

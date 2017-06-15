@@ -11,12 +11,13 @@ import {
 
 const mapState = (
   state: {
-    App: { themeColor: string },
+    App: { full: boolean, themeColor: string },
     Note: { mode: "List" | "Card" },
     User: { _id: string },
     NoteEditor: { themesave: "click" | "progress" | "nothing" }
   },
 ) => ({
+	full: state.App.full,
 	Mode: state.Note.mode,
 	themeColor: state.App.themeColor,
 	userId: state.User._id,
@@ -29,6 +30,7 @@ const mapDispatch = dispatch => ({
 });
 
 type DefaultProps = {
+  full: boolean,
   Mode: "List" | "Card",
   themeColor: string,
   userId: string,
@@ -38,6 +40,7 @@ type DefaultProps = {
 };
 
 type Props = {
+  full: boolean,
   Mode: "List" | "Card",
   themeColor: string,
   userId: string,
@@ -51,6 +54,7 @@ type State = {};
 @connect(mapState, mapDispatch)
 class Note extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
+		full: false,
 		Mode: 'List',
 		themeColor: '#ff3466',
 		userId: 'none',
@@ -71,6 +75,7 @@ class Note extends Component<DefaultProps, Props, State> {
 			<div id={css.note}>
 				{Mode === 'List'
           ? <NoteEditor
+	full={this.props.full}
 	userId={this.props.userId}
 	autoSaveDispatch={this.props.autoSaveDispatch}
 	themeSaveDispatch={this.props.themeSaveDispatch}
