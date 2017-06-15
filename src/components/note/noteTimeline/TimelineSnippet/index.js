@@ -28,7 +28,7 @@ const TimelineSnippet = ({
 	<div id={css.container} style={style}>
 		<div className={css.box}>
 			<div className={css.left}>
-				<div className={css.block} />
+				{/*<div className={css.block} />*/}
 				<div className={css.title}>
 					{title}
 				</div>

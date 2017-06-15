@@ -24,7 +24,7 @@ const getNoteListQuery = graphql(getNoteList, {
 		ssr: true,
 	}),
 	name: 'noteData',
-	skip: process.env.NODE_ENV === 'development' && true,
+	skip: true,
 });
 
 type ListAr = {
@@ -87,7 +87,7 @@ class NoteTimeLine extends Component<DefaultProps, Props, State> {
 			>
 				{({ x }) => (
 					<div className={css.noteList} style={{ width: `${x}px` }}>
-						<TagSearch />
+						{/*<TagSearch />*/}
 						<div className={css.timelineList}>
 							<AutoSizer>
 								{({ height, width }) => (
