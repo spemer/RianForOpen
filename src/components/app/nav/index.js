@@ -167,7 +167,6 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 							</div>
 							</div>
 						}	
-					
 					<div className={css.tool}>
 						<div className={css.border} />
 						<img

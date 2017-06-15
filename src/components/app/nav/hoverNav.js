@@ -109,11 +109,13 @@ class HoverNav extends Component<DefaultProps, Props, State> {
 			>
 				{({ x, y }) => (
 					<div id={css.hoverNav} style={{ width: `${x}px` }}>
-						<div className={css.tagBorderTop} />
-						<div className={css.tagContainer}>
-							{tagList}
+						<div className={css.navBoxContainer}>
+							<div className={css.tagBorderTop} />
+							<div className={css.tagContainer}>
+								{tagList}
+							</div>
+							<div className={css.tagBorderBottom} />
 						</div>
-						<div className={css.tagBorderBottom} />
 					</div>
         )}
 			</Motion>

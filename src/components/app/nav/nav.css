@@ -149,40 +149,47 @@
     display: flex;
     flex-direction: column;
     left: 60px;
-		& .tagBorderTop {
-			margin-top: 82px;
-			height: 1px;
-			width: 40%;
-  		background-color: #ebebeb;
-		}
-		& .tagBorderBottom {
-			margin-bottom: 82px;
-			height: 1px;
-			width: 40%;
-  		background-color: #ebebeb;
-		}
-		& .tagContainer {
-				overflow: scroll;
-				padding-top: 5px;
-			& .tag {
-				flex: 0 0 30px;
-				margin-bottom: 10px;
-				padding-left: 3px;
-				color: #a5a5a5;
-				& .text {
-					display: block;
-					font-size: 13px;
-					font-family: 'Lato';
-					width: 70px;
-					text-overflow: ellipsis;
-					overflow: hidden;
-					line-height: 20px;
-					align-items: center;
-				}
-				& .text:hover {
-					color: var(--rianColor);
-				}
-    	}
+		& .navBoxContainer {
+			    display: flex;
+    			flex-direction: column;
+					margin-top: 90px;
+					margin-bottom: 90px;
+					& .tagBorderTop {
+						margin-left: 3px;
+						height: 1px;
+						width: 40%;
+						background-color: #ebebeb;
+					}
+					& .tagBorderBottom {
+						margin-left: 3px;
+						height: 1px;
+						width: 40%;
+						background-color: #ebebeb;
+					}
+					& .tagContainer {
+							overflow: scroll;
+							padding-top: 5px;
+
+						& .tag {
+							flex: 0 0 30px;
+							margin-bottom: 10px;
+							padding-left: 3px;
+							color: #a5a5a5;
+							& .text {
+								display: block;
+								font-size: 13px;
+								font-family: 'Lato';
+								width: 70px;
+								text-overflow: ellipsis;
+								overflow: hidden;
+								line-height: 20px;
+								align-items: center;
+							}
+							& .text:hover {
+								color: var(--rianColor);
+							}
+						}
+					}
 		}
 }
 .tagContainer::-webkit-scrollbar {

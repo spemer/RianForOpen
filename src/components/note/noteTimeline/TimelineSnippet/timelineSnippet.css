@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700,900');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,700,900');
 
 #container {
     display: flex;
@@ -9,10 +9,10 @@
     font-family: 'Lato';
     .box {
         display: flex;
+        flex: 0 0 110px;
         flex-direction: row;
         border: solid 1px #eaeaea;
         width: 240px;
-        flex: 0 0 110px;
         border-radius: 8px;
         background-color: #ffffff;
         & .left {
@@ -26,7 +26,7 @@
                 left: 15px;
                 width: 6px;
                 height: 14px;
-                background-color: var(--rianColor)
+                background-color: var(--rianColor);
             }
             & .title {
                 position: absolute;
@@ -37,9 +37,12 @@
                 height: 50%;
                 font-family: 'Lato';
                 font-size: 15px;
-                font-weight: 900;
+                font-weight: 700;
                 line-height: 1.3;
                 color: black;
+            }
+            & .title:hover {
+                color: white !important;
             }
         } 
         & .right {
@@ -54,14 +57,17 @@
                 overflow: hidden;
                 font-family: 'Lato';
                 font-size: 12px;
-                font-weight: 400;
+                font-weight: 300;
                 line-height: 13px;
                 color: #9e9e9e;
             }
+            & .snippet:hover {
+                color: white !important;
+            }
             & .tag {
+                padding: 0 2px 2px 2px;
  
                 height: 20px;
-                padding: 0 2px 2px 2px;
                 margin-top: -13px;
                 margin-right: 8px;
                 text-align: right;
@@ -74,10 +80,26 @@
                     letter-spacing: 0.1em;
                     font-size: 10px;
                     font-weight: 700;
-                    color: var(--rianColor)
+                    color: var(--rianColor);
+                }
+                & .tagInstance:hover {
+                    color: white !important;
                 }
             }
         }   
+    }
+    .box:hover {
+        border: none;
+        background-color: var(--rianColor);
+    }
+    .box:hover .title:not(:hover){
+        color: white !important;
+    }
+    .box:hover .snippet:not(:hover){
+        color: white !important;
+    }
+    .box:hover .tagInstance:not(:hover){
+        color: white !important;
     }
 }
 
