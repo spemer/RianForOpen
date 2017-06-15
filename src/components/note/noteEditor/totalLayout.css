@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:300,400');
+@import url('https://fonts.googleapis.com/css?family=Lato:900');
 
 .leftEditor {
 	flex: 9;
@@ -29,7 +29,7 @@
 				margin: 0px;
 				resize: none;
 				text-align: left;
-				font-weight: 500;
+				font-weight: 900;
 				font-family: 'Lato';
 			}
 
