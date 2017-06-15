@@ -110,9 +110,9 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 				sideBar: argu,
 			});
 		} else {
-			this.setState((prevState) => ({
-				sideBar: !prevState.sideBar
-			}))
+			this.setState(prevState => ({
+				sideBar: !prevState.sideBar,
+			}));
 		}
 	}
 	changeStarHover() {
@@ -143,28 +143,31 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 			ModeSelect = 'List';
 		}
 		return (
-			<div
-				className={css.nav}
-			>
+			<div className={css.nav}>
 				<div className={css.menu}>
 					<div className={css.head}>
 						<div className={css.logo} onClick={this.fullScreen}>R</div>
 					</div>
-					<div className={css.sort}>
-						<div className={css.how}>최신</div>
-						<div className={css.how}>갯수</div>
-						<div
-							className={css.how}
-							onMouseOver={this.changeStarHover}
-							onMouseOut={this.changeStarHover}
-						>
-							<img
-								className={css.howIcon}
-								src={!this.state.starHover ? star : starHover}
-								alt="alt"
-							/>
-						</div>
-					</div>
+					
+						<div className={css.changeSideBar} onClick={this.changeSideBar}>Tag</div>
+						{this.state.sideBar &&
+						<div className={css.sort}> 
+							<div className={css.how}>최신</div>
+							<div className={css.how}>갯수</div>	
+							<div
+								className={css.how}
+								onMouseOver={this.changeStarHover}
+								onMouseOut={this.changeStarHover}
+							>
+								<img
+									className={css.howIcon}
+									src={!this.state.starHover ? star : starHover}
+									alt="alt"
+								/>
+							</div>
+							</div>
+						}	
+					
 					<div className={css.tool}>
 						<div className={css.border} />
 						<img
@@ -183,7 +186,6 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 							src={!this.state.trashHover ? trashIcon : trashIconHover}
 							onMouseOver={this.changeTrashHover}
 							onMouseOut={this.changeTrashHover}
-							onClick={this.changeSideBar}
 							alt="alt"
 						/>
 					</div>
@@ -195,10 +197,11 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 					{Mode === 'List' &&
 					<div className={css.status}>
 						<div className={css.border} />
-						<div className={css.logo} onClick={this.props.clickThemeSave}>T</div>
+						<div className={css.logo} onClick={this.props.clickThemeSave}>
+                T
+              </div>
 						{this.props.autosave && <div className={css.logo}>S</div>}
-					</div>
-					}
+					</div>}
 				</div>
 				<HoverNav sideBar={this.state.sideBar} />
 				<NoteTimeline

@@ -97,19 +97,23 @@ class HoverNav extends Component<DefaultProps, Props, State> {
 			];
 			tagList = tagList.map((data, index) => (
 				<div key={index} className={css.tag}>
-					<div className={css.text}>{`#${data}`}</div>
+					<div className={css.text}>{`${data}`}</div>
 				</div>
       ));
 		}
 		return (
 			<Motion
 				style={{
-					x: spring(this.props.sideBar ? 100 : 0),
+					x: spring(this.props.sideBar ? 80 : 0),
 				}}
 			>
 				{({ x, y }) => (
 					<div id={css.hoverNav} style={{ width: `${x}px` }}>
-						{tagList}
+						<div className={css.tagBorderTop} />
+						<div className={css.tagContainer}>
+							{tagList}
+						</div>
+						<div className={css.tagBorderBottom} />
 					</div>
         )}
 			</Motion>
