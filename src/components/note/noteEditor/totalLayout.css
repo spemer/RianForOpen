@@ -25,10 +25,13 @@
 			& .title:focus {
 				outline: none;
 			}
+			& .title::-webkit-scrollbar {
+                display: none;
+            }       
 		}
-		& .tag {
-			
-		}
+		& .heada::-webkit-scrollbar {
+                display: none;
+        }       
 }
 
 
