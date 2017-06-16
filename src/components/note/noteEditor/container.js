@@ -98,7 +98,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		options: {},
 		initControls: '',
 		content: mockContent,
-		selectedTag: ['수명', '자바'],
+		selectedTag: ['Coding', '자바', '3학년1학기'],
 	};
 
 	componentDidMount() {
