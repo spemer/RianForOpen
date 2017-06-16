@@ -8,7 +8,6 @@ const UserState = {
 	token: null,
 	loading: false,
 	facebook_id: null,
-	themeColor: '#ff3466',
 };
 
 export default function User(state = UserState, action) {

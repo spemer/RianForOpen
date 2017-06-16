@@ -1,13 +1,13 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Modal from 'react-modal';
 import {
   autoSaveRequest,
   themeSaveRequest,
-} from '../../../actions/NoteEditorActions';
-import css from '../note.css';
-import totalCss from './totalLayout.css';
-import Editor from './container';
+} from '../../../../actions/NoteEditorActions';
+import Editor from '../../noteEditor/container';
+import css from './modalEditor.css';
 
 const mapState = (
   state: {
@@ -27,31 +27,35 @@ const mapDispatch = dispatch => ({
 });
 
 type DefaultProps = {
+  onEditor: boolean,
   full: boolean,
   userId: string,
   themesave: "click" | "progress" | "nothing",
   autoSaveDispatch: Function,
-  themeSaveDispatch: Function
+  themeSaveDispatch: Function,
+  handleOnEditor: Function
 };
 
 type Props = {
+  onEditor: boolean,
   full: boolean,
   userId: string,
   themesave: "click" | "progress" | "nothing",
   autoSaveDispatch: Function,
-  themeSaveDispatch: Function
+  themeSaveDispatch: Function,
+  handleOnEditor: Function
 };
 
-type State = {};
-
 @connect(mapState, mapDispatch)
-class EditorContainer extends Component<DefaultProps, Props, State> {
+class ModalEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
+		onEditor: false,
 		full: false,
 		userId: 'none',
 		themesave: 'nothing',
 		autoSaveDispatch: () => {},
 		themeSaveDispatch: () => {},
+		handleOnEditor: () => {},
 	};
 
 	constructor(props: Props) {
@@ -62,30 +66,37 @@ class EditorContainer extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const {
+      onEditor,
       full,
       userId,
       autoSaveDispatch,
       themeSaveDispatch,
       themesave,
+      handleOnEditor,
     } = this.props;
 		return (
-			<div
-				className={css.paper}
-				style={{ backgroundColor: full ? '#FBFBFB' : 'white' }}
+			<Modal
+				isOpen={onEditor}
+				onRequestClose={() => {
+					handleOnEditor(false);
+				}}
+				className={css.modal}
+				overlayClassName={css.overlay}
+				contentLabel="ModalEditor"
 			>
-				<div className={totalCss.container}>
+				<div className={css.container}>
 					<Editor
+						what="Card"
 						full={full}
 						userId={userId}
 						autoSaveDispatch={autoSaveDispatch}
 						themeSaveDispatch={themeSaveDispatch}
 						themesave={themesave}
-						what="List"
 					/>
 				</div>
-			</div>
+			</Modal>
 		);
 	}
 }
 
-export default EditorContainer;
+export default ModalEditor;

@@ -4,12 +4,14 @@ import editorCss from '../totalLayout.css';
 import css from './tagBar.css';
 
 type DefaultProps = {
+	what: 'List' | 'Card',
   selectedTag: Array<string>,
   updateTagInList: Function,
   removeTagInList: Function
 };
 
 type Props = {
+	what: 'List' | 'Card',
   selectedTag: Array<string>,
   updateTagInList: Function,
   removeTagInList: Function
@@ -21,6 +23,7 @@ type State = {
 
 class TagBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
+		what: 'List',
 		selectedTag: [],
 		updateTagInList: () => {},
 		removeTagInList: () => {},
@@ -64,6 +67,7 @@ class TagBar extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
+		const { what } = this.props
 		return (
 			<div className={editorCss.tag}>
 				<div className={css.tagBar}>
@@ -83,6 +87,7 @@ class TagBar extends Component<DefaultProps, Props, State> {
               ))}
 						</div>
 						<input
+							style={{ backgroundColor: what === 'Card' ? '#FBFBFB' : 'white' }}
 							value={this.state.searchInput}
 							onChange={({
                 currentTarget,

@@ -1,6 +1,7 @@
 // import { combineReducers } from 'redux';
 
 // Import Reducers
+import AppReducer from './AppReducer';
 import NoteReducer from './NoteReducer';
 import UserReducer from './UserReducer';
 import NoteEditorReducer from './NoteEditorReducer';
@@ -14,7 +15,7 @@ import NoteEditorReducer from './NoteEditorReducer';
 // import * as FirebaseChatReducer from './FirebaseChatReducer';
 
 export default Object.assign(
-  {},
+  { App: AppReducer },
   { Note: NoteReducer },
   { User: UserReducer },
   { NoteEditor: NoteEditorReducer },

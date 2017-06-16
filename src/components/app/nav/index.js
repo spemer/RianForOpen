@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import screenfull from 'screenfull';
+import { fullScreenChange } from '../../../actions/AppActions';
 import { modeChange } from '../../../actions/NoteActions';
 import { themeSaveClick } from '../../../actions/NoteEditorActions';
 import css from './nav.css';
@@ -20,11 +21,13 @@ import NoteTimeline from '../../note/noteTimeline';
 
 const mapState = (
   state: {
+    App: { full: boolean },
     Note: { mode: "List" | "Card" },
     User: { _id: string },
     NoteEditor: { autosave: boolean }
   },
 ) => ({
+	full: state.App.full,
 	Mode: state.Note.mode,
 	userId: state.User._id,
 	autosave: state.NoteEditor.autosave,
@@ -37,21 +40,28 @@ const mapDispatch = dispatch => ({
 	clickThemeSave() {
 		dispatch(themeSaveClick());
 	},
+	changeFullScreenApp(argu) {
+		dispatch(fullScreenChange(argu));
+	},
 });
 
 type DefaultProps = {
   Mode: "List" | "Card",
+  full: boolean,
   userId: string,
   changeMode: Function,
   clickThemeSave: Function,
+  changeFullScreenApp: Function,
   autosave: boolean
 };
 
 type Props = {
   Mode: "List" | "Card",
+  full: boolean,
   userId: string,
   changeMode: Function,
   clickThemeSave: Function,
+  changeFullScreenApp: Function,
   autosave: boolean
 };
 
@@ -66,10 +76,12 @@ type State = {
 class NoteSideBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		Mode: 'Card',
+		full: false,
 		userId: 'none',
 		changeMode: () => {},
 		clickThemeSave: () => {},
-		autsosave: false,
+		changeFullScreenApp: () => {},
+		autosave: false,
 	};
 
 	constructor(props: Props) {
@@ -89,6 +101,15 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 		trashHover: false,
 	};
 
+	componentDidMount() {
+		this.screenfull.onchange(() => {
+			if (this.screenfull.isFullscreen) {
+				this.props.changeFullScreenApp(true);
+			} else {
+				this.props.changeFullScreenApp(false);
+			}
+		});
+	}
 	screenfull: any;
 	fullScreen: Function;
 	changeSideBar: Function;
@@ -98,7 +119,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 
 	fullScreen() {
 		if (this.screenfull.enabled) {
-			this.screenfull.request();
+			this.screenfull.toggle();
 		} else {
       // Ignore or do something else
 		}
@@ -134,7 +155,11 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		const { Mode } = this.props;
+		const { Mode, full } = this.props;
+		if (full) {
+      // 풀스크린 모드일때는 사이드바 없에버림
+			return <div />;
+		}
 		let ModeSelect;
 		if (Mode === 'List') {
 			ModeSelect = 'Card';
@@ -148,25 +173,26 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 					<div className={css.head}>
 						<div className={css.logo} onClick={this.fullScreen}>R</div>
 					</div>
-					
-						<div className={css.changeSideBar} onClick={this.changeSideBar}>Tag</div>
-						{this.state.sideBar &&
-						<div className={css.sort}> 
-							<div className={css.how}>최신</div>
-							<div className={css.how}>갯수</div>	
-							<div
-								className={css.how}
-								onMouseOver={this.changeStarHover}
-								onMouseOut={this.changeStarHover}
-							>
-								<img
-									className={css.howIcon}
-									src={!this.state.starHover ? star : starHover}
-									alt="alt"
-								/>
-							</div>
-							</div>
-						}	
+
+					<div className={css.changeSideBar} onClick={this.changeSideBar}>
+            TAG
+          </div>
+					{this.state.sideBar &&
+					<div className={css.sort}>
+						<div className={css.how}>ALL</div>
+						<div className={css.how}>PUB</div>
+						<div
+							className={css.how}
+							onMouseOver={this.changeStarHover}
+							onMouseOut={this.changeStarHover}
+						>
+							<img
+								className={css.howIcon}
+								src={!this.state.starHover ? star : starHover}
+								alt="alt"
+							/>
+						</div>
+					</div>}
 					<div className={css.tool}>
 						<div className={css.border} />
 						<img

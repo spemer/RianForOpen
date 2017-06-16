@@ -11,10 +11,10 @@ type Props = {
   preview: string,
   time?: string,
   tag: Array<string>,
-  photo?: string,
   publish?: number,
   themeColor: string,
-  backgroundImage: string
+  backgroundImage: string,
+  handleOnEditor: Function,
 };
 
 const CardSnippet = ({
@@ -25,8 +25,9 @@ const CardSnippet = ({
   publish,
   themeColor = '#ff3466',
   backgroundImage = '',
+  handleOnEditor = () => {},
 }: Props) => (
-	<div className={css.container}>
+	<div className={css.container} onClick={ () => {handleOnEditor(true)}}>
 		<div
 			className={css.head}
 			style={{

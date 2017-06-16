@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:700,900');
-@import url('https://fonts.googleapis.com/css?family=Lato');
 
 .nav {
 	display: flex;
@@ -83,7 +82,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
   & .toolIcon {
   	padding: 10px;
   }
@@ -93,7 +91,6 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	margin-bottom: 25px;
 	& .border {
   		height: 1px;
   		width: 18.5px;
@@ -146,38 +143,39 @@
 
 
 #hoverNav {
-    display: flex;
-    flex-direction: column;
+	height: 100%;
     left: 60px;
 		& .navBoxContainer {
-			    display: flex;
-    			flex-direction: column;
-					margin-top: 90px;
-					margin-bottom: 90px;
-					& .tagBorderTop {
+    				display: relative;
+					height: 100%;
+					overflow: scroll;
+					width: 100%;
+					& .blockTop {
 						margin-left: 3px;
-						height: 1px;
-						width: 40%;
-						background-color: #ebebeb;
+						height: 81px;
+						width: 30px;
+						background-color: white;
+						border-bottom: 1px solid #ebebeb;
 					}
-					& .tagBorderBottom {
+					& .blockBottom {
 						margin-left: 3px;
-						height: 1px;
-						width: 40%;
-						background-color: #ebebeb;
+						height: 85px;
+						width: 30px;
+						background-color: white;
+						border-top: 1px solid #ebebeb;
 					}
 					& .tagContainer {
+							height: 70%;
 							overflow: scroll;
 							padding-top: 5px;
-
 						& .tag {
 							flex: 0 0 30px;
-							margin-bottom: 10px;
+							margin-bottom: 5px;
 							padding-left: 3px;
 							color: #a5a5a5;
 							& .text {
 								display: block;
-								font-size: 13px;
+								font-size: 11px;
 								font-family: 'Lato';
 								width: 70px;
 								text-overflow: ellipsis;
@@ -187,6 +185,7 @@
 							}
 							& .text:hover {
 								color: var(--rianColor);
+								font-weight: 700;
 							}
 						}
 					}

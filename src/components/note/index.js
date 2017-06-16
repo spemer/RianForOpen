@@ -11,51 +11,31 @@ import {
 
 const mapState = (
   state: {
-    Note: { mode: "List" | "Card" },
-    User: { themeColor: string, _id: string },
-    NoteEditor: { themesave: "click" | "progress" | "nothing" }
+    App: { themeColor: string },
+    Note: { mode: "List" | "Card" }
   },
 ) => ({
 	Mode: state.Note.mode,
-	themeColor: state.User.themeColor,
-	userId: state.User._id,
-	themesave: state.NoteEditor.themesave,
-});
-
-const mapDispatch = dispatch => ({
-	autoSaveDispatch: method => dispatch(autoSaveRequest(method)),
-	themeSaveDispatch: method => dispatch(themeSaveRequest(method)),
+	themeColor: state.App.themeColor,
 });
 
 type DefaultProps = {
   Mode: "List" | "Card",
-  themeColor: string,
-  userId: string,
-  themesave: "click" | "progress" | "nothing",
-  autoSaveDispatch: Function,
-  themeSaveRequest: Function
+  themeColor: string
 };
 
 type Props = {
   Mode: "List" | "Card",
-  themeColor: string,
-  userId: string,
-  themesave: "click" | "progress" | "nothing",
-  autoSaveDispatch: Function,
-  themeSaveDispatch: Function
+  themeColor: string
 };
 
 type State = {};
 
-@connect(mapState, mapDispatch)
+@connect(mapState)
 class Note extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		Mode: 'List',
 		themeColor: '#ff3466',
-		userId: 'none',
-		themesave: 'nothing',
-		autoSaveDispatch: () => {},
-		themeSaveRequest: () => {},
 	};
 
 	constructor(props: Props) {
@@ -69,12 +49,7 @@ class Note extends Component<DefaultProps, Props, State> {
 		return (
 			<div id={css.note}>
 				{Mode === 'List'
-          ? <NoteEditor
-	userId={this.props.userId}
-	autoSaveDispatch={this.props.autoSaveDispatch}
-	themeSaveDispatch={this.props.themeSaveDispatch}
-	themesave={this.props.themesave}
-          />
+          ? <NoteEditor />
           : <NoteCardTimeline themeColor={this.props.themeColor} />}
 			</div>
 		);
