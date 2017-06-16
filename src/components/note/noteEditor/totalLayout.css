@@ -1,21 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:900');
 
-.leftEditor {
-	flex: 9;
-}
-
-.rightTool {
-	flex: 1;
-	flex-direction: column;
-	align-items: center;
-	margin-right: -100px;
-	padding-left: 30px;
-}
-
 .container {
 	margin-top: 10px;
 	min-width: 700px;
-	& .mainBox {
+}
+.mainBox {
 		& .head {
 			margin-left: 1%;
 			margin-bottom: 30px;
@@ -40,10 +29,6 @@
 		& .tag {
 			
 		}
-	}
-	& .optionBox {
-		position: fixed;
-		bottom: 20px;
-		right: 400px;
-	}
 }
+
+

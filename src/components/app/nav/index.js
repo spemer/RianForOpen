@@ -21,7 +21,7 @@ import NoteTimeline from '../../note/noteTimeline';
 
 const mapState = (
   state: {
-	App: { full: boolean },
+    App: { full: boolean },
     Note: { mode: "List" | "Card" },
     User: { _id: string },
     NoteEditor: { autosave: boolean }
@@ -41,8 +41,8 @@ const mapDispatch = dispatch => ({
 		dispatch(themeSaveClick());
 	},
 	changeFullScreenApp(argu) {
-		dispatch(fullScreenChange(argu))
-	}
+		dispatch(fullScreenChange(argu));
+	},
 });
 
 type DefaultProps = {
@@ -52,7 +52,7 @@ type DefaultProps = {
   changeMode: Function,
   clickThemeSave: Function,
   changeFullScreenApp: Function,
-  autosave: boolean,
+  autosave: boolean
 };
 
 type Props = {
@@ -81,7 +81,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 		changeMode: () => {},
 		clickThemeSave: () => {},
 		changeFullScreenApp: () => {},
-		autsosave: false,
+		autosave: false,
 	};
 
 	constructor(props: Props) {
@@ -101,17 +101,15 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 		trashHover: false,
 	};
 
-	componentDidMount(){
+	componentDidMount() {
 		this.screenfull.onchange(() => {
 			if (this.screenfull.isFullscreen) {
-	this.props.changeFullScreenApp(true);
-} else {
-	this.props.changeFullScreenApp(false);
-}
-
+				this.props.changeFullScreenApp(true);
+			} else {
+				this.props.changeFullScreenApp(false);
+			}
 		});
 	}
-	
 	screenfull: any;
 	fullScreen: Function;
 	changeSideBar: Function;
@@ -158,9 +156,9 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const { Mode, full } = this.props;
-		//풀스크린 모드일때는 사이드바 없에버림
 		if (full) {
-			return <div></div>
+      // 풀스크린 모드일때는 사이드바 없에버림
+			return <div />;
 		}
 		let ModeSelect;
 		if (Mode === 'List') {
@@ -175,25 +173,26 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 					<div className={css.head}>
 						<div className={css.logo} onClick={this.fullScreen}>R</div>
 					</div>
-					
-						<div className={css.changeSideBar} onClick={this.changeSideBar}>Tag</div>
-						{this.state.sideBar &&
-						<div className={css.sort}> 
-							<div className={css.how}>최신</div>
-							<div className={css.how}>갯수</div>	
-							<div
-								className={css.how}
-								onMouseOver={this.changeStarHover}
-								onMouseOut={this.changeStarHover}
-							>
-								<img
-									className={css.howIcon}
-									src={!this.state.starHover ? star : starHover}
-									alt="alt"
-								/>
-							</div>
-							</div>
-						}	
+
+					<div className={css.changeSideBar} onClick={this.changeSideBar}>
+            TAG
+          </div>
+					{this.state.sideBar &&
+					<div className={css.sort}>
+						<div className={css.how}>ALL</div>
+						<div className={css.how}>PUB</div>
+						<div
+							className={css.how}
+							onMouseOver={this.changeStarHover}
+							onMouseOut={this.changeStarHover}
+						>
+							<img
+								className={css.howIcon}
+								src={!this.state.starHover ? star : starHover}
+								alt="alt"
+							/>
+						</div>
+					</div>}
 					<div className={css.tool}>
 						<div className={css.border} />
 						<img
