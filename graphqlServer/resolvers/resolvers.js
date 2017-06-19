@@ -13,16 +13,16 @@ export const resolvers = {
 		},
 
 		async getNoteList(obj, args, context) {
-			console.log('getNoteList', args);
+      // console.log('getNoteList', args, context);
 			const infor = {
 				userId: args.userId ? args.userId : '593e422abfc14bfb57224337',
 				tags: args.tags ? args.tags : ['성찬'],
 				updatedAt: args.after ? args.after : '2013-08-12T15:02:28.854Z',
 				limitCnt: args.limit ? args.limit : 10,
 			};
-			console.log('getNoteList Infor', infor);
+      // console.log('getNoteList Infor', infor);
 			const result = await getMyNoteListInfo(infor);
-			console.log('getNoteList result', result);
+      // console.log('getNoteList result', result);
 			return {
 				tags: args.tags,
 				totalCount: result.totalCount,
@@ -34,16 +34,16 @@ export const resolvers = {
 
 	NoteHead: {
 		async notes(obj, args, context) {
-			console.log('NoteHead', args);
+      // console.log('NoteHead', args, context);
 			const infor = {
 				userId: args.userId ? args.userId : '593e422abfc14bfb57224337',
 				tags: args.tags ? args.tags : ['성찬'],
 				updatedAt: args.after ? args.after : '2013-08-12T15:02:28.854Z',
 				limitCnt: args.limit ? args.limit : 10,
 			};
-			console.log('NoteHead infor', infor);
+      // console.log('NoteHead infor', infor);
 			const result = await getMyNoteListInfo(infor);
-			console.log('getNoteHEad result', result);
+      // console.log('getNoteHEad result', result);
 			return result.notes;
 		},
 	},

@@ -15,6 +15,9 @@ import { APOLLO, IP_ENV } from 'config/project';
 // repsonds with simple messages.  Update [root]/config.js as needed.
 const networkInterface = createNetworkInterface({
 	uri: APOLLO.uri,
+	opts: {
+		credentials: 'same-origin',
+	},
 });
 
 // Helper function to create a new Apollo client, by merging in
