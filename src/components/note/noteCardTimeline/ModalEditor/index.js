@@ -7,6 +7,7 @@ import {
   themeSaveRequest,
 } from '../../../../actions/NoteEditorActions';
 import Editor from '../../noteEditor/container';
+import '../../noteEditor/froalaEditorModal.global.css';
 import css from './modalEditor.css';
 
 const mapState = (
@@ -84,6 +85,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 				overlayClassName={css.overlay}
 				contentLabel="ModalEditor"
 			>
+				
 				<div className={css.container}>
 					<Editor
 						what="Card"

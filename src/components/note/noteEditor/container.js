@@ -5,7 +5,6 @@ import 'froala-editor/js/froala_editor.pkgd.min';
 import FroalaEditor from 'react-froala-wysiwyg';
 import TagBar from './TagBar/index';
 import totalCss from './totalLayout.css';
-import './froalaEditor.global.css';
 import './fontawesome.global.css';
 import { mockContent } from './mock';
 import editorConfig from './editorConfig';
@@ -184,11 +183,11 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		const config = editorConfig;
 		const { full, what } = this.props;
 		return (
-			<div className={totalCss.mainBox}>
+			<div className={totalCss.mainBox} style={{ backgroundColor: what === 'Card' ? '#FBFBFB' : 'white' }}>
 				{!full &&
 				<div className={totalCss.head}>
 					<textarea
-                        style={{ backgroundColor: what === 'Card' ? '#FBFBFB' : 'white' }}
+                        style={{ backgroundColor: what === 'Card' ? '#FBFBFB' : 'white', padding: '0px' }}
 						className={totalCss.title}
 						placeholder="소중한 순간에 제목을 지어주세요"
 						value={this.state.title}
