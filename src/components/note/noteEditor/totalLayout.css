@@ -5,11 +5,9 @@
 	min-width: 700px;
 }
 .mainBox {
-		border-radius: 10px;
 		& .head {
 			margin-left: 1%;
 			margin-bottom: 30px;
-			padding: 150px 150px 0 150px;
 			& .title {
 				display: block;
 				width: 100%;

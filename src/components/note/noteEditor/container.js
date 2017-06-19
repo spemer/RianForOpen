@@ -16,7 +16,7 @@ type DefaultProps = {
   userId: string,
   autoSave: null,
   saveTheme: null,
-  what: 'List' | 'Card',
+  what: "List" | "Card",
   themesave: "click" | "progress" | "nothing",
   autoSaveDispatch: Function,
   themeSaveDispatch: Function
@@ -25,7 +25,7 @@ type DefaultProps = {
 type Props = {
   full: boolean,
   userId: string,
-  what: 'List' | 'Card',
+  what: "List" | "Card",
   autoSave: Function,
   saveTheme: Function,
   themesave: "click" | "progress" | "nothing",
@@ -71,7 +71,7 @@ const saveThemeMutation = graphql(saveTheme, {
 @compose(autoSaveMutation, saveThemeMutation)
 class NoteEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-        what: 'List',
+		what: 'List',
 		full: false,
 		userId: 'none',
 		autoSave: null,
@@ -107,6 +107,19 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 			this.Interval = setInterval(() => {
 				this.props.autoSaveDispatch(this.autoSaveInterval);
 			}, 15000);
+		}
+		//만약 카드리스트 모드라면 다른 스타일 적용
+		if (!SERVER && this.props.what === 'Card') {
+			$('.fr-wrapper').css({
+				'background-color': '#FBFBFB',
+				'padding-left': '150px',
+				'padding-right': '150px',
+				'padding-bottom': '20px',
+				 position: 'relative',
+				'z-index': 1,
+				'margin-bottom': '30px',
+				'border-radius': '10px',
+			});
 		}
 	}
 
@@ -182,19 +195,32 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	render() {
 		const config = editorConfig;
 		const { full, what } = this.props;
+		let mainBoxStyle = { backgroundColor: 'white' };
+		if (what === 'Card') {
+			mainBoxStyle = { backgroundColor: '#FBFBFB', borderRadius: '10px' };
+		} 
+		if (full && what === 'List') {
+			mainBoxStyle = { backgroundColor: '#FBFBFB' };
+		}
 		return (
-			<div className={totalCss.mainBox} style={{ backgroundColor: what === 'Card' ? '#FBFBFB' : 'white' }}>
+			<div className={totalCss.mainBox} style={mainBoxStyle}>
 				{!full &&
-				<div className={totalCss.head}>
+				<div
+					className={totalCss.head}
+					style={{ padding: what === 'Card' && '150px 150px 0 150px' }}
+				>
 					<textarea
-                        style={{ backgroundColor: what === 'Card' ? '#FBFBFB' : 'white', padding: '0px' }}
+						style={{
+							backgroundColor: what === 'Card' ? '#FBFBFB' : 'white',
+							padding: '0px',
+						}}
 						className={totalCss.title}
 						placeholder="소중한 순간에 제목을 지어주세요"
 						value={this.state.title}
 						onChange={this.handleTitleChange}
 					/>
 					<TagBar
-                        what={what}
+						what={what}
 						selectedTag={this.state.selectedTag}
 						updateTagInList={this.updateTagInList}
 						removeTagInList={this.removeTagInList}

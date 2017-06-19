@@ -7,9 +7,17 @@ import {
   themeSaveRequest,
 } from '../../../../actions/NoteEditorActions';
 import Editor from '../../noteEditor/container';
-import '../../noteEditor/froalaEditorModal.global.css';
 import css from './modalEditor.css';
-
+// .fr-wrapper {
+//   background-color: #FBFBFB;
+//   padding-left: 150px;
+//   padding-right: 150px;
+//   padding-bottom: 20px;
+//   position: relative;
+//   z-index: 1;
+//   margin-bottom: 30px;
+//   border-radius: 10px;
+// }
 const mapState = (
   state: {
     App: { full: boolean },
@@ -64,6 +72,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	state = {};
+
 
 	render() {
 		const {
