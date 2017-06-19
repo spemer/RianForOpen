@@ -2,11 +2,12 @@
 		position: absolute;
 		flex-direction: row;
         display: flex;
-		top: 30%;
+		top: auto;
 		right: auto;
 		bottom: auto;
 		left: 50%;
 		border-radius: 8px;
+		margin-top: 300px;
 		margin-right: -50%;
 		transform: translate(-50%, -50%);
 		outline: none;
@@ -33,3 +34,6 @@
 		background-color: rgba(0, 0, 0, 0.5);
 }
 
+.overlay::-webkit-scrollbar {
+        display: none;
+} 
