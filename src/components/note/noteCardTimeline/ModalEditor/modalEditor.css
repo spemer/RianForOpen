@@ -2,24 +2,21 @@
 		position: absolute;
 		flex-direction: row;
         display: flex;
-        margin-top: 40px;
-		top: 90%;
+		top: auto;
 		right: auto;
 		bottom: auto;
 		left: 50%;
 		border-radius: 8px;
+		margin-top: 300px;
 		margin-right: -50%;
 		transform: translate(-50%, -50%);
-		overflow: scroll;
 		outline: none;
 		padding-top: 150px;
         & .container {
-			background-color: #FBFBFB;
-			padding-top: 100px;
             width: 1000px;
             min-height: 600px;
+			height: 0px;
 			border-radius: 8px;
-            height: 1200px;
             display: flex;
             flex-direction: row;
 			justify-content: center;
@@ -33,7 +30,10 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
-        overflow: scroll;
+        overflow: auto;
 		background-color: rgba(0, 0, 0, 0.5);
 }
 
+.overlay::-webkit-scrollbar {
+        display: none;
+} 

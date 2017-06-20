@@ -6,6 +6,7 @@ import {
   themeSaveRequest,
 } from '../../../actions/NoteEditorActions';
 import css from '../note.css';
+import './froalaEditor.global.css';
 import totalCss from './totalLayout.css';
 import Editor from './container';
 

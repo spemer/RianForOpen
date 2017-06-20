@@ -103,6 +103,8 @@ import koaBody from 'koa-bodyparser';
 import { createServer } from 'http';
 // ----------------------
 
+import cors from 'koa-cors';
+
 // Read in manifest files
 const [manifest, chunkManifest] = ['manifest', 'chunk-manifest'].map(name =>
   JSON.parse(readFileSync(path.resolve(PATHS.dist, `${name}.json`), 'utf8')),
@@ -130,7 +132,12 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 
   // Set up routes
 	const router = new KoaRouter()
-    .post('/api/graphql', graphqlKoa({ schema }))
+    .post('/api/graphql', graphqlKoa((ctx) => {
+  return { 
+    schema,
+    context: { userId: ctx.state.user}
+  };
+}))
     .get('/api/graphiql', graphiqlKoa({ endpointURL: '/api/graphql' }))
     // Set-up a general purpose /ping route to check the server is alive
     .get('/ping', async (ctx) => {
@@ -209,6 +216,7 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
   // Start Koa
 
 	const app = new Koa();
+	app.use(cors({ credentials: 'include' }))
 	app.keys = ['your-session-secret'];
 	app.use(session(cookieConfig, app));
 	app.use(bodyParser());
