@@ -112,4 +112,23 @@ export const getMyNoteListInfo = ({
   );
 };
 
-export const basic = () => {};
+
+export const updateNoteLike = ({ userId, noteId, isLike }) => {
+  // 1) noteId like +1/-1
+  // 2) userId like_notes 에 추가/삭제
+  // 3) boolean값 리턴
+	let upAndDown;
+	if (isLike) { // 추가,증가
+
+	} else { // 감소,삭제
+
+	}
+	// 따로 publish_tags collection을 두는것도 좋을듯
+	// db.users.update({_id : ObjectId("593e422abfc14bfb5722432f")}, { $push : { like_notes : ObjectId("593e6647bfc14bfb57225bbe") }})
+	const userLikeNotesP = Note.update().then(result => result);
+	const noteLikeUpdateP = Note.update({}, { $inc: { like: +1 } }).then(
+    result => result,
+  );
+
+	return Promise.all([userLikeNotesP, noteLikeUpdateP]).then((result) => {});
+};
