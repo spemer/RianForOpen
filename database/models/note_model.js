@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const NoteSchema = new Schema({
@@ -13,6 +14,4 @@ const NoteSchema = new Schema({
 	tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
 });
 
-const Note = mongoose.model('Note', NoteSchema);
-
-module.exports = Note;
+export default mongoose.model('Note', NoteSchema);

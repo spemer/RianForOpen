@@ -1,4 +1,5 @@
-import { getMyNoteListInfo } from 'database/controllers/note_ctrl.js';
+import { getMyNoteListInfo } from 'database/controllers/note_ctrl';
+import makeNoteCtrl from 'database/controllers/makeNote_ctrl';
 import Tag from 'database/models/tag.model.js';
 export const resolvers = {
 	Query: {
@@ -49,6 +50,9 @@ export const resolvers = {
 	},
 
 	Mutation: {
+		makeNote(obj, args, context) {
+			return makeNoteCtrl(context.userId._id);
+		},
 		autoSave(obj, args, context) {
       // console.log('autoSAve!!!!!!!', args);
 			return {
