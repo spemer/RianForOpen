@@ -1,6 +1,5 @@
-import User from '../models/user_model.js';
-import Note from '../models/note_model.js';
-import Tag from '../models/tag_model.js';
+import Note from '../models/note_model';
+import Tag from '../models/tag_model';
 
 export const makeNoteCtrl = async (userId) => {
 	let result;

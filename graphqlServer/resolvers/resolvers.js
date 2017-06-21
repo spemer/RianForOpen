@@ -1,6 +1,5 @@
 import { getMyNoteListInfo } from 'database/controllers/note_ctrl';
 import makeNoteCtrl from 'database/controllers/makeNote_ctrl';
-import Tag from 'database/models/tag.model.js';
 export const resolvers = {
 	Query: {
 		getTagList(obj, args, context) {

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const TagSchema = new Schema({
@@ -10,6 +11,4 @@ const TagSchema = new Schema({
 	updated_at: Date,
 });
 
-const Tag = mongoose.model('Tag', TagSchema);
-
-export default Tag;
+export default mongoose.model('Tag', TagSchema);
