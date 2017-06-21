@@ -213,6 +213,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 							onMouseOut={this.changeTrashHover}
 							alt="alt"
 						/>
+						<div className={css.plusIcon}>+</div>
 					</div>
 					<div className={css.move}>
 						<div className={css.border} />
