@@ -11,6 +11,22 @@ import editorConfig from './editorConfig';
 import { autoSave, saveTheme } from '../../../graphqls/NoteEditorGraphQl';
 // import { XYruler } from './util';
 
+const autoSaveMutation = graphql(autoSave, {
+	options: () => ({
+		ssr: true,
+	}),
+	name: 'autoSave',
+	skip: process.env.NODE_ENV === 'development' && true,
+});
+
+const saveThemeMutation = graphql(saveTheme, {
+	options: () => ({
+		ssr: true,
+	}),
+	name: 'saveTheme',
+	skip: process.env.NODE_ENV === 'development' && true,
+});
+
 type DefaultProps = {
   full: boolean,
   userId: string,
@@ -52,22 +68,6 @@ type ThemeFormat = {
   themedata: string
 };
 
-const autoSaveMutation = graphql(autoSave, {
-	options: () => ({
-		ssr: true,
-	}),
-	name: 'autoSave',
-	skip: process.env.NODE_ENV === 'development' && true,
-});
-
-const saveThemeMutation = graphql(saveTheme, {
-	options: () => ({
-		ssr: true,
-	}),
-	name: 'saveTheme',
-	skip: process.env.NODE_ENV === 'development' && true,
-});
-
 @compose(autoSaveMutation, saveThemeMutation)
 class NoteEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
@@ -90,6 +90,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		this.handleModelChange = this.handleModelChange.bind(this);
 		this.handleController = this.handleController.bind(this);
 		this.handleTitleChange = this.handleTitleChange.bind(this);
+		this.Interval = null;
 	}
 
 	state = {
@@ -108,14 +109,14 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 				this.props.autoSaveDispatch(this.autoSaveInterval);
 			}, 15000);
 		}
-		//만약 카드리스트 모드라면 다른 스타일 적용
+    // 만약 카드리스트 모드라면 다른 스타일 적용
 		if (!SERVER && this.props.what === 'Card') {
 			$('.fr-wrapper').css({
 				'background-color': '#FBFBFB',
 				'padding-left': '150px',
 				'padding-right': '150px',
 				'padding-bottom': '20px',
-				 position: 'relative',
+				position: 'relative',
 				'z-index': 1,
 				'margin-bottom': '30px',
 				'border-radius': '10px',
@@ -142,6 +143,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	handleController: Function;
 	handleTitleChange: Function;
 	initControls: any;
+	Interval: any;
 
 	autoSaveInterval() {
 		const variables: SaveFormat = {
@@ -198,7 +200,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		let mainBoxStyle = { backgroundColor: 'white' };
 		if (what === 'Card') {
 			mainBoxStyle = { backgroundColor: '#FBFBFB', borderRadius: '10px' };
-		} 
+		}
 		if (full && what === 'List') {
 			mainBoxStyle = { backgroundColor: '#FBFBFB' };
 		}
