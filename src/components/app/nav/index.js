@@ -2,9 +2,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import screenfull from 'screenfull';
+import { graphql, compose } from 'react-apollo';
 import { fullScreenChange } from '../../../actions/AppActions';
 import { modeChange } from '../../../actions/NoteActions';
 import { themeSaveClick } from '../../../actions/NoteEditorActions';
+import { makeNote } from '../../../graphqls/SideBarGraphQl'
 import css from './nav.css';
 import trashIcon from './icons/TrashIcon.svg';
 import trashIconHover from './icons/TrashIcon-hover.svg';
@@ -18,6 +20,14 @@ import HoverNav from './hoverNav';
 
 // <NoteTimeline /> Component
 import NoteTimeline from '../../note/noteTimeline';
+
+const makeNoteMutation = graphql(makeNote, {
+	options: () => ({
+		ssr: true,
+	}),
+	name: 'makeNote',
+	skip: process.env.NODE_ENV === 'development' && true,
+});
 
 const mapState = (
   state: {
@@ -49,6 +59,7 @@ type DefaultProps = {
   Mode: "List" | "Card",
   full: boolean,
   userId: string,
+  makeNote: Function,
   changeMode: Function,
   clickThemeSave: Function,
   changeFullScreenApp: Function,
@@ -59,6 +70,7 @@ type Props = {
   Mode: "List" | "Card",
   full: boolean,
   userId: string,
+  makeNote: Function,
   changeMode: Function,
   clickThemeSave: Function,
   changeFullScreenApp: Function,
@@ -72,12 +84,13 @@ type State = {
   trashHover: boolean
 };
 
-@connect(mapState, mapDispatch)
+@compose(connect(mapState, mapDispatch), makeNoteMutation)
 class NoteSideBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		Mode: 'Card',
 		full: false,
 		userId: 'none',
+		makeNote: () => {},
 		changeMode: () => {},
 		clickThemeSave: () => {},
 		changeFullScreenApp: () => {},
@@ -155,7 +168,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		const { Mode, full } = this.props;
+		const { Mode, full, makeNote, changeMode, clickThemeSave, autosave, userId } = this.props;
 		if (full) {
       // 풀스크린 모드일때는 사이드바 없에버림
 			return <div />;
@@ -200,7 +213,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 							src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
 							onClick={() => {
 								this.changeSideBar(true);
-								this.props.changeMode(ModeSelect);
+								changeMode(ModeSelect);
 							}}
 							onMouseOver={this.changeListHover}
 							onMouseOut={this.changeListHover}
@@ -213,6 +226,9 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 							onMouseOut={this.changeTrashHover}
 							alt="alt"
 						/>
+						<div className={css.plusIcon} onClick={
+							makeNote
+						}>+</div>
 					</div>
 					<div className={css.move}>
 						<div className={css.border} />
@@ -222,17 +238,17 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 					{Mode === 'List' &&
 					<div className={css.status}>
 						<div className={css.border} />
-						<div className={css.logo} onClick={this.props.clickThemeSave}>
+						<div className={css.logo} onClick={clickThemeSave}>
                 T
               </div>
-						{this.props.autosave && <div className={css.logo}>S</div>}
+						{autosave && <div className={css.logo}>S</div>}
 					</div>}
 				</div>
 				<HoverNav sideBar={this.state.sideBar} />
 				<NoteTimeline
 					sideBar={this.state.sideBar}
 					mode={Mode}
-					userId={this.props.userId}
+					userId={userId}
 				/>
 			</div>
 		);

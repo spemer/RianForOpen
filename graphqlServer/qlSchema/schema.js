@@ -1,7 +1,7 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import NoteSchema from './Note/NoteSchema';
 import TagSchema from './Tag/TagSchema';
-import { resolvers } from '../resolvers/resolvers.js';
+import { resolvers } from '../resolvers/resolvers';
 
 const RootQuery = `
   type Query {
@@ -12,6 +12,7 @@ const RootQuery = `
 
 const RootMutation = `
   type Mutation {
+    makeNote: Success
     autoSave(_id: ID! title: String tag:[String] notedata: String): Success
     saveTheme(_id: ID! tag: [String] themedata: String): Success
   }

@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const NoteSchema = new Schema({
-
 	user_id: { type: Schema.Types.ObjectId, ref: 'User' },
 	title: String,
 	data: String,
@@ -10,11 +10,8 @@ const NoteSchema = new Schema({
 	created_at: Date,
 	updated_at: Date,
 	is_publish: Boolean,
-	like_users : [{{ type: Schema.Types.ObjectId, ref: 'User' }}],
+	like_users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 	tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
-
 });
 
-const Note = mongoose.model('Note', NoteSchema);
-
-module.exports = Note;
+export default mongoose.model('Note', NoteSchema);
