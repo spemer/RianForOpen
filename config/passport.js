@@ -1,4 +1,5 @@
 import User from 'database/models/user_model';
+import mockNoteToDb from 'database/controllers/mockNoteToDb_ctrl';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { PORT, IP_ENV } from './project';
 
@@ -65,6 +66,9 @@ export default async function passportConfig(passport) {
 				});
 
 				const updatedUser = await newUser.save();
+
+              // makeDefalutNoteToDbForTest
+				await mockNoteToDb(updatedUser._id);
 
 				done(null, updatedUser);
 			}
