@@ -5,7 +5,7 @@ import { resolvers } from '../resolvers/resolvers';
 
 const RootQuery = `
   type Query {
-     getTagList(userId: ID!): [Tag]
+     getTagsByCondition(condition: String): TagList
      getNoteList(userId: ID tags: [String] after: String limit: Int sortby: String): NoteHead
   }
 `;

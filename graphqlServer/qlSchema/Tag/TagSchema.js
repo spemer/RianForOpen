@@ -1,7 +1,12 @@
 const Tag = `
+	type TagList {
+		condition: String
+		tags(condition: String): [Tag]
+	}
+
 	type Tag {
-		_id: ID!
-		name: String!
+		name: String
+		how_many: Int
 	}
 `;
 

@@ -1,16 +1,14 @@
 import { getMyNoteListInfo } from 'database/controllers/note_ctrl';
 import makeNoteCtrl from 'database/controllers/makeNote_ctrl';
+import getTagsByConditionCtrl
+  from 'database/controllers/getTagsByCondition_ctrl';
 
 export const resolvers = {
 	Query: {
-		getTagList(obj, args, context) {
-      // console.log('tagList', obj, args, context);
-			return Tag.find({ userid: args.userId })
-        .select('name')
-        .exec((err, tag) => {
-	console.log('tag', tag);
-	return tag;
-});
+		getTagsByCondition(obj, args, context) {
+			return {
+				condition: args.condition,
+			};
 		},
 
 		async getNoteList(obj, args, context) {
@@ -46,6 +44,12 @@ export const resolvers = {
 			const result = await getMyNoteListInfo(infor);
       // console.log('getNoteHEad result', result);
 			return result.notes;
+		},
+	},
+
+	TagList: {
+		tags(obj, args, context) {
+			return getTagsByConditionCtrl(context.userId._id, args.condition);
 		},
 	},
 
