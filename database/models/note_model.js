@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const NoteSchema = new Schema({
 	user_id: { type: Schema.Types.ObjectId, ref: 'User' },
 	title: String,
+	preview: String,
 	data: String,
 	pre_image: String,
 	created_at: Date,

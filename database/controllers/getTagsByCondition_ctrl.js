@@ -1,6 +1,6 @@
 import Tag from '../models/tag_model';
 
-export const getTagsByConditionCtrl = async (userId, condition) => {
+const getTagsByConditionCtrl = async (userId, condition) => {
 	let result = [];
 	try {
     // if don't have conditon, select All Tags by UserId

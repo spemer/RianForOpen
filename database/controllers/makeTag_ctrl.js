@@ -1,6 +1,7 @@
 import Tag from '../models/tag_model';
+import User from '../models/user_model';
 
-export const makeTagCtrl = async (userId, tagList) => {
+const makeTagCtrl = async (userId, tagList) => {
 	let result = [];
   // tagName must be Array
 	for (let i = 0; i < tagList.length; i++) {

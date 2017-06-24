@@ -2,12 +2,20 @@ import { getMyNoteListInfo } from 'database/controllers/note_ctrl';
 import makeNoteCtrl from 'database/controllers/makeNote_ctrl';
 import getTagsByConditionCtrl
   from 'database/controllers/getTagsByCondition_ctrl';
+import getAllMyNotePreviewsCtrl
+  from 'database/controllers/getAllMyNotePreviews_ctrl.js';
 
 export const resolvers = {
 	Query: {
 		getTagsByCondition(obj, args, context) {
 			return {
 				condition: args.condition,
+			};
+		},
+
+		getAllMyNotePreviews(obj, args, context) {
+			return {
+				tags: args.tags,
 			};
 		},
 
@@ -32,18 +40,8 @@ export const resolvers = {
 	},
 
 	NoteHead: {
-		async notes(obj, args, context) {
-      // console.log('NoteHead', args, context);
-			const infor = {
-				userId: args.userId ? args.userId : '593e422abfc14bfb57224337',
-				tags: args.tags ? args.tags : ['성찬'],
-				updatedAt: args.after ? args.after : '2013-08-12T15:02:28.854Z',
-				limitCnt: args.limit ? args.limit : 10,
-			};
-      // console.log('NoteHead infor', infor);
-			const result = await getMyNoteListInfo(infor);
-      // console.log('getNoteHEad result', result);
-			return result.notes;
+		notes(obj, args, context) {
+			return getAllMyNotePreviewsCtrl(context.userId._id, args.tags);
 		},
 	},
 

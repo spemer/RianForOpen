@@ -11,13 +11,13 @@ const Note = `
 		user_id: ID!
 		title: String
 		data: String
+		pre_image: String
 		created_at: String
 		updated_at: String
-		tags: String
+		is_publish: Boolean
+		tags: [String]
 		preview: String
-		image: String
-		publish: Boolean
-		star: Int
+		like: Int
 	}
 
 	type Success {
