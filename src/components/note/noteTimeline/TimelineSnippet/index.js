@@ -7,22 +7,26 @@ const makeTagToElement = (tagSet: Array<string>) => {
 	return <p className={css.tagInstance}>{SumTagSet}</p>;
 };
 type Props = {
+  _id: string,
   title: string,
   preview: string,
-  time?: string,
-  tag: Array<string>,
-  photo?: string,
-  publish?: number,
+  updated_at?: string,
+  tags: Array<string>,
+  backgroundImage: string,
+  is_publish?: boolean,
+  like?: number,
   style: Object
 };
 
 const TimelineSnippet = ({
+  _id = '',
   title = '',
   preview = '',
-  time = '2017.08.24',
-  tag = [],
-  photo,
-  publish,
+  updated_at = '2017.08.24',
+  tags = [],
+  backgroundImage = '',
+  is_publish = false,
+  like = 100,
   style,
 }: Props) => (
 	<div id={css.container} style={style}>
@@ -30,15 +34,15 @@ const TimelineSnippet = ({
 			<div className={css.left}>
 				{/*<div className={css.block} />*/}
 				<div className={css.title}>
-					{title}
+					{title ? title : '제목없음'}
 				</div>
 			</div>
 			<div className={css.right}>
 				<div className={css.snippet}>
-					{preview}
+					{preview ? preview : '제목없음'}
 				</div>
 				<div className={css.tag}>
-					{makeTagToElement(tag)}
+					{makeTagToElement(tags)}
 				</div>
 			</div>
 		</div>

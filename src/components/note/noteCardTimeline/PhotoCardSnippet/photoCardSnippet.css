@@ -39,11 +39,12 @@
                 left: 29px;
                 line-height: 1.1;
                 width: 80%;
-                height: 60px;
+                height: 80px;
                 font-size: 18pt;
                 font-weight: 900;
                 letter-spacing: -1px;
 	            color: #ffffff;
+                overflow: hidden;
             }
         }
     }
@@ -58,6 +59,7 @@
         text-align: left;
         overflow: hidden;
         color: #9e9e9e;
+        word-break: break-all;
     }
     & .footer {
         display: flex;

@@ -3,6 +3,7 @@ mockObj[0] = {
 	title: '자바 프로그래밍',
 	tags: ['3학년1학기', '코딩'],
 	is_publish: false,
+	pre_image: 'http://www.tour-beijing.com/blog/wp-content/uploads/Lijiang-in-Summer.jpg',
 	data: `<h3>자바의 이해</h3>
 
 <p><u>Hello, &nbsp;Java!: 세상에서 가장 사랑받는 프로그래밍 언어</u></p>
@@ -117,6 +118,7 @@ mockObj[1] = {
 	title: '중국 스마트 무인 편의점의 현재 : Bingobox',
 	tags: ['중국', '경제', '무역'],
 	is_publish: false,
+	pre_image: 'https://media-cdn.tripadvisor.com/media/photo-s/03/33/ea/b2/dali-gucheng-the-old.jpg',
 	data: `<section name="bb09">
 
 	<p name="f109">빙고 박스의 모든 것은 통합 시스템을 통해 관리됩니다. 관리자 페이지와 앱을 통해 상품 판매 데이터, 재고 수량, 유저 데이터 분석이 가능하며 이를 기준으로 매일 정해진 시간에 매장 관리 담당자 방문하여 매장을 점검하고 부족한 재고를 채워 넣습니다. 담당자가 매장을 점검하고 재고를 보충하는데는 채 20분이 안 걸립니다.</p>
@@ -228,6 +230,7 @@ mockObj[4] = {
 	title: '창업 프로그램',
 	tags: ['창업'],
 	is_publish: false,
+	pre_image: 'https://upload.wikimedia.org/wikipedia/commons/9/97/Xi%27an_-_City_wall_-_014.jpg',
 	data: `<h3>### 서울창업허브
 	<br>* 예비창업기업 육성 프로그램
 	<br>* 5월 10일(수) 5시까지
@@ -265,6 +268,7 @@ mockObj[5] = {
 	title: '시사저널 - 정운찬 전 총리 “경제계에도 헌재 있다면 한국 경제는 탄핵감”',
 	tags: ['경제', '논쟁'],
 	is_publish: false,
+	pre_image: 'https://cache-graphicslib.viator.com/graphicslib/thumbs360x240/5489/SITours/private-tour-chengdu-sightseeing-with-panda-breeding-center-visit-in-chengdu-148478.jpg',
 	data: `<h2>정운찬 전 총리 &ldquo;경제계에도 헌재 있다면 한국 경제는 탄핵감&rdquo;</h2>
 
 <p>11일 비공개 세미나서 밝혀&hellip;&ldquo;국내 대기업 D(개발)만 있고 R(연구)은 없다&rdquo; 지적</p>
@@ -413,6 +417,7 @@ mockObj[6] = {
 	title: '[개발인] ‘노드JS’ 기여자가 IBM으로 가기까지',
 	tags: ['코딩', '테크'],
 	is_publish: false,
+	pre_image: 'http://www.cruisemapper.com/images/ports/1174-large-9615b733ea0a1861a503da862e9818b7.jpg',
 	data: `<p>Google 번역번역에서 제공</p>
 
 <p>&lsquo;노드JS&rsquo;는 자바스크립트 생태계에서 가장 주목받고 있는 기술이다. 한때 커뮤니티 안에서 의견 충돌로 잡음도 있었지만 최근 재단 설립 등으로 지원도 체계적으로 이뤄지고 있다. 국내에서도 노드JS를 실험하고 서비스에 적용하는 기업도 조금씩 늘고 있다. 하지만 아직 새롭고, 오픈소스 기술이라는 점에 기업들은 선뜻 노드JS를 적용하지 못하는 분위기다. 노드JS가 공개된 지 6년이 지난 지금, 노드JS의 기술 성숙도는 어느 정도일까. 오랫동안 노드JS 핵심 기여자로 활동하고 노드JS 전문 스타트업까지 설립했던 버트 벨더 개발자에게 그 답을 들어보았다.</p>
@@ -584,6 +589,7 @@ mockObj[7] = {
 	title: '최순실 주변 인사... :: 네이버 뉴스',
 	tags: ['사회', '논쟁'],
 	is_publish: false,
+	pre_image: 'http://www.seriouseats.com/images/2016/03/20160324-guizhou-miaovillage-reilly.jpg',
 	data: `<p>이수빈 생활경제부 / 황정환 지식사회부 기자) &lsquo;최순실 게이트&rsquo; 파문이 거세지자 제일기획이 당황하고 있다. 사태를 둘러싼 인물 중 제일기획 출신이 여럿 포함돼 있기 때문이다. 최순실 세력이 영향력을 행사하는 정부 광고예산 집행 과정에서 제일기획 출신 광고대행사들이 특혜를 받았다는 의혹도 나오고 있다.</p>
 
 <p>
@@ -926,6 +932,7 @@ mockObj[9] = {
 	title: '[제797호] “나를 바꿨듯 음악은 세상을 바꾼다” : 표지이야기 : 뉴스 : 한겨레21',
 	tags: ['음악', '톰모렐로', '영감', '도전'],
 	is_publish: false,
+	pre_image: 'http://du.gensler.com/vol6/shanghai-tower/images/desktop/bg/00-1024x768.jpg?55b10f80',
 	data: `<p><img src="http://img.hani.co.kr/section-image/08/h21/left_menu01_title.gif" class="fr-fic fr-dii"></p>
 
 <table border="0" cellpadding="0" cellspacing="0">
@@ -1461,6 +1468,7 @@ mockObj[10] = {
 	title: "관광 코리아! 이대론 안된다] 먹거리·팔거리·놀거리·볼거리 없는 '4無 한국 관광'",
 	tags: ['한국', '중국'],
 	is_publish: false,
+	pre_image: 'https://internchina.com/wp-content/uploads/2012/06/guilin.jpg',
 	data: `<h3>관광 코리아! 이대론 안된다] 먹거리&middot;팔거리&middot;놀거리&middot;볼거리 없는 &#39;4無 한국</h3>
 
 <p>
@@ -1587,6 +1595,7 @@ mockObj[11] = {
 	title: '[허문명의 프리킥]“트럼프 미친 게 아니라 지극히 정상”',
 	tags: ['트럼프', '미국', '논쟁'],
 	is_publish: false,
+	pre_image: 'https://data.travelchinaguide.com/images/background/0150128.jpg',
 	data: `<p>[허문명의 프리킥]&ldquo;트럼프 미친 게 아니라 지극히 정상&rdquo; <a href="http://news.donga.com/3/all/20160930/80557127/1#replyLayer">댓글보기</a>16</p>
 
 <p>허문명 논설위원&nbsp;</p>
@@ -1763,6 +1772,7 @@ mockObj[12] = {
 	title: '"미군 없는 아시아가 도둑처럼 올 수도 있다"',
 	tags: ['미국', '한국', '중국', '논쟁'],
 	is_publish: false,
+	pre_image: 'http://naturexp.com/blog/wp-content/uploads/2014/02/Tibet-1.jpg',
 	data: `<p>&quot;미군 없는 아시아가 도둑처럼 올 수도 있다&quot;</p>
 
 <p>
@@ -2240,6 +2250,7 @@ mockObj[15] = {
 	title: '교황청과 중국, 관계 회복 위한 대화 나',
 	tags: ['중국', '논쟁', '국제'],
 	is_publish: false,
+	pre_image: 'https://media-cdn.tripadvisor.com/media/photo-s/03/33/ea/b2/dali-gucheng-the-old.jpg',
 	data: `<p>지난 2015년 8월 4일 열린 안양교구 장인린 부주교의 서품식. 장 주교는 교황청과 중국 정부 양측에서 모두 인정을 받은 최초의 주교다.</p>
 
 <p>교황청과 중국 공산당의 관리들이 올해 들어 벌써 두 번째 만나는 등 관계 개선에 급물살을 타고 있는 것으로 알려졌다.</p>
@@ -2347,6 +2358,7 @@ mockObj[16] = {
 	title: '김환영의 직격 인터뷰] 철학자 도올 김용옥 “중국과 대등했던 고구려 이해해야 진정한 통일”',
 	tags: ['중국', '역사', '논쟁'],
 	is_publish: false,
+	pre_image: 'https://upload.wikimedia.org/wikipedia/commons/9/97/Xi%27an_-_City_wall_-_014.jpg',
 	data: `<p>냐 하는 예상도 있지만 현실적으로 불가능하다. 중국의 학문 수준이 과학이나 기술 분야에서 아주 독자적으로 미국을 능가하려면 최소한 1세기는 걸릴 것이다. 학문이 얼마나 중요한지 모르기 때문에 세계인들이 굉장한 착각을 하고 있다. 군사력은 미국 흉내를 좀 낼 만큼은 됐지만 군사력에서도 사실 미국을 따라잡으려면 한 50년 죽어라 노력해야 한다. 미국 경제가 아무리 개판이라고 해도, 중국이 미국 경제를 가지고 놀 만큼 탄탄한 경제를 가지기는 어렵다. 중국의 패권주의라는 것은 근본적으로 성립하지 않는다.&rdquo;</p>
 
 <p>
@@ -2524,6 +2536,7 @@ mockObj[17] = {
 	title: '델 보스케: 카시야스야, 너 그렇게 살지 마라',
 	tags: ['축구', '인성'],
 	is_publish: false,
+	pre_image: 'http://www.seriouseats.com/images/2016/03/20160324-guizhou-miaovillage-reilly.jpg',
 	data: `<table align="center" border="0" cellpadding="0" cellspacing="0" width="775">
 	<tbody>
 		<tr>

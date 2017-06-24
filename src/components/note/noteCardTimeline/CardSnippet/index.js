@@ -7,21 +7,25 @@ const makeTagToElement = (tagSet: Array<string>) => {
 	return <p className={css.tagInstance}>{SumTagSet}</p>;
 };
 type Props = {
+  _id: string,
   title: string,
   preview: string,
-  time?: string,
-  tag: Array<string>,
-  publish?: number,
+  updated_at?: string,
+  tags: Array<string>,
+  is_publish?: boolean,
+  like?: number,
   themeColor: string,
   handleOnEditor: Function
 };
 
 const CardSnippet = ({
+  _id = '',
   title = '',
   preview = '',
-  time = '2017.08.24',
-  tag = [],
-  publish,
+  updated_at = '2017.08.24',
+  like = 30,
+  tags = [],
+  is_publish = false,
   themeColor = '#ff3466',
   handleOnEditor = () => {},
 }: Props) => (
@@ -34,15 +38,15 @@ const CardSnippet = ({
 		<div className={css.head}>
 			<div className={css.title}>
 				<div className={css.block} />
-				<div className={css.text}>{title}</div>
+				<div className={css.text}>{title ? title : '제목없음'}</div>
 			</div>
 		</div>
 		<div className={css.middle}>
-			{preview}
+			{preview ? preview : '내용없음'}
 		</div>
 		<div className={css.footer}>
 			<div className={css.left}>
-				{publish &&
+				{is_publish &&
 				<div className={css.share}>
 					<svg width="20px" height="18px" viewBox="0 0 20 18">
 						<g
@@ -81,15 +85,15 @@ const CardSnippet = ({
 							</g>
 						</g>
 					</svg>
-					<p className={css.number}>{publish}</p>
+					<p className={css.number}>{like}</p>
 				</div>}
 			</div>
 			<div className={css.right}>
 				<div className={css.time}>
-					{time}
+					{updated_at}
 				</div>
 				<div className={css.tag}>
-					{makeTagToElement(tag)}
+					{makeTagToElement(tags)}
 				</div>
 			</div>
 		</div>

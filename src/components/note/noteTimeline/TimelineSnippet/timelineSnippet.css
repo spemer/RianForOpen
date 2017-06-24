@@ -55,6 +55,7 @@
                 margin: 16px 5px auto 5px;
                 text-align: left;
                 overflow: hidden;
+                word-break: break-all;
                 font-family: 'Lato';
                 font-size: 10px;
                 font-weight: 300;

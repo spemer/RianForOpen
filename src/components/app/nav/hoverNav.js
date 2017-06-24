@@ -8,30 +8,32 @@ import css from './nav.css';
 const getTagListQuery = graphql(getTagList, {
 	options: () => ({
 		variables: {
-			userId: '5923b81861322804b81cecb6', // 임시 키
+			condition: 'All',
 		},
 		ssr: false,
 	}),
-	name: 'TagData',
+	skip: process.env.NODE_ENV === 'development' && true,
+	name: 'tagData',
 });
 
 type DefaultProps = {
-  TagData: any,
+  tagData: any,
   changeWhichBar: Function,
   sideBar: boolean
 };
 
 type Props = {
-  TagData: any,
+  tagData: any,
   changeWhichBar: Function,
   sideBar: boolean
 };
 
 type State = {};
 
+@compose(getTagListQuery)
 class HoverNav extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		TagData: {},
+		tagData: false,
 		changeWhichBar: () => {},
 		sideBar: false,
 	};
@@ -44,21 +46,26 @@ class HoverNav extends Component<DefaultProps, Props, State> {
 
 	render() {
 		let tagList;
-		if (this.props.TagData.getTagList) {
-			tagList = this.props.TagData.getTagList.map((Tag, index) => (
-				<div
-					key={index}
-					className={css.tag}
-					onClick={() => {
-						this.props.changeWhichBar('NoteList');
-					}}
-				>
-					<div className={css.text}>
-						{`#${Tag.name}`}
+		if (process.env.NODE_ENV === 'production') {
+			if (this.props.tagData.getTagsByCondition) {
+				tagList = this.props.tagData.getTagsByCondition.tags.map((Tag, index) => (
+					<div
+						key={index}
+						className={css.tag}
+						onClick={() => {
+							this.props.changeWhichBar('NoteList');
+						}}
+					>
+						<div className={css.text}>
+							{Tag.name}
+						</div>
 					</div>
-				</div>
-      ));
-		} else {
+				));
+			} else {
+				tagList = []
+			}
+		}
+		if (process.env.NODE_ENV === 'development') {
 			tagList = [
 				'강의',
 				'고향',
@@ -145,11 +152,11 @@ class HoverNav extends Component<DefaultProps, Props, State> {
 					<div id={css.hoverNav} style={{ width: `${x}px` }}>
 						<div className={css.navBoxContainer}>
 							<div className={css.blockTop} />
-							
+
 							<div className={css.tagContainer}>
 								{tagList}
 							</div>
-							
+
 							<div className={css.blockBottom} />
 						</div>
 					</div>

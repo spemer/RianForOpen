@@ -1,9 +1,11 @@
 import gql from 'graphql-tag';
 export const getTagList = gql`
-		query getTagListQuery($userId: ID!) {
-			getTagList(userId: $userId) {
-				_id
-				name
+	query getTagsByConditionQuery($condition: String){
+		getTagsByCondition(condition: $condition){
+			condition
+			tags(condition: $condition) {
+			name
 			}
 		}
+}
 `;
