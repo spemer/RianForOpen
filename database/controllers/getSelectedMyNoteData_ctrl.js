@@ -13,6 +13,16 @@ const getSelectedMyNoteDataCtrl = async (userId, noteId) => {
 		result = OneNote;
 	} catch (e) {
 		console.log('error in getSelectedMyNoteDataCtrl');
+		result = {
+			_id: '',
+			title: '',
+			tags: [],
+			data: '',
+			is_publish: '',
+			created_at: Date.now(),
+			updated_at: Date.now(),
+			like: null,
+		};
 	}
 	return result;
 };

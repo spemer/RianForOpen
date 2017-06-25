@@ -3,8 +3,9 @@ import makeNoteCtrl from 'database/controllers/makeNote_ctrl';
 import getTagsByConditionCtrl
   from 'database/controllers/getTagsByCondition_ctrl';
 import getAllMyNotePreviewsCtrl
-  from 'database/controllers/getAllMyNotePreviews_ctrl.js';
-import getSelectedMyNoteDataCtrl from 'database/controllers/getSelectedMyNoteData_ctrl.js';
+  from 'database/controllers/getAllMyNotePreviews_ctrl';
+import getSelectedMyNoteDataCtrl from 'database/controllers/getSelectedMyNoteData_ctrl';
+import autoSaveCtrl from 'database/controllers/autoSave_ctrl';
 
 export const resolvers = {
 	Query: {
@@ -21,8 +22,8 @@ export const resolvers = {
 		},
 
 		getSelectedMyNoteData(obj, args, context) {
-			const userId = context.userId ? context.userId._id : ''
-			return getSelectedMyNoteDataCtrl(userId, args.noteId)
+			const userId = context.userId ? context.userId._id : '';
+			return getSelectedMyNoteDataCtrl(userId, args.noteId);
 		},
 
 		async getNoteList(obj, args, context) {
@@ -47,14 +48,14 @@ export const resolvers = {
 
 	NoteHead: {
 		notes(obj, args, context) {
-			const userId = context.userId ? context.userId._id : args.userId
+			const userId = context.userId ? context.userId._id : args.userId;
 			return getAllMyNotePreviewsCtrl(userId, args.tags);
 		},
 	},
 
 	TagList: {
 		tags(obj, args, context) {
-			const userId = context.userId ? context.userId._id : args.userId
+			const userId = context.userId ? context.userId._id : args.userId;
 			return getTagsByConditionCtrl(userId, args.condition);
 		},
 	},
@@ -65,9 +66,7 @@ export const resolvers = {
 		},
 		autoSave(obj, args, context) {
       // console.log('autoSAve!!!!!!!', args);
-			return {
-				success: true,
-			};
+			return autoSaveCtrl(context.userId._id, args);
 		},
 		saveTheme(obj, args, context) {
 			return {

@@ -6,6 +6,7 @@ const config = {
 	charCounterCount: false,
 	tabSpaces: 8,
 	toolbarInline: true,
+	toolbarVisibleWithoutSelection: true,
 	colorsDefaultTab: 'background',
 	colorsBackground: ['#FFFAA5', '#9BDBFF', '#FF3466', 'REMOVE'],
 	colorsText: ['#FFFAA5', '#9BDBFF', '#FF3466', 'REMOVE'],

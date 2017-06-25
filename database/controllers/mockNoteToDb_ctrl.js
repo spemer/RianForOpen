@@ -8,14 +8,14 @@ const mockeNoteToDb = async (userId) => {
 	let result;
 	for (let i = 0; i < MockData.length; i++) {
 		try {
-			let title = MockData[i].title;
-			let data = MockData[i].data;
-			let preview = htmlToText.fromString(data).substring(0, 250);
-			let tagList = MockData[i].tags;
-			let pre_image = MockData[i].pre_image;
+			const title = MockData[i].title;
+			const data = MockData[i].data;
+			const preview = htmlToText.fromString(data).substring(0, 250);
+			const tagList = MockData[i].tags;
+			const pre_image = MockData[i].pre_image;
 			let tagObjectIdList = [];
 
-			if (tagList) {
+			if (tagList.length > 0) {
 				const tagModelList = await makeTagCtrl(userId, tagList);
 				tagObjectIdList = tagModelList.map(model => model._id);
 			}
@@ -30,7 +30,7 @@ const mockeNoteToDb = async (userId) => {
 				is_publish: false,
 				tags: tagObjectIdList,
 			});
-		
+
 			await newNote.save();
 		} catch (e) {
 			console.log('error in makeMokeNoteCtrl');

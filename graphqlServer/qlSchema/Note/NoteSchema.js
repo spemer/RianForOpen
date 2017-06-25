@@ -22,6 +22,7 @@ const Note = `
 
 	type Success {
 		success: Boolean
+		noteID: ID
 	}
 `;
 

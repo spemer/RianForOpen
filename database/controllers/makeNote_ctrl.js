@@ -20,10 +20,12 @@ const makeNoteCtrl = async (userId) => {
 
 		result = {
 			success: true,
+			noteId: newNote._id,
 		};
 	} catch (e) {
 		result = {
 			success: false,
+			noteId: '',
 		};
 	}
 	return result;

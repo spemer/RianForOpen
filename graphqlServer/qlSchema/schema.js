@@ -15,8 +15,8 @@ const RootQuery = `
 const RootMutation = `
   type Mutation {
     makeNote: Success
-    autoSave(_id: ID! title: String tag:[String] notedata: String): Success
-    saveTheme(_id: ID! tag: [String] themedata: String): Success
+    autoSave(noteId: ID! title: String tags:[String] data: String is_publish: Boolean pre_image: String): Success
+    saveTheme(_id: ID! tags: [String] themedata: String): Success
   }
 `;
 const SchemaDefinition = `

@@ -4,28 +4,28 @@ export const getSelectedMyNoteData = gql`
     query getSelectedMyNoteDataQuery($noteId: ID!){
             getSelectedMyNoteData(noteId: $noteId){
             _id
-                title
-                tags
-                data
+            title
+            tags
+            data
             updated_at
             created_at
-                like
-                is_publish
+            like
+            is_publish
         }
 	}
 `;
 
 export const autoSave = gql`
-    mutation autoSaveMutation($_id: ID!, $title: String, $tag: [String], $notedata: String){
-        autoSave(_id: $_id, title: $title, tag: $tag, notedata: $notedata){
+    mutation autoSaveMutation($noteId: ID! $title: String $tags: [String] $data: String $is_publish: Boolean $pre_image: String){
+        autoSave(noteId: $noteId, title: $title, tags: $tags, data: $data is_publish: $is_publish pre_image: $pre_image){
             success
         }
     }
 `;
 
 export const saveTheme = gql`
-    mutation saveThemeMutation($_id: ID!, $tag: [String], $themedata: String){
-        saveTheme(_id: $_id, tag: $tag, themedata: $themedata) {
+    mutation saveThemeMutation($_id: ID!, $tags: [String], $themedata: String){
+        saveTheme(_id: $_id, tags: $tags, themedata: $themedata) {
             success
         }
     }
