@@ -15,7 +15,8 @@ type Props = {
   backgroundImage: string,
   is_publish?: boolean,
   like?: number,
-  style: Object
+  style: any,
+  changeNoteId: Function
 };
 
 const TimelineSnippet = ({
@@ -27,19 +28,25 @@ const TimelineSnippet = ({
   backgroundImage = '',
   is_publish = false,
   like = 100,
-  style,
+  style = '',
+  changeNoteId = () => {},
 }: Props) => (
-	<div id={css.container} style={style}>
+	<div
+		id={css.container}
+		style={style}
+		onClick={() => {
+			changeNoteId(_id);
+		}}
+	>
 		<div className={css.box}>
 			<div className={css.left}>
-				{/*<div className={css.block} />*/}
 				<div className={css.title}>
-					{title ? title : '제목없음'}
+					{title || '제목없음'}
 				</div>
 			</div>
 			<div className={css.right}>
 				<div className={css.snippet}>
-					{preview ? preview : '제목없음'}
+					{preview || '제목없음'}
 				</div>
 				<div className={css.tag}>
 					{makeTagToElement(tags)}

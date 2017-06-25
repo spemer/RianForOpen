@@ -14,10 +14,11 @@ const mapState = (
   state: {
     App: { full: boolean },
     User: { _id: string },
-    NoteEditor: { themesave: "click" | "progress" | "nothing" }
+    NoteEditor: { noteId: string, themesave: "click" | "progress" | "nothing" }
   },
 ) => ({
 	full: state.App.full,
+	noteId: state.NoteEditor.noteId,
 	userId: state.User._id,
 	themesave: state.NoteEditor.themesave,
 });
@@ -30,6 +31,7 @@ const mapDispatch = dispatch => ({
 type DefaultProps = {
   full: boolean,
   userId: string,
+	noteId: string,
   themesave: "click" | "progress" | "nothing",
   autoSaveDispatch: Function,
   themeSaveDispatch: Function
@@ -38,6 +40,7 @@ type DefaultProps = {
 type Props = {
   full: boolean,
   userId: string,
+	noteId: string,
   themesave: "click" | "progress" | "nothing",
   autoSaveDispatch: Function,
   themeSaveDispatch: Function
@@ -50,6 +53,7 @@ class EditorContainer extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		full: false,
 		userId: 'none',
+		string: '',
 		themesave: 'nothing',
 		autoSaveDispatch: () => {},
 		themeSaveDispatch: () => {},
@@ -65,6 +69,7 @@ class EditorContainer extends Component<DefaultProps, Props, State> {
 		const {
       full,
       userId,
+			noteId,
       autoSaveDispatch,
       themeSaveDispatch,
       themesave,
@@ -76,12 +81,13 @@ class EditorContainer extends Component<DefaultProps, Props, State> {
 			>
 				<div className={totalCss.container}>
 					<Editor
+						what="List"
 						full={full}
 						userId={userId}
+						noteId={noteId}
 						autoSaveDispatch={autoSaveDispatch}
 						themeSaveDispatch={themeSaveDispatch}
 						themesave={themesave}
-						what="List"
 					/>
 				</div>
 			</div>

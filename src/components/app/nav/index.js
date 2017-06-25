@@ -244,7 +244,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 						{autosave && <div className={css.logo}>S</div>}
 					</div>}
 				</div>
-				<HoverNav sideBar={this.state.sideBar} />
+				<HoverNav sideBar={this.state.sideBar} userId={userId}/>
 				<NoteTimeline
 					sideBar={this.state.sideBar}
 					mode={Mode}

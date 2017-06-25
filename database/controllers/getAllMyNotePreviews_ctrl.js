@@ -11,11 +11,11 @@ const getAllMyNotePreviewsCtrl = async (userId, tagList) => {
         .select(
           '_id title tags data pre_image preview user_id is_publish created_at updated_at like',
         );
-			
-			//make object of tag to tagname 
-			result = await NoteList.map((note) => {
-				note.tags = note.tags.map(tag => tag.name)
-				return note
+
+			// make object of tag to tagname
+			result = NoteList.map((note) => {
+				note.tags = note.tags.map(tag => tag.name);
+				return note;
 			});
 		}
 		if (tagList.length > 0) {
@@ -23,7 +23,7 @@ const getAllMyNotePreviewsCtrl = async (userId, tagList) => {
         userId,
         tagList,
       );
-			const NoteList = await Note.find({
+			const NoteList = Note.find({
 				user_id: userId,
 				tags: { $all: tagObjectIdList },
 			}).select(

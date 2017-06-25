@@ -4,6 +4,7 @@ import getTagsByConditionCtrl
   from 'database/controllers/getTagsByCondition_ctrl';
 import getAllMyNotePreviewsCtrl
   from 'database/controllers/getAllMyNotePreviews_ctrl.js';
+import getSelectedMyNoteDataCtrl from 'database/controllers/getSelectedMyNoteData_ctrl.js';
 
 export const resolvers = {
 	Query: {
@@ -17,6 +18,11 @@ export const resolvers = {
 			return {
 				tags: args.tags,
 			};
+		},
+
+		getSelectedMyNoteData(obj, args, context) {
+			const userId = context.userId ? context.userId._id : ''
+			return getSelectedMyNoteDataCtrl(userId, args.noteId)
 		},
 
 		async getNoteList(obj, args, context) {
@@ -41,13 +47,15 @@ export const resolvers = {
 
 	NoteHead: {
 		notes(obj, args, context) {
-			return getAllMyNotePreviewsCtrl(context.userId._id, args.tags);
+			const userId = context.userId ? context.userId._id : args.userId
+			return getAllMyNotePreviewsCtrl(userId, args.tags);
 		},
 	},
 
 	TagList: {
 		tags(obj, args, context) {
-			return getTagsByConditionCtrl(context.userId._id, args.condition);
+			const userId = context.userId ? context.userId._id : args.userId
+			return getTagsByConditionCtrl(userId, args.condition);
 		},
 	},
 

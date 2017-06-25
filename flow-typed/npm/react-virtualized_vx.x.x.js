@@ -42,6 +42,10 @@ declare module 'react-virtualized/dist/commonjs/AutoSizer/AutoSizer' {
   declare module.exports: any;
 }
 
+declare module 'react-virtualized/dist/commonjs/AutoSizer' {
+  declare module.exports: any;
+}
+
 declare module 'react-virtualized/dist/commonjs/AutoSizer/index' {
   declare module.exports: any;
 }

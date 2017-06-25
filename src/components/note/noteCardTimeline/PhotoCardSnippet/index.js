@@ -16,6 +16,7 @@ type Props = {
   like?: number,
   themeColor: string,
   backgroundImage: string,
+  changeNoteId: Function,
   handleOnEditor: Function,
 };
 
@@ -29,9 +30,10 @@ const CardSnippet = ({
   is_publish = false,
   themeColor = '#ff3466',
   backgroundImage = '',
+  changeNoteId = () => {},
   handleOnEditor = () => {},
 }: Props) => (
-	<div className={css.container} onClick={ () => {handleOnEditor(true)}}>
+	<div className={css.container} onClick={ () => { changeNoteId(_id); handleOnEditor(true)}}>
 		<div
 			className={css.head}
 			style={{

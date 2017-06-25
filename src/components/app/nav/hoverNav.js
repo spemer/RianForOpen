@@ -6,11 +6,12 @@ import { getTagList } from '../../../graphqls/TagGraphQl';
 import css from './nav.css';
 
 const getTagListQuery = graphql(getTagList, {
-	options: () => ({
+	options: (props) => ({
 		variables: {
+			userId: SERVER ? props.userId : null,
 			condition: 'All',
 		},
-		ssr: false,
+		ssr: true,
 	}),
 	skip: process.env.NODE_ENV === 'development' && true,
 	name: 'tagData',

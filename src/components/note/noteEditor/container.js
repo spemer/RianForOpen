@@ -8,8 +8,20 @@ import totalCss from './totalLayout.css';
 import './fontawesome.global.css';
 import { mockContent } from './mock';
 import editorConfig from './editorConfig';
-import { autoSave, saveTheme } from '../../../graphqls/NoteEditorGraphQl';
+import { getSelectedMyNoteData, autoSave, saveTheme } from '../../../graphqls/NoteEditorGraphQl';
 // import { XYruler } from './util';
+
+
+const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
+	options: props => ({
+		variables: {
+			noteId: props.noteId,
+		},
+		ssr: false,
+	}),
+	name: 'oneOfNoteData',
+	skip: process.env.NODE_ENV === 'development' && true,
+});
 
 const autoSaveMutation = graphql(autoSave, {
 	options: () => ({
@@ -68,7 +80,7 @@ type ThemeFormat = {
   themedata: string
 };
 
-@compose(autoSaveMutation, saveThemeMutation)
+@compose(getSelectedMyNoteDataQuery, autoSaveMutation, saveThemeMutation)
 class NoteEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		what: 'List',
@@ -94,11 +106,11 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	state = {
-		title: '자바 프로그래밍과 객체지향',
+		title: this.props.oneOfNoteData && !this.props.oneOfNoteData.loading ? this.props.oneOfNoteData.getSelectedMyNoteData.title : '',
 		options: {},
 		initControls: '',
-		content: mockContent,
-		selectedTag: ['Coding', '자바', '3학년1학기'],
+		content: this.props.oneOfNoteData && !this.props.oneOfNoteData.loading ? this.props.oneOfNoteData.getSelectedMyNoteData.data : '<h3>당신의 이야기를 쓰세요</h3>',
+		selectedTag: this.props.oneOfNoteData && !this.props.oneOfNoteData.loading ? this.props.oneOfNoteData.getSelectedMyNoteData.tags : [],
 	};
 
 	componentDidMount() {
@@ -125,13 +137,39 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
-    // console.log('nextProps', nextProps);
 		if (this.props.themesave === 'nothing' && nextProps.themesave === 'click') {
 			this.props.themeSaveDispatch(this.saveAsTheme);
+		}
+		// if node development mode, this.props.neOfNoteData doen't exist
+		if (this.props.oneOfNoteData) {
+			// load another note
+			if (this.props.noteId !== nextProps.noteId) {
+				console.log('refetch');
+				this.props.oneOfNoteData.refetch({
+					variables: {
+						noteId: nextProps.noteId,
+					},
+				});
+				this.setState({
+					title: '노트를 가져오고 있는 중입니다.',
+					content: '',
+					selectedTag: [],
+				});
+				return;
+			}
+			if (this.props.oneOfNoteData.loading && !nextProps.oneOfNoteData.loading) {
+				// loading = true => loading = false
+				this.setState({
+					title: nextProps.oneOfNoteData.getSelectedMyNoteData.title,
+					content: nextProps.oneOfNoteData.getSelectedMyNoteData.data,
+					selectedTag: nextProps.oneOfNoteData.getSelectedMyNoteData.tags,
+				});
+			}
 		}
 	}
 
 	componentWillUnmount() {
+		console.log('unmount');
 		clearInterval(this.Interval);
 	}
 

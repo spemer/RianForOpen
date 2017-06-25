@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 export const getAllMyNotePreviews = gql`
-	query getAllMyNotePreviewsQuery($tags: [String]){
-		getAllMyNotePreviews(tags: $tags){
+	query getAllMyNotePreviewsQuery($tags: [String] $userId: ID){
+		getAllMyNotePreviews(tags: $tags userId: $userId){
 			tags
-			notes(tags: $tags) {
+			notes(tags: $tags userId: $userId) {
 			_id
 			user_id
 			pre_image
