@@ -8,8 +8,23 @@ import totalCss from './totalLayout.css';
 import './fontawesome.global.css';
 import { mockContent } from './mock';
 import editorConfig from './editorConfig';
-import { autoSave, saveTheme } from '../../../graphqls/NoteEditorGraphQl';
+import {
+  getSelectedMyNoteData,
+  autoSave,
+  saveTheme,
+} from '../../../graphqls/NoteEditorGraphQl';
 // import { XYruler } from './util';
+
+const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
+	options: props => ({
+		variables: {
+			noteId: props.noteId,
+		},
+		ssr: false,
+	}),
+	name: 'oneOfNoteData',
+	skip: process.env.NODE_ENV === 'development' && true,
+});
 
 const autoSaveMutation = graphql(autoSave, {
 	options: () => ({
@@ -30,10 +45,12 @@ const saveThemeMutation = graphql(saveTheme, {
 type DefaultProps = {
   full: boolean,
   userId: string,
-  autoSave: null,
-  saveTheme: null,
+  noteId: string,
+  autoSave: boolean,
+  saveTheme: boolean,
   what: "List" | "Card",
   themesave: "click" | "progress" | "nothing",
+  oneOfNoteData: boolean,
   autoSaveDispatch: Function,
   themeSaveDispatch: Function
 };
@@ -41,10 +58,12 @@ type DefaultProps = {
 type Props = {
   full: boolean,
   userId: string,
+  noteId: string,
   what: "List" | "Card",
   autoSave: Function,
   saveTheme: Function,
   themesave: "click" | "progress" | "nothing",
+  oneOfNoteData: any,
   autoSaveDispatch: Function,
   themeSaveDispatch: Function
 };
@@ -53,14 +72,17 @@ type State = {
   title: string,
   initControls: string,
   content: string,
-  selectedTag: Array<string>
+  selectedTag: Array<string>,
+  is_publish: boolean
 };
 
 type SaveFormat = {
-  _id: string,
+  noteId: string,
   title: string,
-  tag: Array<string>,
-  notedata: string
+  tags: Array<string>,
+  data: string,
+  pre_image: string,
+  is_publish: boolean
 };
 
 type ThemeFormat = {
@@ -68,15 +90,17 @@ type ThemeFormat = {
   themedata: string
 };
 
-@compose(autoSaveMutation, saveThemeMutation)
+@compose(getSelectedMyNoteDataQuery, autoSaveMutation, saveThemeMutation)
 class NoteEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		what: 'List',
 		full: false,
 		userId: 'none',
-		autoSave: null,
-		saveTheme: null,
+		noteId: '',
+		autoSave: false,
+		saveTheme: false,
 		themesave: 'click',
+		oneOfNoteData: false,
 		autoSaveDispatch: () => {},
 		themeSaveDispatch: () => {},
 	};
@@ -94,11 +118,17 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	state = {
-		title: '자바 프로그래밍과 객체지향',
-		options: {},
+		title: this.props.oneOfNoteData && !this.props.oneOfNoteData.loading
+      ? this.props.oneOfNoteData.getSelectedMyNoteData.title
+      : '',
 		initControls: '',
-		content: mockContent,
-		selectedTag: ['Coding', '자바', '3학년1학기'],
+		content: this.props.oneOfNoteData && !this.props.oneOfNoteData.loading
+      ? this.props.oneOfNoteData.getSelectedMyNoteData.data
+      : '<h3>당신의 이야기를 쓰세요</h3>',
+		selectedTag: this.props.oneOfNoteData && !this.props.oneOfNoteData.loading
+      ? this.props.oneOfNoteData.getSelectedMyNoteData.tags
+      : [],
+		is_publish: false,
 	};
 
 	componentDidMount() {
@@ -125,13 +155,41 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
-    // console.log('nextProps', nextProps);
 		if (this.props.themesave === 'nothing' && nextProps.themesave === 'click') {
 			this.props.themeSaveDispatch(this.saveAsTheme);
+		}
+    // if node development mode, this.props.neOfNoteData doen't exist
+		if (this.props.oneOfNoteData) {
+      // load another note
+			if (this.props.noteId !== nextProps.noteId) {
+        // console.log('refetch');
+				this.props.oneOfNoteData.refetch({
+					variables: {
+						noteId: nextProps.noteId,
+					},
+				});
+				this.setState({
+					title: '노트를 가져오고 있는 중입니다.',
+					content: '',
+					selectedTag: [],
+				});
+				return;
+			}
+			if (
+        this.props.oneOfNoteData.loading && !nextProps.oneOfNoteData.loading
+      ) {
+        // loading = true => loading = false
+				this.setState({
+					title: nextProps.oneOfNoteData.getSelectedMyNoteData.title,
+					content: nextProps.oneOfNoteData.getSelectedMyNoteData.data,
+					selectedTag: nextProps.oneOfNoteData.getSelectedMyNoteData.tags,
+				});
+			}
 		}
 	}
 
 	componentWillUnmount() {
+    // console.log('unmount');
 		clearInterval(this.Interval);
 	}
 
@@ -146,11 +204,14 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	Interval: any;
 
 	autoSaveInterval() {
+		const pre_image = '';
 		const variables: SaveFormat = {
-			_id: this.props.userId,
+			noteId: this.props.noteId,
 			title: this.state.title,
-			tag: this.state.selectedTag,
-			notedata: this.state.content,
+			tags: this.state.selectedTag,
+			data: this.state.content,
+			is_publish: this.state.is_publish,
+			pre_image,
 		};
 		return this.props.autoSave({ variables });
 	}

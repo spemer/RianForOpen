@@ -22,10 +22,11 @@ const mapState = (
   state: {
     App: { full: boolean },
     User: { _id: string },
-    NoteEditor: { themesave: "click" | "progress" | "nothing" }
+    NoteEditor: { noteId: string, themesave: "click" | "progress" | "nothing" }
   },
 ) => ({
 	full: state.App.full,
+	noteId: state.NoteEditor.noteId,
 	userId: state.User._id,
 	themesave: state.NoteEditor.themesave,
 });
@@ -39,6 +40,7 @@ type DefaultProps = {
   onEditor: boolean,
   full: boolean,
   userId: string,
+	noteId: string,
   themesave: "click" | "progress" | "nothing",
   autoSaveDispatch: Function,
   themeSaveDispatch: Function,
@@ -49,11 +51,14 @@ type Props = {
   onEditor: boolean,
   full: boolean,
   userId: string,
+	noteId: string,
   themesave: "click" | "progress" | "nothing",
   autoSaveDispatch: Function,
   themeSaveDispatch: Function,
   handleOnEditor: Function
 };
+
+type State = {}
 
 @connect(mapState, mapDispatch)
 class ModalEditor extends Component<DefaultProps, Props, State> {
@@ -79,6 +84,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
       onEditor,
       full,
       userId,
+			noteId,
       autoSaveDispatch,
       themeSaveDispatch,
       themesave,
@@ -94,11 +100,12 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 				overlayClassName={css.overlay}
 				contentLabel="ModalEditor"
 			>
-				
+
 				<div className={css.container}>
 					<Editor
 						what="Card"
 						full={full}
+						noteId={noteId}
 						userId={userId}
 						autoSaveDispatch={autoSaveDispatch}
 						themeSaveDispatch={themeSaveDispatch}

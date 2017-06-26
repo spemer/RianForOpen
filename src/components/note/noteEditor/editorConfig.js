@@ -1,6 +1,6 @@
 const config = {
 	spellcheck: false,
-	placeholderText: 'Rian',
+	placeholderText: '',
 	editorClass: 'mainEditor',
 	width: '100%',
 	charCounterCount: false,

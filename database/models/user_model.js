@@ -16,7 +16,7 @@ const UserSchema = new Schema({
 	kakao_id: String,
 	naver_id: String,
 	friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-	tags: [String],
+	tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
 });
 
 export default mongoose.model('User', UserSchema);

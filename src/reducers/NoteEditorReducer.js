@@ -4,9 +4,11 @@ import {
   THEME_SAVE_CLICK,
   THEME_SAVE_REQUEST,
   THEME_SAVE_COMPLETE,
+  CHANGE_NOTE_ID,
 } from '../constants';
 
 const NoteEditorState = {
+	noteId: '',
 	autosave: false,
 	themesave: 'nothing',
 };
@@ -20,6 +22,10 @@ export default function NoteEditor(state = NoteEditorState, action) {
 	case AUTO_SAVE_COMPLETE:
 		return Object.assign({}, state, {
 			autosave: false,
+		});
+	case CHANGE_NOTE_ID:
+		return Object.assign({}, state, {
+			noteId: action.noteId,
 		});
 	case THEME_SAVE_CLICK:
 		return Object.assign({}, state, {

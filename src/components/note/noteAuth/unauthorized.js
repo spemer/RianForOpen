@@ -26,7 +26,6 @@ class Unauthorized extends Component<DefaultProps, Props, State> {
 		this.hoverLogin = this.hoverLogin.bind(this);
 		this.unhoverLogin = this.unhoverLogin.bind(this);
 		this.openModal = this.openModal.bind(this);
-		this.afterOpenModal = this.afterOpenModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
 	}
 
@@ -38,7 +37,6 @@ class Unauthorized extends Component<DefaultProps, Props, State> {
 	hoverLogin: Function;
 	unhoverLogin: Function;
 	openModal: Function;
-	afterOpenModal: Function;
 	closeModal: Function;
 
 	hoverLogin() {
@@ -55,11 +53,6 @@ class Unauthorized extends Component<DefaultProps, Props, State> {
 
 	openModal() {
 		this.setState({ modalIsOpen: true, showLogin: false });
-	}
-
-	afterOpenModal() {
-		// references are now sync'd and can be accessed.
-		// this.subtitle.style.color = '#f00';
 	}
 
 	closeModal() {

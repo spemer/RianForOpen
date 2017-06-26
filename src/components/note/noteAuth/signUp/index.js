@@ -13,10 +13,14 @@ import googleHover from '../icons/google-only-logo-no-fill.svg';
 import naverHover from '../icons/naver-only-logo-no-fill.svg';
 import emailHover from '../icons/email-only-logo-no-fill.svg';
 
-type DefaultProps = {};
+type DefaultProps = {
+	modalIsOpen: boolean,
+	afterOpenModal: Function,
+	closeModal: Function
+};
 
 type Props = {
-	modalIsOpen: Function,
+	modalIsOpen: boolean,
 	afterOpenModal: Function,
 	closeModal: Function
 };

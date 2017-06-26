@@ -1,15 +1,29 @@
 import { getMyNoteListInfo } from 'database/controllers/note_ctrl';
 import makeNoteCtrl from 'database/controllers/makeNote_ctrl';
+import getTagsByConditionCtrl
+  from 'database/controllers/getTagsByCondition_ctrl';
+import getAllMyNotePreviewsCtrl
+  from 'database/controllers/getAllMyNotePreviews_ctrl';
+import getSelectedMyNoteDataCtrl from 'database/controllers/getSelectedMyNoteData_ctrl';
+import autoSaveCtrl from 'database/controllers/autoSave_ctrl';
+
 export const resolvers = {
 	Query: {
-		getTagList(obj, args, context) {
-      // console.log('tagList', obj, args, context);
-			return Tag.find({ userid: args.userId })
-        .select('name')
-        .exec((err, tag) => {
-	console.log('tag', tag);
-	return tag;
-});
+		getTagsByCondition(obj, args, context) {
+			return {
+				condition: args.condition,
+			};
+		},
+
+		getAllMyNotePreviews(obj, args, context) {
+			return {
+				tags: args.tags,
+			};
+		},
+
+		getSelectedMyNoteData(obj, args, context) {
+			const userId = context.userId ? context.userId._id : '';
+			return getSelectedMyNoteDataCtrl(userId, args.noteId);
 		},
 
 		async getNoteList(obj, args, context) {
@@ -33,18 +47,16 @@ export const resolvers = {
 	},
 
 	NoteHead: {
-		async notes(obj, args, context) {
-      // console.log('NoteHead', args, context);
-			const infor = {
-				userId: args.userId ? args.userId : '593e422abfc14bfb57224337',
-				tags: args.tags ? args.tags : ['성찬'],
-				updatedAt: args.after ? args.after : '2013-08-12T15:02:28.854Z',
-				limitCnt: args.limit ? args.limit : 10,
-			};
-      // console.log('NoteHead infor', infor);
-			const result = await getMyNoteListInfo(infor);
-      // console.log('getNoteHEad result', result);
-			return result.notes;
+		notes(obj, args, context) {
+			const userId = context.userId ? context.userId._id : args.userId;
+			return getAllMyNotePreviewsCtrl(userId, args.tags);
+		},
+	},
+
+	TagList: {
+		tags(obj, args, context) {
+			const userId = context.userId ? context.userId._id : args.userId;
+			return getTagsByConditionCtrl(userId, args.condition);
 		},
 	},
 
@@ -54,9 +66,7 @@ export const resolvers = {
 		},
 		autoSave(obj, args, context) {
       // console.log('autoSAve!!!!!!!', args);
-			return {
-				success: true,
-			};
+			return autoSaveCtrl(context.userId._id, args);
 		},
 		saveTheme(obj, args, context) {
 			return {

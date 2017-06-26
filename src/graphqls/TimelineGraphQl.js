@@ -1,18 +1,21 @@
 import gql from 'graphql-tag';
-export const getNoteList = gql`
-	query  getNoteListQuery($userId: ID $tags: [String] $after: String $limit: Int $sortby: String){
-		getNoteList(userId: $userId tags: $tags after: $after limit: $limit sortby: $sortby){
-			totalCount
+export const getAllMyNotePreviews = gql`
+	query getAllMyNotePreviewsQuery($tags: [String] $userId: ID){
+		getAllMyNotePreviews(tags: $tags userId: $userId){
 			tags
-			notes(userId: $userId tags: $tags after: $after limit: $limit sortby: $sortby){
-				_id
-				title
-				created_at
-    			updated_at
-      			tags
-      			user_id
+			notes(tags: $tags userId: $userId) {
+			_id
+			user_id
+			pre_image
+			title
+			preview
+			pre_image
+			created_at
+			updated_at
+			is_publish
+			tags
+			like
 			}
-			hasNext
-			cursor
 		}
-}`;
+	}
+`;

@@ -4,6 +4,7 @@ import {
   THEME_SAVE_CLICK,
   THEME_SAVE_REQUEST,
   THEME_SAVE_COMPLETE,
+  CHANGE_NOTE_ID,
 } from '../constants';
 
 export function autoSaveRequest(method) {
@@ -35,5 +36,12 @@ export function themeSaveRequest(method) {
 export function themeSaveComplete() {
 	return {
 		type: THEME_SAVE_COMPLETE,
+	};
+}
+
+export function changeNoteId(noteId) {
+	return {
+		type: CHANGE_NOTE_ID,
+		noteId,
 	};
 }
