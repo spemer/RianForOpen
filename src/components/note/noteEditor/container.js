@@ -272,7 +272,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 					className={totalCss.head}
 					style={{ padding: what === 'Card' && '150px 150px 0 150px' }}
 				>
-					<textarea
+					<input
 						style={{
 							backgroundColor: what === 'Card' ? '#FBFBFB' : 'white',
 							padding: '0px',

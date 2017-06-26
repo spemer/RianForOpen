@@ -30,8 +30,8 @@ export default async function passportConfig(passport) {
 	passport.use(
     new FacebookStrategy(
 	{
-		clientID: '183216738826974', // your App ID
-		clientSecret: '8b227a26867fdc7ce8cc43f6a989733f', // your App Secret
+		clientID: '320560725033718', // your App ID
+		clientSecret: '0cfa36066dabc4e8dc065d73e0c666d9', // your App Secret
 		callbackURL: `http://${IP_ENV}:${PORT}/auth/facebook/callback`,
 		profileFields: [
 			'email',
@@ -43,19 +43,26 @@ export default async function passportConfig(passport) {
 		],
 	},
       (token, tokenSecret, profile, done) => {
+		   debugger;
 	process.nextTick(async () => {
           // find UserID in database using FB
 		try {
+			 debugger;
 			const UserInfor = await User.findOne({ fb_id: profile.id });
             // If user exist in db
+			 debugger;
 			if (UserInfor) {
               // update last_login
+			  debugger;
 				UserInfor.last_login = Date.now();
 
 				const updatedUser = await UserInfor.save();
 
 				done(null, updatedUser);
 			} else {
+				debugger;
+				console.log(token, profile);
+				console.log('pro', profile.id, profile.email, profile.emails, profile.photos[0].value);
               // if user don't exist, try to make user data in db
 				const newUser = new User({
 					fb_id: profile.id,

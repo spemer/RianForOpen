@@ -8,6 +8,7 @@ const getAllMyNotePreviewsCtrl = async (userId, tagList) => {
 			const NoteList = await Note.find({ user_id: userId })
         .populate({ path: 'tags', select: 'name' })
         .lean()
+				.sort({ updated_at: -1 })
         .select(
           '_id title tags data pre_image preview user_id is_publish created_at updated_at like',
         );
