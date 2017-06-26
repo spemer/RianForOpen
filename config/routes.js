@@ -9,5 +9,21 @@ export default function (passport) {
 	successRedirect: '/',
 	failureRedirect: '/',
 }),
+    )
+    .get('/oauth/kakao', passport.authenticate('kakao'))
+    .get(
+      '/oauth/kakao/callback',
+      passport.authenticate('kakao', {
+	successRedirect: '/',
+	failureRedirect: '/',
+}),
+    )
+    .get('/auth/naver', passport.authenticate('naver'))
+    .get(
+      '/auth/naver/callback',
+      passport.authenticate('naver', {
+	successRedirect: '/',
+	failureRedirect: '/',
+}),
     );
 }
