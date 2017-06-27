@@ -1,5 +1,15 @@
 import gql from 'graphql-tag';
 
+export const makeNote = gql`
+    mutation makeNoteMutation {
+        makeNote {
+            success
+            noteId
+        }
+    }
+`;
+
+
 export const getSelectedMyNoteData = gql`
     query getSelectedMyNoteDataQuery($noteId: ID!){
             getSelectedMyNoteData(noteId: $noteId){
@@ -24,8 +34,8 @@ export const autoSave = gql`
 `;
 
 export const saveTheme = gql`
-    mutation saveThemeMutation($_id: ID!, $tags: [String], $themedata: String){
-        saveTheme(_id: $_id, tags: $tags, themedata: $themedata) {
+    mutation saveThemeMutation($tags: [String], $themedata: String){
+        saveTheme(tags: $tags, themedata: $themedata) {
             success
         }
     }

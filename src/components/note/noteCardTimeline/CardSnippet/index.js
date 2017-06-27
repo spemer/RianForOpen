@@ -15,8 +15,7 @@ type Props = {
   is_publish?: boolean,
   like?: number,
   themeColor: string,
-  changeNoteId: Function,
-  handleOnEditor: Function
+  changeNoteIdAndchangeNoteShowDispatch: Function,
 };
 
 const CardSnippet = ({
@@ -28,14 +27,12 @@ const CardSnippet = ({
   tags = [],
   is_publish = false,
   themeColor = '#ff3466',
-  changeNoteId = () => {},
-  handleOnEditor = () => {},
+  changeNoteIdAndchangeNoteShowDispatch = () => {},
 }: Props) => (
 	<div
 		className={css.container}
 		onClick={() => {
-			changeNoteId(_id);
-			handleOnEditor(true);
+			changeNoteIdAndchangeNoteShowDispatch(_id, 'GET');
 		}}
 	>
 		<div className={css.head}>

@@ -6072,6 +6072,10 @@ opener@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.4.3.tgz#5c6da2c5d7e5831e8ffa3964950f8d6674ac90b8"
 
+openid@0.5.x:
+  version "0.5.13"
+  resolved "https://registry.yarnpkg.com/openid/-/openid-0.5.13.tgz#1b8eb6ca8c7aee6dd6264b69dafb9ad7852c2a4d"
+
 opn@4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/opn/-/opn-4.0.2.tgz#7abc22e644dff63b0a96d5ab7f2790c0f01abc95"
@@ -6212,6 +6216,13 @@ passport-facebook@^2.1.1:
   dependencies:
     passport-oauth2 "1.x.x"
 
+passport-google@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/passport-google/-/passport-google-0.3.0.tgz#c5b4b4162658892b37165b795a01ffd4c7e19fb7"
+  dependencies:
+    passport-openid "0.3.x"
+    pkginfo "0.2.x"
+
 passport-kakao@^0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/passport-kakao/-/passport-kakao-0.0.4.tgz#c0da8507330603cfe7786c4cf967019470a537a7"
@@ -6257,6 +6268,14 @@ passport-oauth@~0.1.4:
     passport "~0.1.1"
     pkginfo "0.2.x"
 
+passport-openid@0.3.x:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/passport-openid/-/passport-openid-0.3.1.tgz#e64de04859fa51b6529480174122621e08fa22cb"
+  dependencies:
+    openid "0.5.x"
+    passport "~0.1.3"
+    pkginfo "0.2.x"
+
 passport-strategy@1.x.x:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/passport-strategy/-/passport-strategy-1.0.0.tgz#b5539aa8fc225a3d1ad179476ddf236b440f52e4"
@@ -6268,7 +6287,7 @@ passport@^0.3.2:
     passport-strategy "1.x.x"
     pause "0.0.1"
 
-passport@~0.1.1:
+passport@~0.1.1, passport@~0.1.3:
   version "0.1.18"
   resolved "https://registry.yarnpkg.com/passport/-/passport-0.1.18.tgz#c8264479dcb6414cadbb66752d12b37e0b6525a1"
   dependencies:

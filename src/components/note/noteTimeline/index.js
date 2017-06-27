@@ -5,7 +5,7 @@ import { graphql, compose } from 'react-apollo';
 import { Motion, spring } from 'react-motion';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
-import { changeNoteId } from '../../../actions/NoteEditorActions';
+import { changeNoteIdAndchangeNoteShow } from '../../../actions/NoteEditorActions';
 import TimelineSnippet from './TimelineSnippet/index';
 import { getAllMyNotePreviews } from '../../../graphqls/TimelineGraphQl';
 import css from './noteTimeline.css';
@@ -13,8 +13,8 @@ import './scroll.global.css';
 import Mock from '../MOCKNOTE';
 
 const mapDispatch = dispatch => ({
-	changeNoteId: (noteId) => {
-		dispatch(changeNoteId(noteId));
+	changeNoteIdAndchangeNoteShowDispatch(noteId, show) {
+		dispatch(changeNoteIdAndchangeNoteShow(noteId, show));
 	},
 });
 
@@ -40,7 +40,7 @@ type DefaultProps = {
   noteData: any,
   sideBar: boolean,
   mode: "List" | "Card",
-  changeNoteId: Function
+  changeNoteIdAndchangeNoteShowDispatch: Function,
 };
 
 type Props = {
@@ -48,7 +48,7 @@ type Props = {
   noteData: any,
   sideBar: boolean,
   mode: "List" | "Card",
-  changeNoteId: Function
+  changeNoteIdAndchangeNoteShowDispatch: Function,
 };
 
 type State = {
@@ -62,7 +62,7 @@ class NoteTimeLine extends Component<DefaultProps, Props, State> {
 		noteData: false,
 		sideBar: false,
 		mode: 'Card',
-		changeNoteId: () => {},
+		changeNoteIdAndchangeNoteShowDispatch: () => {},
 	};
 
 	constructor(props: Props) {
@@ -77,7 +77,7 @@ class NoteTimeLine extends Component<DefaultProps, Props, State> {
 	rowRenderer({ index, style }) {
 		let data;
 		if (process.env.NODE_ENV !== 'development') {
-			const { noteData } = this.props;
+			const { noteData, changeNoteIdAndchangeNoteShowDispatch } = this.props;
 			data = noteData.getAllMyNotePreviews ? noteData.getAllMyNotePreviews.notes[index] : [];
 			const { _id, title, preview, updated_at, tags, is_publish, pre_image } = data;
 			const date = new Date(updated_at);
@@ -91,11 +91,12 @@ class NoteTimeLine extends Component<DefaultProps, Props, State> {
 					tags={tags}
 					is_publish={is_publish}
 					style={style}
-					changeNoteId={this.props.changeNoteId}
+					changeNoteIdAndchangeNoteShowDispatch={changeNoteIdAndchangeNoteShowDispatch}
 				/>
 			);
 		} else if (process.env.NODE_ENV === 'development') {
 			data = Mock[index];
+			const { changeNoteIdAndchangeNoteShowDispatch } = this.props;
 			return (
 				<TimelineSnippet
 					key={index}
@@ -104,7 +105,7 @@ class NoteTimeLine extends Component<DefaultProps, Props, State> {
 					preview={data.preview}
 					tags={[data.tag]}
 					style={style}
-					changeNoteId={this.props.changeNoteId}
+					changeNoteIdAndchangeNoteShowDispatch={changeNoteIdAndchangeNoteShowDispatch}
 				/>
 			);
 		}

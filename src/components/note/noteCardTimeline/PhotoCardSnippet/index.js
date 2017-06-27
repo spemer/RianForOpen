@@ -16,8 +16,7 @@ type Props = {
   like?: number,
   themeColor: string,
   backgroundImage: string,
-  changeNoteId: Function,
-  handleOnEditor: Function,
+  changeNoteIdAndchangeNoteShowDispatch: Function
 };
 
 const CardSnippet = ({
@@ -31,9 +30,16 @@ const CardSnippet = ({
   themeColor = '#ff3466',
   backgroundImage = '',
   changeNoteId = () => {},
-  handleOnEditor = () => {},
+  changeNoteIdAndchangeNoteShowDispatch = () => {},
 }: Props) => (
-	<div className={css.container} onClick={ () => { changeNoteId(_id); handleOnEditor(true)}}>
+	<div
+		className={css.container}
+		onClick={() => {
+			changeNoteIdAndchangeNoteShowDispatch(_id, 'GET');
+		}}
+		role="button"
+		tabIndex="0"
+	>
 		<div
 			className={css.head}
 			style={{
@@ -42,11 +48,11 @@ const CardSnippet = ({
 		>
 			<div className={css.title}>
 				<div className={css.block} />
-				<div className={css.text}>{title ? title : '제목없음'}</div>
+				<div className={css.text}>{title || '제목없음'}</div>
 			</div>
 		</div>
 		<div className={css.middle}>
-			{preview ? preview : '내용없음'}
+			{preview || '내용없음'}
 		</div>
 		<div className={css.footer}>
 			<div className={css.left}>

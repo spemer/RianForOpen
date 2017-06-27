@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import {
   autoSaveRequest,
   themeSaveRequest,
+	changeNoteShow,
 } from '../../../../actions/NoteEditorActions';
 import Editor from '../../noteEditor/container';
 import css from './modalEditor.css';
@@ -21,41 +22,39 @@ import css from './modalEditor.css';
 const mapState = (
   state: {
     App: { full: boolean },
-    User: { _id: string },
-    NoteEditor: { noteId: string, themesave: "click" | "progress" | "nothing" }
+    NoteEditor: { show: 'GET' | 'MAKE' | 'HIDDEN', noteId: string, themesave: "click" | "progress" | "nothing" }
   },
 ) => ({
 	full: state.App.full,
+	show: state.NoteEditor.show,
 	noteId: state.NoteEditor.noteId,
-	userId: state.User._id,
 	themesave: state.NoteEditor.themesave,
 });
 
 const mapDispatch = dispatch => ({
 	autoSaveDispatch: method => dispatch(autoSaveRequest(method)),
 	themeSaveDispatch: method => dispatch(themeSaveRequest(method)),
+	changeNoteShowDispatch: () => dispatch(changeNoteShow('HIDDEN')),
 });
 
 type DefaultProps = {
-  onEditor: boolean,
   full: boolean,
-  userId: string,
+	show: boolean,
 	noteId: string,
   themesave: "click" | "progress" | "nothing",
   autoSaveDispatch: Function,
   themeSaveDispatch: Function,
-  handleOnEditor: Function
+	changeNoteShowDispatch: Function
 };
 
 type Props = {
-  onEditor: boolean,
   full: boolean,
-  userId: string,
+	show: 'GET' | 'MAKE' | 'HIDDEN',
 	noteId: string,
   themesave: "click" | "progress" | "nothing",
   autoSaveDispatch: Function,
   themeSaveDispatch: Function,
-  handleOnEditor: Function
+	changeNoteShowDispatch: Function
 };
 
 type State = {}
@@ -63,13 +62,13 @@ type State = {}
 @connect(mapState, mapDispatch)
 class ModalEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		onEditor: false,
 		full: false,
-		userId: 'none',
+		show: false,
+		noteId: '',
 		themesave: 'nothing',
 		autoSaveDispatch: () => {},
 		themeSaveDispatch: () => {},
-		handleOnEditor: () => {},
+		changeNoteShowDispatch: () => {},
 	};
 
 	constructor(props: Props) {
@@ -81,20 +80,19 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const {
-      onEditor,
       full,
-      userId,
+			show,
 			noteId,
       autoSaveDispatch,
       themeSaveDispatch,
+			changeNoteShowDispatch,
       themesave,
-      handleOnEditor,
     } = this.props;
 		return (
 			<Modal
-				isOpen={onEditor}
+				isOpen={show !== 'HIDDEN'}
 				onRequestClose={() => {
-					handleOnEditor(false);
+					changeNoteShowDispatch('HIDDEN');
 				}}
 				className={css.modal}
 				overlayClassName={css.overlay}
@@ -105,8 +103,8 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 					<Editor
 						what="Card"
 						full={full}
+						show={show}
 						noteId={noteId}
-						userId={userId}
 						autoSaveDispatch={autoSaveDispatch}
 						themeSaveDispatch={themeSaveDispatch}
 						themesave={themesave}

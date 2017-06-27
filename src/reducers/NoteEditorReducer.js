@@ -1,3 +1,4 @@
+// @flow
 import {
   AUTO_SAVE_COMPLETE,
   AUTO_SAVE_REQUEST,
@@ -5,9 +6,19 @@ import {
   THEME_SAVE_REQUEST,
   THEME_SAVE_COMPLETE,
   CHANGE_NOTE_ID,
+  NOTE_SHOW_CHANGE,
+  CHANGE_NOTE_ID_AND_NOTE_SHOW_CHANGE,
 } from '../constants';
 
-const NoteEditorState = {
+type State = {
+	show: 'GET' | 'MAKE' | 'HIDDEN',
+	noteId: string,
+	autosave: boolean,
+	themesave: 'nothing' | 'click' | 'progress'
+}
+
+const NoteEditorState: State = {
+	show: 'HIDDEN',
 	noteId: '',
 	autosave: false,
 	themesave: 'nothing',
@@ -38,6 +49,15 @@ export default function NoteEditor(state = NoteEditorState, action) {
 	case THEME_SAVE_COMPLETE:
 		return Object.assign({}, state, {
 			themesave: 'nothing',
+		});
+	case NOTE_SHOW_CHANGE:
+		return Object.assign({}, state, {
+			show: action.show,
+		});
+	case CHANGE_NOTE_ID_AND_NOTE_SHOW_CHANGE:
+		return Object.assign({}, state, {
+			noteId: action.noteId,
+			show: action.show,
 		});
 	default:
 		return state;

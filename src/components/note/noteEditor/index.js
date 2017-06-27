@@ -14,12 +14,12 @@ const mapState = (
   state: {
     App: { full: boolean },
     User: { _id: string },
-    NoteEditor: { noteId: string, themesave: "click" | "progress" | "nothing" }
+    NoteEditor: { show: 'GET' | 'MAKE', themesave: "click" | "progress" | "nothing" }
   },
 ) => ({
 	full: state.App.full,
+	show: state.NoteEditor.show,
 	noteId: state.NoteEditor.noteId,
-	userId: state.User._id,
 	themesave: state.NoteEditor.themesave,
 });
 
@@ -30,7 +30,7 @@ const mapDispatch = dispatch => ({
 
 type DefaultProps = {
   full: boolean,
-  userId: string,
+	show: 'GET' | 'MAKE',
 	noteId: string,
   themesave: "click" | "progress" | "nothing",
   autoSaveDispatch: Function,
@@ -39,7 +39,7 @@ type DefaultProps = {
 
 type Props = {
   full: boolean,
-  userId: string,
+	show: 'GET' | 'MAKE',
 	noteId: string,
   themesave: "click" | "progress" | "nothing",
   autoSaveDispatch: Function,
@@ -52,8 +52,8 @@ type State = {};
 class EditorContainer extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		full: false,
-		userId: 'none',
-		string: '',
+		show: 'GET',
+		noteId: '',
 		themesave: 'nothing',
 		autoSaveDispatch: () => {},
 		themeSaveDispatch: () => {},
@@ -68,12 +68,16 @@ class EditorContainer extends Component<DefaultProps, Props, State> {
 	render() {
 		const {
       full,
-      userId,
+			show,
 			noteId,
       autoSaveDispatch,
       themeSaveDispatch,
       themesave,
     } = this.props;
+		// if don't have noteID in ReduxStore, will not render Editor.
+		if (!noteId || process.env.NODE_ENV === 'development') {
+			return <div />;
+		}
 		return (
 			<div
 				className={css.paper}
@@ -83,7 +87,7 @@ class EditorContainer extends Component<DefaultProps, Props, State> {
 					<Editor
 						what="List"
 						full={full}
-						userId={userId}
+						show={show}
 						noteId={noteId}
 						autoSaveDispatch={autoSaveDispatch}
 						themeSaveDispatch={themeSaveDispatch}

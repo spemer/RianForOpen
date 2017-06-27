@@ -16,7 +16,7 @@ type Props = {
   is_publish?: boolean,
   like?: number,
   style: any,
-  changeNoteId: Function
+  changeNoteIdAndchangeNoteShowDispatch: Function
 };
 
 const TimelineSnippet = ({
@@ -29,13 +29,13 @@ const TimelineSnippet = ({
   is_publish = false,
   like = 100,
   style = '',
-  changeNoteId = () => {},
+  changeNoteIdAndchangeNoteShowDispatch = () => {},
 }: Props) => (
 	<div
 		id={css.container}
 		style={style}
 		onClick={() => {
-			changeNoteId(_id);
+			changeNoteIdAndchangeNoteShowDispatch(_id, 'GET');
 		}}
 	>
 		<div className={css.box}>
