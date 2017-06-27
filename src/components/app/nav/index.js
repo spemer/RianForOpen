@@ -191,7 +191,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 
 	makeNewNoteChain() {
 		const { changeNoteShowDispatch, makeNoteMutate, changeNoteIdAndchangeNoteShowDispatch } = this.props;
-		changeNoteShowDispatch('MAKE');
+		changeNoteIdAndchangeNoteShowDispatch(null, 'MAKE');
 		if (process.env.NODE_ENV !== 'development') {
 			makeNoteMutate()
 			.then((result) => {

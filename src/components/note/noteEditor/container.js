@@ -138,7 +138,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 			this.Interval = setInterval(() => {
 				// if compoennent has noteId, it will be saved
 				console.log('setInterval');
-				if (this.props.noteId) {
+				if (this.props.show !== 'MAKE') {
 					autoSaveDispatch(this.autoSaveInterval);
 				}
 			}, 8000);
@@ -187,13 +187,13 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 					selectedTag: nextProps.oneOfNoteData.getSelectedMyNoteData.tags,
 				});
 			}
+			return;
 		}
 		// if in List mode, Editor will not unmount
 		if (this.props.what === 'List') {
-			if (this.props.noteId !== nextProps.noteId) {
-				// get another note
+			// get another note
+			if (nextProps.show === 'GET' && this.props.noteId !== nextProps.noteId) {
 				// console.log('change noteId');
-				if (nextProps.show === 'MAKE') return;
 				// console.log('refetch', nextProps);
 				nextProps.oneOfNoteData.refetch({
 					variables: {
