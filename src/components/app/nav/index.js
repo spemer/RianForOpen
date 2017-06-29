@@ -206,6 +206,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
       Mode,
       full,
       changeMode,
+	  changeNoteIdAndchangeNoteShowDispatch,
       clickThemeSave,
       autosave,
       userId,
@@ -254,6 +255,9 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 							src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
 							onClick={() => {
 								this.changeSideBar(true);
+								if (Mode === 'List') {
+									changeNoteIdAndchangeNoteShowDispatch(null, 'HIDDEN');
+								}
 								changeMode(ModeSelect);
 							}}
 							onMouseOver={this.changeListHover}
