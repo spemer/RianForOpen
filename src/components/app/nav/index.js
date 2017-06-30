@@ -1,12 +1,18 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import screenfull from 'screenfull';
 import { graphql, compose } from 'react-apollo';
+import screenfull from 'screenfull';
 import { fullScreenChange } from '../../../actions/AppActions';
 import { modeChange } from '../../../actions/NoteActions';
-import { themeSaveClick } from '../../../actions/NoteEditorActions';
-import { makeNote } from '../../../graphqls/SideBarGraphQl'
+import {
+  themeSaveClick,
+  changeNoteShow,
+  changeNoteIdAndchangeNoteShow,
+} from '../../../actions/NoteEditorActions';
+import {
+  makeNote,
+} from '../../../graphqls/NoteEditorGraphQl';
 import css from './nav.css';
 import trashIcon from './icons/TrashIcon.svg';
 import trashIconHover from './icons/TrashIcon-hover.svg';
@@ -20,14 +26,6 @@ import HoverNav from './hoverNav';
 
 // <NoteTimeline /> Component
 import NoteTimeline from '../../note/noteTimeline';
-
-const makeNoteMutation = graphql(makeNote, {
-	options: () => ({
-		ssr: true,
-	}),
-	name: 'makeNote',
-	skip: process.env.NODE_ENV === 'development' && true,
-});
 
 const mapState = (
   state: {
@@ -53,16 +51,34 @@ const mapDispatch = dispatch => ({
 	changeFullScreenApp(argu) {
 		dispatch(fullScreenChange(argu));
 	},
+	changeNoteShowDispatch(show) {
+		dispatch(changeNoteShow(show));
+	},
+	changeNoteIdAndchangeNoteShowDispatch(noteId, show) {
+		dispatch(changeNoteIdAndchangeNoteShow(noteId, show));
+	},
+});
+
+const makeNoteMutation = graphql(makeNote, {
+	options: props => ({
+		variables: {
+			makeNew: props.makeNew,
+		},
+		ssr: false,
+	}),
+	name: 'makeNoteMutate',
+	skip: process.env.NODE_ENV === 'development',
 });
 
 type DefaultProps = {
   Mode: "List" | "Card",
   full: boolean,
   userId: string,
-  makeNote: Function,
   changeMode: Function,
   clickThemeSave: Function,
   changeFullScreenApp: Function,
+  changeNoteShowDispatch: Function,
+  changeNoteIdAndchangeNoteShowDispatch: Function,
   autosave: boolean
 };
 
@@ -70,10 +86,11 @@ type Props = {
   Mode: "List" | "Card",
   full: boolean,
   userId: string,
-  makeNote: Function,
   changeMode: Function,
   clickThemeSave: Function,
   changeFullScreenApp: Function,
+  changeNoteShowDispatch: Function,
+  changeNoteIdAndchangeNoteShowDispatch: Function,
   autosave: boolean
 };
 
@@ -84,16 +101,19 @@ type State = {
   trashHover: boolean
 };
 
-@compose(connect(mapState, mapDispatch), makeNoteMutation)
+@compose(makeNoteMutation)
+@connect(mapState, mapDispatch)
 class NoteSideBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		Mode: 'Card',
 		full: false,
 		userId: 'none',
-		makeNote: () => {},
 		changeMode: () => {},
 		clickThemeSave: () => {},
 		changeFullScreenApp: () => {},
+		makeNoteMutate: () => {},
+		changeNoteShowDispatch: () => {},
+		changeNoteIdAndchangeNoteShowDispatch: () => {},
 		autosave: false,
 	};
 
@@ -104,6 +124,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 		this.changeStarHover = this.changeStarHover.bind(this);
 		this.changeListHover = this.changeListHover.bind(this);
 		this.changeTrashHover = this.changeTrashHover.bind(this);
+		this.makeNewNoteChain = this.makeNewNoteChain.bind(this);
 		this.fullScreen = this.fullScreen.bind(this);
 	}
 
@@ -129,6 +150,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 	changeStarHover: Function;
 	changeListHover: Function;
 	changeTrashHover: Function;
+	makeNewNoteChain: Fucntion;
 
 	fullScreen() {
 		if (this.screenfull.enabled) {
@@ -167,8 +189,28 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 		}));
 	}
 
+	makeNewNoteChain() {
+		const { changeNoteShowDispatch, makeNoteMutate, changeNoteIdAndchangeNoteShowDispatch } = this.props;
+		changeNoteIdAndchangeNoteShowDispatch(null, 'MAKE');
+		if (process.env.NODE_ENV !== 'development') {
+			makeNoteMutate()
+			.then((result) => {
+				changeNoteIdAndchangeNoteShowDispatch(result.data.makeNote.noteId, 'GET');
+			});
+		}
+	}
+
 	render() {
-		const { Mode, full, makeNote, changeMode, clickThemeSave, autosave, userId } = this.props;
+		const { sideBar } = this.state;
+		const {
+      Mode,
+      full,
+      changeMode,
+	  changeNoteIdAndchangeNoteShowDispatch,
+      clickThemeSave,
+      autosave,
+      userId,
+    } = this.props;
 		if (full) {
       // 풀스크린 모드일때는 사이드바 없에버림
 			return <div />;
@@ -184,10 +226,10 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 			<div className={css.nav}>
 				<div className={css.menu}>
 					<div className={css.head}>
-						<div className={css.logo} onClick={this.fullScreen}>R</div>
+						<div className={css.logo} onClick={this.fullScreen} role="button" tabIndex="0">R</div>
 					</div>
 
-					<div className={css.changeSideBar} onClick={this.changeSideBar}>
+					<div className={css.changeSideBar} onClick={this.changeSideBar} role="button" tabIndex="-1">
             TAG
           </div>
 					{this.state.sideBar &&
@@ -213,6 +255,9 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 							src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
 							onClick={() => {
 								this.changeSideBar(true);
+								if (Mode === 'List') {
+									changeNoteIdAndchangeNoteShowDispatch(null, 'HIDDEN');
+								}
 								changeMode(ModeSelect);
 							}}
 							onMouseOver={this.changeListHover}
@@ -226,9 +271,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 							onMouseOut={this.changeTrashHover}
 							alt="alt"
 						/>
-						<div className={css.plusIcon} onClick={
-							makeNote
-						}>+</div>
+						<div className={css.plusIcon} onClick={this.makeNewNoteChain} role="button" tabIndex="-2">+</div>
 					</div>
 					<div className={css.move}>
 						<div className={css.border} />
@@ -238,18 +281,14 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 					{Mode === 'List' &&
 					<div className={css.status}>
 						<div className={css.border} />
-						<div className={css.logo} onClick={clickThemeSave}>
+						<div className={css.logo} onClick={clickThemeSave} role="button" tabIndex="-3">
                 T
               </div>
 						{autosave && <div className={css.logo}>S</div>}
 					</div>}
 				</div>
-				<HoverNav sideBar={this.state.sideBar} userId={userId}/>
-				<NoteTimeline
-					sideBar={this.state.sideBar}
-					mode={Mode}
-					userId={userId}
-				/>
+				<HoverNav sideBar={sideBar} userId={userId} />
+				<NoteTimeline sideBar={sideBar} mode={Mode} userId={userId} />
 			</div>
 		);
 	}

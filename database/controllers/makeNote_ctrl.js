@@ -25,7 +25,6 @@ const makeNoteCtrl = async (userId) => {
 	} catch (e) {
 		result = {
 			success: false,
-			noteId: '',
 		};
 	}
 	return result;

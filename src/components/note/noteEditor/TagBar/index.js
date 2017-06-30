@@ -67,7 +67,7 @@ class TagBar extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		const { what } = this.props
+		const { what } = this.props;
 		return (
 			<div className={editorCss.tag}>
 				<div className={css.tagBar}>
@@ -78,9 +78,9 @@ class TagBar extends Component<DefaultProps, Props, State> {
 									<div
 										className={css.delete}
 										onClick={(e) => {
-										e.preventDefault();
-										this.deleteTagInList(tag);
-									}}
+											e.preventDefault();
+											this.deleteTagInList(tag);
+										}}
 									/>
 									<div className={css.name}>{tag}</div>
 								</div>

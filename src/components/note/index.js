@@ -3,15 +3,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import css from './note.css';
 import NoteCardTimeline from './noteCardTimeline';
-import NoteEditor from './noteEditor';
-import {
-  autoSaveRequest,
-  themeSaveRequest,
-} from '../../actions/NoteEditorActions';
+import TimelineNoteEditor from './noteEditor';
+
 
 const mapState = (
   state: {
-		User: { _id: string }, 
+		User: { _id: string },
     App: { themeColor: string },
     Note: { mode: "List" | "Card" }
   },
@@ -54,8 +51,8 @@ class Note extends Component<DefaultProps, Props, State> {
 		return (
 			<div id={css.note}>
 				{Mode === 'List'
-          ? <NoteEditor />
-          : <NoteCardTimeline themeColor={themeColor} userId={userId}/>}
+          ? <TimelineNoteEditor />
+          : <NoteCardTimeline themeColor={themeColor} userId={userId} />}
 			</div>
 		);
 	}

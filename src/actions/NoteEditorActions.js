@@ -1,3 +1,4 @@
+// @flow
 import {
   AUTO_SAVE_REQUEST,
   AUTO_SAVE_COMPLETE,
@@ -5,6 +6,8 @@ import {
   THEME_SAVE_REQUEST,
   THEME_SAVE_COMPLETE,
   CHANGE_NOTE_ID,
+  NOTE_SHOW_CHANGE,
+  CHANGE_NOTE_ID_AND_NOTE_SHOW_CHANGE,
 } from '../constants';
 
 export function autoSaveRequest(method) {
@@ -39,9 +42,24 @@ export function themeSaveComplete() {
 	};
 }
 
-export function changeNoteId(noteId) {
+export function changeNoteId(noteId: string) {
 	return {
 		type: CHANGE_NOTE_ID,
 		noteId,
+	};
+}
+
+export function changeNoteShow(show: 'GET' | 'MAKE' | 'HIDDEN') {
+	return {
+		type: NOTE_SHOW_CHANGE,
+		show,
+	};
+}
+
+export function changeNoteIdAndchangeNoteShow(noteId: string, show: 'GET' | 'MAKE' | 'HIDDEN') {
+	return {
+		type: CHANGE_NOTE_ID_AND_NOTE_SHOW_CHANGE,
+		noteId,
+		show,
 	};
 }

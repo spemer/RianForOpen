@@ -2,6 +2,18 @@ import Note from '../models/note_model';
 
 const getSelectedMyNoteDataCtrl = async (userId, noteId) => {
 	let result;
+	if (!noteId) {
+		result = {
+			_id: '',
+			title: '',
+			tags: [],
+			data: '',
+			is_publish: '',
+			created_at: Date.now(),
+			updated_at: Date.now(),
+			like: null,
+		};
+	}
 	try {
 		const OneNote = await Note.findOne({ _id: noteId })
             .populate({ path: 'tags', select: 'name' })

@@ -1,6 +1,6 @@
 const config = {
 	spellcheck: false,
-	placeholderText: '',
+	placeholderText: '이곳에 적어주세요',
 	editorClass: 'mainEditor',
 	width: '100%',
 	charCounterCount: false,

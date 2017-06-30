@@ -12,11 +12,12 @@
             flex-direction: row;
             width: 100%;
             justify-content: flex-start;
-            overflow: scroll;
             & .selectedTagList {
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-start;
+                max-width: 550px;
+                overflow: scroll;
                 & .oneOfTag {
                     /*background-color: #ff3466;*/
                     display: flex;
@@ -53,6 +54,9 @@
                     background-color: var(--rianColor);;
                 }
             }
+            & .selectedTagList::-webkit-scrollbar {
+                display: none;
+            }      
             & .tagContent::-webkit-scrollbar {
                 display: none;
             }        

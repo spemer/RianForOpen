@@ -1,7 +1,9 @@
+import { Strategy as FacebookStrategy } from 'passport-facebook';
+import { Strategy as KakaoStrategy } from 'passport-kakao';
+import { Strategy as NaverStrategy } from 'passport-naver';
 import User from 'database/models/user_model';
 import mockNoteToDb from 'database/controllers/mockNoteToDb_ctrl';
-import { Strategy as FacebookStrategy } from 'passport-facebook';
-import { PORT, IP_ENV } from './project';
+import { FacebookConfig, KakaoConfig, NaverConfig } from './authConfig';
 
 // import authConfig from '../config/oauth'
 export default async function passportConfig(passport) {
@@ -30,9 +32,9 @@ export default async function passportConfig(passport) {
 	passport.use(
     new FacebookStrategy(
 	{
-		clientID: '183216738826974', // your App ID
-		clientSecret: '8b227a26867fdc7ce8cc43f6a989733f', // your App Secret
-		callbackURL: `http://${IP_ENV}:${PORT}/auth/facebook/callback`,
+		clientID: FacebookConfig.clientID, // your App ID
+		clientSecret: FacebookConfig.clientSecret, // your App Secret
+		callbackURL: FacebookConfig.callbackURL,
 		profileFields: [
 			'email',
 			'id',
@@ -56,24 +58,108 @@ export default async function passportConfig(passport) {
 
 				done(null, updatedUser);
 			} else {
-              // if user don't exist, try to make user data in db
 				const newUser = new User({
 					fb_id: profile.id,
 					token,
 					name: `${profile.name.givenName} ${profile.name.familyName}`,
-					email: profile.email || profile.emails[0].value || 'null',
-					photo: profile.photos[0].value,
+					email: profile.email || profile.emails[0].value || '',
+					photo: profile.photos[0].value ? profile.photos[0].value : '',
 				});
 
 				const updatedUser = await newUser.save();
 
-              // makeDefalutNoteToDbForTest
+              // make Defalut Notes to Database for Test
 				await mockNoteToDb(updatedUser._id);
 
 				done(null, updatedUser);
 			}
 		} catch (e) {
-			console.log('error in passport validation');
+			console.log('error in facebook passport validation');
+		}
+	});
+},
+    ),
+  );
+	passport.use(
+    new KakaoStrategy(
+	{
+		clientID: KakaoConfig.clientID,
+		callbackURL: KakaoConfig.callbackURL,
+	},
+      (token, refreshToken, profile, done) => {
+	process.nextTick(async () => {
+          // find UserID in database using FB
+		try {
+			const UserInfor = await User.findOne({ kakao_id: profile.id });
+            // If user exist in db
+			if (UserInfor) {
+              // update last_login
+				UserInfor.last_login = Date.now();
+
+				const updatedUser = await UserInfor.save();
+
+				done(null, updatedUser);
+			} else {
+				const newUser = new User({
+					kakao_id: profile.id,
+					token,
+					name: profile.displayName,
+					email: profile._json.kaccount_email_verified ? profile._json.kaccount_email : '',
+					photo: profile._json.properties.profile_image ? profile._json.properties.profile_image : '',
+				});
+
+				const updatedUser = await newUser.save();
+
+              // make Defalut Notes to Database for Test
+				await mockNoteToDb(updatedUser._id);
+
+				done(null, updatedUser);
+			}
+		} catch (e) {
+			console.log('error in kakao passport validation');
+		}
+	});
+},
+    ),
+  );
+	passport.use(
+    new NaverStrategy(
+	{
+		clientID: NaverConfig.clientID,
+		clientSecret: NaverConfig.clientSecret,
+		callbackURL: NaverConfig.callbackURL,
+	},
+      (token, refreshToken, profile, done) => {
+	process.nextTick(async () => {
+          // find UserID in database using FB
+		try {
+			const UserInfor = await User.findOne({ naver_id: profile.id });
+            // If user exist in db
+			if (UserInfor) {
+              // update last_login
+				UserInfor.last_login = Date.now();
+
+				const updatedUser = await UserInfor.save();
+
+				done(null, updatedUser);
+			} else {
+				const newUser = new User({
+					naver_id: profile.id,
+					token,
+					name: profile.displayName,
+					email: profile.emails[0].value ? profile.emails[0].value : '',
+					photo: profile._json.profile_image ? profile._json.profile_image : '',
+				});
+
+				const updatedUser = await newUser.save();
+
+              // make Defalut Notes to Database for Test
+				await mockNoteToDb(updatedUser._id);
+
+				done(null, updatedUser);
+			}
+		} catch (e) {
+			console.log('error in naver passport validation');
 		}
 	});
 },

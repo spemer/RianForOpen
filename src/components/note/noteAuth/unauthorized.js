@@ -67,7 +67,7 @@ class Unauthorized extends Component<DefaultProps, Props, State> {
 				onMouseOut={this.unhoverLogin}
 			>
 				<div className={css.icons}>
-					<a className={css.facebookButton} href="/auth/facebook">
+					<a className={css.loginButtonForm} href="/auth/facebook">
 						<img
 							className={css.toolIcon}
 							src={facebookLogo}
@@ -87,24 +87,28 @@ class Unauthorized extends Component<DefaultProps, Props, State> {
 						// onMouseOut={this.changeListHover}
 						alt="google"
 					/>
-					<img
-						className={css.toolIcon}
-						src={naverLogo}
+					<a className={css.loginButtonForm} href="/auth/naver">
+						<img
+							className={css.toolIcon}
+							src={naverLogo}
+							// src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
+							// onClick={this.props.changeMode}
+							// onMouseOver={this.changeListHover}
+							// onMouseOut={this.changeListHover}
+							alt="naver"
+						/>
+					</a>
+					<a className={css.loginButtonForm} href="/oauth/kakao">
+						<img
+							className={css.toolIcon}
+							src={kakaoLogo}
 						// src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
 						// onClick={this.props.changeMode}
 						// onMouseOver={this.changeListHover}
 						// onMouseOut={this.changeListHover}
-						alt="naver"
-					/>
-					<img
-						className={css.toolIcon}
-						src={kakaoLogo}
-						// src={!this.state.noteListHover ? noteListIcon : noteListIconHover}
-						// onClick={this.props.changeMode}
-						// onMouseOver={this.changeListHover}
-						// onMouseOut={this.changeListHover}
-						alt="kakao"
-					/>
+							alt="kakao"
+						/>
+					</a>
 				</div>
 				<form className={css.signInForm}>
 					<Motion

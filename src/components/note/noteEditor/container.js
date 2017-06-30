@@ -6,7 +6,6 @@ import FroalaEditor from 'react-froala-wysiwyg';
 import TagBar from './TagBar/index';
 import totalCss from './totalLayout.css';
 import './fontawesome.global.css';
-import { mockContent } from './mock';
 import editorConfig from './editorConfig';
 import {
   getSelectedMyNoteData,
@@ -23,7 +22,7 @@ const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
 		ssr: false,
 	}),
 	name: 'oneOfNoteData',
-	skip: process.env.NODE_ENV === 'development' && true,
+	skip: props => !!(process.env.NODE_ENV === 'development' || props.show === 'MAKE'),
 });
 
 const autoSaveMutation = graphql(autoSave, {
@@ -44,8 +43,8 @@ const saveThemeMutation = graphql(saveTheme, {
 
 type DefaultProps = {
   full: boolean,
-  userId: string,
   noteId: string,
+  show: boolean,
   autoSave: boolean,
   saveTheme: boolean,
   what: "List" | "Card",
@@ -57,8 +56,8 @@ type DefaultProps = {
 
 type Props = {
   full: boolean,
-  userId: string,
   noteId: string,
+  show: 'GET' | 'MAKE' | 'HIDDEN',
   what: "List" | "Card",
   autoSave: Function,
   saveTheme: Function,
@@ -95,8 +94,8 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		what: 'List',
 		full: false,
-		userId: 'none',
 		noteId: '',
+		show: false,
 		autoSave: false,
 		saveTheme: false,
 		themesave: 'click',
@@ -132,14 +131,19 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	};
 
 	componentDidMount() {
+		const { autoSaveDispatch } = this.props;
 		this.initControls.initialize();
 		this.initControls.getEditor()('toolbar.hide');
-		if (process.env.NODE_ENV !== 'development' && this.props.userId) {
+		if (process.env.NODE_ENV !== 'development') {
 			this.Interval = setInterval(() => {
-				this.props.autoSaveDispatch(this.autoSaveInterval);
-			}, 15000);
+				// if compoennent has noteId, it will be saved
+				console.log('setInterval');
+				if (this.props.show !== 'MAKE') {
+					autoSaveDispatch(this.autoSaveInterval);
+				}
+			}, 8000);
 		}
-    // 만약 카드리스트 모드라면 다른 스타일 적용
+		// 만약 카드리스트 모드라면 다른 스타일 적용
 		if (!SERVER && this.props.what === 'Card') {
 			$('.fr-wrapper').css({
 				'background-color': '#FBFBFB',
@@ -158,12 +162,40 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		if (this.props.themesave === 'nothing' && nextProps.themesave === 'click') {
 			this.props.themeSaveDispatch(this.saveAsTheme);
 		}
-    // if node development mode, this.props.neOfNoteData doen't exist
-		if (this.props.oneOfNoteData) {
-      // load another note
-			if (this.props.noteId !== nextProps.noteId) {
-        // console.log('refetch');
-				this.props.oneOfNoteData.refetch({
+		// if node development mode, this.props.neOfNoteData doen't exist
+		// if show === 'MAKE', this.props.oneOfNoteData doen't exist
+		// console.log('thisprops', this.props.show);
+		// console.log('nextProps', nextProps.show);
+		if (process.env.NODE_ENV === 'development') return;
+		// if every note change in List mode, Editor unmount
+
+		if (nextProps.show === 'MAKE') {
+			this.setState({
+				title: '노트를 만들고 있는 중입니다.',
+				content: '노트를 만들고 있는 중입니다.',
+				selectedTag: [],
+			});
+			return;
+		}
+
+		if (this.props.what === 'Card') {
+			// loading = true => loading = false
+			if (this.props.oneOfNoteData.loading && !nextProps.oneOfNoteData.loading) {
+				this.setState({
+					title: nextProps.oneOfNoteData.getSelectedMyNoteData.title,
+					content: nextProps.oneOfNoteData.getSelectedMyNoteData.data,
+					selectedTag: nextProps.oneOfNoteData.getSelectedMyNoteData.tags,
+				});
+			}
+			return;
+		}
+		// if in List mode, Editor will not unmount
+		if (this.props.what === 'List') {
+			// get another note
+			if (nextProps.show === 'GET' && this.props.noteId !== nextProps.noteId) {
+				// console.log('change noteId');
+				// console.log('refetch', nextProps);
+				nextProps.oneOfNoteData.refetch({
 					variables: {
 						noteId: nextProps.noteId,
 					},
@@ -175,10 +207,8 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 				});
 				return;
 			}
-			if (
-        this.props.oneOfNoteData.loading && !nextProps.oneOfNoteData.loading
-      ) {
-        // loading = true => loading = false
+			if (this.props.oneOfNoteData.loading && !nextProps.oneOfNoteData.loading) {
+				// loading = true => loading = false
 				this.setState({
 					title: nextProps.oneOfNoteData.getSelectedMyNoteData.title,
 					content: nextProps.oneOfNoteData.getSelectedMyNoteData.data,
@@ -204,7 +234,11 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	Interval: any;
 
 	autoSaveInterval() {
-		const pre_image = '';
+		let pre_image = '';
+		if (document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img').length > 0) {
+			pre_image = document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img')[0].src;
+		}
+		document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img');
 		const variables: SaveFormat = {
 			noteId: this.props.noteId,
 			title: this.state.title,
@@ -218,7 +252,6 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 
 	saveAsTheme() {
 		const variables: ThemeFormat = {
-			_id: this.props.userId,
 			tag: this.state.selectedTag,
 			themedata: this.state.content,
 		};
@@ -258,46 +291,80 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	render() {
 		const config = editorConfig;
 		const { full, what } = this.props;
-		let mainBoxStyle = { backgroundColor: 'white' };
 		if (what === 'Card') {
-			mainBoxStyle = { backgroundColor: '#FBFBFB', borderRadius: '10px' };
-		}
-		if (full && what === 'List') {
-			mainBoxStyle = { backgroundColor: '#FBFBFB' };
-		}
-		return (
-			<div className={totalCss.mainBox} style={mainBoxStyle}>
-				{!full &&
-				<div
-					className={totalCss.head}
-					style={{ padding: what === 'Card' && '150px 150px 0 150px' }}
-				>
-					<textarea
-						style={{
-							backgroundColor: what === 'Card' ? '#FBFBFB' : 'white',
-							padding: '0px',
-						}}
-						className={totalCss.title}
-						placeholder="소중한 순간에 제목을 지어주세요"
-						value={this.state.title}
-						onChange={this.handleTitleChange}
+			return (
+				<div className={totalCss.mainBox} style={{ backgroundColor: '#FBFBFB', borderRadius: '10px' }}>
+					{!full &&
+					<div
+						className={totalCss.head}
+						style={{ padding: '150px 150px 0 150px' }}
+					>
+						<input
+							style={{
+								backgroundColor: '#FBFBFB',
+								padding: '0px',
+							}}
+							className={totalCss.title}
+							placeholder="소중한 순간에 제목을 지어주세요"
+							value={this.state.title}
+							onChange={this.handleTitleChange}
+						/>
+						<TagBar
+							what={what}
+							selectedTag={this.state.selectedTag}
+							updateTagInList={this.updateTagInList}
+							removeTagInList={this.removeTagInList}
+						/>
+					</div>}
+					<FroalaEditor
+						tag="mainwriting"
+						model={this.state.content}
+						config={config}
+						onModelChange={this.handleModelChange}
+						onManualControllerReady={this.handleController}
 					/>
-					<TagBar
-						what={what}
-						selectedTag={this.state.selectedTag}
-						updateTagInList={this.updateTagInList}
-						removeTagInList={this.removeTagInList}
+				</div>
+			);
+		}
+		if (what === 'List') {
+			let mainBoxStyle = { backgroundColor: 'white' };
+			if (full) {
+				mainBoxStyle = { backgroundColor: '#FBFBFB' };
+			}
+			return (
+				<div className={totalCss.mainBox} style={mainBoxStyle}>
+					{!full &&
+					<div
+						className={totalCss.head}
+					>
+						<input
+							style={{
+								backgroundColor: 'white',
+								padding: '0px',
+							}}
+							className={totalCss.title}
+							placeholder="소중한 순간에 제목을 지어주세요"
+							value={this.state.title}
+							onChange={this.handleTitleChange}
+						/>
+						<TagBar
+							what={what}
+							selectedTag={this.state.selectedTag}
+							updateTagInList={this.updateTagInList}
+							removeTagInList={this.removeTagInList}
+						/>
+					</div>}
+					<FroalaEditor
+						tag="mainwriting"
+						model={this.state.content}
+						config={config}
+						onModelChange={this.handleModelChange}
+						onManualControllerReady={this.handleController}
 					/>
-				</div>}
-				<FroalaEditor
-					tag="mainwriting"
-					model={this.state.content}
-					config={config}
-					onModelChange={this.handleModelChange}
-					onManualControllerReady={this.handleController}
-				/>
-			</div>
-		);
+				</div>
+			);
+		}
+		return <div />;
 	}
 }
 
