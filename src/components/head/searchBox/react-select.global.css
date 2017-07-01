@@ -92,6 +92,7 @@
 	line-height: 1.62;
 	letter-spacing: -0.3px;
 	color: #515861;
+  padding-left: 30px;
 }
 .has-value.Select--single > .Select-control .Select-value .Select-value-label,
 .has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
@@ -292,7 +293,7 @@
 .Select--multi .Select-input {
   vertical-align: middle;
   margin-left: 10px;
-  padding: 0;
+  padding-left: 20px;
 }
 .Select--multi.has-value .Select-input {
   margin-left: 5px;

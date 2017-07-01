@@ -2,6 +2,7 @@
 import React from 'react';
 import screenfull from 'screenfull';
 import { connect } from 'react-redux';
+import searchIcon from 'static/icons/ic-search.svg';
 import SeachBox from './searchBox';
 import { fullScreenChange } from '../../actions/AppActions';
 import parentCss from '../app/app.css';
@@ -40,6 +41,7 @@ const Head = ({ changeFullScreenApp }) => {
 					onClick={fullScreen}
 				/>
 				<div className={css.searchBox}>
+					<img className={css.searchIc} src={searchIcon} />
 					<SeachBox />
 				</div>
 			</div>

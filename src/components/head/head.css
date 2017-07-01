@@ -16,5 +16,13 @@
         left: 56px;
         width: 258px;
         height: 29px;
+        & .searchIc {
+            z-index: 1;
+            position: absolute;
+            width: 30px;
+	        height: 30px;
+            top: 2px;
+            opacity: 0.38;
+        }
     }
 }
