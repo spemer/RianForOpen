@@ -4,11 +4,22 @@ import React, { Component } from 'react';
 import { Motion, spring } from 'react-motion';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
+// react virtualized
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
-import List from 'react-virtualized/dist/commonjs/List';
+import CellMeasurer from 'react-virtualized/dist/commonjs/CellMeasurer';
+import CellMeasurerCache
+  from 'react-virtualized/dist/commonjs/CellMeasurer/CellMeasurerCache';
+import createMasonryCellPositioner
+  from 'react-virtualized/dist/commonjs/Masonry/createCellPositioner';
+import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller';
+import Masonry from 'react-virtualized/dist/commonjs/Masonry';
+// graphQL
 import { getAllMyNotePreviews } from '../../../graphqls/TimelineGraphQl';
+import CardInstance from './CardInstance';
 import css from './noteCardView.css';
+import MockList from 'MockData/noteList';
 
+const Mock = [...MockList, ...MockList, ...MockList, ...MockList];
 
 const getAllMyNotePreviewsQuery = graphql(getAllMyNotePreviews, {
 	options: props => ({
@@ -36,11 +47,30 @@ type State = {};
 class NoteCardView extends Component<DefaultProps, Props, State> {
 	constructor(props: Props) {
 		super(props);
+		this.cardRenderer = this.cardRenderer.bind(this);
 	}
+
+	state = {
+	};
+
+	cardRenderer(Mock) {
+		return Mock.map((data, index) => (
+			<CardInstance
+				key={index}
+				title={data.title}
+				preview="자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 "
+				updated_at={data.updated_at}
+				tags={data.tags}
+				pre_image={data.pre_image}
+			/>
+		));
+	}
+
 
 	render() {
 		const noteCount = 36;
 		const tagName = '다다익선';
+
 		return (
 			<div className={css.container}>
 				<div className={css.head}>
@@ -51,7 +81,9 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 						{`${noteCount}개의 노트`}
 					</div>
 				</div>
-				<div className={css.mainBox} />
+				<div className={css.mainBox}>
+					{this.cardRenderer(Mock)}
+				</div>
 			</div>
 		);
 	}

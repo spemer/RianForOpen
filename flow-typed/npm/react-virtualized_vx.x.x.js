@@ -70,6 +70,10 @@ declare module 'react-virtualized/dist/commonjs/CellMeasurer/index' {
   declare module.exports: any;
 }
 
+declare module 'react-virtualized/dist/commonjs/CellMeasurer' {
+  declare module.exports: any;
+}
+
 declare module 'react-virtualized/dist/commonjs/Collection/Collection.jest' {
   declare module.exports: any;
 }
@@ -238,6 +242,10 @@ declare module 'react-virtualized/dist/commonjs/Masonry/index' {
   declare module.exports: any;
 }
 
+declare module 'react-virtualized/dist/commonjs/Masonry' {
+  declare module.exports: any;
+}
+
 declare module 'react-virtualized/dist/commonjs/Masonry/Masonry.jest' {
   declare module.exports: any;
 }
@@ -387,6 +395,10 @@ declare module 'react-virtualized/dist/commonjs/WindowScroller/WindowScroller.je
 }
 
 declare module 'react-virtualized/dist/commonjs/WindowScroller/WindowScroller' {
+  declare module.exports: any;
+}
+
+declare module 'react-virtualized/dist/commonjs/WindowScroller' {
   declare module.exports: any;
 }
 
