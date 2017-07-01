@@ -1,23 +1,23 @@
 // @flow
 import React, { Component } from 'react';
 // import { Route, Redirect } from 'react-router-dom';
-import { Motion, spring } from 'react-motion';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
+import MockList from 'MockData/noteList';
 // react virtualized
-import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
-import CellMeasurer from 'react-virtualized/dist/commonjs/CellMeasurer';
-import CellMeasurerCache
-  from 'react-virtualized/dist/commonjs/CellMeasurer/CellMeasurerCache';
-import createMasonryCellPositioner
-  from 'react-virtualized/dist/commonjs/Masonry/createCellPositioner';
-import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller';
-import Masonry from 'react-virtualized/dist/commonjs/Masonry';
+// import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
+// import CellMeasurer from 'react-virtualized/dist/commonjs/CellMeasurer';
+// import CellMeasurerCache
+//   from 'react-virtualized/dist/commonjs/CellMeasurer/CellMeasurerCache';
+// import createMasonryCellPositioner
+//   from 'react-virtualized/dist/commonjs/Masonry/createCellPositioner';
+// import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller';
+// import Masonry from 'react-virtualized/dist/commonjs/Masonry';
 // graphQL
 import { getAllMyNotePreviews } from '../../../graphqls/TimelineGraphQl';
 import CardInstance from './CardInstance';
 import css from './noteCardView.css';
-import MockList from 'MockData/noteList';
+
 
 const Mock = [...MockList, ...MockList, ...MockList, ...MockList];
 
@@ -38,13 +38,14 @@ const mapToState = state => ({
 });
 
 type DefaultProps = {};
-
 type Props = {};
 type State = {};
 
 @connect(mapToState)
 @compose(getAllMyNotePreviewsQuery)
 class NoteCardView extends Component<DefaultProps, Props, State> {
+	static defaultProps = {
+	};
 	constructor(props: Props) {
 		super(props);
 		this.cardRenderer = this.cardRenderer.bind(this);
@@ -53,8 +54,8 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	state = {
 	};
 
-	cardRenderer(Mock) {
-		return Mock.map((data, index) => (
+	cardRenderer(noteData: Array<any>) {
+		return noteData.map((data, index) => (
 			<CardInstance
 				key={index}
 				title={data.title}

@@ -46,7 +46,9 @@ class SideBar extends Component<DefaultProps, Props, State> {
 		active: 'none',
 	};
 
-	changeActive(active: "mode" | "tag" | "social" | "trash") {
+	changeActive: Function;
+
+	changeActive(active: "mode" | "social" | "trash") {
 		if (this.state.active !== active) {
 			this.setState({
 				active,
@@ -76,6 +78,8 @@ class SideBar extends Component<DefaultProps, Props, State> {
 					onClick={() => {
 						this.changeActive('mode');
 					}}
+					role="Button"
+					tabIndex="0"
 				>
 					<svg
 						width="22px"
@@ -109,6 +113,8 @@ class SideBar extends Component<DefaultProps, Props, State> {
 					onClick={() => {
 						changeLeftBarDispatch();
 					}}
+					role="Button"
+					tabIndex="-1"
 				>
 					<svg
 						version="1.1"
@@ -180,6 +186,8 @@ class SideBar extends Component<DefaultProps, Props, State> {
 					onClick={() => {
 						this.changeActive('social');
 					}}
+					role="Button"
+					tabIndex="-2"
 				>
 					<svg
 						version="1.1"
@@ -220,6 +228,8 @@ class SideBar extends Component<DefaultProps, Props, State> {
 					onClick={() => {
 						this.changeActive('trash');
 					}}
+					role="Button"
+					tabIndex="-3"
 				>
 					<svg
 						version="1.1"

@@ -29,9 +29,13 @@ const mapToState = state => ({
 	leftBar: state.App.leftBar,
 });
 
-type DefaultProps = {};
+type DefaultProps = {
+	leftBar: boolean,
+};
 
-type Props = {};
+type Props = {
+	leftBar: boolean,
+};
 
 type State = {
 };
@@ -41,9 +45,16 @@ type State = {
 @compose(getAllMyNotePreviewsQuery)
 class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 
+	static defaultProps = {
+		leftBar: false,
+	}
+
 	constructor(props: Props) {
 		super(props);
 		this.rowRenderer = this.rowRenderer.bind(this);
+	}
+
+	state = {
 	}
 
 	rowRenderer: Function;

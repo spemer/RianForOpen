@@ -1,4 +1,4 @@
-let mockObj = [];
+const mockObj = [];
 mockObj[0] = {
 	title: '자바 프로그래밍',
 	tags: ['3학년1학기', '코딩'],

@@ -24,20 +24,31 @@ const mapToState = state => ({
 	leftBar: state.App.leftBar,
 });
 
-type DefaultProps = {};
+type DefaultProps = {
+	leftBar: boolean,
+};
 
-type Props = {};
+type Props = {
+	leftBar: boolean,
+};
 
 type State = {
-  active: "none" | "mode" | "tag" | "social" | "trash"
 };
 
 @connect(mapToState)
 @compose(getTagListQuery)
 class TagListBar extends Component<DefaultProps, Props, State> {
 
+	static defaultProps = {
+		leftBar: false,
+	}
+
 	constructor(props: Props) {
 		super(props);
+	}
+
+	state = {
+
 	}
 
 	render() {
@@ -47,11 +58,9 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 			<Motion
 				style={{
 					x: spring(leftBar ? 179 : 0),
-					y: spring(leftBar ? 28 : 0),
-					z: spring(leftBar ? 24 : 0),
 				}}
 			>
-				{({ x, y, z, g }) => (
+				{({ x }) => (
 					<div className={css.container} style={{ flex: `0 0 ${x}px`, borderRight: leftBar ? '1px solid #dfdfdf' : 'none' }}>
 						<div className={css.head}>
 							<div className={css.status}>

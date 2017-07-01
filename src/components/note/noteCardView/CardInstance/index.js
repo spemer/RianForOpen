@@ -18,7 +18,6 @@ type Props = {
   themeColor: string,
   pre_image: string,
   style: any,
-  changeNoteIdAndchangeNoteShowDispatch: Function
 };
 
 const CardInstance = ({
@@ -31,9 +30,7 @@ const CardInstance = ({
   is_publish = false,
   themeColor = '#ff3466',
   pre_image = '',
-  changeNoteId = () => {},
   style = {},
-  changeNoteIdAndchangeNoteShowDispatch = () => {},
 }: Props) => (
 	<div className={css.container} style={style}>
 		<div

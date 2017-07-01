@@ -10,7 +10,7 @@ import {
   CHANGE_NOTE_ID_AND_NOTE_SHOW_CHANGE,
 } from '../constants';
 
-export function autoSaveRequest(method) {
+export function autoSaveRequest(method: any) {
 	return {
 		type: AUTO_SAVE_REQUEST,
 		method,
@@ -29,7 +29,7 @@ export function themeSaveClick() {
 	};
 }
 
-export function themeSaveRequest(method) {
+export function themeSaveRequest(method: any) {
 	return {
 		type: THEME_SAVE_REQUEST,
 		method,

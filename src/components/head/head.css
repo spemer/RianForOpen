@@ -10,4 +10,11 @@
         height: 30px;
         opacity: 0.38;
     }
+    & .searchBox {
+        position: absolute;
+        top: 15px;
+        left: 56px;
+        width: 258px;
+        height: 29px;
+    }
 }
