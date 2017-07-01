@@ -1,0 +1,62 @@
+.plusButton {
+    display: flex;
+    margin-top: 18px;
+    margin-bottom: 25px;
+    align-items: center;
+    justify-content: center;
+}
+
+.modeButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    margin-bottom: 25px; 
+    box-sizing: border-box;
+}
+
+.modeButton:hover {
+    margin-right: 4px;
+    border-left: 4px solid #ff3466;
+}
+
+.tagButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    margin-bottom: 25px; 
+    box-sizing: border-box;
+}
+
+.tagButton:hover {
+    margin-right: 4px;
+    border-left: 4px solid #ff3466;
+}
+
+.socialButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    margin-bottom: 25px;
+    box-sizing: border-box; 
+}
+
+.socialButton:hover {
+    margin-right: 4px;
+    border-left: 4px solid #ff3466;
+}
+
+.trashButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    box-sizing: border-box;
+}
+
+.trashButton:hover {
+    margin-right: 4px;
+    border-left: 4px solid #ff3466;
+}

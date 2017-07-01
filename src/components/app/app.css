@@ -12,8 +12,33 @@
 }
 
 #mainComponent {
-  display: flex;
   flex: 1;
-  flex-direction: column;
-  overflow: auto;
+    & .head {
+      position: fixed;
+      top: 0px;
+      width: 100%;
+      height: 61px;
+      opacity: 0.97;
+      background-color: #ffffff;
+      border-bottom: solid 1px #dfdfdf; 
+    }
+    & .sideBar {
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      top: 61px;
+      left: 0px;
+      justify-content: flex-start;
+      height: 100%;
+      width: 56px;
+      border-right: solid 1px #dfdfdf;
+    }
+    & .note {
+      position: fixed;
+      display: flex;
+      top: 61px;
+      left: 56px;
+      width: 100%;
+      height: 100%;
+    }
 }

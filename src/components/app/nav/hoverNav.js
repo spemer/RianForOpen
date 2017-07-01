@@ -6,7 +6,7 @@ import { getTagList } from '../../../graphqls/TagGraphQl';
 import css from './nav.css';
 
 const getTagListQuery = graphql(getTagList, {
-	options: (props) => ({
+	options: props => ({
 		variables: {
 			userId: SERVER ? props.userId : null,
 			condition: 'All',
@@ -63,7 +63,7 @@ class HoverNav extends Component<DefaultProps, Props, State> {
 					</div>
 				));
 			} else {
-				tagList = []
+				tagList = [];
 			}
 		}
 		if (process.env.NODE_ENV === 'development') {

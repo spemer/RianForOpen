@@ -4,6 +4,7 @@ export const USER_LOGIN = 'USER_LOGIN';
 
 /* ----------  APP  ----------*/
 export const CHANGE_FULL_SCREEN = 'CHANGE_FULL_SCREEN';
+export const CHANGE_LEFT_BAR = 'CHANGE_LEFT_BAR';
 
 /* ----------  NOTE  ----------*/
 export const NOTE_MODE_CHANGE = 'NOTE_MODE_CHANGE';

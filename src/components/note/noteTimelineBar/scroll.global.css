@@ -1,0 +1,11 @@
+.ReactVirtualized__List::-webkit-scrollbar {
+  display: none;
+} 
+
+.ReactVirtualized__Grid::-webkit-scrollbar {
+  display: none;
+} 
+
+.ReactVirtualized__Grid .ReactVirtualized__List {
+  padding-top: 20px !important;
+}

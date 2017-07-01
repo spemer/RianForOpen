@@ -1,12 +1,12 @@
-// ----------------------
-// IMPORTS
+// @flow
 
 // React
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 // GraphQL
-import { gql, graphql } from 'react-apollo';
+// import { gql, graphql } from 'react-apollo';
 
 // Routing
 import { Switch, Route } from 'react-router-dom';
@@ -14,41 +14,26 @@ import { Switch, Route } from 'react-router-dom';
 // <Helmet> component for setting the page title
 import Helmet from 'react-helmet';
 
-// Helper to merge expected React PropTypes to Apollo-enabled component
-import { mergeData } from 'kit/lib/apollo';
+// Get the ReactQL logo.  This is a local .svg file, which will be made
+// available as a string relative to [root]/dist/assets/img/
+// import logo from './reactql-logo.svg';
+
+// <Login> Component
+import Login from 'src/components/login';
+
+// <Head> Component
+import Head from 'src/components/head';
+
+// <Note> Component
+import Note from 'src/components/note';
+
+// <Note> Component
+import SideBar from '../sideBar';
 
 // Styles
 import './styles.global.css';
 import css from './app.css';
 
-// Get the ReactQL logo.  This is a local .svg file, which will be made
-// available as a string relative to [root]/dist/assets/img/
-// import logo from './reactql-logo.svg';
-
-// <Nav> Component
-import Nav from './nav';
-
-// <Note> Component
-import Note from 'src/components/note';
-
-// <Timeline> Component
-import Timeline from 'src/components/timeline';
-
-// <NoteAuth> Component
-import NoteAuth from 'src/components/note/noteAuth';
-// ----------------------
-
-// Helper component that will be conditionally shown when the route matches.
-// This gives you an idea how React Router v4 works
-const Page = ({ match }) => <h1>Changed route: {match.params.name}</h1>;
-
-// Specify PropTypes if the `match` object, which is injected to props by
-// the <Route> component
-Page.propTypes = {
-	match: PropTypes.shape({
-		params: PropTypes.object,
-	}).isRequired,
-};
 
 // Stats pulled from the environment.  This demonstrates how data will
 // change depending where we're running the code (environment vars, etc)
@@ -69,49 +54,37 @@ Page.propTypes = {
 //   );
 // };
 
-// Now, let's create a GraphQL-enabled component...
+// Export a simple component that allows clicking on list items to change
+// the route, along with a <Route> 'listener' that will conditionally display
+// the <Page> component based on the route name
 
-// First, create the GraphQL query that we'll use to request data from our
-// sample endpoint
-const query = gql`
-  query {
-    allMessages(first:1) {
-      text
-    }
-  }
-`;
+const mapToState = state => ({
+	userId: state.User._id,
+});
 
-// ... then, let's create the component and decorate it with the `graphql`
-// HOC that will automatically populate `this.props` with the query data
-// once the GraphQL API request has been completed
-@graphql(query)
-class GraphQLMessage extends React.PureComponent {
-	static propTypes = {
-		data: mergeData({
-			allMessages: PropTypes.arrayOf(
-        PropTypes.shape({
-	text: PropTypes.string.isRequired,
-}),
-      ),
-		}),
-	};
+@connect(mapToState)
+class MainComponent extends React.PureComponent {
 
 	render() {
-		const { data } = this.props;
-		const message = data.allMessages && data.allMessages[0].text;
-		const isLoading = data.loading ? 'yes' : 'nope';
 		return (
-			<div>
-				<h2>Message from GraphQL server: <em>{message}</em></h2>
-				<h2>Currently loading?: {isLoading}</h2>
+			<div id={css.mainComponent}>
+				<Head />
+				<SideBar />
+				<Switch>
+					<Route exact path="/login" component={Login} />
+					<Route path="/" component={Note} />
+					{/* <Route path="/" render={() => !userId ? <Redirect to="/login" /> : Note} />*/}
+				</Switch>
+				{/* <NoteAuth />
+			<Switch>
+				<Route exact path="/" component={Note} />
+			</Switch>*/}
 			</div>
 		);
 	}
 }
 
-// Export a simple component that allows clicking on list items to change
-// the route, along with a <Route> 'listener' that will conditionally display
-// the <Page> component based on the route name
+
 export default () => (
 	<div id={css.app}>
 		<Helmet
@@ -123,13 +96,6 @@ export default () => (
 				},
 			]}
 		/>
-		<Nav />
-		<div id={css.mainComponent}>
-			<NoteAuth />
-			<Switch>
-				<Route exact path="/" component={Note} />
-				<Route exact path="/timeline" component={Timeline} />
-			</Switch>
-		</div>
+		<MainComponent />
 	</div>
 );

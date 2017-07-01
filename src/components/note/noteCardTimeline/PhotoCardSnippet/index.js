@@ -6,6 +6,7 @@ const makeTagToElement = (tagSet: Array<string>) => {
 	const SumTagSet = tagSet.reduce((a: string, b: string) => `${a}#${b}`, '');
 	return <p className={css.tagInstance}>{SumTagSet}</p>;
 };
+
 type Props = {
   _id: string,
   title: string,
@@ -32,7 +33,30 @@ const CardSnippet = ({
   changeNoteId = () => {},
   changeNoteIdAndchangeNoteShowDispatch = () => {},
 }: Props) => (
-	<div
+	<div className={css.container}>
+		<div className={css.head}>
+			<div className={css.timestamp}>
+				{updated_at}
+			</div>
+			<div className={css.title}>
+				{title}
+			</div>
+		</div>
+		<div className={css.content}>
+			<div className={css.preview}>
+				{preview}
+			</div>
+			<div className={css.tag}>
+				{makeTagToElement(tags)}
+			</div>
+		</div>
+	</div>
+);
+
+export default CardSnippet;
+
+
+{ /* <div
 		className={css.container}
 		onClick={() => {
 			changeNoteIdAndchangeNoteShowDispatch(_id, 'GET');
@@ -107,7 +131,4 @@ const CardSnippet = ({
 				</div>
 			</div>
 		</div>
-	</div>
-);
-
-export default CardSnippet;
+</div>*/ }

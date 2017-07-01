@@ -226,6 +226,10 @@ declare module 'react-virtualized/dist/commonjs/List/List' {
   declare module.exports: any;
 }
 
+declare module 'react-virtualized/dist/commonjs/List' {
+  declare module.exports: any;
+}
+
 declare module 'react-virtualized/dist/commonjs/Masonry/createCellPositioner' {
   declare module.exports: any;
 }

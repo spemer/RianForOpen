@@ -29,11 +29,13 @@ const CardSnippet = ({
   themeColor = '#ff3466',
   changeNoteIdAndchangeNoteShowDispatch = () => {},
 }: Props) => (
-	<div
+	<div className={css.container} />
+);
+
+export default CardSnippet;
+
+{ /* <div
 		className={css.container}
-		onClick={() => {
-			changeNoteIdAndchangeNoteShowDispatch(_id, 'GET');
-		}}
 	>
 		<div className={css.head}>
 			<div className={css.title}>
@@ -97,7 +99,4 @@ const CardSnippet = ({
 				</div>
 			</div>
 		</div>
-	</div>
-);
-
-export default CardSnippet;
+</div>*/ }

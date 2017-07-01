@@ -1,8 +1,9 @@
-import { CHANGE_FULL_SCREEN } from '../constants';
+import { CHANGE_FULL_SCREEN, CHANGE_LEFT_BAR } from '../constants';
 
 const ModeState = {
 	full: false,
 	themeColor: '#ff3466',
+	leftBar: true,
 };
 
 export default function App(state = ModeState, action) {
@@ -10,6 +11,10 @@ export default function App(state = ModeState, action) {
 	case CHANGE_FULL_SCREEN:
 		return Object.assign({}, state, {
 			full: action.data,
+		});
+	case CHANGE_LEFT_BAR:
+		return Object.assign({}, state, {
+			leftBar: !state.leftBar,
 		});
 	default:
 		return state;
