@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 // import { gql, graphql } from 'react-apollo';
 
 // Routing
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 // <Helmet> component for setting the page title
 import Helmet from 'react-helmet';
@@ -65,19 +65,19 @@ const mapToState = state => ({
 class MainComponent extends React.PureComponent {
 
 	render() {
+		const { userId } = this.props;
+		if (process.env.NODE_ENV !== 'development') {
+			if (!userId) {
+				return <Redirect to="/login" />;
+			}
+		}
 		return (
 			<div id={css.mainComponent}>
 				<Head />
 				<SideBar />
 				<Switch>
-					<Route exact path="/login" component={Login} />
 					<Route path="/" component={Note} />
-					{/* <Route path="/" render={() => !userId ? <Redirect to="/login" /> : Note} />*/}
 				</Switch>
-				{/* <NoteAuth />
-			<Switch>
-				<Route exact path="/" component={Note} />
-			</Switch>*/}
 			</div>
 		);
 	}
@@ -95,6 +95,9 @@ export default () => (
 				},
 			]}
 		/>
-		<MainComponent />
+		<Switch>
+			<Route exact path="/login" component={Login} />
+			<Route path="/" component={MainComponent} />
+		</Switch>
 	</div>
 );

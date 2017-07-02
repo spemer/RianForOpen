@@ -144,6 +144,7 @@ class NoteSideBar extends Component<DefaultProps, Props, State> {
 			}
 		});
 	}
+
 	screenfull: any;
 	fullScreen: Function;
 	changeSideBar: Function;

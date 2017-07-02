@@ -1,0 +1,17 @@
+#mainLogin {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    & .box {
+        flex: 0 0 500px;
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+        height: 600px;
+        background-color: #f4f4f4;
+        & .loginButtonForm {
+        }
+    }
+}

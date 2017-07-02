@@ -1,5 +1,5 @@
-// @ flow
-import React from 'react';
+// @flow
+import React, { Component } from 'react';
 import screenfull from 'screenfull';
 import { connect } from 'react-redux';
 import searchIcon from 'static/icons/ic-search.svg';
@@ -15,38 +15,71 @@ const mapToDispatch = dispatch => ({
 	},
 });
 
-const fullScreen = () => {
-	if (screenfull.enabled) {
-		screenfull.toggle();
-	} else {
-      // Ignore or do something else
-	}
+type DefaultProps = {
+	changeFullScreenApp: Function,
 };
 
-const Head = ({ changeFullScreenApp }) => {
-	screenfull.onchange(() => {
-		if (screenfull.isFullscreen) {
-			changeFullScreenApp(true);
-		} else {
-			changeFullScreenApp(false);
-		}
-	});
+type Props = {
+	changeFullScreenApp: Function,
+};
 
-	return (
-		<div className={parentCss.head}>
-			<div className={css.container}>
-				<img
-					className={css.icon}
-					src={icFullScreenIcon}
-					onClick={fullScreen}
-				/>
-				<div className={css.searchBox}>
-					<img className={css.searchIc} src={searchIcon} />
-					<SeachBox />
+type State = {};
+
+@connect(undefined, mapToDispatch)
+class Head extends Component<DefaultProps, Props, State> {
+	static defaultProps = {
+		changeFullScreenApp: () => {},
+	}
+
+	constructor(props: Props) {
+		super(props);
+		this.screenfull = screenfull;
+		this.fullScreen = this.fullScreen.bind(this);
+	}
+
+	state = {}
+
+	componentDidMount() {
+		this.screenfull.onchange(() => {
+			if (this.screenfull.isFullscreen) {
+				this.props.changeFullScreenApp(true);
+			} else {
+				this.props.changeFullScreenApp(false);
+			}
+		});
+	}
+
+	screefull: any;
+	fullScreen: any;
+
+
+	fullScreen() {
+		if (this.screenfull.enabled) {
+			this.screenfull.toggle();
+		} else {
+		// Ignore or do something else
+		}
+	}
+
+	render() {
+		return (
+			<div className={parentCss.head}>
+				<div className={css.container}>
+					<img
+						className={css.icon}
+						src={icFullScreenIcon}
+						onClick={this.fullScreen}
+						alt="fullscreen"
+					/>
+					<div className={css.searchBox}>
+						<img className={css.searchIc} src={searchIcon} alt="search" />
+						<SeachBox />
+					</div>
 				</div>
 			</div>
-		</div>
-	);
-};
+		);
+	}
+
+}
 
 export default connect(undefined, mapToDispatch)(Head);

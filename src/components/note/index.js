@@ -10,17 +10,27 @@ import NoteTimelineBar from './noteTimelineBar';
 
 const mapState = state => ({
 	userId: state.User._id,
+	leftBar: state.App.leftBar,
 });
 
-type DefaultProps = {};
+type DefaultProps = {
+	userId: string,
+	leftBar: boolean,
+};
 
-type Props = {};
+type Props = {
+	userId: string,
+	leftBar: boolean,
+};
 
 type State = {};
 
 @connect(mapState)
 class Note extends Component<DefaultProps, Props, State> {
-	static defaultProps = {};
+	static defaultProps = {
+		userId: '',
+		leftBar: false,
+	};
 
 	constructor(props: Props) {
 		super(props);
@@ -29,9 +39,9 @@ class Note extends Component<DefaultProps, Props, State> {
 	state = {};
 
 	render() {
-		const { userId, location: { pathname }, match: { url } } = this.props;
+		const { userId, leftBar, location: { pathname }, match: { url } } = this.props;
 		return (
-			<div className={parentCss.note}>
+			<div className={parentCss.note} style={{ marginLeft: leftBar ? '0px' : '1px' }}>
 				<TagListBar />
 				{pathname === '/list' && <NoteTimelineBar />}
 				{pathname === '/card' && <NoteTimelineBar />}

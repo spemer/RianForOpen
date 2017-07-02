@@ -74,6 +74,19 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 				/>
 			);
 		}
+		if (process.env.NODE_ENV === 'production') {
+			data = Mock[index];
+			return (
+				<TimelineSnippet
+					key={index}
+					_id=""
+					title={data.title}
+					preview={data.preview}
+					tags={[data.tag]}
+					style={style}
+				/>
+			);
+		}
 	}
 
 	render() {
