@@ -1,3 +1,17 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // @flow
 
 // React
@@ -34,7 +48,7 @@ import './styles.global.css';
 import css from './app.css';
 
 
-// Stats pulled from the environment.  This demonstrates how data will
+// Stats pulled from the environmenㅎt.  This demonstrates how data will
 // change depending where we're running the code (environment vars, etc)
 // and also how we can connect a 'vanilla' React component to an RxJS
 // observable source, and feed eventual values in as properties

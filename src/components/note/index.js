@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import parentCss from '../app/app.css';
 import TagListBar from './tagListBar';
 import NoteCardView from './noteCardView';
-import TimelineNoteEditor from './noteEditor';
 import NoteTimelineBar from './noteTimelineBar';
+import RianListEditor from './noteRianEditor/rianListEditor';
 
 const mapState = state => ({
 	userId: state.User._id,
@@ -44,9 +44,8 @@ class Note extends Component<DefaultProps, Props, State> {
 			<div className={parentCss.note} style={{ marginLeft: leftBar ? '0px' : '1px' }}>
 				<TagListBar />
 				{pathname === '/list' && <NoteTimelineBar />}
-				{pathname === '/card' && <NoteTimelineBar />}
 				<Route path={`${url}card`} component={NoteCardView} />
-				<Route path={`${url}list`} component={TimelineNoteEditor} />
+				<Route path={`${url}list`} component={RianListEditor} />
 				{/* {Mode === 'List'
           ? <TimelineNoteEditor />
           : <NoteCardTimeline themeColor={themeColor} userId={userId} />}*/}

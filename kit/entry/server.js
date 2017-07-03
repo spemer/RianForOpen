@@ -200,6 +200,7 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 					// Helmet component to generate the <head> tag, as well as our Redux
 					// store state so that the browser can continue from the server
 	ctx.body = `<!DOCTYPE html>\n${ReactDOMServer.renderToStaticMarkup(<Html html={html} head={Helmet.rewind()} window={{ webpackManifest: chunkManifest, __STATE__: store.getState() }} scripts={scripts} css={manifest['browser.css']} />)}`;
+	ctx.redirect('/card');
 });
 
   // Create WebSocket listener server
