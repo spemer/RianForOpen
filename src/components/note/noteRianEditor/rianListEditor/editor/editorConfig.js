@@ -1,12 +1,11 @@
 const config = {
 	spellcheck: false,
 	placeholderText: '이곳에 적어주세요',
-	editorClass: 'mainEditor',
+	editorClass: 'editorContainer',
 	width: '100%',
 	charCounterCount: false,
 	tabSpaces: 8,
 	toolbarInline: true,
-	toolbarVisibleWithoutSelection: true,
 	colorsDefaultTab: 'background',
 	colorsBackground: ['#FFFAA5', '#9BDBFF', '#FF3466', 'REMOVE'],
 	colorsText: ['#FFFAA5', '#9BDBFF', '#FF3466', 'REMOVE'],

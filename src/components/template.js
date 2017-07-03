@@ -26,7 +26,7 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 
 	render() {
 		return (
-			<div className={css.container} />
+			<div />
 		);
 	}
 }
