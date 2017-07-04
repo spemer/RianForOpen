@@ -1,17 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // @flow
 
 // React
@@ -32,16 +18,19 @@ import Helmet from 'react-helmet';
 // import logo from './reactql-logo.svg';
 
 // <Login> Component
-import Login from 'src/components/login';
+import Login from '../login';
 
 // <Head> Component
-import Head from 'src/components/head';
+import Head from '../head';
 
-// <Note> Component
-import Note from 'src/components/note';
-
-// <Note> Component
+// <Sidebar> Component
 import SideBar from '../sideBar';
+
+// <Note> Component
+import TagListBar from '../note/tagListBar';
+import NoteCardView from '../note/noteCardView';
+import NoteTimelineBar from '../note/noteTimelineBar';
+import RianListEditor from '../note/noteRianEditor/rianListEditor';
 
 // Styles
 import './styles.global.css';
@@ -71,27 +60,58 @@ import css from './app.css';
 // the route, along with a <Route> 'listener' that will conditionally display
 // the <Page> component based on the route name
 
-const mapToState = state => ({
+const mapState = state => ({
 	userId: state.User._id,
+	leftBar: state.App.leftBar,
 });
 
-@connect(mapToState)
-class MainComponent extends React.PureComponent {
+type DefaultProps = {
+	userId: string,
+	leftBar: boolean,
+};
+
+type Props = {
+	userId: string,
+	leftBar: boolean,
+};
+
+type State = {};
+
+@connect(mapState)
+class MainComponent extends React.PureComponent<DefaultProps, Props, State> {
+	static defaultProps = {
+		userId: '',
+		leftBar: false,
+	};
+
+	constructor(props: Props) {
+		super(props);
+	}
+
+	state = {};
 
 	render() {
-		const { userId } = this.props;
+		console.log(this.props)
+		const { userId, leftBar, location: { pathname }, match: { url } } = this.props;
 		if (process.env.NODE_ENV !== 'development') {
 			if (!userId) {
 				return <Redirect to="/login" />;
 			}
+		} else if (pathname === '/' ) {
+			return <Redirect to="/card" />
 		}
 		return (
 			<div id={css.mainComponent}>
 				<Head />
 				<SideBar />
-				<Switch>
-					<Route path="/" component={Note} />
-				</Switch>
+				<div className={css.note} style={{ marginLeft: leftBar ? '0px' : '1px' }}>
+					<TagListBar />
+					{pathname === '/list' && <NoteTimelineBar />}
+					<Switch>
+						<Route path={`${url}card`} component={NoteCardView} />
+						<Route path={`${url}list`} component={RianListEditor} />
+					</Switch>	
+				</div>
 			</div>
 		);
 	}
