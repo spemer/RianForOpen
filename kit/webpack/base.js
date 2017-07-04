@@ -113,6 +113,7 @@ export default new WebpackConfig().merge({
 		new webpack.ProvidePlugin({
 			$: 'jquery',
 			jQuery: 'jquery',
+			'window.jQuery': 'jquery',
 		}),
     // Progress bar + options
 		new ProgressBarPlugin({

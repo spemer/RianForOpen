@@ -14194,7 +14194,7 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
     function showInline (e, force) {
       setTimeout(function () {
         if ((!e || e.which != $.FE.KEYCODE.ESC) && editor.selection.inEditor() && editor.core.hasFocus() && !editor.popups.areVisible()) {
-          if (editor.opts.toolbarVisibleWithoutSelection || (!editor.selection.isCollapsed()) || force) {
+          if (editor.opts.toolbarVisibleWithoutSelection || (!editor.selection.isCollapsed() && !editor.keys.isIME()) || force) {
             editor.$tb.data('instance', editor);
 
             // Check if we should actually show the toolbar.

@@ -7,6 +7,7 @@ import TagListBar from './tagListBar';
 import NoteCardView from './noteCardView';
 import NoteTimelineBar from './noteTimelineBar';
 import RianListEditor from './noteRianEditor/rianListEditor';
+// import NoteEditor from '../note/noteEditor/index'
 
 const mapState = state => ({
 	userId: state.User._id,

@@ -5,7 +5,7 @@
         height: 40px;
         display: flex;
         & .gutter {
-            flex: 0 0 53px;
+            flex: 0 0 40px;
             opacity: 0.38;
             font-family: NotoSansCJKkr-Bold;
             font-size: 14px;
@@ -40,7 +40,7 @@
         height: 40px;
         display: flex;
         & .gutter {
-            flex: 0 0 53px;
+            flex: 0 0 40px;
             opacity: 0.38;
             font-family: NotoSansCJKkr-Bold;
             font-size: 14px;
@@ -60,7 +60,7 @@
         width:100%;
         height: 10px;
         & .borderLine {
-            margin-right: 40px;
+            margin-right: 50px;
             width:670px;
             height: 10px;
             border-bottom: 1px solid #dfdfdf;
