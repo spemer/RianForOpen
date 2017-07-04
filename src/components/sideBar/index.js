@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-// import { Route, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { changeLeftBar } from '../../actions/AppActions';
 import parentCss from '../app/app.css';
@@ -18,12 +18,14 @@ const mapToDispatch = dispatch => ({
 
 type DefaultProps = {
   changeLeftBarDispatch: Function,
-  leftBar: boolean
+  leftBar: boolean,
+  pathname: string,
 };
 
 type Props = {
   changeLeftBarDispatch: Function,
-  leftBar: boolean
+  leftBar: boolean,
+  pathname: string,
 };
 
 type State = {
@@ -35,6 +37,7 @@ class SideBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		changeLeftBarDispatch: () => {},
 		leftBar: false,
+		pathname: '/',
 	};
 
 	constructor(props: Props) {
@@ -58,7 +61,7 @@ class SideBar extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const { active } = this.state;
-		const { leftBar, changeLeftBarDispatch } = this.props;
+		const { leftBar, changeLeftBarDispatch, pathname } = this.props;
 		return (
 			<div className={parentCss.sideBar}>
 				<div className={css.plusButton}>
@@ -80,33 +83,34 @@ class SideBar extends Component<DefaultProps, Props, State> {
 					}}
 					role="Button"
 					tabIndex="0"
-				>
-					<svg
-						width="22px"
-						height="40px"
-						opacity={active !== 'mode' ? '0.38' : '1'}
-						viewBox="0 0 24 24"
-					>
-						<path
-							fill="none"
-							stroke={active !== 'mode' ? '#000000' : '#ff3466'}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeMiterlimit="10"
-							strokeWidth="1.5"
-							d="M8.3 5.5h7.4M8.3 9.5h7.4M8.3 13.5h7.4M19 1.5H5v21h8.8l5.2-5.2z"
-						/>
-						<path
-							fill="none"
-							stroke={active !== 'mode' ? '#000000' : '#ff3466'}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeMiterlimit="10"
-							strokeWidth="1.5"
-							d="M13.8 22.5l5.2-5.2h-5.2z"
-						/>
-					</svg>
-
+				>	
+					<Link to={pathname === '/card' ? '/list' : '/card'}>
+						<svg
+							width="22px"
+							height="40px"
+							opacity={active !== 'mode' ? '0.38' : '1'}
+							viewBox="0 0 24 24"
+						>
+							<path
+								fill="none"
+								stroke={active !== 'mode' ? '#000000' : '#ff3466'}
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeMiterlimit="10"
+								strokeWidth="1.5"
+								d="M8.3 5.5h7.4M8.3 9.5h7.4M8.3 13.5h7.4M19 1.5H5v21h8.8l5.2-5.2z"
+							/>
+							<path
+								fill="none"
+								stroke={active !== 'mode' ? '#000000' : '#ff3466'}
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeMiterlimit="10"
+								strokeWidth="1.5"
+								d="M13.8 22.5l5.2-5.2h-5.2z"
+							/>
+						</svg>
+					</Link>
 				</div>
 				<div
 					className={css.tagButton}
