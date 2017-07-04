@@ -44,7 +44,8 @@ type State = {
     disabled: boolean,
     crazy: boolean,
     options: Array<any>,
-    value: Array<any>
+    value: Array<any>,
+	modeIsTag: boolean,
 };
 
 @connect(mapToState)
@@ -65,6 +66,7 @@ class SearchBox extends Component<DefaultProps, Props, State> {
 		crazy: false,
 		options: Mock,
 		value: [],
+		modeIsTag: true
 	}
 
 	handleSelectChange: Function;
@@ -74,8 +76,10 @@ class SearchBox extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
+		const { disabled, value, options } = this.state;
+		const { placeholder } = this.props;
 		return (
-			<VirtualizedSelect multi simpleValue disabled={this.state.disabled} value={this.state.value} placeholder="노트에서 검색" options={this.state.options} onChange={this.handleSelectChange} />
+			<VirtualizedSelect multi simpleValue disabled={disabled} value={value} placeholder={placeholder} options={options} onChange={this.handleSelectChange} />
 		);
 	}
 }

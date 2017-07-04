@@ -25,4 +25,16 @@
             opacity: 0.38;
         }
     }
+    & .modeButton {
+        position: absolute;
+        top: 18px;
+        left: 333px;
+        outline: none;
+    }
+    & .tagButton {
+        position: absolute;
+        top: 23px;
+        left: 363px;
+        outline: none;
+    }
 }
