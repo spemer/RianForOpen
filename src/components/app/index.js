@@ -91,14 +91,15 @@ class MainComponent extends React.PureComponent<DefaultProps, Props, State> {
 	state = {};
 
 	render() {
-		console.log(this.props)
 		const { userId, leftBar, location: { pathname }, match: { url } } = this.props;
 		if (process.env.NODE_ENV !== 'development') {
 			if (!userId) {
 				return <Redirect to="/login" />;
 			}
-		} else if (pathname === '/' ) {
-			return <Redirect to="/card" />
+		} 
+		//if setup initial page -> 'card'
+		if (pathname === '/') {
+			return <Redirect to="/card" />;
 		}
 		return (
 			<div id={css.mainComponent}>
