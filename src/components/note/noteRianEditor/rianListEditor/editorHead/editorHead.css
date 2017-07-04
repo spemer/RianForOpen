@@ -22,7 +22,7 @@
             flex: 0 0 670px;
             border: none;
             font-family: NotoSansCJKkr-Bold;
-            font-size: 36px;
+            font-size: 30px;
             font-weight: bold;
             line-height: 1.62;
             letter-spacing: -0.9px;
@@ -33,7 +33,7 @@
             background-color: #FCFCFC;
         }
         & .title::placeholder {
-            font-size: 36px;
+            font-size: 30px;
         }
     }
     & .tagBox {

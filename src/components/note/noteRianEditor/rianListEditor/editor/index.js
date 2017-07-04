@@ -5,6 +5,7 @@ import 'froala-editor/js/froala_editor.pkgd.min';
 import FroalaEditor from 'react-froala-wysiwyg';
 import editorConfig from './editorConfig';
 import parentCss from '../rianListEditor.css';
+import '../../froalaEditorSRC/css/plugins/colors.global.css';
 import '../../fontawesome.global.css';
 import './rianlist.global.css';
 import './editor.global.css';
@@ -34,7 +35,9 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 
 	componentDidMount() {
 		this.initControls.initialize();
-		// this.initControls.getEditor()('toolbar.hide');
+		$.FroalaEditor.RegisterShortcut(49, 'paragraphFormat', 'H1', 'H', false);
+		$.FroalaEditor.RegisterShortcut(50, 'paragraphFormat', 'H2', 'H', false);
+		$.FroalaEditor.RegisterShortcut(51, 'paragraphFormat', 'H3', 'H', false);
 	}
 
 	handleModelChange: Function;

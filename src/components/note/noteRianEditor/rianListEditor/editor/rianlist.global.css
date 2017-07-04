@@ -1205,6 +1205,7 @@ body.prevent-scroll.fr-mobile {
   max-width: 680px;
   min-width: 680px;
   font-family: NotoSansCJKkr-Regular;
+  height: 100%;
 	font-size: 15px;
   font-weight: 300;
 	line-height: 1.62;
