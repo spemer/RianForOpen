@@ -44,6 +44,7 @@
 .container:hover {
     border: none;
     background-color: #f4f4f4;
-
+    margin-right: 2px;
+    border-left: 3px solid #ff3466;
 }
 
