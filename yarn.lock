@@ -301,7 +301,7 @@ arrify@^1.0.0, arrify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
 
-asap@~2.0.3:
+asap@^2.0.3, asap@~2.0.3:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.5.tgz#522765b50c3510490e52d7dcfe085ef9ba96958f"
 
@@ -2339,6 +2339,19 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
+disposables@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/disposables/-/disposables-1.0.1.tgz#064727a25b54f502bd82b89aa2dfb8df9f1b39e3"
+
+dnd-core@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-2.4.0.tgz#c4a5bc2aea75164f8a295d769d5f551810e7d411"
+  dependencies:
+    asap "^2.0.3"
+    invariant "^2.0.0"
+    lodash "^4.2.0"
+    redux "^3.2.0"
+
 dns-equal@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dns-equal/-/dns-equal-1.0.0.tgz#b39e7f1da6eb0a75ba9c17324b34753c47e0654d"
@@ -4191,7 +4204,7 @@ interpret@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.3.tgz#cbc35c62eeee73f19ab7b10a801511401afc0f90"
 
-invariant@^2.0.0, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
+invariant@^2.0.0, invariant@^2.1.0, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
   dependencies:
@@ -5457,7 +5470,7 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1, lodash@~4.17.4:
+"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.14.1, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1, lodash@~4.17.4:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -7249,6 +7262,23 @@ react-deep-force-update@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-2.0.1.tgz#4f7f6c12c3e7de42f345992a3c518236fa1ecad3"
 
+react-dnd-html5-backend@^2.0.0:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-2.4.1.tgz#439d2bcaf8bd8b87a51386beb51c128826182ddd"
+  dependencies:
+    lodash "^4.2.0"
+
+react-dnd@^2.0.2:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-2.4.0.tgz#96f0042cd4cd375b4f0c3413f6ec84d267b7d792"
+  dependencies:
+    disposables "^1.0.1"
+    dnd-core "^2.4.0"
+    hoist-non-react-statics "^1.2.0"
+    invariant "^2.1.0"
+    lodash "^4.2.0"
+    prop-types "^15.5.8"
+
 react-dom-factories@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-dom-factories/-/react-dom-factories-1.0.0.tgz#f43c05e5051b304f33251618d5bc859b29e46b6d"
@@ -7375,6 +7405,19 @@ react-side-effect@^1.1.0:
   dependencies:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
+
+react-tag-input@^4.7.2:
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/react-tag-input/-/react-tag-input-4.7.2.tgz#ce2f21542b3848a57afb723348b8311393aae2df"
+  dependencies:
+    lodash "^4.14.1"
+    prop-types "^15.5.8"
+    react-dnd "^2.0.2"
+    react-dnd-html5-backend "^2.0.0"
+
+react-tags@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/react-tags/-/react-tags-0.2.2.tgz#cf369f3a0a7cc9b078cc0f421860abb68186f13b"
 
 react-test-renderer@^15.5.4:
   version "15.6.1"
@@ -7568,7 +7611,7 @@ redux-observable@^0.14.1:
   version "0.14.1"
   resolved "https://registry.yarnpkg.com/redux-observable/-/redux-observable-0.14.1.tgz#9f3d870c69388fdc427ded6770a3e326f3b69693"
 
-redux@^3.4.0, redux@^3.6.0:
+redux@^3.2.0, redux@^3.4.0, redux@^3.6.0:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.1.tgz#bfc535c757d3849562ead0af18ac52122cd7268e"
   dependencies:
