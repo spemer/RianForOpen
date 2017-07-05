@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-// import '../../froalaEditorSRC/js/froala_editor.pkgd';
+// import '../../../../../../util/FroalaEditor/js/froala_editor.pkgd
 import 'froala-editor/js/froala_editor.pkgd.min';
 import FroalaEditor from 'react-froala-wysiwyg';
 import editorConfig from './editorConfig';
