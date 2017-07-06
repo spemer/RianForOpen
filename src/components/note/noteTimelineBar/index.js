@@ -24,16 +24,21 @@ const getAllMyNotePreviewsQuery = graphql(getAllMyNotePreviews, {
 	skip: process.env.NODE_ENV === 'development' && true,
 });
 
-const mapToState = state => ({
-	userId: state.User._id,
-	leftBar: state.App.leftBar,
+const mapToState = ({ User: { _id }, App: { full, leftBar } }) => ({
+	userId: _id,
+	full,
+	leftBar,
 });
 
 type DefaultProps = {
+	userId: string,
+	full: boolean,
 	leftBar: boolean,
 };
 
 type Props = {
+	userId: string,
+	full: boolean,
 	leftBar: boolean,
 };
 
@@ -46,6 +51,8 @@ type State = {
 class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 
 	static defaultProps = {
+		userId: '',
+		full: false,
 		leftBar: false,
 	}
 
@@ -109,11 +116,11 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const noteCount = 36;
-		const { leftBar } = this.props;
+		const { leftBar, full } = this.props;
 		return (
 			<Motion
 				style={{
-					x: spring(leftBar ? 258 : 0),
+					x: spring(leftBar && !full ? 258 : 0),
 				}}
 			>
 				{({ x }) => (

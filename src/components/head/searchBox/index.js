@@ -66,7 +66,7 @@ class SearchBox extends Component<DefaultProps, Props, State> {
 		crazy: false,
 		options: Mock,
 		value: [],
-		modeIsTag: true
+		modeIsTag: true,
 	}
 
 	handleSelectChange: Function;

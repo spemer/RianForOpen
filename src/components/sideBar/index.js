@@ -6,8 +6,9 @@ import { changeLeftBar } from '../../actions/AppActions';
 import parentCss from '../app/app.css';
 import css from './sideBar.css';
 
-const mapToState = state => ({
-	leftBar: state.App.leftBar,
+const mapToState = ({ App: { full, leftBar } }) => ({
+	leftBar,
+	full,
 });
 
 const mapToDispatch = dispatch => ({
@@ -19,12 +20,14 @@ const mapToDispatch = dispatch => ({
 type DefaultProps = {
   changeLeftBarDispatch: Function,
   leftBar: boolean,
+  full: boolean,
   pathname: string,
 };
 
 type Props = {
   changeLeftBarDispatch: Function,
   leftBar: boolean,
+  full: boolean,
   pathname: string,
 };
 
@@ -37,6 +40,7 @@ class SideBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		changeLeftBarDispatch: () => {},
 		leftBar: false,
+		full: false,
 		pathname: '/',
 	};
 
@@ -61,9 +65,9 @@ class SideBar extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const { active } = this.state;
-		const { leftBar, changeLeftBarDispatch, pathname } = this.props;
+		const { leftBar, full, changeLeftBarDispatch, pathname } = this.props;
 		return (
-			<div className={parentCss.sideBar}>
+			<div className={parentCss.sideBar} style={{ width: !full ? '56px' : '0px' }}>
 				<div className={css.plusButton}>
 					<svg width="56" height="64">
 						<path fill="none" d="M0 0h56v64H0V0z" />
@@ -83,7 +87,7 @@ class SideBar extends Component<DefaultProps, Props, State> {
 					}}
 					role="Button"
 					tabIndex="0"
-				>	
+				>
 					<Link to={pathname === '/card' ? '/list' : '/card'}>
 						<svg
 							width="22px"

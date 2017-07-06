@@ -73,5 +73,9 @@
     }
     & .scrollBox {
         flex: 1;
+        overflow: scroll;
     }
+    & .scrollBox::-webkit-scrollbar {
+        display: none;
+    }      
 }

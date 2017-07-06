@@ -60,19 +60,22 @@ import css from './app.css';
 // the route, along with a <Route> 'listener' that will conditionally display
 // the <Page> component based on the route name
 
-const mapState = state => ({
-	userId: state.User._id,
-	leftBar: state.App.leftBar,
+const mapState = ({ User: { _id }, App: { full, leftBar } }) => ({
+	userId: _id,
+	leftBar,
+	full,
 });
 
 type DefaultProps = {
 	userId: string,
 	leftBar: boolean,
+	full: boolean,
 };
 
 type Props = {
 	userId: string,
 	leftBar: boolean,
+	full: boolean,
 };
 
 type State = {};
@@ -82,6 +85,7 @@ class MainComponent extends React.PureComponent<DefaultProps, Props, State> {
 	static defaultProps = {
 		userId: '',
 		leftBar: false,
+		full: false,
 	};
 
 	constructor(props: Props) {
@@ -91,7 +95,7 @@ class MainComponent extends React.PureComponent<DefaultProps, Props, State> {
 	state = {};
 
 	render() {
-		const { userId, leftBar, location: { pathname }, match: { url } } = this.props;
+		const { userId, leftBar, full, location: { pathname }, match: { url } } = this.props;
 		if (process.env.NODE_ENV !== 'development') {
 			if (!userId) {
 				return <Redirect to="/login" />;
@@ -103,11 +107,11 @@ class MainComponent extends React.PureComponent<DefaultProps, Props, State> {
 		}
 		return (
 			<div id={css.mainComponent}>
-				<Head />
-				<SideBar pathname={pathname} />
-				<div className={css.note} style={{ marginLeft: leftBar ? '0px' : '1px' }}>
-					<TagListBar />
-					{pathname === '/list' && <NoteTimelineBar />}
+				<Head full={full} />
+				<SideBar pathname={pathname} full={full} />
+				<div className={css.note} style={{ marginLeft: leftBar ? '0px' : '1px', top: !full ? '61px' : '0px', left: !full ? '56px' : '0px' }}>
+					<TagListBar full={full} />
+					{pathname === '/list' && <NoteTimelineBar full={full} />}
 					<Switch>
 						<Route path="/card" component={NoteCardView} />
 						<Route path="/list" component={RianListEditor} />

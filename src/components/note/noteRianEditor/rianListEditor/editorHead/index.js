@@ -5,9 +5,13 @@ import './reactTag.global.css';
 import parentCss from '../rianListEditor.css';
 import css from './editorHead.css';
 
-type DefaultProps = {};
+type DefaultProps = {
+	full: boolean,
+};
 
-type Props = {};
+type Props = {
+	full: boolean,
+};
 
 type tagType = {
   id: number,
@@ -19,7 +23,9 @@ type State = {
 };
 
 class RianListEditor extends Component<DefaultProps, Props, State> {
-	static defaultProps = {};
+	static defaultProps = {
+		full: false,
+	};
 
 	constructor(props: Props) {
 		super(props);

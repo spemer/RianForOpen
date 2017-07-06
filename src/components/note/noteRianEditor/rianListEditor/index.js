@@ -12,7 +12,9 @@ import {
   saveTheme,
 } from '../../../../graphqls/NoteEditorGraphQl';
 
-const mapToState = state => ({});
+const mapToState = ({ App: { full } }) => ({
+	full,
+});
 
 const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
 	options: props => ({
@@ -45,12 +47,14 @@ type DefaultProps = {
 	oneOfNoteData: boolean,
 	autoSave: boolean,
 	saveTheme: boolean,
+	full: boolean
 };
 
 type Props = {
 	oneOfNoteData: boolean,
 	autoSave: boolean,
 	saveTheme: boolean,
+	full: boolean
 };
 
 type State = {
@@ -74,6 +78,7 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 		autoSave: false,
 		saveTheme: false,
 		oneOfNoteData: false,
+		full: false,
 	}
 
 	constructor(props: Props) {
@@ -86,10 +91,11 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
+		const { full } = this.props;
 		return (
 			<div className={css.container}>
 				<SideHead />
-				<EditorHead />
+				<EditorHead full={full} />
 				<MainEditor />
 			</div>
 		);

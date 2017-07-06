@@ -16,11 +16,13 @@ const mapToDispatch = dispatch => ({
 });
 
 type DefaultProps = {
-  changeFullScreenApp: Function
+  changeFullScreenApp: Function,
+  full: boolean,
 };
 
 type Props = {
-  changeFullScreenApp: Function
+  changeFullScreenApp: Function,
+  full: boolean,
 };
 
 type State = {
@@ -31,6 +33,7 @@ type State = {
 class Head extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		changeFullScreenApp: () => {},
+		full: false,
 	};
 
 	constructor(props: Props) {
@@ -74,6 +77,7 @@ class Head extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const { modeIsTag } = this.state;
+		const { full } = this.props;
 		let placeholder;
 		if (modeIsTag) {
 			placeholder = '태그에서 검색하세요';
@@ -81,7 +85,7 @@ class Head extends Component<DefaultProps, Props, State> {
 			placeholder = '노트에서 검색하세요';
 		}
 		return (
-			<div className={parentCss.head}>
+			<div className={parentCss.head} style={{ height: !full ? '61px' : '0px' }}>
 				<div className={css.container}>
 					<img
 						className={css.icon}

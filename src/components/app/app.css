@@ -21,6 +21,7 @@
       opacity: 0.97;
       background-color: #ffffff;
       border-bottom: solid 1px #dfdfdf; 
+      overflow: auto;
     }
     & .sideBar {
       position: fixed;
@@ -32,6 +33,7 @@
       height: 100%;
       width: 56px;
       border-right: solid 1px #dfdfdf;
+      overflow: auto;
     }
     & .note {
       position: fixed;

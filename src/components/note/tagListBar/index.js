@@ -90,17 +90,22 @@ const getTagListQuery = graphql(getTagList, {
 	name: 'tagData',
 });
 
-const mapToState = state => ({
-	userId: state.User._id,
-	leftBar: state.App.leftBar,
+const mapToState = ({ User: { _id }, App: { full, leftBar } }) => ({
+	userId: _id,
+	leftBar,
+	full,
 });
 
 type DefaultProps = {
-  leftBar: boolean
+  userId: string,
+  leftBar: boolean,
+  full: boolean,
 };
 
 type Props = {
-  leftBar: boolean
+  userId: string,
+  leftBar: boolean,
+  full: boolean,
 };
 
 type State = {
@@ -116,7 +121,9 @@ type State = {
 @compose(getTagListQuery)
 class TagListBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
+		userId: '',
 		leftBar: false,
+		full: false,
 	};
 
 	constructor(props: Props) {
@@ -176,11 +183,11 @@ class TagListBar extends Component<DefaultProps, Props, State> {
       sortedEng,
       sortedEtc,
     } = this.state;
-		const { leftBar } = this.props;
+		const { leftBar, full } = this.props;
 		return (
 			<Motion
 				style={{
-					x: spring(leftBar ? 179 : 0),
+					x: spring(leftBar && !full ? 179 : 0),
 				}}
 			>
 				{({ x }) => (
