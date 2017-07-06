@@ -96,22 +96,22 @@ class MainComponent extends React.PureComponent<DefaultProps, Props, State> {
 			if (!userId) {
 				return <Redirect to="/login" />;
 			}
-		} 
-		//if setup initial page -> 'card'
+		}
+		// if setup initial page -> 'card'
 		if (pathname === '/') {
 			return <Redirect to="/card" />;
 		}
 		return (
 			<div id={css.mainComponent}>
 				<Head />
-				<SideBar pathname={pathname}/>
+				<SideBar pathname={pathname} />
 				<div className={css.note} style={{ marginLeft: leftBar ? '0px' : '1px' }}>
 					<TagListBar />
 					{pathname === '/list' && <NoteTimelineBar />}
 					<Switch>
-						<Route path='/card' component={NoteCardView} />
-						<Route path='/list' component={RianListEditor} />
-					</Switch>	
+						<Route path="/card" component={NoteCardView} />
+						<Route path="/list" component={RianListEditor} />
+					</Switch>
 				</div>
 			</div>
 		);

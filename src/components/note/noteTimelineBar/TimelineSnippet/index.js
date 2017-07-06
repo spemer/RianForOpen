@@ -2,10 +2,6 @@
 import React from 'react';
 import css from './timelineSnippet.css';
 
-const makeTagToElement = (tagSet: Array<string>) => {
-	const SumTagSet = tagSet.reduce((a: string, b: string) => `${a}#${b}`, '');
-	return <p className={css.tagInstance}>{SumTagSet}</p>;
-};
 type Props = {
     _id: string,
     title: string,
@@ -15,6 +11,7 @@ type Props = {
     is_publish?: boolean,
     like?: number,
     style: any,
+    changeClickedBox: Function,
 };
 
 const TimelineSnippet = ({
@@ -26,9 +23,10 @@ const TimelineSnippet = ({
   is_publish = false,
   like = 100,
   style = '',
+  changeClickedBox = () => {},
 }: Props) => (
 	<div className={css.container} style={style}>
-		<div className={css.box}>
+		<div className={css.box} onClick={(e) => { changeClickedBox(e); }}>
 			<div className={css.timestamp}>
 				{updated_at}
 			</div>

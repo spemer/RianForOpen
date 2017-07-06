@@ -3760,6 +3760,10 @@ handlebars@^4.0.3:
   optionalDependencies:
     uglify-js "^2.6"
 
+hangul-js@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/hangul-js/-/hangul-js-0.2.4.tgz#e8b702e0d4e268291b1c7afbe6c6d65980860159"
+
 har-schema@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/har-schema/-/har-schema-1.0.5.tgz#d263135f43307c02c602afc8fe95970c0151369e"

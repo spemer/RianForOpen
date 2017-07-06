@@ -1265,8 +1265,23 @@ span.fr-sr-only {
   font-weight: normal;
   font-size: 14px;
   line-height: 1.62;
+  color: #babac0;
   letter-spacing: -0.3px;
   content: 'H3';
+  margin-right: 9px;
+  margin-left: -13px;
+  margin-left: -24px;
+}
+
+.fr-view h3:hover:before {
+  opacity: 0.38;
+  font-family: NotoSansCJKkr-Regular;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.62;
+  letter-spacing: -0.3px;
+  content: 'H3';
+  color: #515861;
   margin-right: 9px;
   margin-left: -13px;
   margin-left: -24px;
@@ -1287,6 +1302,20 @@ span.fr-sr-only {
   font-weight: normal;
   font-size: 14px;
   line-height: 1.62;
+  color: #babac0;
+  letter-spacing: -0.3px;
+  content: 'H2';
+  margin-right: 9px;
+  margin-left: -24px;
+}
+
+.fr-view h2:hover:before {
+  opacity: 0.38;
+  font-family: NotoSansCJKkr-Regular;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.62;
+  color: #515861;
   letter-spacing: -0.3px;
   content: 'H2';
   margin-right: 9px;
@@ -1310,6 +1339,20 @@ span.fr-sr-only {
   font-size: 14px;
   line-height: 1.62;
   letter-spacing: -0.3px;
+  color: #babac0;
+  content: 'H1';
+  margin-right: 9px;
+  margin-left: -24px;
+}
+
+.fr-view h1:hover:before {
+  opacity: 0.38;
+  font-family: NotoSansCJKkr-Regular;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.62;
+  color: #515861;
+  letter-spacing: -0.3px;
   content: 'H1';
   margin-right: 9px;
   margin-left: -24px;
@@ -1321,8 +1364,8 @@ span.fr-sr-only {
 }
 .fr-view ul li::before {
   content: "• ";
-  color: var(--rianColor); /* or whatever color you prefer */
-  margin-right: 10px;
+  color: #515861; /* or whatever color you prefer */
+  font-size: 20px;
   margin-left: -22px;
 }
 

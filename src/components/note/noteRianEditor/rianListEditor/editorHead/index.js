@@ -44,7 +44,7 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 		const tags = this.state.tags;
 		tags.push({
 			id: tags.length + 1,
-			text: `#${tag}`,
+			text: `#${tag.replace(/ /gi, '')}`,
 		});
 		this.setState({ tags });
 	}

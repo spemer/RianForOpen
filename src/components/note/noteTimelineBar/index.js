@@ -51,13 +51,17 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 
 	constructor(props: Props) {
 		super(props);
+		this.currentSelected = '';
 		this.rowRenderer = this.rowRenderer.bind(this);
+		this.changeClickedBox = this.changeClickedBox.bind(this);
 	}
 
 	state = {
 	}
 
 	rowRenderer: Function;
+	changeClickedBox: Function;
+	currentSelected: any;
 
 	rowRenderer({ index, style }) {
 		let data;
@@ -71,6 +75,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 					preview={data.preview}
 					tags={[data.tag]}
 					style={style}
+					changeClickedBox={this.changeClickedBox}
 				/>
 			);
 		}
@@ -84,9 +89,22 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 					preview={data.preview}
 					tags={[data.tag]}
 					style={style}
+					changeClickedBox={this.changeClickedBox}
 				/>
 			);
 		}
+	}
+
+	changeClickedBox(e) {
+		if (this.currentSelected) {
+			this.currentSelected.style.backgroundColor = null;
+			this.currentSelected.style.paddingLeft = '23px';
+			this.currentSelected.style.borderLeft = null;
+		}
+		this.currentSelected = e.currentTarget;
+		this.currentSelected.style.backgroundColor = '#f4f4f4';
+		this.currentSelected.style.paddingLeft = '20px';
+		this.currentSelected.style.borderLeft = '3px solid #ff3466';
 	}
 
 	render() {

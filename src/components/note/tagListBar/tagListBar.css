@@ -11,6 +11,7 @@
         flex-direction: row;
         margin-top: 28px;
         margin-left: 24px;
+        margin-bottom: 12px;
         & .status {
             flex: 0 0 80%;
             display: flex;
@@ -35,8 +36,39 @@
                 color: #515861;
             }
         }
-        & .sortButton {
+        & .selectButton {
             flex: 0 0 20%;
+            & .button {
+                margin-top: 5px;
+                margin-right: 8px;
+            }
+        }
+    }
+    & .sortBox {
+        display: flex;
+        height: 30px;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 12px;
+        & .sortButtonLeft {
+            height: 100%;
+            font-family: NotoSansCJKkr-Regular;
+            font-size: 11px;
+            line-height: 1.77;
+            letter-spacing: -0.3px;
+            color: #515861;
+            margin-left: 10px;
+            outline: none;
+        }
+        & .sortButtonRight {
+            height: 100%;
+            font-family: NotoSansCJKkr-Regular;
+            font-size: 11px;
+            line-height: 1.77;
+            letter-spacing: -0.3px;
+            color: #515861;
+            margin-right: 10px;
+            outline: none;
         }
     }
     & .scrollBox {

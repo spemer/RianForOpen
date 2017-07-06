@@ -1,0 +1,44 @@
+.container {
+    margin-bottom: 15px;
+    & .titleBox {
+        height: 20px;
+        padding-left: 24px;
+        & .titleName {
+            font-family: NotoSansCJKkr-Bold;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1.08;
+            letter-spacing: -0.4px;
+            color: #515861;
+        }
+    }
+    & .list {
+        & .tagBlock {
+            display: flex;
+            padding-left: 24px;
+            margin-left: 1px;
+            height: 28px;
+            justify-content: flex-start;
+            align-items: center;
+            outline: none;
+            & .tagName {
+                font-family: NotoSansCJKkr-Regular;
+                font-size: 12px;
+                line-height: 1.62;
+                letter-spacing: -0.3px;
+                color: #515861;
+                margin-right: 10px;
+            }
+            & .tagHowMany {
+                font-family: NotoSansCJKkr-Regular;
+                font-size: 12px;
+                line-height: 1.62;
+                letter-spacing: -0.3px;
+                color: #ff3466;
+            }
+        }
+        & .tagBlock:hover {
+            background-color: #f4f4f4;
+        }
+    }
+}

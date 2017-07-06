@@ -13,9 +13,13 @@
             letter-spacing: -0.3px;
             text-align: center;
             & .gutterName {
+                color: #babac0;
                 font-family: NotoSansCJKkr-Regular;
                 margin-bottom: 0px;
                 margin-top: 0px;
+            }
+            & .gutterName:hover {
+                color: #515861;
             }
         }
         & .title {
@@ -34,6 +38,7 @@
         }
         & .title::placeholder {
             font-size: 30px;
+            color: #babac0;
         }
     }
     & .tagBox {
@@ -48,9 +53,13 @@
             letter-spacing: -0.3px;
             text-align: center;
             & .gutterName {
+                color: #babac0;
                 font-family: NotoSansCJKkr-Regular;
                 margin-bottom: 0px;
                 margin-top: 0px;
+            }
+            & .gutterName:hover {
+                color: #515861;
             }
         }
         & .tagContainer{

@@ -3,11 +3,12 @@
     & .box {
             display: flex;
             flex-direction: column;
-            margin-top: 18px;
-            margin-left: 23px;
-            margin-right: 23px;
+            height: 100%;
+            padding-left: 23px;
+            padding-right: 23px;
             justify-content: center;
-            width: 208px;
+            box-sizing: border-box;
+            padding-top: 2px;
             & .timestamp {
                 flex: 0 0 13px;
                 font-family: NotoSansCJKkr;
@@ -44,7 +45,5 @@
 .container:hover {
     border: none;
     background-color: #f4f4f4;
-    margin-right: 2px;
-    border-left: 3px solid #ff3466;
 }
 
