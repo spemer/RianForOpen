@@ -93,8 +93,8 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 	render() {
 		const { full } = this.props;
 		return (
-			<div className={css.container}>
-				<SideHead />
+			<div className={css.container} style={{ paddingTop: !full ? '0px' : '40px' }}>
+				{!full && <SideHead />}
 				<EditorHead full={full} />
 				<MainEditor />
 			</div>
