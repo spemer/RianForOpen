@@ -57,10 +57,11 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const { tags } = this.state;
+		const { full } = this.props;
 		return (
 			<div className={parentCss.editorHead}>
 				<div className={css.container}>
-					<div className={css.tagBox}>
+					<div className={css.tagBox} style={{ height: !full ? '40px' : '0px', marginTop: !full ? '0px' : '40px' }}>
 						<div className={css.gutter}>
 							<p className={css.gutterName}>#</p>
 						</div>
