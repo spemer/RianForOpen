@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import { WithContext as ReactTags } from 'react-tag-input';
-import './reactTag.global.css'
+import { WithContext as ReactTags } from 'react-styled-tag';
+import './reactTag.global.css';
 import parentCss from '../rianListEditor.css';
 import css from './editorHead.css';
 
@@ -25,16 +25,14 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 		super(props);
 		this.handleDelete = this.handleDelete.bind(this);
 		this.handleAddition = this.handleAddition.bind(this);
-		this.handleDrag = this.handleDrag.bind(this);
 	}
 
 	state = {
-		tags: [{ id: 1, text: 'Thailand' }, { id: 2, text: 'India' }],
+		tags: [{ id: 1, text: '#명상' }, { id: 2, text: '#자기계발' }],
 	};
 
 	handleDelete: Function;
 	handleAddition: Function;
-	handleDrag: Function;
 
 	handleDelete(i: number) {
 		const tags = this.state.tags;
@@ -46,17 +44,8 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 		const tags = this.state.tags;
 		tags.push({
 			id: tags.length + 1,
-			text: tag,
+			text: `#${tag}`,
 		});
-		this.setState({ tags });
-	}
-
-	handleDrag(tag: tagType, currPos: number, newPos: number) {
-		const tags = this.state.tags;
-    // mutate array
-		tags.splice(currPos, 1);
-		tags.splice(newPos, 0, tag);
-    // re-render
 		this.setState({ tags });
 	}
 
@@ -69,12 +58,12 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 						<div className={css.gutter}>
 							<p className={css.gutterName}>#</p>
 						</div>
-						<div>
+						<div className={css.tagContainer}>
 							<ReactTags
 								tags={tags}
 								handleDelete={this.handleDelete}
 								handleAddition={this.handleAddition}
-								handleDrag={this.handleDrag}
+								placeholder=""
 							/>
 						</div>
 					</div>

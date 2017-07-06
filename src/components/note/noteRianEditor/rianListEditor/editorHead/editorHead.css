@@ -53,6 +53,11 @@
                 margin-top: 0px;
             }
         }
+        & .tagContainer{
+            flex: 0 0 670px;
+            height: 100%;
+            overflow: hidden;
+        }
     }
     & .borderBox {
         display: flex;

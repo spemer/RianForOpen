@@ -1,38 +1,60 @@
+/* Example Styles for React Tags*/
 div.ReactTags__tags {
     position: relative;
 }
 
 /* Styles for the input */
 div.ReactTags__tagInput {
-    width: 200px;
-    border-radius: 2px;
     display: inline-block;
+    width: 100px;
+    border-radius: 2px;
 }
 div.ReactTags__tagInput input.ReactTags__tagInputField,
 div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
-    height: 31px;
     margin: 0;
+    border: none;
+    background-color: #fcfcfc;
+    outline: none;
+    height: 27px;
     font-size: 12px;
     width: 100%;
-    border: 1px solid #eee;
-    outline: none;
 }
 
 /* Styles for selected tags */
-div.ReactTags__selected span.ReactTags__tag {
-    border: 1px solid #ddd;
-    background: #eee;
-    font-size: 12px;
+div.ReactTags__selected div.ReactTags__tag {
     display: inline-block;
-    padding: 5px;
     margin: 0 5px;
+    padding-top: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 2px;
+    font-size: 12px;
     cursor: move;
-    border-radius: 2px;
+    opacity: 1;
+    /* width: 62px; */
+    object-fit: contain;
+    border-radius: 4px;
+    background-color: #f4f4f4;
+    color: #babac0;
 }
-div.ReactTags__selected a.ReactTags__remove {
-    color: #aaa;
+
+div.ReactTags__tag div.tagText{
+    display: inline-block;
+    font-family: NotoSansCJKkr-Regular;
+	font-size: 12px;
+}
+
+div.ReactTags__selected div.ReactTags__remove {
+    position: relative;
+    display: inline-block;
+    top: 2px;
+    font-size: 17px;
     margin-left: 5px;
     cursor: pointer;
+}
+
+div.ReactTags__remove:hover {
+    color: #FF3466;
 }
 
 /* Styles for suggestions */
@@ -40,19 +62,19 @@ div.ReactTags__suggestions {
     position: absolute;
 }
 div.ReactTags__suggestions ul {
+    background: white;
     list-style-type: none;
     box-shadow: .05em .01em .5em rgba(0,0,0,.2);
-    background: white;
     width: 200px;
 }
 div.ReactTags__suggestions li {
-    border-bottom: 1px solid #ddd;
-    padding: 5px 10px;
     margin: 0;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
 }
 div.ReactTags__suggestions li mark {
-    text-decoration: underline;
     background: none;
+    text-decoration: underline;
     font-weight: 600;
 }
 div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
