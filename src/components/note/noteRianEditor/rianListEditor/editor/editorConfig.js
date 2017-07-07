@@ -6,7 +6,7 @@ const config = {
 	charCounterCount: false,
 	tabSpaces: 8,
 	toolbarInline: true,
-	pluginsEnabled: ['colors', 'lists', 'paragraphFormat'],
+	pluginsEnabled: ['colors', 'lists', 'paragraphFormat', 'quote'],
 	shortcutsEnabled: ['paragraphFormat'],
 	pastePlain: true,
 	toolbarVisibleWithoutSelection: true,
@@ -27,6 +27,7 @@ const config = {
 		'insertLink',
 		'insertHR',
 		'print',
+		'quote',
 		'insertTable',
 	],
 	toolbarButtonsSM: [
@@ -42,6 +43,7 @@ const config = {
 		'indent',
 		'insertLink',
 		'insertHR',
+		'quote',
 		'print',
 		'insertTable',
 	],
@@ -59,6 +61,7 @@ const config = {
 		'insertLink',
 		'insertHR',
 		'print',
+		'quote',
 		'insertTable',
 	],
 	toolbarButtons: [
@@ -75,6 +78,7 @@ const config = {
 		'insertLink',
 		'insertHR',
 		'print',
+		'quote',
 		'insertTable',
 	],
 	paragraphFormat: {
