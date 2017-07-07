@@ -1,85 +1,31 @@
-// @flow
 import React, { Component } from 'react';
-// import { Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import VirtualizedSelect from 'react-virtualized-select';
-import './react-select.global.css';
-import './select-styles.global.css';
-import './styles.global.css';
-import { getTagList } from '../../../graphqls/TagGraphQl';
-import css from './searchbox.css';
+import css from './searchBox.css';
 
-
-const Mock = [
-	{ label: 'Chocolate', value: 'chocolate' },
-	{ label: 'Vanilla', value: 'vanilla' },
-	{ label: 'Strawberry', value: 'strawberry' },
-	{ label: 'Caramel', value: 'caramel' },
-	{ label: 'Cookies and Cream', value: 'cookiescream' },
-	{ label: 'Peppermint', value: 'peppermint' },
-];
-
-const getTagListQuery = graphql(getTagList, {
-	options: props => ({
-		variables: {
-			userId: SERVER ? props.userId : null,
-			condition: 'All',
-		},
-		ssr: true,
-	}),
-	skip: process.env.NODE_ENV === 'development' && true,
-	name: 'tagData',
-});
-
-const mapToState = state => ({
-	userId: state.User._id,
-});
-
-type DefaultProps = {};
-
-type Props = {};
-
-type State = {
-    disabled: boolean,
-    crazy: boolean,
-    options: Array<any>,
-    value: Array<any>,
-	modeIsTag: boolean,
+console.log(css);
+type DefaultProps = {
 };
 
-@connect(mapToState)
-@compose(getTagListQuery)
+type Props = {
+};
+
+type State = {
+};
+
 class SearchBox extends Component<DefaultProps, Props, State> {
-
-	static defaultProps = {
-
-	}
+	static defaultProps = {}
 
 	constructor(props: Props) {
 		super(props);
-		this.handleSelectChange = this.handleSelectChange.bind(this);
 	}
 
-	state = {
-		disabled: false,
-		crazy: false,
-		options: Mock,
-		value: [],
-		modeIsTag: true,
-	}
-
-	handleSelectChange: Function;
-
-	handleSelectChange(value: any) {
-		this.setState({ value });
-	}
+	state = {}
 
 	render() {
-		const { disabled, value, options } = this.state;
-		const { placeholder } = this.props;
 		return (
-			<VirtualizedSelect multi simpleValue disabled={disabled} value={value} placeholder={placeholder} options={options} onChange={this.handleSelectChange} />
+			<div className={css.container}>
+				<input className={css.searchInput} placeholder={'노트에서 검색하세요'} />
+			</div>
 		);
 	}
 }

@@ -78,7 +78,7 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 						<div className={css.gutter}>
 							<p className={css.gutterName}>Title</p>
 						</div>
-						<input className={css.title} placeholder="소중한 순간에 제목을 지어주세요" />
+						<input className={css.title} placeholder="무엇을 적을 것인가요?" />
 					</div>
 					<div className={css.borderBox}>
 						<div className={css.borderLine} />

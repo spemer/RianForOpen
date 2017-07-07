@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import screenfull from 'screenfull';
 import { connect } from 'react-redux';
 import searchIcon from 'static/icons/ic-search.svg';
-import SeachBox from './searchBox';
+import SearchBox from './searchBox';
+import TagSearchBox from './tagSearchBox';
 import { fullScreenChange } from '../../actions/AppActions';
 import parentCss from '../app/app.css';
 import css from './head.css';
@@ -78,12 +79,6 @@ class Head extends Component<DefaultProps, Props, State> {
 	render() {
 		const { modeIsTag } = this.state;
 		const { full } = this.props;
-		let placeholder;
-		if (modeIsTag) {
-			placeholder = '태그에서 검색하세요';
-		} else {
-			placeholder = '노트에서 검색하세요';
-		}
 		return (
 			<div className={parentCss.head} style={{ height: !full ? '61px' : '0px' }}>
 				<div className={css.container}>
@@ -94,8 +89,8 @@ class Head extends Component<DefaultProps, Props, State> {
 						alt="fullscreen"
 					/>
 					<div className={css.searchBox}>
-						<img className={css.searchIc} src={searchIcon} alt="search" />
-						<SeachBox placeholder={placeholder} />
+						{ !modeIsTag && <img className={css.searchIc} src={searchIcon} alt="search" /> }
+						{ modeIsTag ? <TagSearchBox /> : <SearchBox />}
 					</div>
 					<div
 						className={css.modeButton}

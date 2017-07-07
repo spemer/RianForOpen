@@ -1,6 +1,6 @@
 const config = {
 	spellcheck: false,
-	placeholderText: '이곳에 적어주세요',
+	placeholderText: '',
 	editorClass: 'editorContainer',
 	width: '100%',
 	charCounterCount: false,
@@ -77,9 +77,9 @@ const config = {
 	paragraphFormat: {
 		N: 'Normal',
 		PRE: 'Code',
-		H3: 'Head 3',
-		H2: 'Head 2',
-		H1: 'Head 1',
+		H3: 'H3',
+		H2: 'H2',
+		H1: 'H1',
 	},
 };
 
