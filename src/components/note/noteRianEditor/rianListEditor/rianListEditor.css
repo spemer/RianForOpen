@@ -4,6 +4,7 @@
     height: 100%;
     margin-top: 1px;
     overflow: auto;
+    padding-right: 50px;
     & .sideHead {
         display: flex;
         justify-content: flex-end;
