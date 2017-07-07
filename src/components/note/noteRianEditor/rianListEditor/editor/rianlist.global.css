@@ -1187,8 +1187,8 @@ body.prevent-scroll.fr-mobile {
 }
 .fr-box {
   position: relative;
-  max-width: 680px;
-  min-width: 680px;
+  max-width: 550px;
+  min-width: 550px;
   font-family: NotoSansCJKkr-Regular;
   height: 100%;
 	font-size: 15px;
