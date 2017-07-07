@@ -3,7 +3,7 @@ import React from 'react';
 import css from './groupedBox.css';
 
 const tagMapToBox = (tagSet, changeClickedBox) => tagSet.map((tag, index) => (
-	<div className={css.tagBlock} key={index} onClick={(e) => { changeClickedBox(e); }} role="button" tabIndex={index}>
+	<div className={css.tagBlock} key={index} onClick={(e) => { changeClickedBox(e, tag.name); }} role="button" tabIndex={index}>
 		<span className={css.tagName}>{`#${tag.name}`}</span>
 		<span className={css.tagHowMany}>{tag.howMany}</span>
 	</div>

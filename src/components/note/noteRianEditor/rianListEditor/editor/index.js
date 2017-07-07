@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-// import '../../../../../../util/FroalaEditor/js/froala_editor.pkgd
-import 'froala-editor/js/froala_editor.pkgd.min';
+import 'FroalaEditor/froala_editor_sources_2.6.2/js/froala_editor.pkgd';
 import FroalaEditor from 'react-froala-wysiwyg';
 import editorConfig from './editorConfig';
 import parentCss from '../rianListEditor.css';
@@ -51,6 +50,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 	handleController(initControls: any) {
 		this.initControls = initControls;
 	}
+
 
 	render() {
 		const config = editorConfig;

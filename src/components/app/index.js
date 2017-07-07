@@ -109,7 +109,7 @@ class MainComponent extends React.PureComponent<DefaultProps, Props, State> {
 			<div id={css.mainComponent}>
 				<Head full={full} />
 				<SideBar pathname={pathname} full={full} />
-				<div className={css.note} style={{ marginLeft: leftBar ? '0px' : '1px', top: !full ? '61px' : '0px', left: !full ? '56px' : '0px' }}>
+				<div className={css.note} style={{ marginLeft: leftBar ? '0px' : '1px', top: !full ? '61Gpx' : '0px', left: !full ? '56px' : '0px' }}>
 					<TagListBar full={full} />
 					{pathname === '/list' && <NoteTimelineBar full={full} />}
 					<Switch>
