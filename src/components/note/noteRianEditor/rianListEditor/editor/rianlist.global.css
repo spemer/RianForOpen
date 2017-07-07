@@ -1243,8 +1243,9 @@ span.fr-sr-only {
   line-height: 25px;
 }
 
-.fr-view h4 {
+.fr-view pre {
   padding: 15px 20px 15px 20px;
+  background-color: #f4f4f4;
   font-weight: 400;
   margin-top: 8px;
   margin-bottom: 8px;

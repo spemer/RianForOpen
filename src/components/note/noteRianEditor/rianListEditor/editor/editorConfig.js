@@ -79,7 +79,7 @@ const config = {
 	],
 	paragraphFormat: {
 		N: 'Normal',
-		H4: 'Code',
+		PRE: 'Code',
 		H3: 'Head 3',
 		H2: 'Head 2',
 		H1: 'Head 1',
