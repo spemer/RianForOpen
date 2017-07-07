@@ -1390,7 +1390,8 @@ span.fr-sr-only {
 
 .fr-view blockquote {
   border-left: 3px solid #515861; 
-  padding-left: 5px;
+  margin-left: 10px;
+  padding-left: 10px;
   box-sizing: border-box;
 }
 
