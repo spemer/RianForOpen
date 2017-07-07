@@ -1187,8 +1187,8 @@ body.prevent-scroll.fr-mobile {
 }
 .fr-box {
   position: relative;
-  max-width: 500px;
-  min-width: 500px;
+  max-width: 540px;
+  min-width: 540px;
   font-family: NotoSansCJKkr-Regular;
   height: 100%;
 	font-size: 15px;
@@ -1196,6 +1196,7 @@ body.prevent-scroll.fr-mobile {
 	line-height: 1.62;
 	letter-spacing: -0.4px;
 	color: #515861;
+  margin-right: 20px
 }
 /**
  * Postion sticky hacks.
@@ -1270,8 +1271,7 @@ span.fr-sr-only {
   color: #babac0;
   letter-spacing: -0.3px;
   content: 'H3';
-  margin-right: 9px;
-  margin-left: -13px;
+  margin-right: 6px;
   margin-left: -24px;
 }
 
@@ -1284,8 +1284,7 @@ span.fr-sr-only {
   letter-spacing: -0.3px;
   content: 'H3';
   color: #515861;
-  margin-right: 9px;
-  margin-left: -13px;
+  margin-right: 6px;
   margin-left: -24px;
 }
 
@@ -1307,7 +1306,7 @@ span.fr-sr-only {
   color: #babac0;
   letter-spacing: -0.3px;
   content: 'H2';
-  margin-right: 9px;
+  margin-right: 5.7px;
   margin-left: -24px;
 }
 
@@ -1320,7 +1319,7 @@ span.fr-sr-only {
   color: #515861;
   letter-spacing: -0.3px;
   content: 'H2';
-  margin-right: 9px;
+  margin-right: 5.7px;
   margin-left: -24px;
 }
 
@@ -1343,7 +1342,7 @@ span.fr-sr-only {
   letter-spacing: -0.3px;
   color: #babac0;
   content: 'H1';
-  margin-right: 9px;
+  margin-right: 7.3px;
   margin-left: -24px;
 }
 
@@ -1356,7 +1355,7 @@ span.fr-sr-only {
   color: #515861;
   letter-spacing: -0.3px;
   content: 'H1';
-  margin-right: 9px;
+  margin-right: 7.3px;
   margin-left: -24px;
 }
 

@@ -6,9 +6,8 @@
 
 #app {
   display: flex;
-  width: 100%;
+  width: 100vh;
   height: 100vh;
-  min-width: 1300px;
 }
 
 #mainComponent {

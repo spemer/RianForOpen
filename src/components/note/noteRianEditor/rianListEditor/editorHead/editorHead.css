@@ -5,7 +5,7 @@
         height: 40px;
         display: flex;
         & .gutter {
-            flex: 0 0 40px;
+            flex: 0 0 35px;
             opacity: 0.38;
             font-family: NotoSansCJKkr-Bold;
             font-size: 14px;
@@ -43,9 +43,9 @@
     & .tagBox {
         height: 40px;
         display: flex;
-        overflow: auto;
+        overflow: hidden;
         & .gutter {
-            flex: 0 0 40px;
+            flex: 0 0 35px;
             opacity: 0.38;
             font-family: NotoSansCJKkr-Bold;
             font-size: 14px;
