@@ -1,7 +1,6 @@
 .container {
-    width: 600px;
+    width: 580px;
     height: 100%;
-    margin-right: 26px;
     & .titleHead {
         height: 40px;
         display: flex;
@@ -24,7 +23,7 @@
             }
         }
         & .title {
-            flex: 0 0 530px;
+            flex: 0 0 500px;
             border: none;
             font-family: NotoSansCJKkr-Bold;
             font-size: 30px;
@@ -64,7 +63,7 @@
             }
         }
         & .tagContainer{
-            flex: 0 0 610px;
+            flex: 0 0 550px;
             height: 100%;
             overflow: hidden;
         }
@@ -75,8 +74,8 @@
         width:100%;
         height: 10px;
         & .borderLine {
-            margin-right: 10px;
-            width: 550px;
+            margin-right: 40px;
+            width: 500px;
             height: 10px;
             border-bottom: 1px solid #dfdfdf;
         }
