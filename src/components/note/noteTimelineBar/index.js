@@ -24,21 +24,24 @@ const getAllMyNotePreviewsQuery = graphql(getAllMyNotePreviews, {
 	skip: process.env.NODE_ENV === 'development' && true,
 });
 
-const mapToState = ({ User: { _id }, App: { full, leftBar } }) => ({
+const mapToState = ({ User: { _id }, App: { full, themeColor, leftBar } }) => ({
 	userId: _id,
 	full,
 	leftBar,
+	themeColor,
 });
 
 type DefaultProps = {
 	userId: string,
 	full: boolean,
+	themeColor: string,
 	leftBar: boolean,
 };
 
 type Props = {
 	userId: string,
 	full: boolean,
+	themeColor: string,
 	leftBar: boolean,
 };
 
@@ -53,6 +56,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		userId: '',
 		full: false,
+		themeColor: '',
 		leftBar: false,
 	}
 
@@ -111,7 +115,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		this.currentSelected = e.currentTarget;
 		this.currentSelected.style.backgroundColor = '#f4f4f4';
 		this.currentSelected.style.paddingLeft = '20px';
-		this.currentSelected.style.borderLeft = '3px solid #ff3466';
+		this.currentSelected.style.borderLeft = `3px solid ${this.props.themeColor}`;
 	}
 
 	render() {

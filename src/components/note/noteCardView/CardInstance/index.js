@@ -51,7 +51,7 @@ const CardInstance = ({
 		<div className={css.preview}>
 			{preview}
 		</div>
-		<div className={css.tags}>
+		<div className={css.tags} style={{ color: themeColor }}>
 			{makeTagToElement(tags)}
 		</div>
 	</div>

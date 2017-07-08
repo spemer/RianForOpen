@@ -54,8 +54,5 @@
         font-size: 12px;
         line-height: 1.62;
         letter-spacing: -0.3px;
-        color: #ff3466;
-        & p {
-        }
     }
 }

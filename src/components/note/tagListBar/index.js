@@ -90,22 +90,25 @@ const getTagListQuery = graphql(getTagList, {
 	name: 'tagData',
 });
 
-const mapToState = ({ User: { _id }, App: { full, leftBar } }) => ({
+const mapToState = ({ User: { _id }, App: { full, themeColor, leftBar } }) => ({
 	userId: _id,
-	leftBar,
 	full,
+	themeColor,
+	leftBar,
 });
 
 type DefaultProps = {
   userId: string,
-  leftBar: boolean,
   full: boolean,
+  themeColor: string,
+  leftBar: boolean,
 };
 
 type Props = {
   userId: string,
-  leftBar: boolean,
   full: boolean,
+  themeColor: string,
+  leftBar: boolean,
 };
 
 type State = {
@@ -122,8 +125,9 @@ type State = {
 class TagListBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		userId: '',
-		leftBar: false,
 		full: false,
+		themeColor: '',
+		leftBar: false,
 	};
 
 	constructor(props: Props) {
@@ -145,6 +149,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 
 	changeSelectedTag: Function;
 	changeSortBy: Function;
+	changeClickedBox: Function;
 	currentSelected: '';
 
 	changeSelectedTag(argu: string) {
@@ -171,7 +176,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		this.currentSelected = e.currentTarget;
 		this.currentSelected.style.backgroundColor = '#f4f4f4';
 		this.currentSelected.style.paddingLeft = '21px';
-		this.currentSelected.style.borderLeft = '3px solid #ff3466';
+		this.currentSelected.style.borderLeft = `3px solid ${this.props.themeColor}`;
 	}
 
 	render() {
@@ -183,7 +188,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
       sortedEng,
       sortedEtc,
     } = this.state;
-		const { leftBar, full } = this.props;
+		const { leftBar, full, themeColor } = this.props;
 		return (
 			<Motion
 				style={{
@@ -224,25 +229,25 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 							</div>
 						</div>
 						<div className={css.sortBox}>
-							<span className={css.sortButtonLeft} style={{ color: sortByhowMany ? '#ff3466' : '#515861' }} onClick={() => { this.changeSortBy(true); }} role="button" tabIndex="0">
+							<span className={css.sortButtonLeft} style={{ color: sortByhowMany ? themeColor : '#515861' }} onClick={() => { this.changeSortBy(true); }} role="button" tabIndex="0">
 							노트 개수순
 							</span>
-							<span className={css.sortButtonRight} style={{ color: !sortByhowMany ? '#ff3466' : '#515861' }} onClick={() => { this.changeSortBy(false); }} role="button" tabIndex="1">
+							<span className={css.sortButtonRight} style={{ color: !sortByhowMany ? themeColor : '#515861' }} onClick={() => { this.changeSortBy(false); }} role="button" tabIndex="1">
 							태그 이름순
 							</span>
 						</div>
 						<div className={css.scrollBox}>
 							{sortedKor &&
                 sortedKor.map((tagGroup, index) => (
-	<GroupedBox key={index} group={tagGroup[0]} tagSet={tagGroup[1]} changeClickedBox={this.changeClickedBox} />
+	<GroupedBox key={index} group={tagGroup[0]} tagSet={tagGroup[1]} changeClickedBox={this.changeClickedBox} themeColor={themeColor} />
                 ))}
 							{sortedEng &&
                 sortedEng.map((tagGroup, index) => (
-	<GroupedBox key={index} group={tagGroup[0]} tagSet={tagGroup[1]} changeClickedBox={this.changeClickedBox} />
+	<GroupedBox key={index} group={tagGroup[0]} tagSet={tagGroup[1]} changeClickedBox={this.changeClickedBox} themeColor={themeColor} />
                 ))}
 							{sortedEtc &&
                 sortedEtc.map((tagGroup, index) => (
-	<GroupedBox key={index} group={tagGroup[0]} tagSet={tagGroup[1]} changeClickedBox={this.changeClickedBox} />
+	<GroupedBox key={index} group={tagGroup[0]} tagSet={tagGroup[1]} changeClickedBox={this.changeClickedBox} themeColor={themeColor} />
                 ))}
 						</div>
 					</div>

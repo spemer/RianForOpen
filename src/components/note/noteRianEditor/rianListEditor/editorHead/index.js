@@ -71,6 +71,11 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 								handleDelete={this.handleDelete}
 								handleAddition={this.handleAddition}
 								placeholder=""
+								classNames={{
+									tags: 'editorTagsClass',
+									tagInputField: 'editorTagsInputField',
+									tag: 'editorTagsheadTag',
+								}}
 							/>
 						</div>
 					</div>

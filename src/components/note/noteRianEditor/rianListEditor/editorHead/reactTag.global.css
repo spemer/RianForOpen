@@ -1,5 +1,5 @@
 /* Example Styles for React Tags*/
-div.ReactTags__tags {
+div.editorTagsClass {
     position: relative;
     width: 550px;
 }
@@ -10,8 +10,8 @@ div.ReactTags__tagInput {
     width: 100px;
     border-radius: 2px;
 }
-div.ReactTags__tagInput input.ReactTags__tagInputField,
-div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
+div.ReactTags__tagInput input.editorTagsInputField,
+div.ReactTags__tagInput input.editorTagsInputField:focus {
     margin: 0;
     border: none;
     background-color: #fcfcfc;
@@ -22,7 +22,7 @@ div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
 }
 
 /* Styles for selected tags */
-div.ReactTags__selected div.ReactTags__tag {
+div.ReactTags__selected div.editorTagsheadTag {
     display: inline-block;
     margin: 0 5px;
     padding-top: 3px;
@@ -39,7 +39,7 @@ div.ReactTags__selected div.ReactTags__tag {
     color: #babac0;
 }
 
-div.ReactTags__tag div.tagText{
+div.editorTagsheadTag div.tagText{
     display: inline-block;
     font-family: NotoSansCJKkr-Regular;
 	font-size: 12px;
@@ -52,10 +52,6 @@ div.ReactTags__selected div.ReactTags__remove {
     font-size: 17px;
     margin-left: 5px;
     cursor: pointer;
-}
-
-div.ReactTags__remove:hover {
-    color: #FF3466;
 }
 
 /* Styles for suggestions */

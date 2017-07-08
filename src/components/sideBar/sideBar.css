@@ -17,11 +17,6 @@
     outline: none;
 }
 
-.modeButton:hover {
-    margin-right: 4px;
-    border-left: 4px solid #ff3466;
-}
-
 .tagButton {
     display: flex;
     align-items: center;
@@ -30,11 +25,6 @@
     margin-bottom: 25px; 
     box-sizing: border-box;
     outline: none;
-}
-
-.tagButton:hover {
-    margin-right: 4px;
-    border-left: 4px solid #ff3466;
 }
 
 .socialButton {
@@ -47,11 +37,6 @@
     outline: none;
 }
 
-.socialButton:hover {
-    margin-right: 4px;
-    border-left: 4px solid #ff3466;
-}
-
 .trashButton {
     display: flex;
     align-items: center;
@@ -59,9 +44,4 @@
     height: 32px;
     box-sizing: border-box;
     outline: none;
-}
-
-.trashButton:hover {
-    margin-right: 4px;
-    border-left: 4px solid #ff3466;
 }

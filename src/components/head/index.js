@@ -10,8 +10,13 @@ import parentCss from '../app/app.css';
 import css from './head.css';
 import icFullScreenIcon from '../../../static/icons/ic_fullScreen.svg';
 
+const mapToState = ({ App: { full, themeColor } }) => ({
+	full,
+	themeColor,
+});
+
 const mapToDispatch = dispatch => ({
-	changeFullScreenApp(argu) {
+	changeFullScreenApp(argu: boolean) {
 		dispatch(fullScreenChange(argu));
 	},
 });
@@ -19,22 +24,25 @@ const mapToDispatch = dispatch => ({
 type DefaultProps = {
   changeFullScreenApp: Function,
   full: boolean,
+  themeColor: string,
 };
 
 type Props = {
   changeFullScreenApp: Function,
   full: boolean,
+  themeColor: string,
 };
 
 type State = {
   modeIsTag: false
 };
 
-@connect(undefined, mapToDispatch)
+@connect(mapToState, mapToDispatch)
 class Head extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		changeFullScreenApp: () => {},
 		full: false,
+		string: '',
 	};
 
 	constructor(props: Props) {
@@ -78,7 +86,7 @@ class Head extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const { modeIsTag } = this.state;
-		const { full } = this.props;
+		const { full, themeColor } = this.props;
 		return (
 			<div className={parentCss.head} style={{ height: !full ? '61px' : '0px' }}>
 				<div className={css.container}>
@@ -108,7 +116,7 @@ class Head extends Component<DefaultProps, Props, State> {
 						>
 							<path
 								fill="none"
-								stroke={modeIsTag ? '#000000' : '#ff3466'}
+								stroke={modeIsTag ? '#000000' : themeColor}
 								strokeLinecap="round"
 								strokeLinejoin="round"
 								strokeMiterlimit="10"
@@ -117,7 +125,7 @@ class Head extends Component<DefaultProps, Props, State> {
 							/>
 							<path
 								fill="none"
-								stroke={modeIsTag ? '#000000' : '#ff3466'}
+								stroke={modeIsTag ? '#000000' : themeColor}
 								strokeLinecap="round"
 								strokeLinejoin="round"
 								strokeMiterlimit="10"
@@ -146,7 +154,7 @@ class Head extends Component<DefaultProps, Props, State> {
 						>
 							<polygon
 								fill="none"
-								stroke={!modeIsTag ? '#000000' : '#ff3466'}
+								stroke={!modeIsTag ? '#000000' : themeColor}
 								strokeWidth="1.5"
 								strokeLinecap="round"
 								strokeLinejoin="round"
@@ -154,10 +162,10 @@ class Head extends Component<DefaultProps, Props, State> {
 								points="
 				2.6,2.6 2.6,12.5 12.5,22.4 22.4,12.5 12.5,2.6 "
 							/>
-							<circle cx="6.5" cy="6.5" r="1.5" fill={modeIsTag && '#ff3466'} />
+							<circle cx="6.5" cy="6.5" r="1.5" fill={modeIsTag && themeColor} />
 							<line
 								fill="none"
-								stroke={!modeIsTag ? '#000000' : '#ff3466'}
+								stroke={!modeIsTag ? '#000000' : themeColor}
 								strokeWidth="1.5"
 								strokeLinecap="round"
 								strokeLinejoin="round"
@@ -169,7 +177,7 @@ class Head extends Component<DefaultProps, Props, State> {
 							/>
 							<line
 								fill="none"
-								stroke={!modeIsTag ? '#000000' : '#ff3466'}
+								stroke={!modeIsTag ? '#000000' : themeColor}
 								strokeWidth="1.5"
 								strokeLinecap="round"
 								strokeLinejoin="round"
@@ -181,7 +189,7 @@ class Head extends Component<DefaultProps, Props, State> {
 							/>
 							<line
 								fill="none"
-								stroke={!modeIsTag ? '#000000' : '#ff3466'}
+								stroke={!modeIsTag ? '#000000' : themeColor}
 								strokeWidth="1.5"
 								strokeLinecap="round"
 								strokeLinejoin="round"
@@ -199,4 +207,4 @@ class Head extends Component<DefaultProps, Props, State> {
 	}
 }
 
-export default connect(undefined, mapToDispatch)(Head);
+export default Head;

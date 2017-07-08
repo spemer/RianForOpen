@@ -33,18 +33,28 @@ const getAllMyNotePreviewsQuery = graphql(getAllMyNotePreviews, {
 	skip: process.env.NODE_ENV === 'development' && true,
 });
 
-const mapToState = state => ({
-	userId: state.User._id,
+const mapToState = ({ User: { _id }, App: { themeColor } }) => ({
+	userId: _id,
+	themeColor,
 });
 
-type DefaultProps = {};
-type Props = {};
-type State = {};
+type DefaultProps = {
+	userId: string,
+	themeColor: string,
+};
+type Props = {
+	userId: string,
+	themeColor: string,
+};
+type State = {
+};
 
 @connect(mapToState)
 @compose(getAllMyNotePreviewsQuery)
 class NoteCardView extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
+		userId: '',
+		themeColor: '',
 	};
 	constructor(props: Props) {
 		super(props);
@@ -53,6 +63,8 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 
 	state = {
 	};
+
+	cardRenderer: Function;
 
 	cardRenderer(noteData: Array<any>) {
 		return noteData.map((data, index) => (
@@ -63,6 +75,7 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 				updated_at={data.updated_at}
 				tags={data.tags}
 				pre_image={data.pre_image}
+				themeColor={this.props.themeColor}
 			/>
 		));
 	}
@@ -71,7 +84,6 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	render() {
 		const noteCount = 36;
 		const tagName = '다다익선';
-
 		return (
 			<div className={css.container}>
 				<div className={css.head}>
