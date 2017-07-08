@@ -16,7 +16,6 @@
         & .tagBlock {
             display: flex;
             padding-left: 24px;
-            margin-left: 1px;
             height: 28px;
             justify-content: flex-start;
             align-items: center;

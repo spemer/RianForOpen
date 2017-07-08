@@ -98,14 +98,16 @@ function MainComponent({ userId, leftBar, full, location: { pathname } }: Props)
 	return (
 		<div id={css.mainComponent}>
 			<Head pathname={pathname} />
-			<SideBar pathname={pathname} />
-			<div className={css.note} style={{ marginLeft: leftBar ? '0px' : '1px', top: !full ? '61px' : '0px', left: !full ? '56px' : '0px' }}>
-				<TagListBar />
-				{pathname === '/list' && <NoteTimelineBar />}
-				<Switch>
-					<Route path="/card" component={NoteCardView} />
-					<Route path="/list" component={RianListEditor} />
-				</Switch>
+			<div className={css.mainContainer} style={{ marginTop: !full ? '61px' : '0px' }}>
+				<SideBar pathname={pathname} />
+				<div className={css.note} style={{ marginLeft: !full ? '57px' : '0px' }}>
+					<TagListBar />
+					{pathname === '/list' && <NoteTimelineBar />}
+					<Switch>
+						<Route path="/card" component={NoteCardView} />
+						<Route path="/list" component={RianListEditor} />
+					</Switch>
+				</div>
 			</div>
 		</div>
 	);

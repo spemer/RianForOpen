@@ -3,6 +3,7 @@
     & .box {
             display: flex;
             flex-direction: column;
+            outline: none;
             height: 100%;
             padding-left: 23px;
             padding-right: 23px;
