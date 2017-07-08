@@ -13,6 +13,12 @@
             "onlyFilesWithFlowAnnotation": true
         }
     },
+    "globals": {
+        "SERVER": true
+    },
+    "env": {
+        "jquery": true
+    },
     "rules": {
         "indent": [
             2,

@@ -6,10 +6,10 @@ type Props = {
     id: string,
     title: string,
     preview: string,
-    updatedAt?: string,
+    updatedAt: string,
     tags: Array<string>,
-    isPublish?: boolean,
-    like?: number,
+    isPublish: boolean,
+    like: number,
     style: any,
     changeClickedBox: Function,
 };
@@ -26,7 +26,7 @@ const TimelineSnippet = ({
   changeClickedBox = () => {},
 }: Props) => (
 	<div className={css.container} style={style}>
-		<div className={css.box} onClick={(e) => { changeClickedBox(e); }}>
+		<div className={css.box} onClick={(e) => { changeClickedBox(e); }} role="button" tabIndex="0">
 			<div className={css.timestamp}>
 				{updatedAt}
 			</div>

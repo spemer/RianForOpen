@@ -17,7 +17,6 @@ type Props = {
   like?: number,
   themeColor: string,
   preImage: string,
-  style: any,
 };
 
 const CardInstance = ({
@@ -30,9 +29,8 @@ const CardInstance = ({
   isPublish = false,
   themeColor = '#ff3466',
   preImage = '',
-  style = {},
 }: Props) => (
-	<div className={css.container} style={style}>
+	<div className={css.container}>
 		<div
 			className={css.head}
 			style={{

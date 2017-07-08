@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import screenfull from 'screenfull';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import searchIcon from 'static/icons/ic-search.svg';
+import searchIcon from '../../../static/icons/ic-search.svg';
 import SearchBox from './searchBox';
 import TagSearchBox from './tagSearchBox';
 import { fullScreenChange } from '../../actions/AppActions';

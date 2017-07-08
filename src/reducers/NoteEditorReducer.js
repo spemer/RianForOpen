@@ -24,7 +24,7 @@ const NoteEditorState: State = {
 	themesave: 'nothing',
 };
 
-export default function NoteEditor(state = NoteEditorState, action) {
+export default function NoteEditor(state = NoteEditorState, action: {state: State, action: any}) {
 	switch (action.type) {
 	case AUTO_SAVE_REQUEST:
 		return Object.assign({}, state, {

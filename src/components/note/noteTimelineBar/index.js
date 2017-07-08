@@ -85,7 +85,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 	changeClickedBox: Function;
 	currentSelected: any;
 
-	rowRenderer({ index, style }) {
+	rowRenderer({ index, style }: { index: number, style: any}) {
 		let data;
 		if (process.env.NODE_ENV === 'development') {
 			data = Mock[index];
@@ -101,23 +101,21 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 				/>
 			);
 		}
-		if (process.env.NODE_ENV === 'production') {
-			data = Mock[index];
-			return (
-				<TimelineSnippet
-					key={index}
-					_id=""
-					title={data.title}
-					preview={data.preview}
-					tags={[data.tag]}
-					style={style}
-					changeClickedBox={this.changeClickedBox}
-				/>
-			);
-		}
+		data = Mock[index];
+		return (
+			<TimelineSnippet
+				key={index}
+				_id=""
+				title={data.title}
+				preview={data.preview}
+				tags={[data.tag]}
+				style={style}
+				changeClickedBox={this.changeClickedBox}
+			/>
+		);
 	}
 
-	changeClickedBox(e) {
+	changeClickedBox(e: any) {
 		if (this.currentSelected) {
 			this.currentSelected.style.backgroundColor = null;
 			this.currentSelected.style.paddingLeft = '23px';

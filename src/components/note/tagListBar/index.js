@@ -66,17 +66,17 @@ example.map((tagSet) => {
 	return null;
 });
 
-const sortedKor = toPairs(korResult).sort((a, b) => {
+const sortedKorModel = toPairs(korResult).sort((a, b) => {
 	if (a[0] > b[0]) return 1;
 	if (a[0] < b[0]) return -1;
 	return 0;
 });
-const sortedEng = toPairs(engResult).sort((a, b) => {
+const sortedEngModel = toPairs(engResult).sort((a, b) => {
 	if (a[0] > b[0]) return 1;
 	if (a[0] < b[0]) return -1;
 	return 0;
 });
-const sortedEtc = toPairs(etcResult);
+const sortedEtcModel = toPairs(etcResult);
 
 const getTagListQuery = graphql(getTagList, {
 	options: props => ({
@@ -91,17 +91,20 @@ const getTagListQuery = graphql(getTagList, {
 });
 
 type Store = {
-	User: {
-		userId: string
-	},
-	App: {
-		full: boolean,
-		themeColor: string,
-		leftBar: boolean
-	}
-}
+  User: {
+    userId: string
+  },
+  App: {
+    full: boolean,
+    themeColor: string,
+    leftBar: boolean
+  }
+};
 
-const mapToState = ({ User: { userId }, App: { full, themeColor, leftBar } }: Store) => ({
+const mapToState = ({
+  User: { userId },
+  App: { full, themeColor, leftBar },
+}: Store) => ({
 	userId,
 	full,
 	themeColor,
@@ -112,14 +115,14 @@ type DefaultProps = {
   userId: string,
   full: boolean,
   themeColor: string,
-  leftBar: boolean,
+  leftBar: boolean
 };
 
 type Props = {
   userId: string,
   full: boolean,
   themeColor: string,
-  leftBar: boolean,
+  leftBar: boolean
 };
 
 type State = {
@@ -153,15 +156,15 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		tagCount: 174,
 		sortByhowMany: true,
 		selectedTag: '',
-		sortedKor,
-		sortedEng,
-		sortedEtc,
+		sortedKor: sortedKorModel,
+		sortedEng: sortedEngModel,
+		sortedEtc: sortedEtcModel,
 	};
 
 	changeSelectedTag: Function;
 	changeSortBy: Function;
 	changeClickedBox: Function;
-	currentSelected: '';
+	currentSelected: "";
 
 	changeSelectedTag(argu: string) {
 		this.setState({
@@ -194,7 +197,6 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		const {
       tagCount,
       sortByhowMany,
-      selectedTag,
       sortedKor,
       sortedEng,
       sortedEtc,
@@ -233,32 +235,88 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 										enableBackground="new 0 0 24 24"
 										opacity="0.38"
 									>
-										<line fill="none" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" x1="7.2" y1="9.8" x2="12" y2="14.2" />
-										<line fill="none" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" x1="16.8" y1="9.8" x2="12" y2="14.2" />
+										<line
+											fill="none"
+											stroke="#000000"
+											strokeWidth="1.5"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeMiterlimit="10"
+											x1="7.2"
+											y1="9.8"
+											x2="12"
+											y2="14.2"
+										/>
+										<line
+											fill="none"
+											stroke="#000000"
+											strokeWidth="1.5"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeMiterlimit="10"
+											x1="16.8"
+											y1="9.8"
+											x2="12"
+											y2="14.2"
+										/>
 									</svg>
 								</div>
 							</div>
 						</div>
 						<div className={css.sortBox}>
-							<span className={css.sortButtonLeft} style={{ color: sortByhowMany ? themeColor : '#515861' }} onClick={() => { this.changeSortBy(true); }} role="button" tabIndex="0">
-							노트 개수순
-							</span>
-							<span className={css.sortButtonRight} style={{ color: !sortByhowMany ? themeColor : '#515861' }} onClick={() => { this.changeSortBy(false); }} role="button" tabIndex="1">
-							태그 이름순
-							</span>
+							<span
+								className={css.sortButtonLeft}
+								style={{ color: sortByhowMany ? themeColor : '#515861' }}
+								onClick={() => {
+									this.changeSortBy(true);
+								}}
+								role="button"
+								tabIndex="0"
+							>
+                노트 개수순
+              </span>
+							<span
+								className={css.sortButtonRight}
+								style={{ color: !sortByhowMany ? themeColor : '#515861' }}
+								onClick={() => {
+									this.changeSortBy(false);
+								}}
+								role="button"
+								tabIndex="-1"
+							>
+                태그 이름순
+              </span>
 						</div>
 						<div className={css.scrollBox}>
 							{sortedKor &&
                 sortedKor.map((tagGroup, index) => (
-	<GroupedBox key={index} group={tagGroup[0]} tagSet={tagGroup[1]} changeClickedBox={this.changeClickedBox} themeColor={themeColor} />
+	<GroupedBox
+		key={index}
+		group={tagGroup[0]}
+		tagSet={tagGroup[1]}
+		changeClickedBox={this.changeClickedBox}
+		themeColor={themeColor}
+	/>
                 ))}
 							{sortedEng &&
                 sortedEng.map((tagGroup, index) => (
-	<GroupedBox key={index} group={tagGroup[0]} tagSet={tagGroup[1]} changeClickedBox={this.changeClickedBox} themeColor={themeColor} />
+	<GroupedBox
+		key={index}
+		group={tagGroup[0]}
+		tagSet={tagGroup[1]}
+		changeClickedBox={this.changeClickedBox}
+		themeColor={themeColor}
+	/>
                 ))}
 							{sortedEtc &&
                 sortedEtc.map((tagGroup, index) => (
-	<GroupedBox key={index} group={tagGroup[0]} tagSet={tagGroup[1]} changeClickedBox={this.changeClickedBox} themeColor={themeColor} />
+	<GroupedBox
+		key={index}
+		group={tagGroup[0]}
+		tagSet={tagGroup[1]}
+		changeClickedBox={this.changeClickedBox}
+		themeColor={themeColor}
+	/>
                 ))}
 						</div>
 					</div>
