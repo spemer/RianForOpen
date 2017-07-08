@@ -4,6 +4,7 @@ import screenfull from 'screenfull';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import searchIcon from '../../../static/icons/ic-search.svg';
+import profileImageMock from '../../../static/image/thumb-ex-img.png';
 import SearchBox from './searchBox';
 import TagSearchBox from './tagSearchBox';
 import { fullScreenChange } from '../../actions/AppActions';
@@ -218,6 +219,9 @@ class Head extends Component<DefaultProps, Props, State> {
 						<Link className={css.noteButton} to="/list" style={{ backgroundColor: pathname === '/list' ? '#f4f4f4' : 'white', color: pathname === '/list' ? '#515861' : '#babac0' }}>
 							<p>목록</p>
 						</Link>
+					</div>
+					<div className={css.profileBox}>
+						<div className={css.photo} style={{ backgroundImage: `url(${profileImageMock})` }} />
 					</div>
 				</div>
 			</div>

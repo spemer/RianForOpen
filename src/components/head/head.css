@@ -43,8 +43,10 @@
         top: 16px;
         left: 50%;
         height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         & .cardButton {
-            float: left;
             width: 52px;
 	        height: 29px;
             border-radius: 4px;
@@ -77,6 +79,16 @@
         }
         a:hover {
             text-decoration: none;
+        }
+    }
+    & .profileBox {
+        & .photo {
+            position: absolute;
+            top: 14px;
+            right: 20px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
         }
     }
 }
