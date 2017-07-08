@@ -1,4 +1,2 @@
 declare var SERVER: any;
-declare var $: {
-    FroalaEditor: any,
-};
+declare var $: any;

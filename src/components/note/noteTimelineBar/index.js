@@ -36,14 +36,12 @@ type Store = {
 }
 
 type DefaultProps = {
-	userId: string,
 	full: boolean,
 	themeColor: string,
 	leftBar: boolean,
 };
 
 type Props = {
-	userId: string,
 	full: boolean,
 	themeColor: string,
 	leftBar: boolean,
@@ -85,7 +83,9 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 	changeClickedBox: Function;
 	currentSelected: any;
 
-	rowRenderer({ index, style }: { index: number, style: any}) {
+	rowRenderer(argu: { index: number, style: any}) {
+		const index = argu.index;
+		const style = argu.style;
 		let data;
 		if (process.env.NODE_ENV === 'development') {
 			data = Mock[index];
@@ -96,6 +96,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 					title={data.title}
 					preview={data.preview}
 					tags={[data.tag]}
+					updatedAt="3일전"
 					style={style}
 					changeClickedBox={this.changeClickedBox}
 				/>
@@ -109,6 +110,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 				title={data.title}
 				preview={data.preview}
 				tags={[data.tag]}
+				updatedAt="3일전"
 				style={style}
 				changeClickedBox={this.changeClickedBox}
 			/>

@@ -5,3 +5,4 @@
 [libs]
 flow-typed
 [options]
+esproposal.decorators=ignore

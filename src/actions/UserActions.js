@@ -31,7 +31,7 @@ type UserLoginAction = {
 };
 
 export function userLogin(userData: UserData): UserLoginAction {
-	console.log('USERDATA: ', userData);
+	// console.log('USERDATA: ', userData);
 	return {
 		type: USER_LOGIN,
 		userId: userData._id,
