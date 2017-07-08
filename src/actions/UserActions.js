@@ -4,7 +4,7 @@ export function userLogin(userData) {
 	console.log('USERDATA: ', userData);
 	return {
 		type: USER_LOGIN,
-		_id: userData._id,
+		id: userData._id,
 		email: userData.email,
 		email_verified: userData.email_verified,
 		phone: userData.phone,
@@ -13,10 +13,10 @@ export function userLogin(userData) {
 		name: userData.name,
 		created_at: userData.created_at,
 		facebook_id: userData.facebook_id,
-		naver_id: userData.naver_id,
-		kakao_id: userData.kakao_id,
-		google_id: userData.google_id,
-		last_login: userData.last_login,
+		naverId: userData.naverId,
+		kakaoId: userData.kakaoId,
+		googleId: userData.googleId,
+		lastLogin: userData.lastLogin,
     // shared_tagList: [ObjectID]
 	};
 }

@@ -11,17 +11,6 @@ import parentCss from '../app/app.css';
 import css from './head.css';
 import icFullScreenIcon from '../../../static/icons/ic_fullScreen.svg';
 
-const mapToState = ({ App: { full, themeColor } }) => ({
-	full,
-	themeColor,
-});
-
-const mapToDispatch = dispatch => ({
-	changeFullScreenApp(argu: boolean) {
-		dispatch(fullScreenChange(argu));
-	},
-});
-
 type DefaultProps = {
   changeFullScreenApp: Function,
   full: boolean,
@@ -37,8 +26,30 @@ type Props = {
 };
 
 type State = {
-  modeIsTag: false
+  modeIsTag: boolean
 };
+
+function mapToState({ App: { full, themeColor } }) {
+	return { full,
+		themeColor,
+	};
+}
+
+function mapToDispatch(dispatch) {
+	return {
+		changeFullScreenApp(argu: boolean) {
+			dispatch(fullScreenChange(argu));
+		},
+	};
+}
+
+function fullScreen() {
+	if (screenfull.enabled) {
+		screenfull.toggle();
+	} else {
+      // Ignore or do something else
+	}
+}
 
 @connect(mapToState, mapToDispatch)
 class Head extends Component<DefaultProps, Props, State> {
@@ -47,12 +58,11 @@ class Head extends Component<DefaultProps, Props, State> {
 		full: false,
 		string: '',
 		pathname: '/card',
+		themeColor: '',
 	};
 
 	constructor(props: Props) {
 		super(props);
-		this.screenfull = screenfull;
-		this.fullScreen = this.fullScreen.bind(this);
 		this.changeSearchMode = this.changeSearchMode.bind(this);
 	}
 
@@ -61,8 +71,8 @@ class Head extends Component<DefaultProps, Props, State> {
 	};
 
 	componentDidMount() {
-		this.screenfull.onchange(() => {
-			if (this.screenfull.isFullscreen) {
+		screenfull.onchange(() => {
+			if (screenfull.isFullscreen) {
 				this.props.changeFullScreenApp(true);
 			} else {
 				this.props.changeFullScreenApp(false);
@@ -70,17 +80,7 @@ class Head extends Component<DefaultProps, Props, State> {
 		});
 	}
 
-	screefull: any;
-	fullScreen: any;
 	changeSearchMode: Function;
-
-	fullScreen() {
-		if (this.screenfull.enabled) {
-			this.screenfull.toggle();
-		} else {
-      // Ignore or do something else
-		}
-	}
 
 	changeSearchMode(argu: boolean) {
 		this.setState({
@@ -94,12 +94,18 @@ class Head extends Component<DefaultProps, Props, State> {
 		return (
 			<div className={parentCss.head} style={{ height: !full ? '61px' : '0px' }}>
 				<div className={css.container}>
-					<img
+					<div
 						className={css.icon}
-						src={icFullScreenIcon}
-						onClick={this.fullScreen}
+						onClick={fullScreen}
 						alt="fullscreen"
-					/>
+						role="button"
+						tabIndex="0"
+					>
+						<img
+							src={icFullScreenIcon}
+							alt="FullScreen"
+						/>
+					</div>
 					<div className={css.searchBox}>
 						{ !modeIsTag && <img className={css.searchIc} src={searchIcon} alt="search" /> }
 						{ modeIsTag ? <TagSearchBox /> : <SearchBox />}

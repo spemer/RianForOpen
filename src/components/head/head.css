@@ -9,6 +9,7 @@
         width: 30px;
         height: 30px;
         opacity: 0.38;
+        outline: none;
     }
     & .searchBox {
         position: absolute;

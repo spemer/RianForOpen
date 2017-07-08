@@ -8,42 +8,42 @@ const makeTagToElement = (tagSet: Array<string>) => {
 };
 
 type Props = {
-  _id: string,
+  Id: string,
   title: string,
   preview: string,
-  updated_at?: string,
+  updatedAt?: string,
   tags: Array<string>,
-  is_publish?: boolean,
+  isPublish?: boolean,
   like?: number,
   themeColor: string,
-  pre_image: string,
+  preImage: string,
   style: any,
 };
 
 const CardInstance = ({
-  _id = '',
+  Id = '',
   title = '',
   preview = '',
-  updated_at = '2017.08.24',
+  updatedAt = '2017.08.24',
   tags = [],
   like = 100,
-  is_publish = false,
+  isPublish = false,
   themeColor = '#ff3466',
-  pre_image = '',
+  preImage = '',
   style = {},
 }: Props) => (
 	<div className={css.container} style={style}>
 		<div
 			className={css.head}
 			style={{
-				backgroundImage: `url(${pre_image})`,
+				backgroundImage: `url(${preImage})`,
 			}}
 		>
 			<div className={css.box}>
-				<div className={css.timestamp} style={{ color: pre_image ? '#ffffff' : 'rgba(0, 0, 0, 0.54)', textShadow: pre_image ? '0 2px 4px rgba(0, 0, 0, 0.75)' : 'none' }}>
-					{updated_at}
+				<div className={css.timestamp} style={{ color: preImage ? '#ffffff' : 'rgba(0, 0, 0, 0.54)', textShadow: preImage ? '0 2px 4px rgba(0, 0, 0, 0.75)' : 'none' }}>
+					{updatedAt}
 				</div>
-				<div className={css.title} style={{ color: pre_image ? '#ffffff' : '#353946', textShadow: pre_image ? '0 2px 4px rgba(0, 0, 0, 0.75)' : 'none' }}>
+				<div className={css.title} style={{ color: preImage ? '#ffffff' : '#353946', textShadow: preImage ? '0 2px 4px rgba(0, 0, 0, 0.75)' : 'none' }}>
 					{title}
 				</div>
 			</div>

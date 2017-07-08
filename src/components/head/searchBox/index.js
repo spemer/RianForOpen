@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import css from './searchBox.css';
 
-console.log(css);
 type DefaultProps = {
 };
 

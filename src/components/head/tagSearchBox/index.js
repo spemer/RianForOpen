@@ -21,7 +21,7 @@ const getTagListQuery = graphql(getTagList, {
 });
 
 const mapToState = state => ({
-	userId: state.User._id,
+	userId: state.User.id,
 });
 
 type DefaultProps = {};

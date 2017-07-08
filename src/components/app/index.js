@@ -60,68 +60,58 @@ import css from './app.css';
 // the route, along with a <Route> 'listener' that will conditionally display
 // the <Page> component based on the route name
 
-const mapState = ({ User: { _id }, App: { full, leftBar } }) => ({
-	userId: _id,
-	leftBar,
-	full,
-});
-
-type DefaultProps = {
-	userId: string,
-	leftBar: boolean,
-	full: boolean,
-};
+type Store = {
+	User: {
+		id: string
+	},
+	App: {
+		full: boolean,
+		leftBar: boolean,
+	}
+}
 
 type Props = {
 	userId: string,
 	leftBar: boolean,
 	full: boolean,
+	location: Location,
 };
 
-type State = {};
-
-@connect(mapState)
-class MainComponent extends React.PureComponent<DefaultProps, Props, State> {
-	static defaultProps = {
-		userId: '',
-		leftBar: false,
-		full: false,
+function mapToState({ User: { id }, App: { full, leftBar } }: Store) {
+	return {
+		userId: id,
+		leftBar,
+		full,
 	};
-
-	constructor(props: Props) {
-		super(props);
-	}
-
-	state = {};
-
-	render() {
-		const { userId, leftBar, full, location: { pathname }, match: { url } } = this.props;
-		if (process.env.NODE_ENV !== 'development') {
-			if (!userId) {
-				return <Redirect to="/login" />;
-			}
-		}
-		// if setup initial page -> 'card'
-		if (pathname === '/') {
-			return <Redirect to="/card" />;
-		}
-		return (
-			<div id={css.mainComponent}>
-				<Head pathname={pathname} />
-				<SideBar pathname={pathname} />
-				<div className={css.note} style={{ marginLeft: leftBar ? '0px' : '1px', top: !full ? '61px' : '0px', left: !full ? '56px' : '0px' }}>
-					<TagListBar />
-					{pathname === '/list' && <NoteTimelineBar />}
-					<Switch>
-						<Route path="/card" component={NoteCardView} />
-						<Route path="/list" component={RianListEditor} />
-					</Switch>
-				</div>
-			</div>
-		);
-	}
 }
 
+function MainComponent({ userId, leftBar, full, location: { pathname } }: Props) {
+	if (process.env.NODE_ENV !== 'development') {
+		if (!userId) {
+			return <Redirect to="/login" />;
+		}
+	}
+		// if setup initial page -> 'card'
+	if (pathname === '/') {
+		return <Redirect to="/card" />;
+	}
+	return (
+		<div id={css.mainComponent}>
+			<Head pathname={pathname} />
+			<SideBar pathname={pathname} />
+			<div className={css.note} style={{ marginLeft: leftBar ? '0px' : '1px', top: !full ? '61px' : '0px', left: !full ? '56px' : '0px' }}>
+				<TagListBar />
+				{pathname === '/list' && <NoteTimelineBar />}
+				<Switch>
+					<Route path="/card" component={NoteCardView} />
+					<Route path="/list" component={RianListEditor} />
+				</Switch>
+			</div>
+		</div>
+	);
+}
+
+const ConnectedMainComponent = connect(mapToState)(MainComponent);
 
 export default () => (
 	<div id={css.app}>
@@ -136,7 +126,7 @@ export default () => (
 		/>
 		<Switch>
 			<Route exact path="/login" component={Login} />
-			<Route path="/" component={MainComponent} />
+			<Route path="/" component={ConnectedMainComponent} />
 		</Switch>
 	</div>
 );

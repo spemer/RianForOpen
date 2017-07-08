@@ -2,7 +2,6 @@
 
 // Import Reducers
 import AppReducer from './AppReducer';
-import NoteReducer from './NoteReducer';
 import UserReducer from './UserReducer';
 import NoteEditorReducer from './NoteEditorReducer';
 // import * as ProjectReducer from './ProjectReducer';
@@ -16,7 +15,6 @@ import NoteEditorReducer from './NoteEditorReducer';
 
 export default Object.assign(
   { App: AppReducer },
-  { Note: NoteReducer },
   { User: UserReducer },
   { NoteEditor: NoteEditorReducer },
 );

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import MockList from 'MockData/noteList';
+import MockList from '../../../../MockData/noteList';
 // react virtualized
 // import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 // import CellMeasurer from 'react-virtualized/dist/commonjs/CellMeasurer';
@@ -33,17 +33,14 @@ const getAllMyNotePreviewsQuery = graphql(getAllMyNotePreviews, {
 	skip: process.env.NODE_ENV === 'development' && true,
 });
 
-const mapToState = ({ User: { _id }, App: { themeColor } }) => ({
-	userId: _id,
+const mapToState = ({ App: { themeColor } }) => ({
 	themeColor,
 });
 
 type DefaultProps = {
-	userId: string,
 	themeColor: string,
 };
 type Props = {
-	userId: string,
 	themeColor: string,
 };
 type State = {
@@ -53,7 +50,6 @@ type State = {
 @compose(getAllMyNotePreviewsQuery)
 class NoteCardView extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		userId: '',
 		themeColor: '',
 	};
 	constructor(props: Props) {
@@ -67,19 +63,23 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	cardRenderer: Function;
 
 	cardRenderer(noteData: Array<any>) {
-		return noteData.map((data, index) => (
-			<CardInstance
-				key={index}
-				title={data.title}
-				preview="자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 "
-				updated_at={data.updated_at}
-				tags={data.tags}
-				pre_image={data.pre_image}
-				themeColor={this.props.themeColor}
-			/>
-		));
+		return noteData.map(({ _id, title, updated_at, tags, pre_image }, index) => {
+			const updatedAt = updated_at;
+			const preImage = pre_image;
+			return (
+				<CardInstance
+					key={index}
+					title={title}
+					preview="자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 "
+					updatedAt={updatedAt}
+					tags={tags}
+					preImage={preImage}
+					themeColor={this.props.themeColor}
+				/>
+			)
+;
+		});
 	}
-
 
 	render() {
 		const noteCount = 36;

@@ -6,9 +6,6 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const CHANGE_FULL_SCREEN = 'CHANGE_FULL_SCREEN';
 export const CHANGE_LEFT_BAR = 'CHANGE_LEFT_BAR';
 
-/* ----------  NOTE  ----------*/
-export const NOTE_MODE_CHANGE = 'NOTE_MODE_CHANGE';
-
 /* ---------- NOTE -----------*/
 export const AUTO_SAVE_REQUEST = 'AUTO_SAVE_REQUEST';
 export const AUTO_SAVE_PROGRESS = 'AUTO_SAVE_PROGRESS';
