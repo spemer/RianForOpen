@@ -1,5 +1,4 @@
 /* ----------  USER  ----------*/
-export const USER_INFORMATION_INJECT = 'USER_INFORMATION_INJECT';
 export const USER_LOGIN = 'USER_LOGIN';
 
 /* ----------  APP  ----------*/

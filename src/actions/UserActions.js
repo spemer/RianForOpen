@@ -1,14 +1,28 @@
+// @flow
 import { USER_LOGIN, USER_INFORMATION_INJECT } from '../constants';
 
-export function userLogin(userData) {
+type UserLoginAction = {
+  type: USER_LOGIN,
+  userId: string,
+  email: string,
+  photo: string,
+  token: string,
+  name: string,
+  createdAt: string,
+  fbId: string,
+  naverId: string,
+  kakaoId: string,
+  googleId: string,
+  lastLogin: string,
+};
+
+export function userLogin(userData: UserLoginAction): UserLoginAction {
 	console.log('USERDATA: ', userData);
 	return {
 		type: USER_LOGIN,
 		userId: userData._id,
 		email: userData.email,
-		email_verified: userData.email_verified,
-		phone: userData.phone,
-		picture: userData.picture,
+		photo: userData.photo,
 		token: userData.token,
 		name: userData.name,
 		createdAt: userData.createdAt,
@@ -17,13 +31,6 @@ export function userLogin(userData) {
 		kakaoId: userData.kakaoId,
 		googleId: userData.googleId,
 		lastLogin: userData.lastLogin,
-    // shared_tagList: [ObjectID]
-	};
-}
-export function userInformationInject(information) {
-	return {
-		type: USER_INFORMATION_INJECT,
-		data: information,
 	};
 }
 
