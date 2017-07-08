@@ -1,5 +1,19 @@
 // @flow
-import { USER_LOGIN, USER_INFORMATION_INJECT } from '../constants';
+import { USER_LOGIN } from '../constants';
+
+type UserData = {
+  _id: string,
+  email: string,
+  photo: string,
+  token: string,
+  name: string,
+  createdAt: string,
+  fbId: string,
+  naverId: string,
+  kakaoId: string,
+  googleId: string,
+  lastLogin: string,
+};
 
 type UserLoginAction = {
   type: USER_LOGIN,
@@ -16,7 +30,7 @@ type UserLoginAction = {
   lastLogin: string,
 };
 
-export function userLogin(userData: UserLoginAction): UserLoginAction {
+export function userLogin(userData: UserData): UserLoginAction {
 	console.log('USERDATA: ', userData);
 	return {
 		type: USER_LOGIN,
