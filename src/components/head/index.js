@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import screenfull from 'screenfull';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import searchIcon from 'static/icons/ic-search.svg';
 import SearchBox from './searchBox';
 import TagSearchBox from './tagSearchBox';
@@ -25,12 +26,14 @@ type DefaultProps = {
   changeFullScreenApp: Function,
   full: boolean,
   themeColor: string,
+  pathname: string,
 };
 
 type Props = {
   changeFullScreenApp: Function,
   full: boolean,
   themeColor: string,
+  pathname: string,
 };
 
 type State = {
@@ -43,6 +46,7 @@ class Head extends Component<DefaultProps, Props, State> {
 		changeFullScreenApp: () => {},
 		full: false,
 		string: '',
+		pathname: '/card',
 	};
 
 	constructor(props: Props) {
@@ -86,7 +90,7 @@ class Head extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const { modeIsTag } = this.state;
-		const { full, themeColor } = this.props;
+		const { full, themeColor, pathname } = this.props;
 		return (
 			<div className={parentCss.head} style={{ height: !full ? '61px' : '0px' }}>
 				<div className={css.container}>
@@ -200,6 +204,14 @@ class Head extends Component<DefaultProps, Props, State> {
 								y2="12.1"
 							/>
 						</svg>
+					</div>
+					<div className={css.changeMode}>
+						<Link className={css.cardButton} to="/card" style={{ backgroundColor: pathname === '/card' ? '#f4f4f4' : 'white', color: pathname === '/card' ? '#515861' : '#babac0' }}>
+							<p>카드</p>
+						</Link>
+						<Link className={css.noteButton} to="/list" style={{ backgroundColor: pathname === '/list' ? '#f4f4f4' : 'white', color: pathname === '/list' ? '#515861' : '#babac0' }}>
+							<p>목록</p>
+						</Link>
 					</div>
 				</div>
 			</div>

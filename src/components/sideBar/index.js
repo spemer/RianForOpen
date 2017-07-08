@@ -22,16 +22,14 @@ type DefaultProps = {
   changeLeftBarDispatch: Function,
   leftBar: boolean,
   full: boolean,
-  themeColor: boolean,
-  pathname: string,
+  themeColor: string,
 };
 
 type Props = {
   changeLeftBarDispatch: Function,
   leftBar: boolean,
   full: boolean,
-  themeColor: boolean,
-  pathname: string,
+  themeColor: string,
 };
 
 type State = {
@@ -45,7 +43,6 @@ class SideBar extends Component<DefaultProps, Props, State> {
 		leftBar: false,
 		full: false,
 		themeColor: '',
-		pathname: '/',
 	};
 
 	constructor(props: Props) {
@@ -83,7 +80,7 @@ class SideBar extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const { active } = this.state;
-		const { leftBar, full, themeColor, changeLeftBarDispatch, pathname } = this.props;
+		const { leftBar, full, themeColor, changeLeftBarDispatch } = this.props;
 		return (
 			<div className={parentCss.sideBar} style={{ width: !full ? '56px' : '0px' }}>
 				<div className={css.plusButton}>
@@ -97,44 +94,6 @@ class SideBar extends Component<DefaultProps, Props, State> {
 						<path fill={themeColor} fillRule="evenodd" d="M27 24h2v16h-2V24z" />
 						<path fill={themeColor} fillRule="evenodd" d="M20 31h16v2H20v-2z" />
 					</svg>
-				</div>
-				<div
-					className={css.modeButton}
-					onClick={() => {
-						this.changeActive('mode');
-					}}
-					onMouseOver={this.onHoverEvent}
-					onMouseLeave={this.offHoverEvent}
-					role="Button"
-					tabIndex="0"
-				>
-					<Link to={pathname === '/card' ? '/list' : '/card'}>
-						<svg
-							width="22px"
-							height="40px"
-							opacity={active !== 'mode' ? '0.38' : '1'}
-							viewBox="0 0 24 24"
-						>
-							<path
-								fill="none"
-								stroke={active !== 'mode' ? '#000000' : themeColor}
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeMiterlimit="10"
-								strokeWidth="1.5"
-								d="M8.3 5.5h7.4M8.3 9.5h7.4M8.3 13.5h7.4M19 1.5H5v21h8.8l5.2-5.2z"
-							/>
-							<path
-								fill="none"
-								stroke={active !== 'mode' ? '#000000' : themeColor}
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeMiterlimit="10"
-								strokeWidth="1.5"
-								d="M13.8 22.5l5.2-5.2h-5.2z"
-							/>
-						</svg>
-					</Link>
 				</div>
 				<div
 					className={css.tagButton}

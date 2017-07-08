@@ -7,16 +7,6 @@
     outline: none;
 }
 
-.modeButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 32px;
-    margin-bottom: 25px; 
-    box-sizing: border-box;
-    outline: none;
-}
-
 .tagButton {
     display: flex;
     align-items: center;

@@ -2,7 +2,7 @@ import { CHANGE_FULL_SCREEN, CHANGE_LEFT_BAR } from '../constants';
 
 const ModeState = {
 	full: false,
-	themeColor: '#1ce8b5',
+	themeColor: '#536dfe',
 	leftBar: true,
 };
 
