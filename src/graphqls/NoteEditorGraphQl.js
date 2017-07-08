@@ -17,17 +17,17 @@ export const getSelectedMyNoteData = gql`
             title
             tags
             data
-            updated_at
-            created_at
+            updatedAt
+            createdAt
             like
-            is_publish
+            isPublish
         }
 	}
 `;
 
 export const autoSave = gql`
-    mutation autoSaveMutation($noteId: ID! $title: String $tags: [String] $data: String $is_publish: Boolean $pre_image: String){
-        autoSave(noteId: $noteId, title: $title, tags: $tags, data: $data is_publish: $is_publish pre_image: $pre_image){
+    mutation autoSaveMutation($noteId: ID! $title: String $tags: [String] $data: String $isPublish: Boolean $preImage: String){
+        autoSave(noteId: $noteId, title: $title, tags: $tags, data: $data isPublish: $isPublish preImage: $preImage){
             success
         }
     }

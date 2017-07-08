@@ -6,7 +6,7 @@ const getTagsByConditionCtrl = async (userId, condition) => {
     // if don't have conditon, select All Tags by UserId
 		if (condition === 'All') {
 			const TagList = await Tag.find({
-				user_id: userId,
+				userId: userId,
 			}).select('name');
 			result = TagList;
 		}

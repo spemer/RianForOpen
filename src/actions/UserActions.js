@@ -4,15 +4,15 @@ export function userLogin(userData) {
 	console.log('USERDATA: ', userData);
 	return {
 		type: USER_LOGIN,
-		id: userData._id,
+		userId: userData._id,
 		email: userData.email,
 		email_verified: userData.email_verified,
 		phone: userData.phone,
 		picture: userData.picture,
 		token: userData.token,
 		name: userData.name,
-		created_at: userData.created_at,
-		facebook_id: userData.facebook_id,
+		createdAt: userData.createdAt,
+		fbId: userData.fbId,
 		naverId: userData.naverId,
 		kakaoId: userData.kakaoId,
 		googleId: userData.googleId,

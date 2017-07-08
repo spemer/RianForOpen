@@ -48,18 +48,18 @@ export default async function passportConfig(passport) {
 	process.nextTick(async () => {
           // find UserID in database using FB
 		try {
-			const UserInfor = await User.findOne({ fb_id: profile.id });
+			const UserInfor = await User.findOne({ fbId: profile.id });
             // If user exist in db
 			if (UserInfor) {
-              // update last_login
-				UserInfor.last_login = Date.now();
+              // update lastLogin
+				UserInfor.lastLogin = Date.now();
 
 				const updatedUser = await UserInfor.save();
 
 				done(null, updatedUser);
 			} else {
 				const newUser = new User({
-					fb_id: profile.id,
+					fbId: profile.id,
 					token,
 					name: `${profile.name.givenName} ${profile.name.familyName}`,
 					email: profile.email || profile.emails[0].value || '',
@@ -90,18 +90,18 @@ export default async function passportConfig(passport) {
 	process.nextTick(async () => {
           // find UserID in database using FB
 		try {
-			const UserInfor = await User.findOne({ kakao_id: profile.id });
+			const UserInfor = await User.findOne({ kakaoId: profile.id });
             // If user exist in db
 			if (UserInfor) {
-              // update last_login
-				UserInfor.last_login = Date.now();
+              // update lastLogin
+				UserInfor.lastLogin = Date.now();
 
 				const updatedUser = await UserInfor.save();
 
 				done(null, updatedUser);
 			} else {
 				const newUser = new User({
-					kakao_id: profile.id,
+					kakaoId: profile.id,
 					token,
 					name: profile.displayName,
 					email: profile._json.kaccount_email_verified ? profile._json.kaccount_email : '',
@@ -133,18 +133,18 @@ export default async function passportConfig(passport) {
 	process.nextTick(async () => {
           // find UserID in database using FB
 		try {
-			const UserInfor = await User.findOne({ naver_id: profile.id });
+			const UserInfor = await User.findOne({ naverId: profile.id });
             // If user exist in db
 			if (UserInfor) {
-              // update last_login
-				UserInfor.last_login = Date.now();
+              // update lastLogin
+				UserInfor.lastLogin = Date.now();
 
 				const updatedUser = await UserInfor.save();
 
 				done(null, updatedUser);
 			} else {
 				const newUser = new User({
-					naver_id: profile.id,
+					naverId: profile.id,
 					token,
 					name: profile.displayName,
 					email: profile.emails[0].value ? profile.emails[0].value : '',

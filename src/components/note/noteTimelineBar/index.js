@@ -24,12 +24,16 @@ const getAllMyNotePreviewsQuery = graphql(getAllMyNotePreviews, {
 	skip: process.env.NODE_ENV === 'development' && true,
 });
 
-const mapToState = ({ User: { _id }, App: { full, themeColor, leftBar } }) => ({
-	userId: _id,
-	full,
-	leftBar,
-	themeColor,
-});
+type Store = {
+	User: {
+		userId: string
+	},
+	App: {
+		full: boolean,
+		themeColor: string,
+		leftBar: boolean
+	}
+}
 
 type DefaultProps = {
 	userId: string,
@@ -47,6 +51,13 @@ type Props = {
 
 type State = {
 };
+
+const mapToState = ({ User: { userId }, App: { full, themeColor, leftBar } }: Store) => ({
+	userId,
+	full,
+	leftBar,
+	themeColor,
+});
 
 
 @connect(mapToState)

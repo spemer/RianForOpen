@@ -59,7 +59,7 @@ type Props = {
 
 type State = {
   title: string,
-  is_publish: boolean
+  isPublish: boolean
 };
 
 type SaveFormat = {
@@ -67,8 +67,8 @@ type SaveFormat = {
   title: string,
   tags: Array<string>,
   data: string,
-  pre_image: string,
-  is_publish: boolean
+  preImage: string,
+  isPublish: boolean
 };
 
 @connect(mapToState)
@@ -87,7 +87,7 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 
 	state = {
 		title: '',
-		is_publish: false,
+		isPublish: false,
 	}
 
 	render() {

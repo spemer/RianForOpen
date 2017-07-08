@@ -63,22 +63,17 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	cardRenderer: Function;
 
 	cardRenderer(noteData: Array<any>) {
-		return noteData.map(({ _id, title, updated_at, tags, pre_image }, index) => {
-			const updatedAt = updated_at;
-			const preImage = pre_image;
-			return (
-				<CardInstance
-					key={index}
-					title={title}
-					preview="자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 "
-					updatedAt={updatedAt}
-					tags={tags}
-					preImage={preImage}
-					themeColor={this.props.themeColor}
-				/>
-			)
-;
-		});
+		return noteData.map(({ title, updatedAt, tags, preImage }, index) => (
+			<CardInstance
+				key={index}
+				title={title}
+				preview="자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 "
+				updatedAt={updatedAt}
+				tags={tags}
+				preImage={preImage}
+				themeColor={this.props.themeColor}
+			/>
+			));
 	}
 
 	render() {

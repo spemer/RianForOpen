@@ -48,11 +48,11 @@ type State = {
 type Preview = {
   _id: string,
   title: string,
-  is_publish: boolean,
+  isPublish: boolean,
   preview: string,
   tags: Array<string>,
-  updated_at: string,
-  pre_image: string,
+  updatedAt: string,
+  preImage: string,
   like: number
 };
 
@@ -90,13 +90,13 @@ class NoteCardTimeline extends Component<DefaultProps, Props, State> {
 				_id,
 				title,
 				preview,
-				updated_at,
+				updatedAt,
 				tags,
-				is_publish,
-				pre_image,
+				isPublish,
+				preImage,
 			} = note;
-			const date = new Date(updated_at);
-			if (pre_image) {
+			const date = new Date(updatedAt);
+			if (preImage) {
 				return (
 					<PhotoCardSnippet
 						changeNoteIdAndchangeNoteShowDispatch={changeNoteIdAndchangeNoteShowDispatch}
@@ -104,11 +104,11 @@ class NoteCardTimeline extends Component<DefaultProps, Props, State> {
 						_id={_id}
 						title={title}
 						preview={preview}
-						updated_at={date.toLocaleDateString()}
+						updatedAt={date.toLocaleDateString()}
 						tags={tags}
-						is_publish={is_publish}
+						isPublish={isPublish}
 						themeColor={themeColor}
-						backgroundImage={pre_image}
+						backgroundImage={preImage}
 					/>
 				);
 			}
@@ -119,9 +119,9 @@ class NoteCardTimeline extends Component<DefaultProps, Props, State> {
 					_id={_id}
 					title={title}
 					preview={preview}
-					updated_at={date.toLocaleDateString()}
+					updatedAt={date.toLocaleDateString()}
 					tags={tags}
-					is_publish={is_publish}
+					isPublish={isPublish}
 					themeColor={themeColor}
 				/>
 			);
@@ -150,7 +150,7 @@ class NoteCardTimeline extends Component<DefaultProps, Props, State> {
 						changeNoteIdAndchangeNoteShowDispatch={changeNoteIdAndchangeNoteShowDispatch}
 						title="The Universe Through A Child S "
 						preview="In the history of modern astronomy, there is probably no one greater leap forward than the building and launch of the space telescope known as the Hubble. While NASA has had many ups and downs, the launch and continued operation of the Hubble space telescope probably ranks next to the moon landings and the development of the Space"
-						updated_at="2017.09.06"
+						updatedAt="2017.09.06"
 						tags={['친구들과 함께하는 유쾌한 저녁', '태그', '글감']}
 						themeColor={this.props.themeColor}
 						backgroundImage={

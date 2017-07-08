@@ -79,17 +79,17 @@ class NoteTimeLine extends Component<DefaultProps, Props, State> {
 		if (process.env.NODE_ENV !== 'development') {
 			const { noteData, changeNoteIdAndchangeNoteShowDispatch } = this.props;
 			data = noteData.getAllMyNotePreviews ? noteData.getAllMyNotePreviews.notes[index] : [];
-			const { _id, title, preview, updated_at, tags, is_publish, pre_image } = data;
-			const date = new Date(updated_at);
+			const { _id, title, preview, updatedAt, tags, isPublish, preImage } = data;
+			const date = new Date(updatedAt);
 			return (
 				<TimelineSnippet
 					key={index}
 					_id={_id}
 					title={title}
 					preview={preview}
-					updated_at={date.toLocaleDateString()}
+					updatedAt={date.toLocaleDateString()}
 					tags={tags}
-					is_publish={is_publish}
+					isPublish={isPublish}
 					style={style}
 					changeNoteIdAndchangeNoteShowDispatch={changeNoteIdAndchangeNoteShowDispatch}
 				/>

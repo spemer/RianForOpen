@@ -8,7 +8,7 @@ const makeTagCtrl = async (userId, tagList) => {
 		try {
 			const tagName = tagList[i];
 			const findTag = await Tag.findOne({
-				user_id: userId,
+				userId: userId,
 				name: tagName,
 			});
 
@@ -16,12 +16,12 @@ const makeTagCtrl = async (userId, tagList) => {
 				result = result.concat(findTag);
 			} else {
 				const newTag = new Tag({
-					user_id: userId,
+					userId: userId,
 					name: tagName,
-					is_booked: false,
-					is_publish: false,
-					created_at: Date.now(),
-					updated_at: Date.now(),
+					isBooked: false,
+					isPublish: false,
+					createdAt: Date.now(),
+					updatedAt: Date.now(),
 				});
 
 				const newTagData = await newTag.save();

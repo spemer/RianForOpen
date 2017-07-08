@@ -8,7 +8,7 @@ import naverLogo from 'static/icons/naver.svg';
 import kakaoLogo from 'static/icons/kakaotalk.svg';
 
 const mapState = state => ({
-	userId: state.User._id,
+	userId: state.User.id,
 });
 
 const Login = ({ userId }) => (

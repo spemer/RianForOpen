@@ -72,7 +72,7 @@ type State = {
   initControls: string,
   content: string,
   selectedTag: Array<string>,
-  is_publish: boolean
+  isPublish: boolean
 };
 
 type SaveFormat = {
@@ -80,8 +80,8 @@ type SaveFormat = {
   title: string,
   tags: Array<string>,
   data: string,
-  pre_image: string,
-  is_publish: boolean
+  preImage: string,
+  isPublish: boolean
 };
 
 type ThemeFormat = {
@@ -127,7 +127,7 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 		selectedTag: this.props.oneOfNoteData && !this.props.oneOfNoteData.loading
       ? this.props.oneOfNoteData.getSelectedMyNoteData.tags
       : [],
-		is_publish: false,
+		isPublish: false,
 	};
 
 	componentDidMount() {
@@ -234,9 +234,9 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 	Interval: any;
 
 	autoSaveInterval() {
-		let pre_image = '';
+		let preImage = '';
 		if (document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img').length > 0) {
-			pre_image = document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img')[0].src;
+			preImage = document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img')[0].src;
 		}
 		document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img');
 		const variables: SaveFormat = {
@@ -244,8 +244,8 @@ class NoteEditor extends Component<DefaultProps, Props, State> {
 			title: this.state.title,
 			tags: this.state.selectedTag,
 			data: this.state.content,
-			is_publish: this.state.is_publish,
-			pre_image,
+			isPublish: this.state.isPublish,
+			preImage,
 		};
 		return this.props.autoSave({ variables });
 	}

@@ -8,13 +8,13 @@ const Note = `
 	}
 	type Note {
 		_id: ID!
-		user_id: ID!
+		userId: ID!
 		title: String
 		data: String
-		pre_image: String
-		created_at: String
-		updated_at: String
-		is_publish: Boolean
+		preImage: String
+		createdAt: String
+		updatedAt: String
+		isPublish: Boolean
 		tags: [String]
 		preview: String
 		like: Int

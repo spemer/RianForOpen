@@ -20,9 +20,11 @@ const getTagListQuery = graphql(getTagList, {
 	name: 'tagData',
 });
 
-const mapToState = state => ({
-	userId: state.User.id,
-});
+type Store = {
+	User: {
+		userId: string
+	}
+}
 
 type DefaultProps = {};
 
@@ -37,6 +39,12 @@ type State = {
   modeIsTag: boolean,
   tags: Array<tagType>
 };
+
+function mapToState({ User: { userId } }: Store) {
+	return {
+		userId,
+	};
+}
 
 @connect(mapToState)
 @compose(getTagListQuery)

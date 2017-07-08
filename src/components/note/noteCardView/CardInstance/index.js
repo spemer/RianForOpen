@@ -8,7 +8,7 @@ const makeTagToElement = (tagSet: Array<string>) => {
 };
 
 type Props = {
-  Id: string,
+  id: string,
   title: string,
   preview: string,
   updatedAt?: string,
@@ -21,7 +21,7 @@ type Props = {
 };
 
 const CardInstance = ({
-  Id = '',
+  id = '',
   title = '',
   preview = '',
   updatedAt = '2017.08.24',

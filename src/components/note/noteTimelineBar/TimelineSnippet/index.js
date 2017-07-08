@@ -3,24 +3,24 @@ import React from 'react';
 import css from './timelineSnippet.css';
 
 type Props = {
-    _id: string,
+    id: string,
     title: string,
     preview: string,
-    updated_at?: string,
+    updatedAt?: string,
     tags: Array<string>,
-    is_publish?: boolean,
+    isPublish?: boolean,
     like?: number,
     style: any,
     changeClickedBox: Function,
 };
 
 const TimelineSnippet = ({
-  _id = '',
+  id = '',
   title = '',
   preview = '',
-  updated_at = '3일전',
+  updatedAt = '3일전',
   tags = [],
-  is_publish = false,
+  isPublish = false,
   like = 100,
   style = '',
   changeClickedBox = () => {},
@@ -28,7 +28,7 @@ const TimelineSnippet = ({
 	<div className={css.container} style={style}>
 		<div className={css.box} onClick={(e) => { changeClickedBox(e); }}>
 			<div className={css.timestamp}>
-				{updated_at}
+				{updatedAt}
 			</div>
 			<div className={css.title}>
 				{title}

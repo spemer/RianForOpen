@@ -6,7 +6,15 @@ import { changeLeftBar } from '../../actions/AppActions';
 import parentCss from '../app/app.css';
 import css from './sideBar.css';
 
-const mapToState = ({ App: { full, leftBar, themeColor } }) => ({
+type Store = {
+	App: {
+		full: boolean,
+		themeColor: string,
+		leftBar: boolean
+	}
+}
+
+const mapToState = ({ App: { full, leftBar, themeColor } }: Store) => ({
 	leftBar,
 	full,
 	themeColor,
@@ -56,8 +64,8 @@ class SideBar extends Component<DefaultProps, Props, State> {
 		active: 'none',
 	};
 
-	changeActive: Function;
 	onHoverEvent: Function;
+	changeActive: Function;
 	offHoverEvent: Function;
 
 	changeActive(active: "mode" | "social" | "trash") {
@@ -68,12 +76,12 @@ class SideBar extends Component<DefaultProps, Props, State> {
 		}
 	}
 
-	onHoverEvent({ currentTarget: { style } }) {
+	onHoverEvent({ currentTarget: { style } }: any) {
 		style.marginRight = '4px';
 		style.borderLeft = `4px solid ${this.props.themeColor}`;
 	}
 
-	offHoverEvent({ currentTarget: { style } }) {
+	offHoverEvent({ currentTarget: { style } }: any) {
 		style.marginRight = null;
 		style.borderLeft = null;
 	}

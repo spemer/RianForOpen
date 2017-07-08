@@ -10,9 +10,9 @@ type Props = {
   _id: string,
   title: string,
   preview: string,
-  updated_at?: string,
+  updatedAt?: string,
   tags: Array<string>,
-  is_publish?: boolean,
+  isPublish?: boolean,
   like?: number,
   themeColor: string,
   changeNoteIdAndchangeNoteShowDispatch: Function,
@@ -22,10 +22,10 @@ const CardSnippet = ({
   _id = '',
   title = '',
   preview = '',
-  updated_at = '2017.08.24',
+  updatedAt = '2017.08.24',
   like = 30,
   tags = [],
-  is_publish = false,
+  isPublish = false,
   themeColor = '#ff3466',
   changeNoteIdAndchangeNoteShowDispatch = () => {},
 }: Props) => (
@@ -48,7 +48,7 @@ export default CardSnippet;
 		</div>
 		<div className={css.footer}>
 			<div className={css.left}>
-				{is_publish &&
+				{isPublish &&
 				<div className={css.share}>
 					<svg width="20px" height="18px" viewBox="0 0 20 18">
 						<g
@@ -92,7 +92,7 @@ export default CardSnippet;
 			</div>
 			<div className={css.right}>
 				<div className={css.time}>
-					{updated_at}
+					{updatedAt}
 				</div>
 				<div className={css.tag}>
 					{makeTagToElement(tags)}

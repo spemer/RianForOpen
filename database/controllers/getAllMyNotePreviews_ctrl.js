@@ -5,12 +5,12 @@ const getAllMyNotePreviewsCtrl = async (userId, tagList) => {
 	let result = [];
 	try {
 		if (tagList.length === 0) {
-			const NoteList = await Note.find({ user_id: userId })
+			const NoteList = await Note.find({ userId: userId })
         .populate({ path: 'tags', select: 'name' })
         .lean()
-				.sort({ updated_at: -1 })
+				.sort({ updatedAt: -1 })
         .select(
-          '_id title tags data pre_image preview user_id is_publish created_at updated_at like',
+          '_id title tags data preImage preview userId isPublish createdAt updatedAt like',
         );
 
 			// make object of tag to tagname
@@ -25,10 +25,10 @@ const getAllMyNotePreviewsCtrl = async (userId, tagList) => {
         tagList,
       );
 			const NoteList = Note.find({
-				user_id: userId,
+				userId: userId,
 				tags: { $all: tagObjectIdList },
 			}).select(
-        '_id title tags data pre_image preview user_id is_publish created_at updated_at like',
+        '_id title tags data preImage preview userId isPublish createdAt updatedAt like',
       );
 
 			result = NoteList;

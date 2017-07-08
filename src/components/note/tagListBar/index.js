@@ -90,8 +90,19 @@ const getTagListQuery = graphql(getTagList, {
 	name: 'tagData',
 });
 
-const mapToState = ({ User: { _id }, App: { full, themeColor, leftBar } }) => ({
-	userId: _id,
+type Store = {
+	User: {
+		userId: string
+	},
+	App: {
+		full: boolean,
+		themeColor: string,
+		leftBar: boolean
+	}
+}
+
+const mapToState = ({ User: { userId }, App: { full, themeColor, leftBar } }: Store) => ({
+	userId,
 	full,
 	themeColor,
 	leftBar,

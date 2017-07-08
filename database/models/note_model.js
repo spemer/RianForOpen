@@ -3,15 +3,15 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const NoteSchema = new Schema({
-	user_id: { type: Schema.Types.ObjectId, ref: 'User' },
+	userId: { type: Schema.Types.ObjectId, ref: 'User' },
 	title: String,
 	preview: String,
 	data: String,
-	pre_image: String,
-	created_at: Date,
-	updated_at: Date,
-	is_publish: Boolean,
-	like_users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+	preImage: String,
+	createdAt: Date,
+	updatedAt: Date,
+	isPublish: Boolean,
+	likeUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 	tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
 });
 

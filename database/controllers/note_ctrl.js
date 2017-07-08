@@ -14,28 +14,28 @@ export const getMyNoteListInfo = ({
   // totalCount query
 	const totalCntQuery = {};
 	if (userId) {
-		totalCntQuery.user_id = userObjectId;
+		totalCntQuery.userId = userObjectId;
 	}
 	if (tags) {
 		totalCntQuery.tags = { $elemMatch: { $in: tags } };
 	}
 
-  // noteList query ( with userId, tags, after updated_at )
+  // noteList query ( with userId, tags, after updatedAt )
 	const detailNotesQuery = {};
 	if (userId) {
-		detailNotesQuery.user_id = userObjectId;
+		detailNotesQuery.userId = userObjectId;
 	}
 	if (tags) {
 		detailNotesQuery.tags = { $elemMatch: { $in: tags } };
 	}
 	if (updatedAt) {
-		detailNotesQuery.updated_at = { $gt: new Date(updatedAt) };
+		detailNotesQuery.updatedAt = { $gt: new Date(updatedAt) };
 	}
 
-  // noteList query ( with userId, tags, after updated_at, skipCnt, limitCnt)
+  // noteList query ( with userId, tags, after updatedAt, skipCnt, limitCnt)
 	const detailNotesAggreQ = [
     { $match: detailNotesQuery },
-    { $sort: { updated_at: 1 } },
+    { $sort: { updatedAt: 1 } },
     { $skip: skipCnt },
     { $limit: limitCnt },
 	];
@@ -44,18 +44,18 @@ export const getMyNoteListInfo = ({
 	const totalCntPromise = Note.find(totalCntQuery).count().then(count => count);
 	const detailNotesPromise = Note.aggregate(detailNotesAggreQ).then((notes) => {
     // last note update_at property
-		const cursor = notes.length > 0 && notes[notes.length - 1].updated_at;
+		const cursor = notes.length > 0 && notes[notes.length - 1].updatedAt;
 
     // if there is more note after update_at of last note
 		const hasNextQuery = {};
 		if (userId) {
-			hasNextQuery.user_id = userId;
+			hasNextQuery.userId = userId;
 		}
 		if (tags) {
 			hasNextQuery.tags = { $elemMatch: { $in: tags } };
 		}
 		if (updatedAt) {
-			hasNextQuery.updated_at = { $gt: new Date(cursor) };
+			hasNextQuery.updatedAt = { $gt: new Date(cursor) };
 		}
 
     // return mongoose query
@@ -74,16 +74,16 @@ export const getMyNoteListInfo = ({
 	});
 
   /*
-    let detailNotesPromise = Note.find(detailNotesQuery).sort({ updated_at : 1 }).then((notes)=>{
+    let detailNotesPromise = Note.find(detailNotesQuery).sort({ updatedAt : 1 }).then((notes)=>{
 
             // last note update_at property
-            let cursor = notes[notes.length-1].updated_at;
+            let cursor = notes[notes.length-1].updatedAt;
             console.log(cursor);
             // if there is more note after update_at of last note
             let hasNextQuery = {};
-                userId ? hasNextQuery.user_id = userId : undefined;
+                userId ? hasNextQuery.userId = userId : undefined;
                 tags ? hasNextQuery.tags = { $elemMatch : { $in : tags } } : undefined;
-                updatedAt ? hasNextQuery.updated_at = { $gt : new Date(cursor) } : undefined;
+                updatedAt ? hasNextQuery.updatedAt = { $gt : new Date(cursor) } : undefined;
 
             // return mongoose query
             return Note.find(hasNextQuery).count().then((lastCount)=>{

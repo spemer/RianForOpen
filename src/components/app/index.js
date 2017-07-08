@@ -62,7 +62,7 @@ import css from './app.css';
 
 type Store = {
 	User: {
-		id: string
+		userId: string
 	},
 	App: {
 		full: boolean,
@@ -77,9 +77,9 @@ type Props = {
 	location: Location,
 };
 
-function mapToState({ User: { id }, App: { full, leftBar } }: Store) {
+function mapToState({ User: { userId }, App: { full, leftBar } }: Store) {
 	return {
-		userId: id,
+		userId,
 		leftBar,
 		full,
 	};
