@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import 'froala-editor/js/froala_editor.pkgd.min';
+import 'FroalaEditor/froala_editor_sources_2.6.2/js/froala_editor.pkgd.js';
 import FroalaEditor from 'react-froala-wysiwyg';
 import editorConfig from './editorConfig';
 import parentCss from '../rianListEditor.css';

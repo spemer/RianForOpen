@@ -10,13 +10,13 @@ import GroupedBox from './groupedBox';
 import { getTagList } from '../../../graphqls/TagGraphQl';
 import css from './tagListBar.css';
 
-const isInHangeul = function (argu) {
+function isInHangeul(argu) {
 	const pattern = /[\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3]/g;
 	return !!pattern.test(argu);
-};
-const isInEnglish = function (argu) {
+}
+function isInEnglish(argu) {
 	return !argu.match(/[^a-zA-Z]/);
-};
+}
 
 const example = [
   { name: '교양', howMany: 14 },
@@ -91,9 +91,6 @@ const getTagListQuery = graphql(getTagList, {
 });
 
 type Store = {
-  User: {
-    userId: string
-  },
   App: {
     full: boolean,
     themeColor: string,
@@ -101,25 +98,19 @@ type Store = {
   }
 };
 
-const mapToState = ({
-  User: { userId },
-  App: { full, themeColor, leftBar },
-}: Store) => ({
-	userId,
+const mapToState = ({ App: { full, themeColor, leftBar } }: Store) => ({
 	full,
 	themeColor,
 	leftBar,
 });
 
 type DefaultProps = {
-  userId: string,
   full: boolean,
   themeColor: string,
   leftBar: boolean
 };
 
 type Props = {
-  userId: string,
   full: boolean,
   themeColor: string,
   leftBar: boolean
@@ -128,6 +119,8 @@ type Props = {
 type State = {
   tagCount: number,
   selectedTag: string,
+  selectedSort: string,
+  onSortList: boolean,
   sortByhowMany: boolean,
   sortedKor: Array<any>,
   sortedEng: Array<any>,
@@ -146,25 +139,33 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 
 	constructor(props: Props) {
 		super(props);
-		this.currentSelected = '';
+		this.currentSelected = null;
+		this.currentSelectedSort = null;
 		this.changeSelectedTag = this.changeSelectedTag.bind(this);
 		this.changeSortBy = this.changeSortBy.bind(this);
 		this.changeClickedBox = this.changeClickedBox.bind(this);
+		this.changeClickedSortBox = this.changeClickedSortBox.bind(this);
+		this.changeOnSortState = this.changeOnSortState.bind(this);
 	}
 
 	state = {
 		tagCount: 174,
+		onSortList: false,
 		sortByhowMany: true,
 		selectedTag: '',
+		selectedSort: '',
 		sortedKor: sortedKorModel,
 		sortedEng: sortedEngModel,
 		sortedEtc: sortedEtcModel,
 	};
 
+	currentSelected: any;
+	currentSelectedSort: any;
 	changeSelectedTag: Function;
 	changeSortBy: Function;
 	changeClickedBox: Function;
-	currentSelected: "";
+	changeClickedSortBox: Function;
+	changeOnSortState: Function;
 
 	changeSelectedTag(argu: string) {
 		this.setState({
@@ -193,10 +194,28 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		this.currentSelected.style.borderLeft = `3px solid ${this.props.themeColor}`;
 	}
 
+	changeClickedSortBox(e: any, sortName: string) {
+		if (this.currentSelectedSort) {
+			this.currentSelectedSort.style.color = '#515861';
+		}
+		this.setState({
+			selectedSort: sortName,
+		});
+		this.currentSelectedSort = e.currentTarget;
+		this.currentSelectedSort.style.color = this.props.themeColor;
+	}
+
+	changeOnSortState() {
+		this.setState(prevState => ({
+			onSortList: !prevState.onSortList,
+		}));
+	}
+
 	render() {
 		const {
       tagCount,
       sortByhowMany,
+	  onSortList,
       sortedKor,
       sortedEng,
       sortedEtc,
@@ -226,7 +245,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 								</div>
 							</div>
 							<div className={css.selectButton}>
-								<div className={css.button}>
+								<div className={css.button} onClick={this.changeOnSortState}>
 									<svg
 										version="1.1"
 										x="0px"
@@ -234,6 +253,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 										viewBox="0 0 24 24"
 										enableBackground="new 0 0 24 24"
 										opacity="0.38"
+										className={css.buttonIcon}
 									>
 										<line
 											fill="none"
@@ -261,6 +281,44 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 										/>
 									</svg>
 								</div>
+								{leftBar && onSortList &&
+								<div className={css.selectList}>
+									<div className={css.menuTitle}>
+										<p>태그분류</p>
+									</div>
+									<div className={css.selectBox}>
+										<div
+											className={css.selectOne}
+											onClick={(e) => {
+												this.changeClickedSortBox(e, 'all');
+											}}
+											role="button"
+											tabIndex="0"
+										>
+											<p>전테 태그 보기</p>
+										</div>
+										<div
+											className={css.selectOne}
+											onClick={(e) => {
+												this.changeClickedSortBox(e, 'bookmark');
+											}}
+											role="button"
+											tabIndex="0"
+										>
+											<p>즐겨찾기한 태그만</p>
+										</div>
+										<div
+											className={css.selectOne}
+											onClick={(e) => {
+												this.changeClickedSortBox(e, 'publish');
+											}}
+											role="button"
+											tabIndex="0"
+										>
+											<p>퍼블리시한 태그만</p>
+										</div>
+									</div>
+								</div>}
 							</div>
 						</div>
 						<div className={css.sortBox}>

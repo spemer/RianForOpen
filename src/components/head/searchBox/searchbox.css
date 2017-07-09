@@ -5,6 +5,7 @@
     background-color: #f4f4f4;
     box-sizing: border-box;
     padding-left: 45px;
+    border-radius: 4px;
     & .searchInput {
         position: absolute;
         top: 50%;

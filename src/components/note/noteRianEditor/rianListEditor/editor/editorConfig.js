@@ -7,7 +7,7 @@ const config = {
 	tabSpaces: 8,
 	toolbarInline: true,
 	pluginsEnabled: ['colors', 'lists', 'paragraphFormat', 'quote'],
-	shortcutsEnabled: ['paragraphFormat'],
+	shortcutsEnabled: ['paragraphFormat', 'undo', 'redo'],
 	pastePlain: true,
 	toolbarVisibleWithoutSelection: true,
 	colorsDefaultTab: 'background',

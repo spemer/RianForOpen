@@ -1361,13 +1361,13 @@ span.fr-sr-only {
 
 
 .fr-view ul {
-  margin: 1px 0 1px ;
+  margin: 1px 0px 0 -32px;
 }
 .fr-view ul li::before {
   content: "• ";
   color: #515861; /* or whatever color you prefer */
   font-size: 20px;
-  margin-left: -22px;
+  margin-left: -12px;
 }
 
 .fr-view ul li {
@@ -1378,7 +1378,7 @@ span.fr-sr-only {
 }
 
 .fr-view ol {
-  margin: 1px 0 1px 0;
+  margin: 1px -0 1px -19px;
 }
 
 .fr-view ol li {
