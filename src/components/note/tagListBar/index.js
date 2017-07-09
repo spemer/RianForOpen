@@ -159,6 +159,15 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		sortedEtc: sortedEtcModel,
 	};
 
+	componentWillReceiveProps(nextProps: Props) {
+		// hide menu on LeftBar Coming
+		if (!this.props.leftBar && nextProps.leftBar) {
+			this.setState({
+				onSortList: false,
+			});
+		}
+	}
+
 	currentSelected: any;
 	currentSelectedSort: any;
 	changeSelectedTag: Function;
@@ -213,12 +222,12 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const {
-      tagCount,
-      sortByhowMany,
-	  onSortList,
-      sortedKor,
-      sortedEng,
-      sortedEtc,
+		tagCount,
+		sortByhowMany,
+		onSortList,
+		sortedKor,
+		sortedEng,
+		sortedEtc,
     } = this.state;
 		const { leftBar, full, themeColor } = this.props;
 		return (
@@ -245,7 +254,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 								</div>
 							</div>
 							<div className={css.selectButton}>
-								<div className={css.button} onClick={this.changeOnSortState}>
+								<div className={css.button} onClick={this.changeOnSortState} role="button" tabIndex="-10">
 									<svg
 										version="1.1"
 										x="0px"
@@ -329,7 +338,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 									this.changeSortBy(true);
 								}}
 								role="button"
-								tabIndex="0"
+								tabIndex="-4"
 							>
                 노트 개수순
               </span>
@@ -340,7 +349,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 									this.changeSortBy(false);
 								}}
 								role="button"
-								tabIndex="-1"
+								tabIndex="-5"
 							>
                 태그 이름순
               </span>
