@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import 'FroalaEditor/froala_editor_sources_2.6.2/js/froala_editor.pkgd.js';
+// import 'FroalaEditor/froala_editor_sources_2.6.2/js/froala_editor.pkgd.js';
+import 'froala-editor/js/froala_editor.pkgd.min';
 import FroalaEditor from 'react-froala-wysiwyg';
 import editorConfig from './editorConfig';
 import parentCss from '../rianListEditor.css';
@@ -36,6 +37,10 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 		$.FroalaEditor.RegisterShortcut(49, 'paragraphFormat', 'H1', 'H', false);
 		$.FroalaEditor.RegisterShortcut(50, 'paragraphFormat', 'H2', 'H', false);
 		$.FroalaEditor.RegisterShortcut(51, 'paragraphFormat', 'H3', 'H', false);
+		// when user scroll, it will hide inline toolbar
+		$(`.${parentCss.container}`).scroll(() => {
+			$('.fr-toolbar.fr-desktop.fr-inline').css('display', 'none');
+		});
 	}
 
 	handleModelChange: Function;
