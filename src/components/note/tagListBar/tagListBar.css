@@ -1,0 +1,141 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 100%;
+    border-right: 1px solid #dfdfdf;
+    box-sizing: border-box;
+    & .head {
+        flex: 0 0 60px;
+        display: flex;
+        flex-direction: row;
+        margin-top: 28px;
+        margin-left: 24px;
+        margin-bottom: 12px;
+        & .status {
+            flex: 0 0 80%;
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+            & .title {
+                flex: 0 0 60%;
+                font-family: NotoSansCJKkr-Bold;
+                font-size: 24px;
+                overflow: hidden;
+                font-weight: bold;
+                line-height: 1.62;
+                letter-spacing: -0.6px;
+                color: #353946;
+            }
+            & .count{
+                flex: 0 40%;
+                font-family: NotoSansCJKkr-Regular;
+                font-size: 12px;
+                line-height: 1.62;
+                letter-spacing: 0.5px;
+                color: #515861;
+            }
+        }
+        & .selectButton {
+            flex: 0 0 20%;
+            & .button {
+                margin-top: 5px;
+                margin-right: 8px;
+                & buttonIcon {
+                    
+                }
+                & .buttonIcon:hover {
+                    opacity: 0.58;
+                }
+            }
+            & .selectList {
+                position: fixed;
+                top: 120px;
+                left: 180px;
+                z-index: 999;
+                width: 133px;
+                height: 126px;
+                background-color: white;
+                box-shadow: 0 5px 10px 0 rgba(53, 57, 70, 0.2);
+                display: flex;
+                flex-direction: column;
+                & .menuTitle {
+                    box-sizing: border-box;
+                    padding-left: 10px;
+                    width: 100%;
+                    flex: 0 0 32px;
+                    opacity: 0.38;
+                    font-family: NotoSansCJKkr-Regular;
+                    font-size: 10px;
+                    line-height: 1.94;
+                    letter-spacing: -0.2px; 
+                    display: flex;
+                    align-items: flex-end;
+                    p {  
+                        margin: 0;
+                    }
+                }
+                & .selectBox {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    & .selectOne {
+                        box-sizing: border-box;	
+                        width: 100%;
+                        flex: 1;
+                        padding-left: 10px;
+                        object-fit: contain;
+                        font-family: NotoSansCJKkr-Regular;
+                        font-size: 12px;
+                        line-height: 1.62;
+                        letter-spacing: -0.3px;
+                        color: #515861;
+                        display: flex;
+                        align-items: center;
+                        outline: none;
+                        p {
+                            margin: 0;    
+                        }
+                    }
+                    & .selectOne:hover {
+                        background-color: #f4f4f4;
+                    }
+                }
+            } 
+        }
+    }
+    & .sortBox {
+        display: flex;
+        height: 30px;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 12px;
+        & .sortButtonLeft {
+            height: 100%;
+            font-family: NotoSansCJKkr-Regular;
+            font-size: 11px;
+            line-height: 1.77;
+            letter-spacing: -0.3px;
+            color: #515861;
+            margin-left: 10px;
+            outline: none;
+        }
+        & .sortButtonRight {
+            height: 100%;
+            font-family: NotoSansCJKkr-Regular;
+            font-size: 11px;
+            line-height: 1.77;
+            letter-spacing: -0.3px;
+            color: #515861;
+            margin-right: 10px;
+            outline: none;
+        }
+    }
+    & .scrollBox {
+        flex: 1;
+        overflow: scroll;
+    }
+    & .scrollBox::-webkit-scrollbar {
+        display: none;
+    }    
+}

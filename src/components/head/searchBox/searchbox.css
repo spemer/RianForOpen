@@ -1,0 +1,32 @@
+.container {
+    position: relative;
+    width: 258px;
+	height: 30px;
+    background-color: #f4f4f4;
+    box-sizing: border-box;
+    padding-left: 45px;
+    border-radius: 4px;
+    & .searchInput {
+        position: absolute;
+        top: 50%;
+        margin: -13px 0 0 -13px;
+        border: none;
+        height: 26px; 
+        font-family: NotoSansCJKkr-Regular;
+        color: #353946;
+        font-size: 14px;
+        outline: none;
+        background-color: #f4f4f4;
+    }
+    & .searchInput::placeholder {
+        position: absolute;
+        top: 50%;
+        margin: -13px 0 0 -13px;
+        border: none;
+        height: 26px; 
+        font-family: NotoSansCJKkr-Regular;
+        color: #d0d0d0;
+        font-size: 14px;
+        outline: none;
+    }
+}

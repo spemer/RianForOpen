@@ -1,0 +1,94 @@
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    & .icon {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        width: 30px;
+        height: 30px;
+        opacity: 0.38;
+        outline: none;
+    }
+    & .searchBox {
+        position: absolute;
+        top: 15px;
+        left: 56px;
+        width: 258px;
+        height: 29px;
+        & .searchIc {
+            z-index: 1;
+            position: absolute;
+            width: 30px;
+	        height: 30px;
+            top: 1px;
+            opacity: 0.38;
+        }
+    }
+    & .modeButton {
+        position: absolute;
+        top: 18px;
+        left: 333px;
+        outline: none;
+    }
+    & .tagButton {
+        position: absolute;
+        top: 23px;
+        left: 363px;
+        outline: none;
+    }
+    & .changeMode {
+        position: absolute;
+        top: 16px;
+        left: 50%;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        & .cardButton {
+            width: 52px;
+	        height: 29px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            line-height: 1.62;
+            letter-spacing: -0.3px;
+            text-align: center;
+        }
+        & .noteButton {
+            display: inline-block;
+            width: 52px;
+	        height: 29px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            line-height: 1.62;
+            letter-spacing: -0.3px;
+            text-align: center;
+        }
+        a:link {
+            text-decoration: none;
+        }
+        a:visited {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+    }
+    & .profileBox {
+        & .photo {
+            position: absolute;
+            top: 14px;
+            right: 20px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+    }
+}

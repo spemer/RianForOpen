@@ -1,29 +1,50 @@
-import { USER_LOGIN, USER_INFORMATION_INJECT } from '../constants';
+// @flow
+import { USER_LOGIN } from '../constants';
 
-export function userLogin(userData) {
-	console.log('USERDATA: ', userData);
+type UserData = {
+  _id: string,
+  email: string,
+  photo: string,
+  token: string,
+  name: string,
+  createdAt: string,
+  fbId: string,
+  naverId: string,
+  kakaoId: string,
+  googleId: string,
+  lastLogin: string,
+};
+
+type UserLoginAction = {
+  type: USER_LOGIN,
+  userId: string,
+  email: string,
+  photo: string,
+  token: string,
+  name: string,
+  createdAt: string,
+  fbId: string,
+  naverId: string,
+  kakaoId: string,
+  googleId: string,
+  lastLogin: string,
+};
+
+export function userLogin(userData: UserData): UserLoginAction {
+	// console.log('USERDATA: ', userData);
 	return {
 		type: USER_LOGIN,
-		_id: userData._id,
+		userId: userData._id,
 		email: userData.email,
-		email_verified: userData.email_verified,
-		phone: userData.phone,
-		picture: userData.picture,
+		photo: userData.photo,
 		token: userData.token,
 		name: userData.name,
-		created_at: userData.created_at,
-		facebook_id: userData.facebook_id,
-		naver_id: userData.naver_id,
-		kakao_id: userData.kakao_id,
-		google_id: userData.google_id,
-		last_login: userData.last_login,
-    // shared_tagList: [ObjectID]
-	};
-}
-export function userInformationInject(information) {
-	return {
-		type: USER_INFORMATION_INJECT,
-		data: information,
+		createdAt: userData.createdAt,
+		fbId: userData.fbId,
+		naverId: userData.naverId,
+		kakaoId: userData.kakaoId,
+		googleId: userData.googleId,
+		lastLogin: userData.lastLogin,
 	};
 }
 

@@ -12,7 +12,7 @@ const mockeNoteToDb = async (userId) => {
 			const data = MockData[i].data;
 			const preview = htmlToText.fromString(data).substring(0, 250);
 			const tagList = MockData[i].tags;
-			const pre_image = MockData[i].pre_image;
+			const preImage = MockData[i].preImage;
 			let tagObjectIdList = [];
 
 			if (tagList.length > 0) {
@@ -20,14 +20,14 @@ const mockeNoteToDb = async (userId) => {
 				tagObjectIdList = tagModelList.map(model => model._id);
 			}
 			const newNote = new Note({
-				user_id: userId,
+				userId: userId,
 				title,
 				preview,
 				data,
-				pre_image,
-				created_at: Date.now(),
-				updated_at: Date.now(),
-				is_publish: false,
+				preImage,
+				createdAt: Date.now(),
+				updatedAt: Date.now(),
+				isPublish: false,
 				tags: tagObjectIdList,
 			});
 

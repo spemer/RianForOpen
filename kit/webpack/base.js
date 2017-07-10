@@ -50,6 +50,7 @@ export default new WebpackConfig().merge({
     // short-hand imports without knowing the full/relative path.  If it
     // doesn't find anything, then it'll check `node_modules` as normal
 		modules: [
+			'../../util',
 			PATHS.root,
 			'node_modules',
 		],
@@ -113,6 +114,7 @@ export default new WebpackConfig().merge({
 		new webpack.ProvidePlugin({
 			$: 'jquery',
 			jQuery: 'jquery',
+			'window.jQuery': 'jquery',
 		}),
     // Progress bar + options
 		new ProgressBarPlugin({

@@ -67,7 +67,7 @@ import { serverClient } from 'kit/lib/apollo';
 // of Apollo, so we can apply our own reducers and make use of the Redux dev
 // tools in the browser
 import createNewStore from 'kit/lib/redux';
-import { userLogin, userInformationInject } from 'src/actions/UserActions';
+import { userLogin } from 'src/actions/UserActions';
 // Initial view to send back HTML render
 import Html from 'kit/views/ssr';
 
@@ -130,12 +130,10 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 
   // Set up routes
 	const router = new KoaRouter()
-    .post('/api/graphql', graphqlKoa((ctx) => {
-  return { 
-    schema,
-    context: { userId: ctx.state.user}
-  };
-}))
+    .post('/api/graphql', graphqlKoa(ctx => ({
+	schema,
+	context: { userId: ctx.state.user },
+})))
     .get('/api/graphiql', graphiqlKoa({ endpointURL: '/api/graphql' }))
     // Set-up a general purpose /ping route to check the server is alive
     .get('/ping', async (ctx) => {
@@ -178,7 +176,6 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 	if (ctx.isAuthenticated()) {
 		store.dispatch(userLogin(ctx.state.user));
 	}
-					// store.dispatch(userInformationInject({ email: 'cci45@naver.com' }));
 
 					// Generate the HTML from our React tree.  We're wrapping the result
 					// in `react-router`'s <StaticRouter> which will pull out URL info and
@@ -214,7 +211,7 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
   // Start Koa
 
 	const app = new Koa();
-	app.use(cors({ credentials: 'include' }))
+	app.use(cors({ credentials: 'include' }));
 	app.keys = ['your-session-secret'];
 	app.use(session(cookieConfig, app));
 	app.use(bodyParser());

@@ -17,9 +17,9 @@ const autoSaveCtrl = async (userId, noteData) => {
 			tags: tagObjectIdList,
 			data: noteData.data,
 			preview: htmlToText.fromString(noteData.data).substring(0, 250),
-			pre_image: noteData.pre_image,
-			is_publish: noteData.is_publish,
-			updated_at: Date.now(),
+			preImage: noteData.preImage,
+			isPublish: noteData.isPublish,
+			updatedAt: Date.now(),
 		};
 
 		await Note.update({ _id: noteData.noteId }, { $set: newNoteInfor });

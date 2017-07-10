@@ -1,0 +1,57 @@
+.container {
+    height: 282px;
+    width: 212px;
+    background-color: #ffffff;
+    margin-right: 24px;
+    margin-top: 24px;
+    & .head {
+        height: 122px;
+        background-position: center;  
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        & .box {
+            padding-top: 20px;
+            padding-left: 16px;
+            padding-right: 16px;
+            padding-bottom: 18px;
+            & .timestamp {
+                font-family: NotoSansCJKkr-Regular;
+                font-size: 14px;
+                line-height: 1.62;
+                letter-spacing: -0.3px;
+            }
+            & .title {
+                max-height: 60px;
+                overflow: hidden;
+                font-family: NotoSansCJKkr-Bold;
+                font-size: 24px;
+                font-weight: bold;
+                line-height: 1.4;
+                letter-spacing: -0.6px;
+            }
+        }
+    }
+    & .preview {
+        height: 90px;
+        margin-top: 20px;
+        margin-left: 16px;
+        margin-right: 16px;
+        font-family: NotoSansCJKkr-Regular;
+        font-size: 12px;
+        line-height: 1.62;
+        letter-spacing: -0.3px;
+        color: #515861;
+        overflow: hidden;
+    }
+    & .tags {
+        margin-top: 18px;
+        margin-bottom: 18px;
+        margin-left: 16px;
+        font-family: NotoSansCJKkr-Regular;
+        font-size: 12px;
+        line-height: 1.62;
+        letter-spacing: -0.3px;
+    }
+}

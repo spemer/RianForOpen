@@ -1,12 +1,24 @@
-import { CHANGE_FULL_SCREEN } from '../constants';
+// @flow
+import { CHANGE_FULL_SCREEN, CHANGE_LEFT_BAR } from '../constants';
 
-export function fullScreenChange(data) {
+type FullScreenChangeAction = {
+	type: CHANGE_FULL_SCREEN,
+	full: boolean
+}
+
+type ChangeLeftBarAction = {
+	type: CHANGE_LEFT_BAR,
+}
+
+export function fullScreenChange(full: boolean): FullScreenChangeAction {
 	return {
 		type: CHANGE_FULL_SCREEN,
-		data,
+		full,
 	};
 }
 
-export function basic() {
-	return {};
+export function changeLeftBar(): ChangeLeftBarAction {
+	return {
+		type: CHANGE_LEFT_BAR,
+	};
 }

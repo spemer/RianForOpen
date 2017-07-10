@@ -1,0 +1,84 @@
+.container {
+    width: 580px;
+    height: 100%;
+    & .tagBox {
+        height: 45px;
+        display: flex;
+        overflow: hidden;
+        & .gutter {
+            flex: 0 0 35px;
+            opacity: 0.38;
+            font-family: NotoSansCJKkr-Bold;
+            font-size: 14px;
+            line-height: 1.62;
+            letter-spacing: -0.3px;
+            text-align: center;
+            & .gutterName {
+                color: #babac0;
+                font-family: NotoSansCJKkr-Regular;
+                margin-bottom: 0px;
+                margin-top: 0px;
+            }
+            & .gutterName:hover {
+                color: #515861;
+            }
+        }
+        & .tagContainer{
+            flex: 0 0 550px;
+            height: 100%;
+            overflow: hidden;
+        }
+    }
+    & .titleHead {
+        height: 45px;
+        display: flex;
+        & .gutter {
+            flex: 0 0 35px;
+            opacity: 0.38;
+            font-family: NotoSansCJKkr-Bold;
+            font-size: 14px;
+            line-height: 1.62;
+            letter-spacing: -0.3px;
+            text-align: center;
+            & .gutterName {
+                color: #babac0;
+                font-family: NotoSansCJKkr-Regular;
+                margin-bottom: 0px;
+                margin-top: 0px;
+            }
+            & .gutterName:hover {
+                color: #515861;
+            }
+        }
+        & .title {
+            flex: 0 0 500px;
+            border: none;
+            font-family: NotoSansCJKkr-Bold;
+            font-size: 30px;
+            font-weight: bold;
+            line-height: 1.62;
+            letter-spacing: -0.9px;
+            color: #353946;
+            height: 100%;
+            outline: none;
+            background-color: #FCFCFC;
+        }
+        & .title::placeholder {
+            font-size: 30px;
+            color: #babac0;
+        }
+    }
+    & .borderBox {
+        display: flex;
+        justify-content: flex-end;
+        width:100%;
+        height: 10px;
+        margin-top: 5px;
+        & .borderLine {
+            margin-right: 40px;
+            width: 500px;
+            height: 10px;
+            border-bottom: 1px solid #dfdfdf;
+        }
+    }
+}

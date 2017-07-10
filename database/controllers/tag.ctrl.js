@@ -6,7 +6,7 @@ export const saveTag = (userid, tagname, noteid) => new Promise((resolve) => {
 		snippet: infor.snippet,
 		tag: infor.tag,
 		data: '',
-		created_at: infor.final_modified_at,
+		createdAt: infor.final_modified_at,
 		final_modified_at: infor.final_modified_at,
 		publish: false,
 	});

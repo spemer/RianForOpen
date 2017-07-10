@@ -1,35 +1,59 @@
-import { USER_LOGIN, USER_INFORMATION_INJECT } from '../constants';
+// @flow
+import { USER_LOGIN } from '../constants';
 
-const UserState = {
-	_id: null,
-	email: null,
-	name: null,
-	picture: null,
-	token: null,
-	loading: false,
-	facebook_id: null,
+type UserLoginAction = {
+  type: USER_LOGIN,
+  userId: string,
+  email: string,
+  photo: string,
+  token: string,
+  name: string,
+  createdAt: string,
+  fbId: string,
+  naverId: string,
+  kakaoId: string,
+  googleId: string,
+  lastLogin: string,
 };
 
-export default function User(state = UserState, action) {
+type State = {
+  userId: ?string,
+  email: ?string,
+  name: ?string,
+  photo: ?string,
+  token: ?string,
+  loading: boolean,
+  fbI?: string
+};
+
+type Action = UserLoginAction;
+
+const UserState = {
+	userId: null,
+	email: null,
+	name: null,
+	photo: null,
+	token: null,
+	loading: false,
+	fbId: null,
+};
+
+export default function User(state: State = UserState, action: Action): State {
 	switch (action.type) {
 	case USER_LOGIN:
 		return Object.assign({}, state, {
-			_id: action._id,
+			userId: action.userId,
 			email: action.email,
-			email_verified: action.email_verified,
-			phone: action.phone,
-			picture: action.picture,
+			photo: action.photo,
 			token: action.token,
 			name: action.name,
-			created_at: action.created_at,
-			facebook_id: action.facebook_id,
-			naver_id: action.naver_id,
-			kakao_id: action.kakao_id,
-			google_id: action.google_id,
-			last_login: action.last_login,
+			createdAt: action.createdAt,
+			fbId: action.fbId,
+			naverId: action.naverId,
+			kakaoId: action.kakaoId,
+			googleId: action.googleId,
+			lastLogin: action.lastLogin,
 		});
-	case USER_INFORMATION_INJECT:
-		return Object.assign({}, state, action.data);
 	default:
 		return state;
 	}

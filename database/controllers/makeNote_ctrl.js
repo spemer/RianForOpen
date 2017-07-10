@@ -1,19 +1,18 @@
 import Note from '../models/note_model';
-import Tag from '../models/tag_model';
 
 const makeNoteCtrl = async (userId) => {
 	let result;
 	try {
 		const newNote = new Note({
-			user_id: userId,
+			userId,
 			title: '',
 			preveiw: '',
 			data: '',
-			pre_image: '',
+			preImage: '',
 			tags: [],
-			created_at: Date.now(),
-			updated_at: Date.now(),
-			is_publish: false,
+			createdAt: Date.now(),
+			updatedAt: Date.now(),
+			isPublish: false,
 		});
 
 		await newNote.save();

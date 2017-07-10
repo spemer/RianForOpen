@@ -1,15 +1,39 @@
-import { CHANGE_FULL_SCREEN } from '../constants';
+
+// @flow
+import { CHANGE_FULL_SCREEN, CHANGE_LEFT_BAR } from '../constants';
+
+type State = {
+	full: boolean,
+	themeColor: string,
+	leftBar: boolean
+};
+
+type FullScreenChangeAction = {
+	type: CHANGE_FULL_SCREEN,
+	full: boolean
+};
+
+type ChangeLeftBarAction = {
+	type: CHANGE_LEFT_BAR,
+};
+
+type Action = FullScreenChangeAction | ChangeLeftBarAction;
 
 const ModeState = {
 	full: false,
-	themeColor: '#ff3466',
+	themeColor: '#1ad9a9',
+	leftBar: true,
 };
 
-export default function App(state = ModeState, action) {
+export default function App(state: State = ModeState, action: Action): State {
 	switch (action.type) {
 	case CHANGE_FULL_SCREEN:
 		return Object.assign({}, state, {
-			full: action.data,
+			full: action.full,
+		});
+	case CHANGE_LEFT_BAR:
+		return Object.assign({}, state, {
+			leftBar: !state.leftBar,
 		});
 	default:
 		return state;

@@ -5,14 +5,14 @@ export const getAllMyNotePreviews = gql`
 			tags
 			notes(tags: $tags userId: $userId) {
 			_id
-			user_id
-			pre_image
+			userId
+			preImage
 			title
 			preview
-			pre_image
-			created_at
-			updated_at
-			is_publish
+			preImage
+			createdAt
+			updatedAt
+			isPublish
 			tags
 			like
 			}

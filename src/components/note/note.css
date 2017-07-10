@@ -1,10 +1,14 @@
+.canvas {
+    
+}
+
 #note {
-    display: flex;
     flex: 1;
+    display: flex;
     align-items: stretch;
     & .paper {
-        display: flex;
         flex: 1;
+        display: flex;
         flex-direction: row;
         z-index: 0;
         justify-content: center;
@@ -15,16 +19,16 @@
         display: none;
     } 
     & .card-List {
+        flex: 1;
 
         display: flex;
-        flex: 1;
         flex-direction: column;
         z-index: 0;
         align-items: center;
     }
-    & .hover {
-        display: flex;;
+    & .hover {;
         flex: 0 0 60px;
+        display: flex;
         z-index: 3;
         /*position: fixed;*/
         /*left: 0px;*/

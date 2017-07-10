@@ -1,12 +1,9 @@
 /* ----------  USER  ----------*/
-export const USER_INFORMATION_INJECT = 'USER_INFORMATION_INJECT';
 export const USER_LOGIN = 'USER_LOGIN';
 
 /* ----------  APP  ----------*/
 export const CHANGE_FULL_SCREEN = 'CHANGE_FULL_SCREEN';
-
-/* ----------  NOTE  ----------*/
-export const NOTE_MODE_CHANGE = 'NOTE_MODE_CHANGE';
+export const CHANGE_LEFT_BAR = 'CHANGE_LEFT_BAR';
 
 /* ---------- NOTE -----------*/
 export const AUTO_SAVE_REQUEST = 'AUTO_SAVE_REQUEST';

@@ -1,0 +1,37 @@
+.plusButton {
+    display: flex;
+    margin-top: 18px;
+    margin-bottom: 25px;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+
+.tagButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    margin-bottom: 25px; 
+    box-sizing: border-box;
+    outline: none;
+}
+
+.socialButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    margin-bottom: 25px;
+    box-sizing: border-box; 
+    outline: none;
+}
+
+.trashButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    box-sizing: border-box;
+    outline: none;
+}

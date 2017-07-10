@@ -8,9 +8,9 @@ const getSelectedMyNoteDataCtrl = async (userId, noteId) => {
 			title: '',
 			tags: [],
 			data: '',
-			is_publish: '',
-			created_at: Date.now(),
-			updated_at: Date.now(),
+			isPublish: '',
+			createdAt: Date.now(),
+			updatedAt: Date.now(),
 			like: null,
 		};
 	}
@@ -19,7 +19,7 @@ const getSelectedMyNoteDataCtrl = async (userId, noteId) => {
             .populate({ path: 'tags', select: 'name' })
             .lean()
             .select(
-                '_id title tags data is_publish created_at updated_at like',
+                '_id title tags data isPublish createdAt updatedAt like',
             );
 		OneNote.tags = OneNote.tags.map(tag => tag.name);
 		result = OneNote;
@@ -30,9 +30,9 @@ const getSelectedMyNoteDataCtrl = async (userId, noteId) => {
 			title: '',
 			tags: [],
 			data: '',
-			is_publish: '',
-			created_at: Date.now(),
-			updated_at: Date.now(),
+			isPublish: '',
+			createdAt: Date.now(),
+			updatedAt: Date.now(),
 			like: null,
 		};
 	}

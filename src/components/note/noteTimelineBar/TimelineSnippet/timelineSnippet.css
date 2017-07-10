@@ -1,0 +1,50 @@
+.container {
+    border-bottom: solid 1px #eaeaea;
+    & .box {
+            display: flex;
+            flex-direction: column;
+            outline: none;
+            height: 100%;
+            padding-left: 23px;
+            padding-right: 23px;
+            justify-content: center;
+            box-sizing: border-box;
+            padding-top: 2px;
+            & .timestamp {
+                flex: 0 0 13px;
+                font-family: NotoSansCJKkr;
+                font-size: 12px;
+                line-height: 1.62;
+                letter-spacing: -0.3px;
+                color: #515861;
+            }
+            & .title {
+                flex: 0 0 21px;
+                margin-top: -4px;
+                margin-bottom: 8px;
+                overflow: hidden;
+                font-size: 18px;
+                font-family: NotoSansCJKkr-Bold;
+                font-weight: bold;
+                line-height: 1.62;
+                letter-spacing: -0.4px;
+                color: #515861;
+                
+            }
+            & .preview{
+                flex: 0 0 60px;
+                overflow: hidden;
+                font-family: NotoSansCJKkr-Regular;
+                font-size: 12px;
+                line-height: 1.62;
+                letter-spacing: -0.3px;
+                color: #515861;
+            }
+    
+    }
+}
+.container:hover {
+    border: none;
+    background-color: #f4f4f4;
+}
+
