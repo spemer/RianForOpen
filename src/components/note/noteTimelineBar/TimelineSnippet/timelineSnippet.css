@@ -1,16 +1,16 @@
 .container {
     border-bottom: solid 1px #eaeaea;
-    transition: all ease 0.25s;
     & .box {
+        
+            transition: all ease 0.25s;
             display: flex;
             flex-direction: column;
             outline: none;
             height: 100%;
+            padding-top: 1px;
             padding-left: 23px;
             padding-right: 23px;
             justify-content: center;
-            box-sizing: border-box;
-            padding-top: 2px;
             & .timestamp {
                 flex: 0 0 13px;
                 font-family: NotoSansCJKkr;
@@ -43,8 +43,9 @@
             }
     
     }
+    .box:hover {
+        background-color: #f4f4f4;
+    }
 }
-.container:hover {
-    background-color: #f4f4f4;
-}
+
 
