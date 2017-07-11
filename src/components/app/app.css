@@ -30,7 +30,6 @@ body::-webkit-scrollbar {
     & .head {
       top: 0px;
       width: 100%;
-      height: 61px;
       opacity: 0.97;
       background-color: #ffffff;
       border-bottom: solid 1px #dfdfdf; 
@@ -38,13 +37,12 @@ body::-webkit-scrollbar {
     }
     & .mainContainer {
         position: absolute;
-        margin-top: 61px;
         top: 0;
         bottom: 0;
         right: 0;
         left: 0;
         & .sideBar {
-          z-index: 999;
+          z-index: 3;
           position: absolute;
           display: flex;
           flex-direction: column;

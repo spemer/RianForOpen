@@ -197,10 +197,13 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		this.setState({
 			selectedTag: tagName,
 		});
+		console.log('click');
 		this.currentSelected = e.currentTarget;
+		console.log('click', this.currentSelected);
 		this.currentSelected.style.backgroundColor = '#f4f4f4';
 		this.currentSelected.style.paddingLeft = '21px';
 		this.currentSelected.style.borderLeft = `3px solid ${this.props.themeColor}`;
+		console.log('click2', this.currentSelected);
 	}
 
 	changeClickedSortBox(e: any, sortName: string) {
@@ -356,9 +359,9 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 						</div>
 						<div className={css.scrollBox}>
 							{sortedKor &&
-                sortedKor.map(tagGroup => (
+                sortedKor.map((tagGroup, index) => (
 	<GroupedBox
-		key={Math.floor(Math.random() * 100000)}
+		key={index}
 		group={tagGroup[0]}
 		tagSet={tagGroup[1]}
 		changeClickedBox={this.changeClickedBox}
@@ -366,9 +369,9 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	/>
                 ))}
 							{sortedEng &&
-                sortedEng.map(tagGroup => (
+                sortedEng.map((tagGroup, index) => (
 	<GroupedBox
-		key={Math.floor(Math.random() * 100000)}
+		key={index}
 		group={tagGroup[0]}
 		tagSet={tagGroup[1]}
 		changeClickedBox={this.changeClickedBox}
@@ -376,9 +379,9 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	/>
                 ))}
 							{sortedEtc &&
-                sortedEtc.map(tagGroup => (
+                sortedEtc.map((tagGroup, index) => (
 	<GroupedBox
-		key={Math.floor(Math.random() * 100000)}
+		key={index}
 		group={tagGroup[0]}
 		tagSet={tagGroup[1]}
 		changeClickedBox={this.changeClickedBox}

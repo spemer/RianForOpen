@@ -32,10 +32,10 @@ const ModalEditor = ({ showModal = false, changeModalState = () => {} }: Props) 
 		overlayClassName={css.overlay}
 		contentLabel="ModalEditor"
 	>
-		<div className={css.container}>
-			<SideHead />
+		<div className={css.ModalContainer}>
+			{/* <SideHead />
 			<EditorHead />
-			<MainEditor />
+			<MainEditor />*/}
 		</div>
 	</Modal>
 		);

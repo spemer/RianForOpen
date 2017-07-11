@@ -93,7 +93,7 @@ class Head extends Component<DefaultProps, Props, State> {
 		const { modeIsTag } = this.state;
 		const { full, themeColor, pathname } = this.props;
 		return (
-			<div className={parentCss.head} style={{ height: !full ? '61px' : '0px' }}>
+			<div className={parentCss.head} style={{ height: !full ? '48px' : '0px' }}>
 				<div className={css.container}>
 					<div
 						className={css.icon}
