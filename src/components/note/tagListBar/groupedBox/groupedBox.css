@@ -20,7 +20,7 @@
             justify-content: flex-start;
             align-items: center;
             outline: none;
-                transition: all ease 0.25s;
+            transition: all ease 0.25s;
             & .tagName {
                 font-family: NotoSansCJKkr-Regular;
                 font-size: 12px;
