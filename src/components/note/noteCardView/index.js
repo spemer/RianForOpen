@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 // import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Motion, spring } from 'react-motion';
+
 import { graphql, compose } from 'react-apollo';
 import ModalEditor from '../noteRianEditor/rianModalEditor';
 import MockList from '../../../../MockData/noteList';
