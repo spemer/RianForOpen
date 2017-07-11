@@ -98,7 +98,7 @@ function MainComponent({ userId, leftBar, full, location: { pathname } }: Props)
 	return (
 		<div id={css.mainComponent}>
 			<Head pathname={pathname} />
-			<div className={css.mainContainer} style={{ marginTop: !full ? '61px' : '0px' }}>
+			<div className={css.mainContainer} style={{ marginTop: !full ? '48px' : '0px' }}>
 				<SideBar pathname={pathname} />
 				<div className={css.note} style={{ paddingLeft: !full ? '57px' : '0px' }}>
 					<TagListBar />
