@@ -17,6 +17,7 @@ type Props = {
   like?: number,
   themeColor: string,
   preImage: string,
+  changeModalState: Function
 };
 
 const CardInstance = ({
@@ -29,8 +30,16 @@ const CardInstance = ({
   isPublish = false,
   themeColor = '#ff3466',
   preImage = '',
+  changeModalState = () => {},
 }: Props) => (
-	<div className={css.container}>
+	<div
+		className={css.container}
+		onClick={() => {
+			changeModalState(true);
+		}}
+		role="button"
+		tabIndex="-10"
+	>
 		<div
 			className={css.head}
 			style={{
@@ -38,10 +47,22 @@ const CardInstance = ({
 			}}
 		>
 			<div className={css.box}>
-				<div className={css.timestamp} style={{ color: preImage ? '#ffffff' : 'rgba(0, 0, 0, 0.54)', textShadow: preImage ? '0 2px 4px rgba(0, 0, 0, 0.75)' : 'none' }}>
+				<div
+					className={css.timestamp}
+					style={{
+						color: preImage ? '#ffffff' : 'rgba(0, 0, 0, 0.54)',
+						textShadow: preImage ? '0 2px 4px rgba(0, 0, 0, 0.75)' : 'none',
+					}}
+				>
 					{updatedAt}
 				</div>
-				<div className={css.title} style={{ color: preImage ? '#ffffff' : '#353946', textShadow: preImage ? '0 2px 4px rgba(0, 0, 0, 0.75)' : 'none' }}>
+				<div
+					className={css.title}
+					style={{
+						color: preImage ? '#ffffff' : '#353946',
+						textShadow: preImage ? '0 2px 4px rgba(0, 0, 0, 0.75)' : 'none',
+					}}
+				>
 					{title}
 				</div>
 			</div>

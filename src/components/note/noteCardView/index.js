@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
+import ModalEditor from '../noteRianEditor/rianModalEditor';
 import MockList from '../../../../MockData/noteList';
 // react virtualized
 // import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
@@ -44,6 +45,7 @@ type Props = {
 	themeColor: string,
 };
 type State = {
+	showModal: boolean
 };
 
 @connect(mapToState)
@@ -55,17 +57,20 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	constructor(props: Props) {
 		super(props);
 		this.cardRenderer = this.cardRenderer.bind(this);
+		this.changeModalState = this.changeModalState.bind(this);
 	}
 
 	state = {
+		showModal: false,
 	};
 
 	cardRenderer: Function;
+	changeModalState: Function;
 
 	cardRenderer(noteData: Array<any>) {
-		return noteData.map(({ title, updatedAt, tags, preImage }, index) => (
+		return noteData.map(({ title, updatedAt, tags, preImage }) => (
 			<CardInstance
-				key={index}
+				key={Math.floor(Math.random() * 100000)}
 				id={'13'}
 				title={title}
 				preview="자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 "
@@ -73,15 +78,24 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 				tags={tags}
 				preImage={preImage}
 				themeColor={this.props.themeColor}
+				changeModalState={this.changeModalState}
 			/>
 			));
+	}
+
+	changeModalState(argu: boolean) {
+		this.setState({
+			showModal: argu,
+		});
 	}
 
 	render() {
 		const noteCount = 36;
 		const tagName = '다다익선';
+		const { showModal } = this.state;
 		return (
 			<div className={css.container}>
+				<ModalEditor showModal={showModal} changeModalState={this.changeModalState} />
 				<div className={css.head}>
 					<div className={css.tagTitle}>
 						{`#${tagName}`}

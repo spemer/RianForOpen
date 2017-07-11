@@ -356,9 +356,9 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 						</div>
 						<div className={css.scrollBox}>
 							{sortedKor &&
-                sortedKor.map((tagGroup, index) => (
+                sortedKor.map(tagGroup => (
 	<GroupedBox
-		key={index}
+		key={Math.floor(Math.random() * 100000)}
 		group={tagGroup[0]}
 		tagSet={tagGroup[1]}
 		changeClickedBox={this.changeClickedBox}
@@ -366,9 +366,9 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	/>
                 ))}
 							{sortedEng &&
-                sortedEng.map((tagGroup, index) => (
+                sortedEng.map(tagGroup => (
 	<GroupedBox
-		key={index}
+		key={Math.floor(Math.random() * 100000)}
 		group={tagGroup[0]}
 		tagSet={tagGroup[1]}
 		changeClickedBox={this.changeClickedBox}
@@ -376,9 +376,9 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	/>
                 ))}
 							{sortedEtc &&
-                sortedEtc.map((tagGroup, index) => (
+                sortedEtc.map(tagGroup => (
 	<GroupedBox
-		key={index}
+		key={Math.floor(Math.random() * 100000)}
 		group={tagGroup[0]}
 		tagSet={tagGroup[1]}
 		changeClickedBox={this.changeClickedBox}

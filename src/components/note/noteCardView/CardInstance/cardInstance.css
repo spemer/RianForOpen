@@ -4,7 +4,10 @@
     background-color: #ffffff;
     margin-right: 24px;
     margin-top: 24px;
+    border-radius: 4px;
     & .head {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
         height: 122px;
         background-position: center;  
         background-size: cover;
@@ -54,4 +57,8 @@
         line-height: 1.62;
         letter-spacing: -0.3px;
     }
+}
+
+.container:hover {
+    box-shadow: 0 5px 10px 0 rgba(53, 57, 70, 0.2);
 }
