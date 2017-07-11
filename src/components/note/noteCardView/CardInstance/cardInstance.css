@@ -3,7 +3,7 @@
     width: 212px;
     background-color: #ffffff;
     margin-right: 24px;
-    margin-top: 24px;
+    margin-bottom: 24px;
     border-radius: 4px;
     outline: none;
     & .head {
@@ -38,7 +38,7 @@
         }
     }
     & .preview {
-        height: 91px;
+        height: 94px;
         margin-top: 20px;
         margin-left: 16px;
         margin-right: 16px;

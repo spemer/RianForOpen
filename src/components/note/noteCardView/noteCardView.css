@@ -31,7 +31,9 @@
     & .mainBox {
         flex: 1;
         display: flex;
+        overflow: auto;
         flex-direction: row;
+        margin-top: 24px;
         margin-left: 24px;
         justify-content: stretch;
         flex-wrap: wrap;
