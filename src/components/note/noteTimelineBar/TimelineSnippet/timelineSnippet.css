@@ -1,8 +1,6 @@
 .container {
     border-bottom: solid 1px #eaeaea;
     & .box {
-        
-            transition: all ease 0.25s;
             display: flex;
             flex-direction: column;
             outline: none;
