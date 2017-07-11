@@ -1,5 +1,6 @@
 .container {
     border-bottom: solid 1px #eaeaea;
+    transition: all ease 0.25s;
     & .box {
             display: flex;
             flex-direction: column;
@@ -44,7 +45,6 @@
     }
 }
 .container:hover {
-    border: none;
     background-color: #f4f4f4;
 }
 

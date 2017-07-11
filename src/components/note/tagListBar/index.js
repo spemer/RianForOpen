@@ -237,14 +237,16 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 			<Motion
 				style={{
 					x: spring(leftBar && !full ? 179 : 0),
+					y: spring(leftBar && !full ? 1 : 0),
 				}}
 			>
-				{({ x }) => (
+				{({ x, y }) => (
 					<div
 						className={css.container}
 						style={{
 							flex: `0 0 ${x}px`,
 							borderRight: leftBar ? '1px solid #dfdfdf' : 'none',
+							opacity: y
 						}}
 					>
 						<div className={css.head}>
