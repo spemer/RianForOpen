@@ -5,6 +5,7 @@
     margin-right: 24px;
     margin-top: 24px;
     border-radius: 4px;
+    outline: none;
     & .head {
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
@@ -26,7 +27,7 @@
                 letter-spacing: -0.3px;
             }
             & .title {
-                max-height: 60px;
+                max-height: 62px;
                 overflow: hidden;
                 font-family: NotoSansCJKkr-Bold;
                 font-size: 24px;
@@ -37,7 +38,7 @@
         }
     }
     & .preview {
-        height: 90px;
+        height: 91px;
         margin-top: 20px;
         margin-left: 16px;
         margin-right: 16px;
