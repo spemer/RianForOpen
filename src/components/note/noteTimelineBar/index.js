@@ -21,7 +21,7 @@ const getAllMyNotePreviewsQuery = graphql(getAllMyNotePreviews, {
 		ssr: false,
 	}),
 	name: 'noteData',
-	skip: process.env.NODE_ENV === 'development' && true,
+	skip: true,
 });
 
 type Store = {

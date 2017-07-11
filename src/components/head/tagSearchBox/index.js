@@ -16,7 +16,7 @@ const getTagListQuery = graphql(getTagList, {
 		},
 		ssr: true,
 	}),
-	skip: process.env.NODE_ENV === 'development' && true,
+	skip: true,
 	name: 'tagData',
 });
 

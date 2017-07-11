@@ -33,7 +33,7 @@
         display: flex;
         flex-direction: row;
         margin-left: 24px;
-        justify-content: stretch;
+        justify-content: space-between;
         flex-wrap: wrap;
     }
 }
