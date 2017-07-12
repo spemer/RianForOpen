@@ -8,8 +8,7 @@ import MainEditor from './editor';
 import css from './rianModalEditor.css';
 
 function mapToState() {
-	return {
-	};
+	return {};
 }
 
 function mapToDispatch() {
@@ -21,8 +20,10 @@ type Props = {
   changeModalState: Function
 };
 
-
-const ModalEditor = ({ showModal = false, changeModalState = () => {} }: Props) => (
+const ModalEditor = ({
+  showModal = false,
+  changeModalState = () => {},
+}: Props) => (
 	<Modal
 		isOpen={showModal}
 		onRequestClose={() => {
@@ -33,10 +34,10 @@ const ModalEditor = ({ showModal = false, changeModalState = () => {} }: Props) 
 		contentLabel="ModalEditor"
 	>
 		<div className={css.ModalContainer}>
-			{/* <SideHead />
+			<SideHead changeModalState={changeModalState} />
 			<EditorHead />
-			<MainEditor />*/}
+			<MainEditor />
 		</div>
 	</Modal>
-		);
+);
 export default connect(mapToState, mapToDispatch)(ModalEditor);

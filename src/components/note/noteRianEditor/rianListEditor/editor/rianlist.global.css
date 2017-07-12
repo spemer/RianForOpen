@@ -1174,17 +1174,7 @@ body.prevent-scroll.fr-mobile {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
 .fr-box {
-  position: relative;
-  max-width: 540px;
-  min-width: 540px;
-  font-family: NotoSansCJKkr-Regular;
-  height: 100%;
-	font-size: 15px;
-  font-weight: 300;
-	line-height: 1.62;
-	letter-spacing: -0.4px;
-	color: #515861;
-  margin-right: 20px
+
 }
 /**
  * Postion sticky hacks.

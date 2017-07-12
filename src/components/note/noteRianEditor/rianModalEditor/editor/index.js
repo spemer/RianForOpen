@@ -13,7 +13,7 @@ import 'froala-editor/css/plugins/code_view.min.css';
 import parentCss from '../rianModalEditor.css';
 import editorConfig from './editorConfig';
 import '../../fontawesome.global.css';
-import './rianlist.global.css';
+import './rianModal.global.css';
 import './editor.global.css';
 
 type DefaultProps = {
@@ -140,6 +140,20 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 		// when user scroll, it will hide inline toolbar
 		$(`.${parentCss.container}`).scroll(() => {
 			$('.fr-toolbar.fr-desktop.fr-inline').css('display', 'none');
+		});
+
+		$('.fr-box').css({
+		  position: 'relative',
+			'max-width': '540px',
+			'min-width': '540px',
+			'min-height': '700px',
+			'font-family': 'NotoSansCJKkr-Regular',
+			height: '100%',
+			'font-size': '15px',
+			'font-weight': '300',
+			'line-height': '1.62',
+			'letter-spacing': '-0.4px',
+			color: '#515861',
 		});
 	}
 
