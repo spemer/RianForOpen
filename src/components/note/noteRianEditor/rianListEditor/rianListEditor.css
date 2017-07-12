@@ -22,3 +22,7 @@
         justify-content: center;
     }
 }
+
+.container::-webkit-scrollbar {
+        display: none;
+}      
