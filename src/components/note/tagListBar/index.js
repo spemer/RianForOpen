@@ -197,13 +197,10 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		this.setState({
 			selectedTag: tagName,
 		});
-		console.log('click');
 		this.currentSelected = e.currentTarget;
-		console.log('click', this.currentSelected);
 		this.currentSelected.style.backgroundColor = '#f4f4f4';
-		this.currentSelected.style.paddingLeft = '21px';
-		this.currentSelected.style.borderLeft = `3px solid ${this.props.themeColor}`;
-		console.log('click2', this.currentSelected);
+		this.currentSelected.style.paddingLeft = '20px';
+		this.currentSelected.style.borderLeft = `4px solid ${this.props.themeColor}`;
 	}
 
 	changeClickedSortBox(e: any, sortName: string) {
@@ -246,7 +243,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 						style={{
 							flex: `0 0 ${x}px`,
 							borderRight: leftBar ? '1px solid #dfdfdf' : 'none',
-							opacity: y
+							opacity: y,
 						}}
 					>
 						<div className={css.head}>

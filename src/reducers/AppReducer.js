@@ -21,7 +21,7 @@ type Action = FullScreenChangeAction | ChangeLeftBarAction;
 
 const ModeState = {
 	full: false,
-	themeColor: '#1ad9a9',
+	themeColor: '#0088ff',
 	leftBar: true,
 };
 

@@ -23,9 +23,6 @@ import Login from '../login';
 // <Head> Component
 import Head from '../head';
 
-// <Sidebar> Component
-import SideBar from '../sideBar';
-
 // <Note> Component
 import TagListBar from '../note/tagListBar';
 import NoteCardView from '../note/noteCardView';
@@ -99,8 +96,7 @@ function MainComponent({ userId, leftBar, full, location: { pathname } }: Props)
 		<div id={css.mainComponent}>
 			<Head pathname={pathname} />
 			<div className={css.mainContainer} style={{ marginTop: !full ? '48px' : '0px' }}>
-				<SideBar pathname={pathname} />
-				<div className={css.note} style={{ paddingLeft: !full ? '57px' : '0px' }}>
+				<div className={css.note} >
 					<TagListBar />
 					{pathname === '/list' && <NoteTimelineBar />}
 					<Switch>
