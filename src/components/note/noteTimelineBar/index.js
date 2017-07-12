@@ -143,8 +143,8 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		}
 		this.currentSelected = e.currentTarget;
 		this.currentSelected.style.backgroundColor = '#f4f4f4';
-		this.currentSelected.style.paddingLeft = '20px';
-		this.currentSelected.style.borderLeft = `3px solid ${this.props.themeColor}`;
+		this.currentSelected.style.paddingLeft = '19px';
+		this.currentSelected.style.borderLeft = `4px solid ${this.props.themeColor}`;
 	}
 
 	changeClickedSortBox(e: any, sortName: string) {
@@ -175,13 +175,13 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 					y: spring(leftBar && !full ? 1 : 0),
 				}}
 			>
-				{({ x, y}) => (
+				{({ x, y }) => (
 					<div
 						className={css.container}
 						style={{
 							flex: `0 0 ${x}px`,
 							borderRight: leftBar ? '1px solid #dfdfdf' : 'none',
-							opacity: y
+							opacity: y,
 						}}
 					>
 						<div className={css.head}>

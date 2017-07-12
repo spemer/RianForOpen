@@ -167,7 +167,6 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 			'line-height': '1.62',
 			'letter-spacing': '-0.4px',
 			color: '#515861',
-			'margin-right': '20px',
 		});
 	}
 
