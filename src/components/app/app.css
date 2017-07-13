@@ -24,8 +24,50 @@ body::-webkit-scrollbar {
   position: relative
 }
 
+@media (max-width: 700px) {
+  #mainComponent {
+    width: 100%;
+    height: 100%;
+    & .head {
+      top: 0px;
+      width: 100%;
+      height: 0px !important;
+      opacity: 0.97;
+      background-color: #ffffff;
+      overflow: auto;
+    }
+    & .mainContainer {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin-top: -1px !important;
+        & .sideBar {
+          z-index: 3;
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          left: 0px;
+          justify-content: flex-start;
+          height: 100%;
+          width: 56px;
+          border-right: solid 1px #dfdfdf;
+          overflow: auto;
+       }
+       & .note {
+          position: relative;
+          display: flex;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+        }
+    }
+  }
+}
 
-#mainComponent {
+@media (min-width: 700px) {
+  #mainComponent {
     width: 100%;
     height: 100%;
     & .head {
@@ -62,4 +104,6 @@ body::-webkit-scrollbar {
           box-sizing: border-box;
         }
     }
+  }
 }
+
