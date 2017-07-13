@@ -2,25 +2,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
 import { Form, Text, FormError } from 'react-form';
 import './firstUser.global.css';
 import css from './firstUser.css';
 
-type Store = {};
+type Store = {
+  User: {
+    userId: string,
+    userName: string
+  }
+};
 
-function mapToState(state: Store) {
-	return {};
+function mapToState({ User: { userId, userName } }: Store) {
+	return {
+		userId,
+		userName,
+	};
 }
 
-type DefaultProps = {};
+type DefaultProps = {
+	userName: null
+};
 
-type Props = {};
+type Props = {
+	userName: string
+};
 
 type State = {};
 
 @connect(mapToState)
 class FirstUser extends Component<DefaultProps, Props, State> {
-	static defaultProps = {};
+	static defaultProps = {
+		userName: null,
+	};
 
 	constructor(props: Props) {
 		super(props);
@@ -29,6 +44,10 @@ class FirstUser extends Component<DefaultProps, Props, State> {
 	state = {};
 
 	render() {
+		const { userName } = this.props;
+		if (userName) {
+			return <Redirect to="/" />;
+		}
 		return (
 			<div className={css.container}>
 				<div className={css.head}>
