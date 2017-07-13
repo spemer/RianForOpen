@@ -1,3 +1,9 @@
+@media (max-width: 800px) { 
+    .container {
+        flex: 0 0 0 !important;
+    }
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -5,9 +11,10 @@
     height: 100%;
     border-right: 1px solid #dfdfdf;
     box-sizing: border-box;
+    padding-left: 6px;
     & .head {
         flex: 0 0 60px;
-        display: flex;
+        display: flex;ㅎ
         flex-direction: row;
         margin-top: 28px;
         margin-left: 24px;
