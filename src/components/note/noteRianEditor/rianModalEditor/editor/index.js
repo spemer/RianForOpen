@@ -16,18 +16,16 @@ import '../../fontawesome.global.css';
 import './rianModal.global.css';
 import './editor.global.css';
 
-type DefaultProps = {
-};
+type DefaultProps = {};
 
-type Props = {
-};
+type Props = {};
 
 type State = {
-    content: string,
+  content: string
 };
 
 class MainEditor extends Component<DefaultProps, Props, State> {
-	static defaultProps = {}
+	static defaultProps = {};
 
 	constructor(props: Props) {
 		super(props);
@@ -37,7 +35,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 
 	state = {
 		content: '',
-	}
+	};
 
 	componentDidMount() {
 		this.initControls.initialize();
@@ -63,12 +61,27 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 			return tag.toLowerCase() == cmd;
 		};
 
-		// Define custom buttons.//////
-		$.FroalaEditor.DefineIcon('normal', { NAME: '<strong>H0</strong>', template: 'text' });
-		$.FroalaEditor.DefineIcon('h1', { NAME: '<strong>H1</strong>', template: 'text' });
-		$.FroalaEditor.DefineIcon('h2', { NAME: '<strong>H2</strong>', template: 'text' });
-		$.FroalaEditor.DefineIcon('h3', { NAME: '<strong>H3</strong>', template: 'text' });
-		$.FroalaEditor.DefineIcon('pre', { NAME: '<strong>CO</strong>', template: 'text' });
+    // Define custom buttons.//////
+		$.FroalaEditor.DefineIcon('normal', {
+			NAME: '<strong>H0</strong>',
+			template: 'text',
+		});
+		$.FroalaEditor.DefineIcon('h1', {
+			NAME: '<strong>H1</strong>',
+			template: 'text',
+		});
+		$.FroalaEditor.DefineIcon('h2', {
+			NAME: '<strong>H2</strong>',
+			template: 'text',
+		});
+		$.FroalaEditor.DefineIcon('h3', {
+			NAME: '<strong>H3</strong>',
+			template: 'text',
+		});
+		$.FroalaEditor.DefineIcon('pre', {
+			NAME: '<strong>CO</strong>',
+			template: 'text',
+		});
 		$.FroalaEditor.RegisterCommand('normal', {
 			title: 'Normal',
 			callback(cmd, val, params) {
@@ -137,13 +150,13 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 				$btn.toggleClass('fr-active', isActive.apply(this, [$btn.data('cmd')]));
 			},
 		});
-		// when user scroll, it will hide inline toolbar
+    // when user scroll, it will hide inline toolbar
 		$(`.${parentCss.container}`).scroll(() => {
 			$('.fr-toolbar.fr-desktop.fr-inline').css('display', 'none');
 		});
 
 		$('.fr-box').css({
-		  position: 'relative',
+			position: 'relative',
 			'max-width': '540px',
 			'min-width': '540px',
 			'min-height': '700px',
@@ -168,7 +181,6 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 	handleController(initControls: any) {
 		this.initControls = initControls;
 	}
-
 
 	render() {
 		const config = editorConfig;
