@@ -19,6 +19,7 @@ import Helmet from 'react-helmet';
 
 // <Login> Component
 import Login from '../login';
+import firstLogin from '../login/firstUser';
 
 // <Head> Component
 import Head from '../head';
@@ -59,7 +60,8 @@ import css from './app.css';
 
 type Store = {
 	User: {
-		userId: string
+		userId: string,
+		userName: string,
 	},
 	App: {
 		full: boolean,
@@ -69,20 +71,23 @@ type Store = {
 
 type Props = {
 	userId: string,
-	leftBar: boolean,
 	full: boolean,
 	location: Location,
+	userName: string
 };
 
-function mapToState({ User: { userId }, App: { full, leftBar } }: Store) {
+function mapToState({ User: { userId, userName }, App: { full } }: Store) {
 	return {
 		userId,
-		leftBar,
+		userName,
 		full,
 	};
 }
 
-function MainComponent({ userId, leftBar, full, location: { pathname } }: Props) {
+function MainComponent({ userId, userName, full, location: { pathname } }: Props) {
+	// if (!userName) {
+	// 	return <Redirect to="/firstLogin" />;
+	// }
 	if (process.env.NODE_ENV !== 'development') {
 		if (!userId) {
 			return <Redirect to="/login" />;
@@ -124,6 +129,7 @@ export default () => (
 		/>
 		<Switch>
 			<Route exact path="/login" component={Login} />
+			<Route exact path="/firstLogin" component={firstLogin} />
 			<Route path="/" component={ConnectedMainComponent} />
 		</Switch>
 	</div>

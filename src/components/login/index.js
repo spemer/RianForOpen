@@ -1,33 +1,28 @@
-// @ flow
+// @flow
 import React from 'react';
-import { connect } from 'react-redux';
 import css from './login.css';
-import facebookLogo from 'static/icons/Facebook.svg';
-import googleLogo from 'static/icons/Google.svg';
-import naverLogo from 'static/icons/naver.svg';
-import kakaoLogo from 'static/icons/kakaotalk.svg';
+import facebookLogo from '../../../static/icons/Facebook.svg';
+import googleLogo from '../../../static/icons/Google.svg';
+import naverLogo from '../../../static/icons/naver.svg';
+import kakaoLogo from '../../../static/icons/kakaotalk.svg';
 
-const mapState = state => ({
-	userId: state.User.id,
-});
-
-const Login = ({ userId }) => (
+const Login = () => (
 	<div id={css.mainLogin}>
 		<div className={css.box}>
 			<a className={css.loginButtonForm} href="/auth/facebook">
-				<img src={facebookLogo} />
+				<img src={facebookLogo} alt="logo" />
 			</a>
 			<a className={css.loginButtonForm} href="/auth/naver">
-				<img src={googleLogo} />
+				<img src={googleLogo} alt="logo" />
 			</a>
 			<a className={css.loginButtonForm} href="/auth/naver">
-				<img src={naverLogo} />
+				<img src={naverLogo} alt="logo" />
 			</a>
 			<a className={css.loginButtonForm} href="/oauth/kakao">
-				<img src={kakaoLogo} />
+				<img src={kakaoLogo} alt="logo" />
 			</a>
 		</div>
 	</div>
-);
+	);
 
-export default connect(mapState)(Login);
+export default Login;

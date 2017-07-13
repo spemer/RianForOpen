@@ -3,7 +3,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 
-const mapToState = state => ({});
+type Store = {
+
+}
+
+function mapToState(state: Store) {
+	return {
+
+	};
+}
 
 type DefaultProps = {
 };
@@ -15,7 +23,8 @@ type State = {
 };
 
 @connect(mapToState)
-class RianListEditor extends Component<DefaultProps, Props, State> {
+@compose()
+class Temp extends Component<DefaultProps, Props, State> {
 	static defaultProps = {}
 
 	constructor(props: Props) {
@@ -31,4 +40,4 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 	}
 }
 
-export default RianListEditor;
+export default Temp;
