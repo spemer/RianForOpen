@@ -75,7 +75,6 @@
             align-items: center;
             outline: none;
             & p {
-                width: 21px;
                 font-family: NotoSansCJKkr-Regular;
                 font-size: 12px;
                 font-weight: bold;
