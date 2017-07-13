@@ -118,9 +118,6 @@
                     color: white;
                     opacity: 0.38;
                 }   
-                & .button:hover {
-                    opacity: 1;
-                }
             }
         }
     }
