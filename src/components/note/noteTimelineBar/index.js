@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-// import { Route, Redirect } from 'react-router-dom';
 import { Motion, spring } from 'react-motion';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
@@ -86,14 +85,13 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 	};
 
 	componentWillReceiveProps(nextProps: Props) {
-		// hide menu on LeftBar Coming
+    // hide menu on LeftBar Coming
 		if (!this.props.leftBar && nextProps.leftBar) {
 			this.setState({
 				onSortList: false,
 			});
 		}
 	}
-
 
 	rowRenderer: Function;
 	changeClickedBox: Function;
@@ -210,29 +208,29 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 										className={css.buttonIcon}
 									>
 										<line
-											fill="none"
-											stroke="#000000"
-											strokeWidth="1.5"
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeMiterlimit="10"
-											x1="7.2"
-											y1="9.8"
-											x2="12"
-											y2="14.2"
-										/>
+										fill="none"
+										stroke="#000000"
+										strokeWidth="1.5"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeMiterlimit="10"
+										x1="7.2"
+										y1="9.8"
+										x2="12"
+										y2="14.2"
+									/>
 										<line
-											fill="none"
-											stroke="#000000"
-											strokeWidth="1.5"
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeMiterlimit="10"
-											x1="16.8"
-											y1="9.8"
-											x2="12"
-											y2="14.2"
-										/>
+										fill="none"
+										stroke="#000000"
+										strokeWidth="1.5"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeMiterlimit="10"
+										x1="16.8"
+										y1="9.8"
+										x2="12"
+										y2="14.2"
+									/>
 									</svg>
 								</div>
 								{leftBar &&

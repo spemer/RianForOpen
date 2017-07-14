@@ -95,7 +95,7 @@ function MainComponent({ userId, userName, full, location: { pathname } }: Props
 	}
 		// if setup initial page -> 'card'
 	if (pathname === '/') {
-		return <Redirect to="/card" />;
+		return <Redirect to="/card:main" />;
 	}
 	return (
 		<div id={css.mainComponent}>
@@ -103,10 +103,10 @@ function MainComponent({ userId, userName, full, location: { pathname } }: Props
 			<div className={css.mainContainer} style={{ marginTop: !full ? '48px' : '0px' }}>
 				<div className={css.note} >
 					<TagListBar />
-					{pathname === '/list' && <NoteTimelineBar />}
+					{pathname.slice(0, 5) === '/list' && <NoteTimelineBar />}
 					<Switch>
-						<Route path="/card" component={NoteCardView} />
-						<Route path="/list" component={RianListEditor} />
+						<Route path="/card:noteId" component={NoteCardView} />
+						<Route path="/list:noteId" component={RianListEditor} />
 					</Switch>
 				</div>
 			</div>

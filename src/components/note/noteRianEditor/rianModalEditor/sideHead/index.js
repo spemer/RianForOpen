@@ -4,10 +4,11 @@ import parentCss from '../rianModalEditor.css';
 import css from './sidehead.css';
 
 type Props = {
-  changeModalState: Function
+  changeModalState: Function,
+  history: any
 };
 
-const SideHead = ({ changeModalState = () => {} }: Props) => (
+const SideHead = ({ changeModalState = () => {}, history = {} }: Props) => (
 	<div className={parentCss.sideHead}>
 		<svg
 			version="1.1"
@@ -18,6 +19,7 @@ const SideHead = ({ changeModalState = () => {} }: Props) => (
 			enableBackground="new 0 0 24 24"
 			className={css.close}
 			onClick={() => {
+				history.push('card:main');
 				changeModalState(false);
 			}}
 		>

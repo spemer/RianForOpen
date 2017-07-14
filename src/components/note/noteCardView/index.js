@@ -94,10 +94,16 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	render() {
 		const noteCount = 36;
 		const tagName = '다다익선';
-		const { showModal } = this.state;
+		let { showModal } = this.state;
+		const { history } = this.props;
+		let noteId;
+		if (this.props.location.pathname.slice(6) && this.props.location.pathname.slice(6) !== 'main') {
+			showModal = true;
+			noteId = this.props.location.pathname.slice(5);
+		}
 		return (
 			<div className={css.container}>
-				<ModalEditor showModal={showModal} changeModalState={this.changeModalState} />
+				<ModalEditor showModal={showModal} changeModalState={this.changeModalState} history={history} noteId={noteId} />
 				<div className={css.head}>
 					<div className={css.tagTitle}>
 						{`#${tagName}`}

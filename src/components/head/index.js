@@ -148,20 +148,20 @@ class Head extends Component<DefaultProps, Props, State> {
 					<div className={css.changeMode}>
 						<Link
 							className={css.cardButton}
-							to="/card"
+							to="/card:main"
 							style={{
-								backgroundColor: pathname === '/card' ? themeColor : 'white',
-								color: pathname === '/card' ? 'white' : '#babac0',
+								backgroundColor: pathname.slice(0, 5) === '/card' ? themeColor : 'white',
+								color: pathname.slice(0, 5) === '/card' ? 'white' : '#babac0',
 							}}
 						>
 							<p>카드</p>
 						</Link>
 						<Link
 							className={css.noteButton}
-							to="/list"
+							to="/list:main"
 							style={{
-								backgroundColor: pathname === '/list' ? themeColor : 'white',
-								color: pathname === '/list' ? 'white' : '#babac0',
+								backgroundColor: pathname.slice(0, 5) === '/list' ? themeColor : 'white',
+								color: pathname.slice(0, 5) === '/list' ? 'white' : '#babac0',
 							}}
 						>
 							<p>목록</p>
