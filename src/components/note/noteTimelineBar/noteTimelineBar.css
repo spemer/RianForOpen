@@ -51,8 +51,8 @@
             }
             & .selectList {
                 position: fixed;
-                top: 120px;
-                left: 430px;
+                top: 100px;
+                left: 375px;
                 z-index: 999;
                 width: 133px;
                 height: 210px;
