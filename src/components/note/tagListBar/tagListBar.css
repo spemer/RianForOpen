@@ -126,12 +126,12 @@
             left: 24px;
             height: 11px; margin-top:auto; margin-bottom:auto;
             font-family: NotoSansCJKkr-Regular;
-            width: 50px;
+            width: 40%;
             font-size: 11px;
             letter-spacing: -0.3px;
             color: #515861;
             outline: none;
-            text-align: center;
+            text-align: left;
         }
         & .sortButtonRight {
             display: inline-block;
@@ -139,12 +139,12 @@
             right: 24px;
             height: 11px; margin-top:auto; margin-bottom:auto;
             font-family: NotoSansCJKkr-Regular;
-            width: 50px;
+            width: 40%;
             font-size: 11px;
             letter-spacing: -0.3px;
             color: #515861;
             outline: none;
-            text-align: center;
+            text-align: right;
         }
     }
     & .scrollBox {
