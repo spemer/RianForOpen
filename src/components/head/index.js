@@ -16,7 +16,8 @@ type DefaultProps = {
   changeLeftBarDispatch: Function,
   full: boolean,
   themeColor: string,
-  pathname: string
+  pathname: string,
+  leftBar: null,
 };
 
 type Props = {
@@ -24,20 +25,21 @@ type Props = {
   changeLeftBarDispatch: Function,
   full: boolean,
   themeColor: string,
-  pathname: string
+  pathname: string,
+  leftBar: boolean,
 };
 
 type State = {
   modeIsTag: boolean,
-  tagOnOff: boolean,
   socialOnOff: boolean,
   trashOnOff: boolean
 };
 
-function mapToState({ App: { full, themeColor } }) {
+function mapToState({ App: { full, themeColor, leftBar } }) {
 	return {
 		full,
 		themeColor,
+		leftBar,
 	};
 }
 
@@ -69,6 +71,7 @@ class Head extends Component<DefaultProps, Props, State> {
 		string: '',
 		pathname: '/card',
 		themeColor: '',
+		leftBar: null,
 	};
 
 	constructor(props: Props) {
@@ -81,7 +84,6 @@ class Head extends Component<DefaultProps, Props, State> {
 
 	state = {
 		modeIsTag: false,
-		tagOnOff: true,
 		socialOnOff: false,
 		trashOnOff: false,
 	};
@@ -108,7 +110,6 @@ class Head extends Component<DefaultProps, Props, State> {
 	}
 
 	changeTagState() {
-		this.setState(prevState => ({ tagOnOff: !prevState.tagOnOff }));
 		this.props.changeLeftBarDispatch();
 	}
 
@@ -125,8 +126,8 @@ class Head extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		const { modeIsTag, tagOnOff, socialOnOff, trashOnOff } = this.state;
-		const { full, themeColor, pathname } = this.props;
+		const { modeIsTag, socialOnOff, trashOnOff } = this.state;
+		const { full, themeColor, pathname, leftBar } = this.props;
 		return (
 			<div
 				className={parentCss.head}
@@ -182,8 +183,8 @@ class Head extends Component<DefaultProps, Props, State> {
 					>
 						<p
 							style={{
-								color: tagOnOff ? themeColor : 'black',
-								opacity: tagOnOff ? '1' : '0.38',
+								color: leftBar ? themeColor : 'black',
+								opacity: leftBar ? '1' : '0.38',
 							}}
 						>
               태그

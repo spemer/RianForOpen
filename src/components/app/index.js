@@ -65,7 +65,6 @@ type Store = {
 	},
 	App: {
 		full: boolean,
-		leftBar: boolean,
 	}
 }
 
@@ -73,7 +72,7 @@ type Props = {
 	userId: string,
 	full: boolean,
 	location: Location,
-	userName: string
+	userName: string,
 };
 
 function mapToState({ User: { userId, userName }, App: { full } }: Store) {

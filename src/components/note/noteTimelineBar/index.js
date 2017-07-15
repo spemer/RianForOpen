@@ -31,25 +31,28 @@ type Store = {
   App: {
     full: boolean,
     themeColor: string,
-    leftBar: boolean,
-    renderTags: Array<string>
+	renderTags: Array<string>,
+	leftBar: boolean,
+	timelineLeftBar: boolean,
   }
 };
 
 type DefaultProps = {
   full: boolean,
   themeColor: null,
-  leftBar: boolean,
   renderTags: null,
-  noteData: null
+  noteData: null,
+  leftBar: null,
+  timelineLeftBar: null,
 };
 
 type Props = {
   full: boolean,
   themeColor: string,
-  leftBar: boolean,
   renderTags: Array<string>,
-  noteData: any
+  noteData: any,
+  leftBar: boolean,
+  timelineLeftBar: boolean,
 };
 
 type State = {
@@ -59,13 +62,14 @@ type State = {
 
 const mapToState = ({
   User: { userId },
-  App: { full, themeColor, leftBar, renderTags },
+  App: { full, themeColor, renderTags, leftBar, timelineLeftBar },
 }: Store) => ({
 	userId,
 	full,
-	leftBar,
 	themeColor,
 	renderTags,
+	leftBar,
+	timelineLeftBar,
 });
 
 @connect(mapToState)
@@ -75,9 +79,10 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		userId: '',
 		full: false,
 		themeColor: null,
-		leftBar: false,
 		renderTags: null,
 		noteData: null,
+		leftBar: null,
+		timelineLeftBar: null,
 	};
 
 	constructor(props: Props) {
@@ -96,7 +101,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 
 	componentWillReceiveProps(nextProps: Props) {
     // hide menu on LeftBar Coming
-		if (!this.props.leftBar && nextProps.leftBar) {
+		if (!this.props.timelineLeftBar && nextProps.timelineLeftBar) {
 			this.setState({
 				onSortList: false,
 			});
@@ -183,7 +188,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const { onSortList } = this.state;
-		const { leftBar, full, noteData, renderTags } = this.props;
+		const { full, noteData, leftBar, renderTags, timelineLeftBar } = this.props;
 
 		const tagName = renderTags.length === 0
       ? '전체노트'
@@ -202,17 +207,18 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		return (
 			<Motion
 				style={{
-					x: spring(leftBar && !full ? 258 : 0),
-					y: spring(leftBar && !full ? 1 : 0),
+					x: spring(timelineLeftBar && !full ? 258 : 0),
+					y: spring(timelineLeftBar && !full ? 1 : 0),
+					z: spring(timelineLeftBar && !full ? '1px solid #dfdfdf' : 'none'),
 				}}
 			>
-				{({ x, y }) => (
+				{({ x, y, z }) => (
 					<div
 						className={css.container}
 						style={{
 							flex: `0 0 ${x}px`,
-							borderRight: leftBar ? '1px solid #dfdfdf' : 'none',
 							opacity: y,
+							borderRight: z,
 						}}
 					>
 						<div className={css.head}>
@@ -266,9 +272,9 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 										/>
 									</svg>
 								</div>
-								{leftBar &&
+								{timelineLeftBar &&
                   onSortList &&
-                  <div className={css.selectList}>
+                  <div className={!leftBar ? css.selectList : css.selectListWithLeftBar}>
 	<div className={css.menuTitle}>
 		<p>태그분류</p>
 	</div>

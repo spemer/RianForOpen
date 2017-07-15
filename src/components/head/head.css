@@ -74,6 +74,11 @@
                 font-weight: bold;
                 letter-spacing: -0.3px;
                 text-align: center;
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none;
             }
         }
         & .social {
@@ -82,7 +87,7 @@
             height: 48px; margin-top:auto; margin-bottom:auto;
             width: 48px;
             outline: none;
-            & p{
+            & p {
                 position: absolute; top: 0; right:0; bottom:0;
                 left:0;
                 width: 40px; margin-left:auto; margin-right:auto; 
@@ -92,6 +97,11 @@
                 font-weight: bold;
                 letter-spacing: -0.3px;
                 text-align: center;
+                                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none;
             }
         }
         & .trash {
@@ -111,6 +121,11 @@
                 font-weight: bold;
                 letter-spacing: -0.3px;
                 text-align: center;
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none;
             }
         }
     & .icon {

@@ -60,7 +60,7 @@
             & .selectList {
                 position: fixed;
                 top: 100px;
-                left: 375px;
+                left: 200px;
                 z-index: 999;
                 width: 133px;
                 height: 210px;
@@ -111,6 +111,60 @@
                     }
                 }
             } 
+            & .selectListWithLeftBar {
+                position: fixed;
+                top: 100px;
+                left: 375px;
+                z-index: 999;
+                width: 133px;
+                height: 210px;
+                background-color: white;
+                box-shadow: 0 5px 10px 0 rgba(53, 57, 70, 0.2);
+                display: flex;
+                flex-direction: column;
+                & .menuTitle {
+                    box-sizing: border-box;
+                    padding-left: 10px;
+                    width: 100%;
+                    flex: 0 0 32px;
+                    opacity: 0.38;
+                    font-family: NotoSansCJKkr-Regular;
+                    font-size: 10px;
+                    line-height: 1.94;
+                    letter-spacing: -0.2px; 
+                    display: flex;
+                    align-items: flex-end;
+                    p {  
+                        margin: 0;
+                    }
+                }
+                & .selectBox {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    & .selectOne {
+                        box-sizing: border-box;	
+                        width: 100%;
+                        flex: 1;
+                        padding-left: 10px;
+                        object-fit: contain;
+                        font-family: NotoSansCJKkr-Regular;
+                        font-size: 12px;
+                        line-height: 1.62;
+                        letter-spacing: -0.3px;
+                        color: #515861;
+                        display: flex;
+                        align-items: center;
+                        outline: none;
+                        p {
+                            margin: 0;    
+                        }
+                    }
+                    & .selectOne:hover {
+                        background-color: #f4f4f4;
+                    }
+                }
+            }     
         }
     }
     & .scrollBox {

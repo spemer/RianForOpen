@@ -1,11 +1,12 @@
 
 // @flow
-import { CHANGE_FULL_SCREEN, CHANGE_LEFT_BAR, CHANGE_RENDER_TAGS } from '../constants';
+import { CHANGE_FULL_SCREEN, CHANGE_LEFT_BAR, CHANGE_RENDER_TAGS, CHANGE_TIMELINE_LEFT_BAR_TAGS } from '../constants';
 
 type State = {
 	full: boolean,
 	themeColor: string,
 	leftBar: boolean,
+	timelineLeftBar: boolean,
 	renderTags: Array<string>
 };
 
@@ -23,12 +24,17 @@ type ChangeRenderTagsAction = {
 	tags: Array<string>
 }
 
-type Action = FullScreenChangeAction | ChangeLeftBarAction | ChangeRenderTagsAction
+type changeTimelineLeftBarAction = {
+	type: CHANGE_TIMELINE_LEFT_BAR_TAGS
+}
+
+type Action = FullScreenChangeAction | ChangeLeftBarAction | ChangeRenderTagsAction | changeTimelineLeftBarAction
 
 const ModeState = {
 	full: false,
 	themeColor: '#0088ff',
 	leftBar: true,
+	timelineLeftBar: true,
 	renderTags: [],
 };
 
@@ -45,6 +51,10 @@ export default function App(state: State = ModeState, action: Action): State {
 	case CHANGE_RENDER_TAGS:
 		return Object.assign({}, state, {
 			renderTags: action.tags,
+		});
+	case CHANGE_TIMELINE_LEFT_BAR_TAGS:
+		return Object.assign({}, state, {
+			timelineLeftBar: !state.timelineLeftBar,
 		});
 	default:
 		return state;
