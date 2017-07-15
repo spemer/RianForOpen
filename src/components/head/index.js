@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import screenfull from 'screenfull';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import searchIcon from '../../../static/icons/ic-search.svg';
 import profileImageMock from '../../../static/image/thumb-ex-img.png';
 import SearchBox from './searchBox';
 import { fullScreenChange, changeLeftBar } from '../../actions/AppActions';
@@ -102,10 +101,10 @@ class Head extends Component<DefaultProps, Props, State> {
 	changeTagState: Function;
 	changeTrashState: Function;
 
-	changeSearchMode(argu: boolean) {
-		this.setState({
-			modeIsTag: argu,
-		});
+	changeSearchMode() {
+		this.setState(prevState => ({
+			modeIsTag: !prevState.modeIsTag,
+		}));
 	}
 
 	changeTagState() {
@@ -134,10 +133,7 @@ class Head extends Component<DefaultProps, Props, State> {
 				style={{ height: !full ? '48px' : '0px' }}
 			>
 				<div className={css.container}>
-					<div className={css.searchBox}>
-						<img className={css.searchIc} src={searchIcon} alt="search" />
-						 <SearchBox modeIsTag={modeIsTag} />
-					</div>
+					<SearchBox themeColor={themeColor} modeIsTag={modeIsTag} changeSearchMode={this.changeSearchMode} />
 					<svg
 						version="1.1"
 						id="Capa_1"

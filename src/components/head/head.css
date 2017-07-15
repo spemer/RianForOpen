@@ -8,14 +8,6 @@
         left: 23px;
         width: 258px;
         height: 29px;
-        & .searchIc {
-            position: absolute; top: 0;
-            top: 1px; bottom:0;
-            width: 30px;
-            height: 30px; margin-top:auto; margin-bottom:auto;
-            z-index: 1;
-            opacity: 0.38;
-        }
     }
     & .addNoteIcon {
         position: absolute; top: 0; bottom:0;
@@ -89,6 +81,7 @@
             right: 190px;
             height: 48px; margin-top:auto; margin-bottom:auto;
             width: 48px;
+            outline: none;
             & p{
                 position: absolute; top: 0; right:0; bottom:0;
                 left:0;
@@ -107,6 +100,7 @@
             right: 140px;
             height: 48px; margin-top:auto; margin-bottom:auto;
             width: 48px;
+            outline: none;
             & p {
                 position: absolute; top: 0; right:0; bottom:0;
                 left:0;
