@@ -168,7 +168,7 @@
         }
     }
     & .scrollBox {
-        height: calc(100% - 100px);
+        height: calc(100% - 98px);
         overflow-y: auto;
     }
      & .scrollBox::-webkit-scrollbar {
