@@ -2,20 +2,22 @@ import { getMyNoteListInfo } from 'database/controllers/note_ctrl';
 import makeNoteCtrl from 'database/controllers/makeNote_ctrl';
 import getTagsByConditionCtrl
   from 'database/controllers/getTagsByCondition_ctrl';
-import getAllMyNotePreviewsCtrl
-  from 'database/controllers/getAllMyNotePreviews_ctrl';
+import getAllMyNotePreviewsByTagsCtrl
+  from 'database/controllers/getAllMyNotePreviewsByTags_ctrl';
 import getSelectedMyNoteDataCtrl from 'database/controllers/getSelectedMyNoteData_ctrl';
 import autoSaveCtrl from 'database/controllers/autoSave_ctrl';
 
 export const resolvers = {
 	Query: {
 		getTagsByCondition(obj, args, context) {
+			console.log('args at get TagsBy Condtion', args);
+			console.log('context  get TagsBy Condtion', context);
 			return {
 				condition: args.condition,
 			};
 		},
 
-		getAllMyNotePreviews(obj, args, context) {
+		getAllMyNotePreviewsByTags(obj, args, context) {
 			return {
 				tags: args.tags,
 			};
@@ -49,13 +51,15 @@ export const resolvers = {
 	NoteHead: {
 		notes(obj, args, context) {
 			const userId = context.userId ? context.userId._id : args.userId;
-			return getAllMyNotePreviewsCtrl(userId, args.tags);
+			return getAllMyNotePreviewsByTagsCtrl(userId, args.tags);
 		},
 	},
 
 	TagList: {
 		tags(obj, args, context) {
 			const userId = context.userId ? context.userId._id : args.userId;
+			console.log('args', args);
+			console.log('context', context);
 			return getTagsByConditionCtrl(userId, args.condition);
 		},
 	},

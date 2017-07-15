@@ -1,18 +1,26 @@
+@media (max-width: 800px) { 
+    .container {
+        flex: 0 0 0 !important;
+    }
+}
+
 .container {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
+    position: relative;
+    overflow-x: auto;
     height: 100%;
     border-right: 1px solid #dfdfdf;
     box-sizing: border-box;
     & .head {
-        flex: 0 0 77px;
-        display: flex;
-        flex-direction: row;
-        margin-top: 28px;
-        margin-left: 24px;
+        position: relative;
+        width: 100%;
+        padding-top: 28px;
+        padding-left: 24px;
+        padding-bottom: 5px;
+        box-sizing: border-box;
         & .status {
-            flex: 0 0 80%;
+            display: inline-block;
+            width: 170px;
+            overflow-x: hidden;
             & .title {
                 font-family: NotoSansCJKkr-Bold;
                 font-size: 24px;
@@ -31,13 +39,19 @@
             }
         }
         & .selectButton {
-            flex: 0 0 30px;
+            position: absolute;
+            display: inline-block;
+            right: 5px;
+            width: 30px;
+            height: 30px;
             & .button {
-                margin-top: 5px;
-                margin-right: 8px;
+                position: absolute; top: 0; right:0; bottom:0;
+                left:0;
+                width: 20px; margin-left:auto; margin-right:auto; 
+                height: 20px; margin-top:auto; margin-bottom:auto;
                 outline: none;
                 & buttonIcon {
-                    
+         
                 }
                 & .buttonIcon:hover {
                     opacity: 0.58;
@@ -45,8 +59,8 @@
             }
             & .selectList {
                 position: fixed;
-                top: 120px;
-                left: 430px;
+                top: 100px;
+                left: 200px;
                 z-index: 999;
                 width: 133px;
                 height: 210px;
@@ -97,13 +111,67 @@
                     }
                 }
             } 
+            & .selectListWithLeftBar {
+                position: fixed;
+                top: 100px;
+                left: 375px;
+                z-index: 999;
+                width: 133px;
+                height: 210px;
+                background-color: white;
+                box-shadow: 0 5px 10px 0 rgba(53, 57, 70, 0.2);
+                display: flex;
+                flex-direction: column;
+                & .menuTitle {
+                    box-sizing: border-box;
+                    padding-left: 10px;
+                    width: 100%;
+                    flex: 0 0 32px;
+                    opacity: 0.38;
+                    font-family: NotoSansCJKkr-Regular;
+                    font-size: 10px;
+                    line-height: 1.94;
+                    letter-spacing: -0.2px; 
+                    display: flex;
+                    align-items: flex-end;
+                    p {  
+                        margin: 0;
+                    }
+                }
+                & .selectBox {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    & .selectOne {
+                        box-sizing: border-box;	
+                        width: 100%;
+                        flex: 1;
+                        padding-left: 10px;
+                        object-fit: contain;
+                        font-family: NotoSansCJKkr-Regular;
+                        font-size: 12px;
+                        line-height: 1.62;
+                        letter-spacing: -0.3px;
+                        color: #515861;
+                        display: flex;
+                        align-items: center;
+                        outline: none;
+                        p {
+                            margin: 0;    
+                        }
+                    }
+                    & .selectOne:hover {
+                        background-color: #f4f4f4;
+                    }
+                }
+            }     
         }
     }
     & .scrollBox {
-        flex: 1;
-        overflow: scroll;
+        height: calc(100% - 100px);
+        overflow-y: auto;
     }
-    & .scrollBox::-webkit-scrollbar {
+     & .scrollBox::-webkit-scrollbar {
         display: none;
-    }      
+    }       
 }

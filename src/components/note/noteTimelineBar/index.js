@@ -1,18 +1,18 @@
 // @flow
 import React, { Component } from 'react';
-// import { Route, Redirect } from 'react-router-dom';
 import { Motion, spring } from 'react-motion';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { graphql, compose } from 'react-apollo';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
 import TimelineSnippet from './TimelineSnippet';
-import { getAllMyNotePreviews } from '../../../graphqls/TimelineGraphQl';
+import { getAllMyNotePreviewsByTags } from '../../../graphqls/TimelineGraphQl';
 import css from './noteTimelineBar.css';
 import './scroll.global.css';
-import Mock from '../MOCKNOTE';
+import Mock from '../../../../MockData/noteList';
 
-const getAllMyNotePreviewsQuery = graphql(getAllMyNotePreviews, {
+const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
 	options: props => ({
 		variables: {
 			userId: SERVER ? props.userId : null,
@@ -21,7 +21,7 @@ const getAllMyNotePreviewsQuery = graphql(getAllMyNotePreviews, {
 		ssr: false,
 	}),
 	name: 'noteData',
-	skip: true,
+	skip: process.env.NODE_ENV === 'development' && true,
 });
 
 type Store = {
@@ -31,20 +31,28 @@ type Store = {
   App: {
     full: boolean,
     themeColor: string,
-    leftBar: boolean
+	renderTags: Array<string>,
+	leftBar: boolean,
+	timelineLeftBar: boolean,
   }
 };
 
 type DefaultProps = {
   full: boolean,
-  themeColor: string,
-  leftBar: boolean
+  themeColor: null,
+  renderTags: null,
+  noteData: null,
+  leftBar: null,
+  timelineLeftBar: null,
 };
 
 type Props = {
   full: boolean,
   themeColor: string,
-  leftBar: boolean
+  renderTags: Array<string>,
+  noteData: any,
+  leftBar: boolean,
+  timelineLeftBar: boolean,
 };
 
 type State = {
@@ -54,28 +62,34 @@ type State = {
 
 const mapToState = ({
   User: { userId },
-  App: { full, themeColor, leftBar },
+  App: { full, themeColor, renderTags, leftBar, timelineLeftBar },
 }: Store) => ({
 	userId,
 	full,
-	leftBar,
 	themeColor,
+	renderTags,
+	leftBar,
+	timelineLeftBar,
 });
 
 @connect(mapToState)
-@compose(getAllMyNotePreviewsQuery)
+@compose(getAllMyNotePreviewsByTagsQuery)
 class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		userId: '',
 		full: false,
-		themeColor: '',
-		leftBar: false,
+		themeColor: null,
+		renderTags: null,
+		noteData: null,
+		leftBar: null,
+		timelineLeftBar: null,
 	};
 
 	constructor(props: Props) {
 		super(props);
 		this.currentSelected = '';
 		this.rowRenderer = this.rowRenderer.bind(this);
+		this.developmentRowRenderer = this.developmentRowRenderer.bind(this);
 		this.changeClickedBox = this.changeClickedBox.bind(this);
 		this.changeOnSortState = this.changeOnSortState.bind(this);
 	}
@@ -86,49 +100,57 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 	};
 
 	componentWillReceiveProps(nextProps: Props) {
-		// hide menu on LeftBar Coming
-		if (!this.props.leftBar && nextProps.leftBar) {
+    // hide menu on LeftBar Coming
+		if (!this.props.timelineLeftBar && nextProps.timelineLeftBar) {
 			this.setState({
 				onSortList: false,
 			});
 		}
+		if (process.env.NODE_ENV === 'production') {
+			if (this.props.renderTags !== nextProps.renderTags) {
+				this.props.noteData.refetch({
+					tags: nextProps.renderTags,
+				});
+			}
+		}
 	}
-
 
 	rowRenderer: Function;
 	changeClickedBox: Function;
 	changeOnSortState: Function;
+	developmentRowRenderer: Function;
 	currentSelected: any;
 	currentSelectedSort: any;
 
 	rowRenderer(argu: { index: number, style: any }) {
 		const index = argu.index;
 		const style = argu.style;
-		let data;
-		if (process.env.NODE_ENV === 'development') {
-			data = Mock[index];
-			return (
-				<TimelineSnippet
-					key={index}
-					_id=""
-					title={data.title}
-					preview={data.preview}
-					tags={[data.tag]}
-					updatedAt="3일전"
-					style={style}
-					changeClickedBox={this.changeClickedBox}
-				/>
-			);
-		}
-		data = Mock[index];
+		const data = this.props.noteData.getAllMyNotePreviewsByTags.notes[index];
 		return (
 			<TimelineSnippet
-				key={index}
-				_id=""
+				key={data._id}
+				noteId={data._id}
+				title={data.title}
+				preview={data.preview}
+				updatedAt={moment(data.updatedAt).format('LL')}
+				style={style}
+				changeClickedBox={this.changeClickedBox}
+			/>
+		);
+	}
+
+	developmentRowRenderer(argu: { index: number, style: any }) {
+		const index = argu.index;
+		const style = argu.style;
+		const data = Mock[index];
+		return (
+			<TimelineSnippet
+				key={data._id}
+				noteId={data._id}
 				title={data.title}
 				preview={data.preview}
 				tags={[data.tag]}
-				updatedAt="3일전"
+				updatedAt={moment(data.updatedAt).format('LL')}
 				style={style}
 				changeClickedBox={this.changeClickedBox}
 			/>
@@ -165,32 +187,47 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		const noteCount = 36;
 		const { onSortList } = this.state;
-		const { leftBar, full } = this.props;
+		const { full, noteData, leftBar, renderTags, timelineLeftBar } = this.props;
+
+		const tagName = renderTags.length === 0
+      ? '전체노트'
+      : `#${renderTags.join('#')}`;
+
+		let noteCount = process.env.NODE_ENV === 'development' ? `${Mock.length}개의 노트` : '';
+		if (noteData && !noteData.loading && noteData.getAllMyNotePreviewsByTags) {
+			noteCount = `${noteData.getAllMyNotePreviewsByTags.notes.length}개의 노트`;
+		}
+		if (process.env.NODE_ENV === 'production' && noteData && !noteData.loading) {
+			console.log(noteData);
+			console.log(!noteData.loading);
+			console.log(noteData.getAllMyNotePreviewsByTags);
+			console.log();
+		}
 		return (
 			<Motion
 				style={{
-					x: spring(leftBar && !full ? 258 : 0),
-					y: spring(leftBar && !full ? 1 : 0),
+					x: spring(timelineLeftBar && !full ? 258 : 0),
+					y: spring(timelineLeftBar && !full ? 1 : 0),
+					z: spring(timelineLeftBar && !full ? '1px solid #dfdfdf' : 'none'),
 				}}
 			>
-				{({ x, y }) => (
+				{({ x, y, z }) => (
 					<div
 						className={css.container}
 						style={{
 							flex: `0 0 ${x}px`,
-							borderRight: leftBar ? '1px solid #dfdfdf' : 'none',
 							opacity: y,
+							borderRight: z,
 						}}
 					>
 						<div className={css.head}>
 							<div className={css.status}>
 								<div className={css.title}>
-									{'#다다익선'}
+									{tagName}
 								</div>
 								<div className={css.count}>
-									{`${noteCount}개의 노트`}
+									{noteCount}
 								</div>
 							</div>
 							<div className={css.selectButton}>
@@ -235,9 +272,9 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 										/>
 									</svg>
 								</div>
-								{leftBar &&
+								{timelineLeftBar &&
                   onSortList &&
-                  <div className={css.selectList}>
+                  <div className={!leftBar ? css.selectList : css.selectListWithLeftBar}>
 	<div className={css.menuTitle}>
 		<p>태그분류</p>
 	</div>
@@ -307,18 +344,36 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 							</div>
 						</div>
 						<div className={css.scrollBox}>
+							{noteData &&
+                !noteData.loading &&
+                <AutoSizer>
+	{({ height, width }) => (
+		<List
+			rowRenderer={this.rowRenderer}
+			height={height}
+			width={width}
+			rowHeight={132}
+			rowCount={
+                        noteData.getAllMyNotePreviewsByTags.notes
+                          .length
+                      }
+			style={{ outline: 'none' }}
+		/>
+                  )}
+                </AutoSizer>}
+							{process.env.NODE_ENV === 'development' &&
 							<AutoSizer>
 								{({ height, width }) => (
 									<List
-										rowRenderer={this.rowRenderer}
+										rowRenderer={this.developmentRowRenderer}
 										height={height}
 										width={width}
 										rowHeight={132}
 										rowCount={Mock.length}
 										style={{ outline: 'none' }}
 									/>
-                )}
-							</AutoSizer>
+                  )}
+							</AutoSizer>}
 						</div>
 					</div>
         )}

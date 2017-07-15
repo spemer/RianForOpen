@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
+import { changeTimelineLeftBar } from '../../../../actions/AppActions';
 import css from './rianListEditor.css';
 import SideHead from './sideHead';
 import EditorHead from './editorHead';
@@ -12,9 +13,18 @@ import {
   saveTheme,
 } from '../../../../graphqls/NoteEditorGraphQl';
 
-const mapToState = ({ App: { full } }) => ({
+const mapToState = ({ App: { full, timelineLeftBar } }) => ({
 	full,
+	timelineLeftBar,
 });
+
+function mapToDispatch(dispatch) {
+	return {
+		changeTimelineLeftBarDispatch() {
+			dispatch(changeTimelineLeftBar());
+		},
+	};
+}
 
 const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
 	options: props => ({
@@ -24,7 +34,7 @@ const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
 		ssr: false,
 	}),
 	name: 'oneOfNoteData',
-	skip: props => !!(process.env.NODE_ENV === 'development' || props.show === 'MAKE'),
+	skip: true,
 });
 
 const autoSaveMutation = graphql(autoSave, {
@@ -32,7 +42,7 @@ const autoSaveMutation = graphql(autoSave, {
 		ssr: true,
 	}),
 	name: 'autoSave',
-	skip: process.env.NODE_ENV === 'development' && true,
+	skip: true,
 });
 
 const saveThemeMutation = graphql(saveTheme, {
@@ -40,21 +50,25 @@ const saveThemeMutation = graphql(saveTheme, {
 		ssr: true,
 	}),
 	name: 'saveTheme',
-	skip: process.env.NODE_ENV === 'development' && true,
+	skip: true,
 });
 
 type DefaultProps = {
-	oneOfNoteData: boolean,
-	autoSave: boolean,
-	saveTheme: boolean,
-	full: boolean
+  oneOfNoteData: boolean,
+  autoSave: boolean,
+  saveTheme: boolean,
+  full: boolean,
+  timelineLeftBar: null,
+  changeTimelineLeftBarDispatch: null
 };
 
 type Props = {
-	oneOfNoteData: boolean,
-	autoSave: boolean,
-	saveTheme: boolean,
-	full: boolean
+  oneOfNoteData: boolean,
+  autoSave: boolean,
+  saveTheme: boolean,
+  full: boolean,
+  timelineLeftBar: boolean,
+  changeTimelineLeftBarDispatch: Function
 };
 
 type State = {
@@ -71,7 +85,7 @@ type SaveFormat = {
   isPublish: boolean
 };
 
-@connect(mapToState)
+@connect(mapToState, mapToDispatch)
 @compose(getSelectedMyNoteDataQuery, autoSaveMutation, saveThemeMutation)
 class RianListEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
@@ -79,7 +93,9 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 		saveTheme: false,
 		oneOfNoteData: false,
 		full: false,
-	}
+		timelineLeftBar: null,
+		changeTimelineLeftBarDispatch: null,
+	};
 
 	constructor(props: Props) {
 		super(props);
@@ -88,13 +104,16 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 	state = {
 		title: '',
 		isPublish: false,
-	}
+	};
 
 	render() {
-		const { full } = this.props;
+		const { full, timelineLeftBar, changeTimelineLeftBarDispatch } = this.props;
 		return (
-			<div className={css.container} style={{ paddingTop: !full ? '0px' : '40px' }}>
-				{!full && <SideHead />}
+			<div
+				className={css.container}
+				style={{ paddingTop: !full ? '0px' : '40px' }}
+			>
+				{!full && <SideHead timelineLeftBar={timelineLeftBar} changeTimelineLeftBarDispatch={changeTimelineLeftBarDispatch} />}
 				<EditorHead full={full} />
 				<MainEditor />
 			</div>

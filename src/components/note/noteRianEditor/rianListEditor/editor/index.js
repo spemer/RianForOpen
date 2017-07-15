@@ -8,7 +8,6 @@ import 'froala-editor/js/plugins/align.min';
 import 'froala-editor/js/plugins/paragraph_format.min';
 import 'froala-editor/js/plugins/code_view.min';
 import 'froala-editor/js/plugins/lists.min';
-import 'froala-editor/css/plugins/code_view.min.css';
 import FroalaEditor from 'react-froala-wysiwyg';
 import editorConfig from './editorConfig';
 import parentCss from '../rianListEditor.css';

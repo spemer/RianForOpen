@@ -8,26 +8,18 @@
         left: 23px;
         width: 258px;
         height: 29px;
-        & .searchIc {
-            position: absolute;
-            top: 1px;
-            z-index: 1;
-            width: 30px;
-	        height: 30px;
-            opacity: 0.38;
-        }
     }
     & .addNoteIcon {
-        position: absolute;
-        top: 15px;
+        position: absolute; top: 0; bottom:0;
         left: 295px;
+        height: 25px; margin-top:auto; margin-bottom:auto;
+        width: 25px;
     }
     & .changeMode {
         position: absolute;
-        display: flex;
-        top: 8px;
+        display: flex; top: 0; bottom:0;
         left: 47%;
-        height: 32px;
+        height: 25px; margin-top:auto; margin-bottom:auto;
         align-items: center;
         justify-content: center;
         & .cardButton {
@@ -67,80 +59,101 @@
     }
      & .tag {
             position: absolute;
-            display: flex;
+            top: 0;
+            right: 240px; bottom:0;
+            height: 48px; margin-top:auto; margin-bottom:auto;
             width: 48px;
-            right: 240px;
-            height: 48px;
-            justify-content: center;
-            align-items: center;
             outline: none;
             & p {
+                position: absolute; top: 0; right:0; bottom:0;
+                left:0;
+                width: 40px; margin-left:auto; margin-right:auto; 
+                height: 12px; margin-top:auto; margin-bottom:auto;
                 font-family: NotoSansCJKkr-Regular;
                 font-size: 12px;
                 font-weight: bold;
-                line-height: 1.62;
                 letter-spacing: -0.3px;
                 text-align: center;
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none;
             }
         }
         & .social {
-            position: absolute;
-            display: flex;
+            position: absolute; top: 0;
             right: 190px;
+            height: 48px; margin-top:auto; margin-bottom:auto;
             width: 48px;
-            height: 48px;
-            justify-content: center;
-            align-items: center;
             outline: none;
-            & p{
+            & p {
+                position: absolute; top: 0; right:0; bottom:0;
+                left:0;
+                width: 40px; margin-left:auto; margin-right:auto; 
+                height: 12px; margin-top:auto; margin-bottom:auto;
                 font-family: NotoSansCJKkr-Regular;
                 font-size: 12px;
                 font-weight: bold;
-                line-height: 1.62;
                 letter-spacing: -0.3px;
                 text-align: center;
+                                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none;
             }
         }
         & .trash {
             position: absolute;
-            display: flex;
+            top: 0;
             right: 140px;
+            height: 48px; margin-top:auto; margin-bottom:auto;
             width: 48px;
-            height: 48px;
-            justify-content: center;
-            align-items: center;
             outline: none;
             & p {
+                position: absolute; top: 0; right:0; bottom:0;
+                left:0;
+                width: 40px; margin-left:auto; margin-right:auto; 
+                height: 12px; margin-top:auto; margin-bottom:auto;
                 font-family: NotoSansCJKkr-Regular;
                 font-size: 12px;
                 font-weight: bold;
-                line-height: 1.62;
                 letter-spacing: -0.3px;
                 text-align: center;
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none;
             }
         }
     & .icon {
         position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
+        top: 0;
         right: 70px;
+        height: 100%; margin-top:auto; margin-bottom:auto;
         width: 30px;
         opacity: 0.38;
         outline: none;
         & img {
-            width: 20px;
-            height: 20px;
+            position: absolute; top: 0; right:0; bottom:0;
+            left:0;
+            width: 20px; margin-left:auto; margin-right:auto; 
+            height: 20px; margin-top:auto; margin-bottom:auto;
         }
     }
     & .profileBox {
-        & .photo {
             position: absolute;
-            top: 9px;
+            top: 0;
             right: 20px;
+            height: 48px; margin-top:auto; margin-bottom:auto;
             width: 32px;
-            height: 32px;
+        & .photo {
+            position: absolute; top: 0; right:0; bottom:0;
+            left:0;
+            width: 32px; margin-left:auto; margin-right:auto; 
+            height:32px; margin-top:auto; margin-bottom:auto;
             border-radius: 50%;
         }
     }

@@ -118,7 +118,7 @@ export default new WebpackConfig().merge({
 		}),
     // Progress bar + options
 		new ProgressBarPlugin({
-			format: ` ${chalk.magenta.bold('ReactQL')} building [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
+			format: ` ${chalk.magenta.bold('Rian')} building [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
 		}),
 
     // Options that our module loaders will pull from

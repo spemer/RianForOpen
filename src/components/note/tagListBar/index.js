@@ -4,93 +4,43 @@ import React, { Component } from 'react';
 import { Motion, spring } from 'react-motion';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import Hangul from 'hangul-js';
-import { toPairs } from 'lodash';
+import makeSortableTag from './util';
 import GroupedBox from './groupedBox';
-import { getTagList } from '../../../graphqls/TagGraphQl';
+import { changeRenderTags } from '../../../actions/AppActions';
+import { getTagsByCondition } from '../../../graphqls/TagGraphQl';
 import css from './tagListBar.css';
 
-function isInHangeul(argu) {
-	const pattern = /[\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3]/g;
-	return !!pattern.test(argu);
-}
-function isInEnglish(argu) {
-	return !argu.match(/[^a-zA-Z]/);
-}
-
 const example = [
-  { name: '교양', howMany: 14 },
-  { name: '병신', howMany: 41 },
-  { name: '퍼블', howMany: 5 },
-  { name: '다다익선', howMany: 36 },
-  { name: '집앞', howMany: 13 },
-  { name: 'asef', howMany: 1 },
-  { name: '상소리', howMany: 123 },
-  { name: '뷰경', howMany: 45 },
-  { name: '십잘알', howMany: 2 },
-  { name: 'trustme', howMany: 0 },
-  { name: '$', howMany: 0 },
-  { name: '&*', howMany: 13 },
+  { name: '교양', howMany: 14, _id: '123123123123' },
+  { name: '병신', howMany: 41, _id: '12312312312sd3' },
+  { name: '퍼블', howMany: 5, _id: '1231231231dfass23' },
+  { name: '다다익선', howMany: 36, _id: '12sdfasdf3123123123' },
+  { name: '집앞', howMany: 13, _id: '1231asdfasdgsadgsadfg23123123' },
+  { name: 'asef', howMany: 1, _id: '123123123asdfasg123' },
+  { name: '상소리', howMany: 123, _id: '1231231231sdfsdf23' },
+  { name: '뷰경', howMany: 45, _id: '123123sdd1231sdfsdf23' },
+  { name: '십잘알', howMany: 2, _id: '123123asdf1231sdfsdf23' },
+  { name: 'trustme', howMany: 0, _id: '123123sdfsadf1231sdfsdf23' },
+  { name: '$', howMany: 0, _id: '123123123asdfsadfsadf1sdfsdf23' },
+  { name: '&*', howMany: 13, _id: '123asdghe1231231sdfsdf23' },
 ];
-const korResult = {};
-const engResult = {};
-const etcResult = {};
 
-example.map((tagSet) => {
-	const firstname = tagSet.name[0];
-  // in korean
-	if (isInHangeul(firstname)) {
-		const firstLetter = Hangul.disassemble(tagSet.name)[0];
-		if (korResult[firstLetter]) {
-			korResult[firstLetter].push(tagSet);
-			return null;
-		}
-		korResult[firstLetter] = [tagSet];
-		return null;
-	}
-  // in alphabet
-	if (isInEnglish(firstname)) {
-		if (engResult[firstname]) {
-			engResult[firstname].push(tagSet);
-			return null;
-		}
-		engResult[firstname] = [tagSet];
-		return null;
-	}
-  // etc
-	if (etcResult.etc) {
-		etcResult.etc.push(tagSet);
-		return null;
-	}
-	etcResult.etc = [tagSet];
-	return null;
-});
-
-const sortedKorModel = toPairs(korResult).sort((a, b) => {
-	if (a[0] > b[0]) return 1;
-	if (a[0] < b[0]) return -1;
-	return 0;
-});
-const sortedEngModel = toPairs(engResult).sort((a, b) => {
-	if (a[0] > b[0]) return 1;
-	if (a[0] < b[0]) return -1;
-	return 0;
-});
-const sortedEtcModel = toPairs(etcResult);
-
-const getTagListQuery = graphql(getTagList, {
+const getTagsByConditionQuery = graphql(getTagsByCondition, {
 	options: props => ({
 		variables: {
 			userId: SERVER ? props.userId : null,
 			condition: 'All',
 		},
-		ssr: true,
+		ssr: false,
 	}),
 	skip: process.env.NODE_ENV === 'development' && true,
 	name: 'tagData',
 });
 
 type Store = {
+  User: {
+    userId: string
+  },
   App: {
     full: boolean,
     themeColor: string,
@@ -98,22 +48,42 @@ type Store = {
   }
 };
 
-const mapToState = ({ App: { full, themeColor, leftBar } }: Store) => ({
-	full,
-	themeColor,
-	leftBar,
-});
+function mapToState({
+  User: { userId },
+  App: { full, themeColor, leftBar },
+}: Store) {
+	return {
+		userId,
+		full,
+		themeColor,
+		leftBar,
+	};
+}
+
+function mapToDispatch(dispatch) {
+	return {
+		changeRenderTagsDispatch(tags: Array<string>) {
+			dispatch(changeRenderTags(tags));
+		},
+	};
+}
 
 type DefaultProps = {
+  userId: null,
   full: boolean,
   themeColor: string,
-  leftBar: boolean
+  leftBar: boolean,
+  changeRenderTagsDispatch: null,
+  tagData: any
 };
 
 type Props = {
+  userId: string,
   full: boolean,
   themeColor: string,
-  leftBar: boolean
+  leftBar: boolean,
+  changeRenderTagsDispatch: Function,
+  tagData: any
 };
 
 type State = {
@@ -121,20 +91,19 @@ type State = {
   selectedTag: string,
   selectedSort: string,
   onSortList: boolean,
-  sortByhowMany: boolean,
-  sortedKor: Array<any>,
-  sortedEng: Array<any>,
-  sortedEtc: Array<any>
+  sortByhowMany: boolean
 };
 
-@connect(mapToState)
-@compose(getTagListQuery)
+@connect(mapToState, mapToDispatch)
+@compose(getTagsByConditionQuery)
 class TagListBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		userId: '',
+		userId: null,
 		full: false,
 		themeColor: '',
 		leftBar: false,
+		changeRenderTagsDispatch: null,
+		tagData: null,
 	};
 
 	constructor(props: Props) {
@@ -151,16 +120,13 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	state = {
 		tagCount: 174,
 		onSortList: false,
-		sortByhowMany: true,
+		sortByhowMany: false,
 		selectedTag: '',
 		selectedSort: '',
-		sortedKor: sortedKorModel,
-		sortedEng: sortedEngModel,
-		sortedEtc: sortedEtcModel,
 	};
 
 	componentWillReceiveProps(nextProps: Props) {
-		// hide menu on LeftBar Coming
+    // hide menu on LeftBar Coming
 		if (!this.props.leftBar && nextProps.leftBar) {
 			this.setState({
 				onSortList: false,
@@ -189,14 +155,15 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	}
 
 	changeClickedBox(e: any, tagName: string) {
+		this.props.changeRenderTagsDispatch([tagName]);
+		this.setState({
+			selectedTag: tagName,
+		});
 		if (this.currentSelected) {
 			this.currentSelected.style.backgroundColor = null;
 			this.currentSelected.style.paddingLeft = '24px';
 			this.currentSelected.style.borderLeft = null;
 		}
-		this.setState({
-			selectedTag: tagName,
-		});
 		this.currentSelected = e.currentTarget;
 		this.currentSelected.style.backgroundColor = '#f4f4f4';
 		this.currentSelected.style.paddingLeft = '20px';
@@ -204,12 +171,12 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	}
 
 	changeClickedSortBox(e: any, sortName: string) {
-		if (this.currentSelectedSort) {
-			this.currentSelectedSort.style.color = '#515861';
-		}
 		this.setState({
 			selectedSort: sortName,
 		});
+		if (this.currentSelectedSort) {
+			this.currentSelectedSort.style.color = '#515861';
+		}
 		this.currentSelectedSort = e.currentTarget;
 		this.currentSelectedSort.style.color = this.props.themeColor;
 	}
@@ -221,15 +188,21 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		const {
-		tagCount,
-		sortByhowMany,
-		onSortList,
-		sortedKor,
-		sortedEng,
-		sortedEtc,
-    } = this.state;
-		const { leftBar, full, themeColor } = this.props;
+		const { tagCount, sortByhowMany, onSortList } = this.state;
+		const { leftBar, full, themeColor, tagData } = this.props;
+		let tagListGroup = {
+			sortedKor: null,
+			sortedEng: null,
+			sortedEtc: null,
+		};
+		if (process.env.NODE_ENV === 'production') {
+			if (!tagData.loading && tagData.getTagsByCondition) {
+				tagListGroup = makeSortableTag(tagData.getTagsByCondition.tags);
+			}
+		}
+		if (process.env.NODE_ENV === 'development') {
+			tagListGroup = makeSortableTag(example);
+		}
 		return (
 			<Motion
 				style={{
@@ -256,7 +229,12 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 								</div>
 							</div>
 							<div className={css.selectButton}>
-								<div className={css.button} onClick={this.changeOnSortState} role="button" tabIndex="-10">
+								<div
+									className={css.button}
+									onClick={this.changeOnSortState}
+									role="button"
+									tabIndex="-10"
+								>
 									<svg
 										version="1.1"
 										x="0px"
@@ -264,6 +242,8 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 										viewBox="0 0 24 24"
 										enableBackground="new 0 0 24 24"
 										opacity="0.38"
+										width="20px"
+										height="20px"
 										className={css.buttonIcon}
 									>
 										<line
@@ -292,59 +272,49 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 										/>
 									</svg>
 								</div>
-								{leftBar && onSortList &&
-								<div className={css.selectList}>
-									<div className={css.menuTitle}>
-										<p>태그분류</p>
-									</div>
-									<div className={css.selectBox}>
-										<div
-											className={css.selectOne}
-											onClick={(e) => {
-												this.changeClickedSortBox(e, 'all');
-											}}
-											role="button"
-											tabIndex="0"
-										>
-											<p>전테 태그 보기</p>
-										</div>
-										<div
-											className={css.selectOne}
-											onClick={(e) => {
-												this.changeClickedSortBox(e, 'bookmark');
-											}}
-											role="button"
-											tabIndex="0"
-										>
-											<p>즐겨찾기한 태그만</p>
-										</div>
-										<div
-											className={css.selectOne}
-											onClick={(e) => {
-												this.changeClickedSortBox(e, 'publish');
-											}}
-											role="button"
-											tabIndex="0"
-										>
-											<p>퍼블리시한 태그만</p>
-										</div>
-									</div>
-								</div>}
+								{leftBar &&
+                  onSortList &&
+                  <div className={css.selectList}>
+	<div className={css.menuTitle}>
+		<p>태그분류</p>
+	</div>
+	<div className={css.selectBox}>
+		<div
+			className={css.selectOne}
+			onClick={(e) => {
+				this.changeClickedSortBox(e, 'all');
+			}}
+			role="button"
+			tabIndex="0"
+		>
+			<p>전테 태그 보기</p>
+		</div>
+		<div
+			className={css.selectOne}
+			onClick={(e) => {
+				this.changeClickedSortBox(e, 'bookmark');
+			}}
+			role="button"
+			tabIndex="0"
+		>
+			<p>즐겨찾기한 태그만</p>
+		</div>
+		<div
+			className={css.selectOne}
+			onClick={(e) => {
+				this.changeClickedSortBox(e, 'publish');
+			}}
+			role="button"
+			tabIndex="0"
+		>
+			<p>퍼블리시한 태그만</p>
+		</div>
+	</div>
+                  </div>}
 							</div>
 						</div>
 						<div className={css.sortBox}>
-							<span
-								className={css.sortButtonLeft}
-								style={{ color: sortByhowMany ? themeColor : '#515861' }}
-								onClick={() => {
-									this.changeSortBy(true);
-								}}
-								role="button"
-								tabIndex="-4"
-							>
-                노트 개수순
-              </span>
-							<span
+							<p
 								className={css.sortButtonRight}
 								style={{ color: !sortByhowMany ? themeColor : '#515861' }}
 								onClick={() => {
@@ -354,33 +324,44 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 								tabIndex="-5"
 							>
                 태그 이름순
-              </span>
+              </p>
+							<p
+								className={css.sortButtonLeft}
+								style={{ color: sortByhowMany ? themeColor : '#515861' }}
+								onClick={() => {
+									this.changeSortBy(true);
+								}}
+								role="button"
+								tabIndex="-4"
+							>
+                노트 개수순
+              </p>
 						</div>
 						<div className={css.scrollBox}>
-							{sortedKor &&
-                sortedKor.map((tagGroup, index) => (
+							{tagListGroup.sortedKor &&
+                tagListGroup.sortedKor.map(tagGroup => (
 	<GroupedBox
-		key={index}
+		key={tagGroup[0]}
 		group={tagGroup[0]}
 		tagSet={tagGroup[1]}
 		changeClickedBox={this.changeClickedBox}
 		themeColor={themeColor}
 	/>
                 ))}
-							{sortedEng &&
-                sortedEng.map((tagGroup, index) => (
+							{tagListGroup.sortedEng &&
+                tagListGroup.sortedEng.map(tagGroup => (
 	<GroupedBox
-		key={index}
+		key={tagGroup[0]}
 		group={tagGroup[0]}
 		tagSet={tagGroup[1]}
 		changeClickedBox={this.changeClickedBox}
 		themeColor={themeColor}
 	/>
                 ))}
-							{sortedEtc &&
-                sortedEtc.map((tagGroup, index) => (
+							{tagListGroup.sortedEtc &&
+                tagListGroup.sortedEtc.map(tagGroup => (
 	<GroupedBox
-		key={index}
+		key={tagGroup[0]}
 		group={tagGroup[0]}
 		tagSet={tagGroup[1]}
 		changeClickedBox={this.changeClickedBox}

@@ -3,10 +3,8 @@ import React, { Component } from 'react';
 import screenfull from 'screenfull';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import searchIcon from '../../../static/icons/ic-search.svg';
 import profileImageMock from '../../../static/image/thumb-ex-img.png';
 import SearchBox from './searchBox';
-import TagSearchBox from './tagSearchBox';
 import { fullScreenChange, changeLeftBar } from '../../actions/AppActions';
 import addNoteIcon from '../../../static/icons/add-note.png';
 import parentCss from '../app/app.css';
@@ -18,7 +16,8 @@ type DefaultProps = {
   changeLeftBarDispatch: Function,
   full: boolean,
   themeColor: string,
-  pathname: string
+  pathname: string,
+  leftBar: null,
 };
 
 type Props = {
@@ -26,20 +25,21 @@ type Props = {
   changeLeftBarDispatch: Function,
   full: boolean,
   themeColor: string,
-  pathname: string
+  pathname: string,
+  leftBar: boolean,
 };
 
 type State = {
   modeIsTag: boolean,
-  tagOnOff: boolean,
   socialOnOff: boolean,
   trashOnOff: boolean
 };
 
-function mapToState({ App: { full, themeColor } }) {
+function mapToState({ App: { full, themeColor, leftBar } }) {
 	return {
 		full,
 		themeColor,
+		leftBar,
 	};
 }
 
@@ -71,6 +71,7 @@ class Head extends Component<DefaultProps, Props, State> {
 		string: '',
 		pathname: '/card',
 		themeColor: '',
+		leftBar: null,
 	};
 
 	constructor(props: Props) {
@@ -83,7 +84,6 @@ class Head extends Component<DefaultProps, Props, State> {
 
 	state = {
 		modeIsTag: false,
-		tagOnOff: true,
 		socialOnOff: false,
 		trashOnOff: false,
 	};
@@ -103,14 +103,13 @@ class Head extends Component<DefaultProps, Props, State> {
 	changeTagState: Function;
 	changeTrashState: Function;
 
-	changeSearchMode(argu: boolean) {
-		this.setState({
-			modeIsTag: argu,
-		});
+	changeSearchMode() {
+		this.setState(prevState => ({
+			modeIsTag: !prevState.modeIsTag,
+		}));
 	}
 
 	changeTagState() {
-		this.setState(prevState => ({ tagOnOff: !prevState.tagOnOff }));
 		this.props.changeLeftBarDispatch();
 	}
 
@@ -127,41 +126,50 @@ class Head extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		const { modeIsTag, tagOnOff, socialOnOff, trashOnOff } = this.state;
-		const { full, themeColor, pathname } = this.props;
+		const { modeIsTag, socialOnOff, trashOnOff } = this.state;
+		const { full, themeColor, pathname, leftBar } = this.props;
 		return (
 			<div
 				className={parentCss.head}
 				style={{ height: !full ? '48px' : '0px' }}
 			>
 				<div className={css.container}>
-					<div className={css.searchBox}>
-						{!modeIsTag &&
-						<img className={css.searchIc} src={searchIcon} alt="search" />}
-						{modeIsTag ? <TagSearchBox /> : <SearchBox />}
-					</div>
-					<img
+					<SearchBox themeColor={themeColor} modeIsTag={modeIsTag} changeSearchMode={this.changeSearchMode} />
+					<svg
+						version="1.1"
+						id="Capa_1"
+						viewBox="0 0 24 24"
+						enableBackground="new 0 0 24 24"
+						role="button"
 						className={css.addNoteIcon}
-						src={addNoteIcon}
-						alt="addNoteIcon"
-					/>
+						fill={themeColor}
+					>
+						<path d="M8.7,12.4l-1,3c-0.1,0.3,0,0.6,0.2,0.7c0.1,0.1,0.3,0.2,0.5,0.2c0.1,0,0.2,0,0.2,0l3-1c0.1,0,0.2-0.1,0.3-0.2l6.8-6.8
+	c0.6-0.6,0.6-1.6,0-2.2l-0.9-0.9c-0.6-0.6-1.6-0.6-2.2,0l-6.8,6.8C8.8,12.2,8.8,12.3,8.7,12.4z M16.3,8.6l-1-1l1.4-1.4
+	c0,0,0,0,0.1,0l0.9,0.9c0,0,0,0.1,0,0.1L16.3,8.6z M14.4,8.7l1,1L11,13.9l-1.4,0.5l0.5-1.4L14.4,8.7z"
+						/>
+						<path d="M19.2,10.3c-0.4,0-0.8,0.4-0.8,0.8v6.9c0,0.2-0.2,0.4-0.4,0.4H6.1c-0.2,0-0.4-0.2-0.4-0.4V6.1c0-0.2,0.2-0.4,0.4-0.4h6.9
+	c0.4,0,0.8-0.4,0.8-0.8S13.4,4,12.9,4H6.1C4.9,4,4,4.9,4,6.1v11.9C4,19.1,4.9,20,6.1,20h11.9c1.1,0,2.1-0.9,2.1-2.1v-6.9
+	C20,10.6,19.6,10.3,19.2,10.3z"
+						/>
+					</svg>
 					<div className={css.changeMode}>
 						<Link
 							className={css.cardButton}
-							to="/card"
+							to="/card:main"
 							style={{
-								backgroundColor: pathname === '/card' ? themeColor : 'white',
-								color: pathname === '/card' ? 'white' : '#babac0',
+								backgroundColor: pathname.slice(0, 5) === '/card' ? themeColor : 'white',
+								color: pathname.slice(0, 5) === '/card' ? 'white' : '#babac0',
 							}}
 						>
 							<p>카드</p>
 						</Link>
 						<Link
 							className={css.noteButton}
-							to="/list"
+							to="/list:main"
 							style={{
-								backgroundColor: pathname === '/list' ? themeColor : 'white',
-								color: pathname === '/list' ? 'white' : '#babac0',
+								backgroundColor: pathname.slice(0, 5) === '/list' ? themeColor : 'white',
+								color: pathname.slice(0, 5) === '/list' ? 'white' : '#babac0',
 							}}
 						>
 							<p>목록</p>
@@ -175,8 +183,8 @@ class Head extends Component<DefaultProps, Props, State> {
 					>
 						<p
 							style={{
-								color: tagOnOff ? themeColor : 'black',
-								opacity: tagOnOff ? '1' : '0.38',
+								color: leftBar ? themeColor : 'black',
+								opacity: leftBar ? '1' : '0.38',
 							}}
 						>
               태그

@@ -17,16 +17,21 @@ function mapToDispatch() {
 
 type Props = {
   showModal: boolean,
-  changeModalState: Function
+  changeModalState: Function,
+  history: any,
+  noteId: ?string
 };
 
 const ModalEditor = ({
   showModal = false,
   changeModalState = () => {},
+  history = {},
+  noteId,
 }: Props) => (
 	<Modal
 		isOpen={showModal}
 		onRequestClose={() => {
+			history.push('card:main');
 			changeModalState(false);
 		}}
 		className={css.modal}
@@ -34,9 +39,9 @@ const ModalEditor = ({
 		contentLabel="ModalEditor"
 	>
 		<div className={css.ModalContainer}>
-			<SideHead changeModalState={changeModalState} />
+			<SideHead changeModalState={changeModalState} history={history} />
 			<EditorHead />
-			<MainEditor />
+			<MainEditor noteId={noteId} />
 		</div>
 	</Modal>
 );

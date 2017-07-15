@@ -5,6 +5,10 @@
         "experimentalDecorators": true
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "static",
+        "util",
+        "dist",
+        "froala-editor"
     ]
 }

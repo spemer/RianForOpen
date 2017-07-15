@@ -3,9 +3,30 @@ import React from 'react';
 import parentCss from '../rianListEditor.css';
 import css from './sidehead.css';
 
-const SideHead = () => (
+type Props = {
+  timelineLeftBar: boolean
+};
+
+const SideHead = ({
+  timelineLeftBar,
+  changeTimelineLeftBarDispatch,
+}: Props) => (
 	<div className={parentCss.sideHead}>
-		<div className={css.save}><p className={css.name}>저장</p></div>
+		<div
+			className={css.arrowBox}
+			onClick={changeTimelineLeftBarDispatch}
+			role="button"
+			tabIndex="-13"
+		>
+			{timelineLeftBar
+			? <div
+				className={css.leftArrow}
+			/>
+			: <div
+				className={css.rightArrow}
+			/>}
+		</div>
+		<div className={css.save}><p>저장</p></div>
 		<svg
 			viewBox="0 0 24 24"
 			opacity="0.38"
