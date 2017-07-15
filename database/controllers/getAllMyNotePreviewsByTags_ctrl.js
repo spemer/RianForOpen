@@ -1,18 +1,17 @@
 import Note from '../models/note_model';
 import getTagsObjectIDByTagNameCtrl from './getTagsObjectIDByTagName_ctrl';
 
-const getAllMyNotePreviewsCtrl = async (userId, tagList) => {
+const getAllMyNotePreviewsByTagsCtrl = async (userId, tagList) => {
 	let result = [];
 	try {
 		if (tagList.length === 0) {
-			const NoteList = await Note.find({ userId: userId })
+			const NoteList = await Note.find({ userId })
         .populate({ path: 'tags', select: 'name' })
         .lean()
 				.sort({ updatedAt: -1 })
         .select(
-          '_id title tags data preImage preview userId isPublish createdAt updatedAt like',
-        );
-
+          '_id title tags preImage preview isPublish createdAt updatedAt',
+				);
 			// make object of tag to tagname
 			result = NoteList.map((note) => {
 				note.tags = note.tags.map(tag => tag.name);
@@ -24,19 +23,25 @@ const getAllMyNotePreviewsCtrl = async (userId, tagList) => {
         userId,
         tagList,
       );
-			const NoteList = Note.find({
-				userId: userId,
+			const NoteList = await Note.find({
+				userId,
 				tags: { $all: tagObjectIdList },
-			}).select(
-        '_id title tags data preImage preview userId isPublish createdAt updatedAt like',
+			})
+			.populate({ path: 'tags', select: 'name' })
+			.lean()
+			.select(
+        '_id title tags preImage preview isPublish createdAt updatedAt',
       );
 
-			result = NoteList;
+			result = NoteList.map((note) => {
+				note.tags = note.tags.map(tag => tag.name);
+				return note;
+			});
 		}
 	} catch (e) {
-		console.log('error in getTagsByConditionCtrl');
+		console.log('error in getAllMyNotePreviewsByTagsCtrl ');
 	}
 	return result;
 };
 
-export default getAllMyNotePreviewsCtrl;
+export default getAllMyNotePreviewsByTagsCtrl;

@@ -4,6 +4,7 @@ export const USER_LOGIN = 'USER_LOGIN';
 /* ----------  APP  ----------*/
 export const CHANGE_FULL_SCREEN = 'CHANGE_FULL_SCREEN';
 export const CHANGE_LEFT_BAR = 'CHANGE_LEFT_BAR';
+export const CHANGE_RENDER_TAGS = 'CHANGE_RENDER_TAGS';
 
 /* ---------- NOTE -----------*/
 export const AUTO_SAVE_REQUEST = 'AUTO_SAVE_REQUEST';

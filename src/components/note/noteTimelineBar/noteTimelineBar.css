@@ -5,20 +5,22 @@
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
+    position: relative;
+    overflow-x: auto;
     height: 100%;
     border-right: 1px solid #dfdfdf;
     box-sizing: border-box;
     & .head {
-        flex: 0 0 77px;
-        display: flex;
-        flex-direction: row;
-        margin-top: 28px;
-        margin-left: 24px;
+        position: relative;
+        width: 100%;
+        padding-top: 28px;
+        padding-left: 24px;
+        padding-bottom: 5px;
+        box-sizing: border-box;
         & .status {
-            flex: 0 0 80%;
+            display: inline-block;
+            width: 170px;
+            overflow-x: hidden;
             & .title {
                 font-family: NotoSansCJKkr-Bold;
                 font-size: 24px;
@@ -37,13 +39,19 @@
             }
         }
         & .selectButton {
-            flex: 0 0 30px;
+            position: absolute;
+            display: inline-block;
+            right: 5px;
+            width: 30px;
+            height: 30px;
             & .button {
-                margin-top: 5px;
-                margin-right: 8px;
+                position: absolute; top: 0; right:0; bottom:0;
+                left:0;
+                width: 20px; margin-left:auto; margin-right:auto; 
+                height: 20px; margin-top:auto; margin-bottom:auto;
                 outline: none;
                 & buttonIcon {
-                    
+         
                 }
                 & .buttonIcon:hover {
                     opacity: 0.58;
@@ -106,10 +114,10 @@
         }
     }
     & .scrollBox {
-        flex: 1;
-        overflow: scroll;
+        height: calc(100% - 100px);
+        overflow-y: auto;
     }
-    /* & .scrollBox::-webkit-scrollbar {
+     & .scrollBox::-webkit-scrollbar {
         display: none;
-    }       */
+    }       
 }

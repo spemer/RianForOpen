@@ -14,13 +14,12 @@ const mockeNoteToDb = async (userId) => {
 			const tagList = MockData[i].tags;
 			const preImage = MockData[i].preImage;
 			let tagObjectIdList = [];
-
 			if (tagList.length > 0) {
 				const tagModelList = await makeTagCtrl(userId, tagList);
 				tagObjectIdList = tagModelList.map(model => model._id);
 			}
 			const newNote = new Note({
-				userId: userId,
+				userId,
 				title,
 				preview,
 				data,
@@ -30,7 +29,6 @@ const mockeNoteToDb = async (userId) => {
 				isPublish: false,
 				tags: tagObjectIdList,
 			});
-
 			await newNote.save();
 		} catch (e) {
 			console.log('error in makeMokeNoteCtrl');

@@ -9,31 +9,27 @@ const makeTagToElement = (tagSet: Array<string>) => {
 };
 
 type Props = {
-  id: string,
+  noteId: string,
   title: string,
   preview: string,
   updatedAt?: string,
   tags: Array<string>,
-  isPublish?: boolean,
-  like?: number,
   themeColor: string,
   preImage: string,
   changeModalState: Function
 };
 
 const CardInstance = ({
-  id = 'temp',
+  noteId = 'temp',
   title = '',
   preview = '',
   updatedAt = '2017.08.24',
   tags = [],
-  like = 100,
-  isPublish = false,
   themeColor = '#ff3466',
   preImage = '',
   changeModalState = () => {},
 }: Props) => (
-	<Link to={`card:${id}`}>
+	<Link to={`card:${noteId}`}>
 		<div
 			className={css.container}
 			onClick={() => {

@@ -8,7 +8,7 @@ const Note = `
 	}
 	type Note {
 		_id: ID!
-		userId: ID!
+		userId: ID
 		title: String
 		data: String
 		preImage: String
@@ -21,6 +21,11 @@ const Note = `
 	}
 
 	type Success {
+		success: Boolean
+		noteId: ID
+	}
+
+	type MakeNoteSuccess {
 		success: Boolean
 		noteId: ID
 	}

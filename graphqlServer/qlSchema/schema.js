@@ -6,7 +6,7 @@ import { resolvers } from '../resolvers/resolvers';
 const RootQuery = `
   type Query {
      getTagsByCondition(condition: String userId: ID): TagList
-     getAllMyNotePreviews(tags: [String] userId: ID): NoteHead
+     getAllMyNotePreviewsByTags(tags: [String] userId: ID): NoteHead
      getSelectedMyNoteData(noteId: ID!): Note
      getNoteList(userId: ID tags: [String] after: String limit: Int sortby: String): NoteHead
   }
@@ -14,7 +14,7 @@ const RootQuery = `
 
 const RootMutation = `
   type Mutation {
-    makeNote: Success
+    makeNote: MakeNoteSuccess
     autoSave(noteId: ID! title: String tags:[String] data: String isPublish: Boolean preImage: String): Success
     saveTheme(tags: [String] themedata: String): Success
   }

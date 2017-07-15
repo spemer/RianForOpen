@@ -5,21 +5,22 @@
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
+    position: relative;
+    overflow-x: auto;
     height: 100%;
     border-right: 1px solid #dfdfdf;
     box-sizing: border-box;
     & .head {
-        flex: 0 0 60px;
-        display: flex;ㅎ
-        flex-direction: row;
-        margin-top: 28px;
-        margin-left: 24px;
-        margin-bottom: 12px;
+        position: relative;
+        width: 100%;
+        padding-top: 28px;
+        padding-left: 24px;
+        padding-bottom: 5px;
+        box-sizing: border-box;
         & .status {
-            flex: 0 0 80%;
+            display: inline-block;
+            width: 80px;
+            overflow-x: hidden;
             & .title {
                 font-family: NotoSansCJKkr-Bold;
                 font-size: 24px;
@@ -38,13 +39,19 @@
             }
         }
         & .selectButton {
-            flex: 0 0 30px;
+            position: absolute;
+            display: inline-block;
+            right: 5px;
+            width: 30px;
+            height: 30px;
             & .button {
-                margin-top: 5px;
-                margin-right: 8px;
+                position: absolute; top: 0; right:0; bottom:0;
+                left:0;
+                width: 20px; margin-left:auto; margin-right:auto; 
+                height: 20px; margin-top:auto; margin-bottom:auto;
                 outline: none;
                 & buttonIcon {
-                    
+         
                 }
                 & .buttonIcon:hover {
                     opacity: 0.58;
@@ -52,6 +59,8 @@
             }
             & .selectList {
                 position: fixed;
+                display: flex;
+                flex-direction: column;
                 top: 100px;
                 left: 130px;
                 z-index: 999;
@@ -59,19 +68,17 @@
                 height: 126px;
                 background-color: white;
                 box-shadow: 0 5px 10px 0 rgba(53, 57, 70, 0.2);
-                display: flex;
-                flex-direction: column;
                 & .menuTitle {
+                    flex: 0 0 32px; 
+                    display: flex;
                     box-sizing: border-box;
                     padding-left: 10px;
                     width: 100%;
-                    flex: 0 0 32px;
                     opacity: 0.38;
                     font-family: NotoSansCJKkr-Regular;
                     font-size: 10px;
                     line-height: 1.94;
-                    letter-spacing: -0.2px; 
-                    display: flex;
+                    letter-spacing: -0.2px;
                     align-items: flex-end;
                     p {  
                         margin: 0;
@@ -82,9 +89,10 @@
                     display: flex;
                     flex-direction: column;
                     & .selectOne {
+                        flex: 1;
+                        display: flex;
                         box-sizing: border-box;	
                         width: 100%;
-                        flex: 1;
                         padding-left: 10px;
                         object-fit: contain;
                         font-family: NotoSansCJKkr-Regular;
@@ -92,7 +100,6 @@
                         line-height: 1.62;
                         letter-spacing: -0.3px;
                         color: #515861;
-                        display: flex;
                         align-items: center;
                         outline: none;
                         p {
@@ -107,35 +114,42 @@
         }
     }
     & .sortBox {
-        display: flex;
+        position: relative;
         height: 30px;
-        justify-content: space-around;
-        align-items: center;
-        margin-bottom: 12px;
+        box-sizing: border-box;
+        padding-top: 6px;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
         & .sortButtonLeft {
-            height: 100%;
+            display: inline-block;
+            position: absolute; top: 0; right:0; bottom:0;
+            left: 24px;
+            height: 11px; margin-top:auto; margin-bottom:auto;
             font-family: NotoSansCJKkr-Regular;
+            width: 50px;
             font-size: 11px;
-            line-height: 1.77;
             letter-spacing: -0.3px;
             color: #515861;
-            margin-left: 10px;
             outline: none;
+            text-align: center;
         }
         & .sortButtonRight {
-            height: 100%;
+            display: inline-block;
+            position: absolute; top: 0; right:0; bottom:0;
+            right: 24px;
+            height: 11px; margin-top:auto; margin-bottom:auto;
             font-family: NotoSansCJKkr-Regular;
+            width: 50px;
             font-size: 11px;
-            line-height: 1.77;
             letter-spacing: -0.3px;
             color: #515861;
-            margin-right: 10px;
             outline: none;
+            text-align: center;
         }
     }
     & .scrollBox {
-        flex: 1;
-        overflow: scroll;
+        height: calc(100% - 150px);
+        overflow-y: auto;
     }
     & .scrollBox::-webkit-scrollbar {
         display: none;

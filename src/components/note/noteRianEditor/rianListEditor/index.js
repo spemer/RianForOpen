@@ -24,7 +24,7 @@ const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
 		ssr: false,
 	}),
 	name: 'oneOfNoteData',
-	skip: props => !!(process.env.NODE_ENV === 'development' || props.show === 'MAKE'),
+	skip: true,
 });
 
 const autoSaveMutation = graphql(autoSave, {
@@ -32,7 +32,7 @@ const autoSaveMutation = graphql(autoSave, {
 		ssr: true,
 	}),
 	name: 'autoSave',
-	skip: process.env.NODE_ENV === 'development' && true,
+	skip: true,
 });
 
 const saveThemeMutation = graphql(saveTheme, {
@@ -40,7 +40,7 @@ const saveThemeMutation = graphql(saveTheme, {
 		ssr: true,
 	}),
 	name: 'saveTheme',
-	skip: process.env.NODE_ENV === 'development' && true,
+	skip: true,
 });
 
 type DefaultProps = {
