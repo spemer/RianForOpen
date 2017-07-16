@@ -69,10 +69,10 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 						}}
 					>
 						<div className={css.gutter}>
-							<p className={css.gutterName}>#</p>
+							{/* <p className={css.gutterName}>#</p> */}
 						</div>
 						<div className={css.tagContainer}>
-							<ReactTags
+							{/* <ReactTags
 								tags={tags}
 								handleDelete={this.handleDelete}
 								handleAddition={this.handleAddition}
@@ -82,7 +82,7 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 									tagInputField: 'editorTagsInputField',
 									tag: 'editorTagsheadTag',
 								}}
-							/>
+							/> */}
 						</div>
 					</div>
 					<div className={css.titleHead}>

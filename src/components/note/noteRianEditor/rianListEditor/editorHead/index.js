@@ -63,20 +63,9 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 				<div className={css.container}>
 					<div className={css.tagBox} style={{ height: !full ? '40px' : '0px', marginTop: !full ? '0px' : '40px' }}>
 						<div className={css.gutter}>
-							<p className={css.gutterName}>#</p>
+							{/* <p className={css.gutterName}>#</p> */}
 						</div>
 						<div className={css.tagContainer}>
-							<ReactTags
-								tags={tags}
-								handleDelete={this.handleDelete}
-								handleAddition={this.handleAddition}
-								placeholder=""
-								classNames={{
-									tags: 'editorTagsClass',
-									tagInputField: 'editorTagsInputField',
-									tag: 'editorTagsheadTag',
-								}}
-							/>
 						</div>
 					</div>
 					<div className={css.titleHead}>
