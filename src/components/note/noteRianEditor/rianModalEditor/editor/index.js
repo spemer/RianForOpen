@@ -150,7 +150,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 			},
 		});
     // when user scroll, it will hide inline toolbar
-		$(`.${parentCss.container}`).scroll(() => {
+		$(`.${parentCss.overlay}`).scroll(() => {
 			$('.fr-toolbar.fr-desktop.fr-inline').css('display', 'none');
 		});
 

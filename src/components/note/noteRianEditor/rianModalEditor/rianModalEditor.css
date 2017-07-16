@@ -1,18 +1,35 @@
-.modal {
-    position: absolute;
-    width: 1000px;
+@media (max-width: 800px) {
+  .overlay {
+      & .modal {
+        width: 630px !important;
+      }
+   }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.7);
+    z-index: 3;
+    height: 100%;
+    overflow-y: auto;
     padding-top: 64px;
-    padding-bottom: 150px;
-    box-sizing: border-box;
-    outline: none;
-    overflow: auto;
-    & .ModalContainer {
-        position: relative;
-        background-color: #fcfcfc;
+    & .modal {
+        position: relative; top: 0; right:0; bottom:0; left:0;
+        width: 1000px; margin-left:auto; margin-right:auto; 
         box-sizing: border-box;
-        padding-top: 64px;
-        padding-bottom: 64px;
-        border-radius: 10px;
+        margin-bottom: 150px;
+        outline: none;
+        & .ModalContainer {
+            background-color: #fcfcfc;
+            box-sizing: border-box;
+            padding-top: 64px;
+            padding-bottom: 64px;
+            border-radius: 10px;
+            position: relative;
             & .sideHead {
                 position: absolute;
                 display: flex;
@@ -23,33 +40,19 @@
                 height: 40px;
             }
             & .editorHead {
-                display: flex;
-                justify-content: center;
+                position: relative;
                 height: 120px;
                 width: 100%;
             }
             & .mainEditor {
-                display: flex;
                 width: 100%;
+                display: flex;
                 justify-content: center;
                 padding-left: 2.2rem;
                 box-sizing: border-box;
             }
         }
-}
-
-
-.overlay {
-    position: fixed;
-    display: flex;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    overflow: auto;
-    background-color: rgba(0,0,0,.7);
-    justify-content: center;
+    }
 }
 
 .overlay::-webkit-scrollbar {
