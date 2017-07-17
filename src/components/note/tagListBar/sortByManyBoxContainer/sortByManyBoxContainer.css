@@ -1,0 +1,25 @@
+.tagBlock {
+        display: flex;
+        padding-left: 24px;
+        height: 28px;
+        justify-content: flex-start;
+        align-items: center;
+        outline: none;
+        & .tagName {
+            font-family: NotoSansCJKkr-Regular;
+            font-size: 12px;
+            line-height: 1.62;
+            letter-spacing: -0.3px;
+            color: #515861;
+            margin-right: 10px;
+        }
+        & .tagHowMany {
+            font-family: NotoSansCJKkr-Regular;
+            font-size: 12px;
+            line-height: 1.62;
+            letter-spacing: -0.3px;
+        }
+}
+.tagBlock:hover {
+        background-color: #f4f4f4;
+}
