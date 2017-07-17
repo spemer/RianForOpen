@@ -32,7 +32,7 @@ type Action = FullScreenChangeAction | ChangeLeftBarAction | ChangeRenderTagsAct
 
 const ModeState = {
 	full: false,
-	themeColor: '#555555',
+	themeColor: '#1ce8b5',
 	leftBar: true,
 	timelineLeftBar: true,
 	renderTags: [],
