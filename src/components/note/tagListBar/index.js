@@ -39,9 +39,6 @@ const getTagsByConditionQuery = graphql(getTagsByCondition, {
 });
 
 type Store = {
-  User: {
-    userId: string
-  },
   App: {
     full: boolean,
     themeColor: string,
@@ -50,11 +47,9 @@ type Store = {
 };
 
 function mapToState({
-  User: { userId },
   App: { full, themeColor, leftBar },
 }: Store) {
 	return {
-		userId,
 		full,
 		themeColor,
 		leftBar,
@@ -70,7 +65,6 @@ function mapToDispatch(dispatch) {
 }
 
 type DefaultProps = {
-  userId: null,
   full: boolean,
   themeColor: string,
   leftBar: boolean,
@@ -79,7 +73,6 @@ type DefaultProps = {
 };
 
 type Props = {
-  userId: string,
   full: boolean,
   themeColor: string,
   leftBar: boolean,
