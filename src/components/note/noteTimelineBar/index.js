@@ -189,7 +189,6 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 	render() {
 		const { onSortList } = this.state;
 		const { full, noteData, leftBar, renderTags, timelineLeftBar } = this.props;
-
 		const tagName = renderTags.length === 0
       ? '전체노트'
       : `#${renderTags.join('#')}`;

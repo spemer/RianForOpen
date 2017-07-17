@@ -5,8 +5,9 @@ export const getTagsByCondition = gql`
 		getTagsByCondition(condition: $condition) {
 			condition
 			tags(condition: $condition, userId: $userId) {
-			_id
-			name
+				_id
+				name
+				howMany
 			}
 		}
 	}

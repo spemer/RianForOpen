@@ -29,7 +29,7 @@ const CardInstance = ({
   preImage = '',
   changeModalState = () => {},
 }: Props) => (
-	<Link to={`card:${noteId}`}>
+	<Link to={`/card/${noteId}`}>
 		<div
 			className={css.container}
 			onClick={() => {
