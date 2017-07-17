@@ -7,6 +7,7 @@
   "scripts": {
     "test": "jest",
     "build": "cross-env WEBPACK_CONFIG=browser_prod,server webpack --colors",
+    "build-mlab": "cross-env MLAB=true WEBPACK_CONFIG=browser_prod,server webpack --colors",
     "build-browser": "cross-env WEBPACK_CONFIG=browser_prod webpack --colors",
     "build-server": "cross-env WEBPACK_CONFIG=server webpack --colors",
     "build-server-mock": "cross-env IS_MOCK_DB=true WEBPACK_CONFIG=server webpack --colors",
