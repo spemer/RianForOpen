@@ -31,7 +31,7 @@ const ModalEditor = ({
 	<Modal
 		isOpen={showModal}
 		onRequestClose={() => {
-			history.push('card:main');
+			history.push('/card/main');
 			changeModalState(false);
 		}}
 		className={css.modal}

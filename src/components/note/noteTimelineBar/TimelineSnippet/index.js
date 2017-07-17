@@ -20,7 +20,7 @@ const TimelineSnippet = ({
   style = '',
   changeClickedBox = () => {},
 }: Props) => (
-	<Link to={`list:${noteId}`}>
+	<Link to={`/list/${noteId}`}>
 		<div className={css.container} style={style}>
 			<div className={css.box} onClick={(e) => { changeClickedBox(e); }} role="button" tabIndex="0">
 				<div className={css.timestamp}>

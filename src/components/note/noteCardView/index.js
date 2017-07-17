@@ -120,6 +120,7 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
       ? '전체노트'
       : `#${renderTags.join('#')}`;
 		let noteId;
+		console.log(this.props.location.pathname.slice(6));
 		if (
       this.props.location.pathname.slice(6) &&
       this.props.location.pathname.slice(6) !== 'main'

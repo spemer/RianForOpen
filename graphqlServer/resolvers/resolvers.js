@@ -10,8 +10,6 @@ import autoSaveCtrl from 'database/controllers/autoSave_ctrl';
 export const resolvers = {
 	Query: {
 		getTagsByCondition(obj, args, context) {
-			console.log('args at get TagsBy Condtion', args);
-			console.log('context  get TagsBy Condtion', context);
 			return {
 				condition: args.condition,
 			};
@@ -58,8 +56,6 @@ export const resolvers = {
 	TagList: {
 		tags(obj, args, context) {
 			const userId = context.userId ? context.userId._id : args.userId;
-			console.log('args', args);
-			console.log('context', context);
 			return getTagsByConditionCtrl(userId, args.condition);
 		},
 	},

@@ -7,7 +7,7 @@ const Tag = `
 	type Tag {
 		_id: ID
 		name: String
-		how_many: Int
+		howMany: Int
 	}
 `;
 

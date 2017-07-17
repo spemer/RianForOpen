@@ -189,7 +189,6 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 	render() {
 		const { onSortList } = this.state;
 		const { full, noteData, leftBar, renderTags, timelineLeftBar } = this.props;
-
 		const tagName = renderTags.length === 0
       ? '전체노트'
       : `#${renderTags.join('#')}`;
@@ -197,12 +196,6 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		let noteCount = process.env.NODE_ENV === 'development' ? `${Mock.length}개의 노트` : '';
 		if (noteData && !noteData.loading && noteData.getAllMyNotePreviewsByTags) {
 			noteCount = `${noteData.getAllMyNotePreviewsByTags.notes.length}개의 노트`;
-		}
-		if (process.env.NODE_ENV === 'production' && noteData && !noteData.loading) {
-			console.log(noteData);
-			console.log(!noteData.loading);
-			console.log(noteData.getAllMyNotePreviewsByTags);
-			console.log();
 		}
 		return (
 			<Motion
