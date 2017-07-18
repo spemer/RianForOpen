@@ -4,7 +4,8 @@ import parentCss from '../rianListEditor.css';
 import css from './sidehead.css';
 
 type Props = {
-  timelineLeftBar: boolean
+  timelineLeftBar: boolean,
+  changeTimelineLeftBarDispatch: Function
 };
 
 const SideHead = ({

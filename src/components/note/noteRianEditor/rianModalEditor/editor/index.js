@@ -41,14 +41,14 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 		$.FroalaEditor.RegisterShortcut(49, 'paragraphFormat', 'H1', 'H', false);
 		$.FroalaEditor.RegisterShortcut(50, 'paragraphFormat', 'H2', 'H', false);
 		$.FroalaEditor.RegisterShortcut(51, 'paragraphFormat', 'H3', 'H', false);
-		const isActive = function (cmd) {
+		function isActive(cmd) {
 			const blocks = this.selection.blocks();
-
+			let tag;
 			if (blocks.length) {
 				const blk = blocks[0];
-				var tag = 'N';
-				const default_tag = this.html.defaultTag();
-				if (blk.tagName.toLowerCase() != default_tag && blk != this.el) {
+				tag = 'N';
+				const defaultTag = this.html.defaultTag();
+				if (blk.tagName.toLowerCase() != defaultTag && blk != this.el) {
 					tag = blk.tagName;
 				}
 			}
@@ -58,7 +58,8 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 			}
 
 			return tag.toLowerCase() == cmd;
-		};
+		}
+
 
     // Define custom buttons.//////
 		$.FroalaEditor.DefineIcon('normal', {
@@ -83,7 +84,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 		});
 		$.FroalaEditor.RegisterCommand('normal', {
 			title: 'Normal',
-			callback(cmd, val, params) {
+			callback(cmd) {
 				if (isActive.apply(this, [cmd])) {
 					this.paragraphFormat.apply('N');
 				} else {
@@ -97,7 +98,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 
 		$.FroalaEditor.RegisterCommand('h1', {
 			title: 'Heading 1',
-			callback(cmd, val, params) {
+			callback(cmd) {
 				if (isActive.apply(this, [cmd])) {
 					this.paragraphFormat.apply('N');
 				} else {
@@ -111,7 +112,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 
 		$.FroalaEditor.RegisterCommand('h2', {
 			title: 'Heading 2',
-			callback(cmd, val, params) {
+			callback(cmd) {
 				if (isActive.apply(this, [cmd])) {
 					this.paragraphFormat.apply('N');
 				} else {
@@ -125,7 +126,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 
 		$.FroalaEditor.RegisterCommand('h3', {
 			title: 'Heading 3',
-			callback(cmd, val, params) {
+			callback(cmd) {
 				if (isActive.apply(this, [cmd])) {
 					this.paragraphFormat.apply('N');
 				} else {
@@ -138,7 +139,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 		});
 		$.FroalaEditor.RegisterCommand('pre', {
 			title: 'CODE',
-			callback(cmd, val, params) {
+			callback(cmd) {
 				if (isActive.apply(this, [cmd])) {
 					this.paragraphFormat.apply('N');
 				} else {

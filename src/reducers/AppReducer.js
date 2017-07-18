@@ -1,34 +1,42 @@
-
 // @flow
-import { CHANGE_FULL_SCREEN, CHANGE_LEFT_BAR, CHANGE_RENDER_TAGS, CHANGE_TIMELINE_LEFT_BAR_TAGS } from '../constants';
+import {
+  CHANGE_FULL_SCREEN,
+  CHANGE_LEFT_BAR,
+  CHANGE_RENDER_TAGS,
+  CHANGE_TIMELINE_LEFT_BAR_TAGS,
+} from '../constants';
 
 type State = {
-	full: boolean,
-	themeColor: string,
-	leftBar: boolean,
-	timelineLeftBar: boolean,
-	renderTags: Array<string>
+  full: boolean,
+  themeColor: string,
+  leftBar: boolean,
+  timelineLeftBar: boolean,
+  renderTags: Array<string>
 };
 
-type FullScreenChangeAction = {
-	type: CHANGE_FULL_SCREEN,
-	full: boolean
-};
+// type FullScreenChangeAction = {
+//   type: CHANGE_FULL_SCREEN,
+//   full: boolean
+// };
 
-type ChangeLeftBarAction = {
-	type: CHANGE_LEFT_BAR,
-};
+// type ChangeLeftBarAction = {
+//   type: CHANGE_LEFT_BAR
+// };
 
-type ChangeRenderTagsAction = {
-	type: CHANGE_RENDER_TAGS,
-	tags: Array<string>
-}
+// type ChangeRenderTagsAction = {
+//   type: CHANGE_RENDER_TAGS,
+//   tags: Array<string>
+// };
 
-type changeTimelineLeftBarAction = {
-	type: CHANGE_TIMELINE_LEFT_BAR_TAGS
-}
+// type changeTimelineLeftBarAction = {
+//   type: CHANGE_TIMELINE_LEFT_BAR_TAGS
+// };
 
-type Action = FullScreenChangeAction | ChangeLeftBarAction | ChangeRenderTagsAction | changeTimelineLeftBarAction
+// type Action =
+//   | FullScreenChangeAction
+//   | ChangeLeftBarAction
+//   | ChangeRenderTagsAction
+//   | changeTimelineLeftBarAction;
 
 const ModeState = {
 	full: false,
@@ -38,7 +46,7 @@ const ModeState = {
 	renderTags: [],
 };
 
-export default function App(state: State = ModeState, action: Action): State {
+export default function App(state: State = ModeState, action: any): State {
 	switch (action.type) {
 	case CHANGE_FULL_SCREEN:
 		return Object.assign({}, state, {

@@ -68,7 +68,7 @@ type DefaultProps = {
   full: boolean,
   themeColor: string,
   leftBar: boolean,
-  changeRenderTagsDispatch: null,
+  changeRenderTagsDispatch: Function,
   tagData: any
 };
 
@@ -96,7 +96,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		full: false,
 		themeColor: '',
 		leftBar: false,
-		changeRenderTagsDispatch: null,
+		changeRenderTagsDispatch: () => {},
 		tagData: null,
 	};
 

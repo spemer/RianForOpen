@@ -3,12 +3,13 @@ const DB = process.env.IS_MOCK_DB ? 'test-for-rian' : 'rian';
 let mongoConfig;
 if (process.env.MLAB) {
 	mongoConfig = {
-		mongoURL: `mongodb://${DOCKER_ENV}:27017/${DB}`, // mongodb for docker
+		mongoURL: 'mongodb://wuyialex:rockofrian1@ds161742.mlab.com:61742/riandevelop', // mongodb for mlab
 	};
 } else {
 	mongoConfig = {
-		mongoURL: 'mongodb://wuyialex:rockofrian1@ds161742.mlab.com:61742/riandevelop', // mongodb for mlab
+		mongoURL: `mongodb://${DOCKER_ENV}:27017/${DB}`, // mongodb for docker
 	};
 }
+console.log('precess.env', process.env);
 console.log('mongoConfig', mongoConfig);
 export default mongoConfig;

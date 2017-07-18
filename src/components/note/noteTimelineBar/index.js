@@ -39,11 +39,11 @@ type Store = {
 
 type DefaultProps = {
   full: boolean,
-  themeColor: null,
-  renderTags: null,
+  themeColor: string,
+  renderTags: Array<string>,
   noteData: null,
-  leftBar: null,
-  timelineLeftBar: null,
+  leftBar: boolean,
+  timelineLeftBar: boolean,
 };
 
 type Props = {
@@ -78,11 +78,11 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		userId: '',
 		full: false,
-		themeColor: null,
-		renderTags: null,
+		themeColor: '',
+		renderTags: [],
 		noteData: null,
-		leftBar: null,
-		timelineLeftBar: null,
+		leftBar: true,
+		timelineLeftBar: true,
 	};
 
 	constructor(props: Props) {

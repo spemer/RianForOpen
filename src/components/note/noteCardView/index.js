@@ -51,11 +51,16 @@ type DefaultProps = {
   noteData: null,
   renderTags: null
 };
+
+
 type Props = {
   themeColor: string,
   noteData: any,
-  renderTags: Array<string>
+  renderTags: Array<string>,
+  history: any,
+  location: any
 };
+
 type State = {
   showModal: boolean
 };
@@ -79,12 +84,10 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	};
 
 	componentWillReceiveProps(nextProps: Props) {
-		if (process.env.NODE_ENV === 'production') {
-			if (this.props.renderTags !== nextProps.renderTags) {
-				this.props.noteData.refetch({
-					tags: nextProps.renderTags,
-				});
-			}
+		if (process.env.NODE_ENV === 'production' && this.props.renderTags !== nextProps.renderTags) {
+			this.props.noteData.refetch({
+				tags: nextProps.renderTags,
+			});
 		}
 	}
 
@@ -127,7 +130,9 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 			showModal = true;
 			noteId = this.props.location.pathname.slice(5);
 		}
-		let noteCount = process.env.NODE_ENV === 'development' ? `${Mock.length}개의 노트` : '';
+		let noteCount = process.env.NODE_ENV === 'development'
+      ? `${Mock.length}개의 노트`
+      : '';
 		if (noteData && !noteData.loading && noteData.getAllMyNotePreviewsByTags) {
 			noteCount = `${noteData.getAllMyNotePreviewsByTags.notes.length}개의 노트`;
 		}

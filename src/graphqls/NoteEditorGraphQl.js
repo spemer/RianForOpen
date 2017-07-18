@@ -11,17 +11,15 @@ export const makeNote = gql`
 
 
 export const getSelectedMyNoteData = gql`
-    query getSelectedMyNoteDataQuery($noteId: ID!){
-            getSelectedMyNoteData(noteId: $noteId){
-            _id
-            title
-            tags
-            data
-            updatedAt
-            createdAt
-            like
-            isPublish
-        }
+    query getSelectedMyNoteDataQuery($noteId: ID!) {
+            getSelectedMyNoteData(noteId: $noteId) {
+                _id
+                title
+                tags
+                data
+                updatedAt
+                createdAt
+            }
 	}
 `;
 

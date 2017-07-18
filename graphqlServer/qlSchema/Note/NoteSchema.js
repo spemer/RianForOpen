@@ -14,7 +14,6 @@ const Note = `
 		preImage: String
 		createdAt: String
 		updatedAt: String
-		isPublish: Boolean
 		tags: [String]
 		preview: String
 		like: Int
