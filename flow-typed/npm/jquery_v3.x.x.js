@@ -664,6 +664,7 @@ declare class JQueryStatic {
    *
    * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can be set for any option with $.ajaxSetup().
    */
+  FroalaEditor: any;
   ajax(settings: JQueryAjaxSettings): JQueryXHR;
   /**
    * Perform an asynchronous HTTP (Ajax: any) request.

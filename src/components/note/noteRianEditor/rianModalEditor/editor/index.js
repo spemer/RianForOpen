@@ -56,8 +56,10 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 			if (['LI', 'TD', 'TH'].indexOf(tag) >= 0) {
 				tag = 'N';
 			}
-
-			return tag.toLowerCase() == cmd;
+			if (tag && tag.toLowerCase) {
+				return tag.toLowerCase() == cmd;
+			}
+			return null;
 		}
 
 

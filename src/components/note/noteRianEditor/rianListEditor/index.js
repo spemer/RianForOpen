@@ -42,7 +42,7 @@ const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
 		ssr: false,
 	}),
 	name: 'oneOfNoteData',
-	skip: ({ location: { pathname } }) => (process.env.NODE_ENV === 'development' || pathname === '/list/main' && true),
+	skip: ({ location: { pathname } }) => (!!(process.env.NODE_ENV === 'development' || pathname === '/list/main')),
 });
 
 const autoSaveMutation = graphql(autoSave, {
@@ -126,7 +126,6 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 			changeTimelineLeftBarDispatch,
 			oneOfNoteData,
 		} = this.props;
-		console.log(this.props);
 		return (
 			<div
 				className={css.container}

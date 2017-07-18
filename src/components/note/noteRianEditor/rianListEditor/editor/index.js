@@ -21,12 +21,12 @@ type DefaultProps = {
 };
 
 type Props = {
-	data: string,
-	loading: boolean,
+	data: ?string,
+	loading: ?boolean,
 };
 
 type State = {
-  content: string
+  content: ?string
 };
 
 class MainEditor extends Component<DefaultProps, Props, State> {
@@ -66,7 +66,10 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 				tag = 'N';
 			}
 
-			return tag.toLowerCase() == cmd;
+			if (tag && tag.toLowerCase) {
+				return tag.toLowerCase() == cmd;
+			}
+			return null;
 		}
 
     // Define custom buttons.//////
@@ -179,7 +182,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
-		console.log('editor get new Props', nextProps);
+		// console.log('editor get new Props', nextProps);
 		if (process.env.NODE_ENV === 'production') {
 			const { loading, data } = nextProps;
 			if (!loading) {

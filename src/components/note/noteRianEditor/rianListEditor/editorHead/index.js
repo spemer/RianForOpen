@@ -8,13 +8,13 @@ import css from './editorHead.css';
 type DefaultProps = {
 	full: boolean,
 	title: null,
-	loading: null
+	loading: null,
 };
 
 type Props = {
 	full: boolean,
-	title: string,
-	loading: boolean
+	title: ?string,
+	loading: ?boolean
 };
 
 type tagType = {
@@ -23,7 +23,7 @@ type tagType = {
 };
 
 type State = {
-  titleValue: string,
+  titleValue: ?string,
   tags: Array<tagType>
 };
 
@@ -47,7 +47,7 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 	};
 
 	componentWillReceiveProps(nextProps: Props) {
-		console.log('title get new Props', nextProps);
+		// console.log('title get new Props', nextProps);
 		if (process.env.NODE_ENV === 'production') {
 			const { loading, title } = nextProps;
 			if (!loading) {

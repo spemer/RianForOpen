@@ -49,7 +49,10 @@ const mapToState = ({ App: { themeColor, renderTags } }: Store) => ({
 type DefaultProps = {
   themeColor: string,
   noteData: null,
-  renderTags: null
+  renderTags: null,
+  match: any,
+  history: any,
+  location: any,
 };
 
 
@@ -57,8 +60,9 @@ type Props = {
   themeColor: string,
   noteData: any,
   renderTags: Array<string>,
+  match: any,
   history: any,
-  location: any
+  location: any,
 };
 
 type State = {
@@ -72,6 +76,9 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 		themeColor: '',
 		noteData: null,
 		renderTags: null,
+		history: {},
+		match: {},
+		location: {},
 	};
 	constructor(props: Props) {
 		super(props);
@@ -118,7 +125,7 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 
 	render() {
 		let { showModal } = this.state;
-		const { history, noteData, renderTags } = this.props;
+		const { match, history, noteData, renderTags } = this.props;
 		const tagName = renderTags.length === 0
       ? '전체노트'
       : `#${renderTags.join('#')}`;
@@ -141,6 +148,7 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 				<ModalEditor
 					showModal={showModal}
 					changeModalState={this.changeModalState}
+					match={match}
 					history={history}
 					noteId={noteId}
 				/>
