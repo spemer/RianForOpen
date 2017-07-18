@@ -1,16 +1,17 @@
 // @flow
 import React, { Component } from 'react';
-import { WithContext as ReactTags } from 'react-styled-tag';
 import './reactTag.global.css';
 import parentCss from '../rianModalEditor.css';
 import css from './editorHead.css';
 
 type DefaultProps = {
-  full: boolean
+	title: null,
+	loading: null,
 };
 
 type Props = {
-  full: boolean
+	title: ?string,
+	loading: ?boolean
 };
 
 type tagType = {
@@ -19,26 +20,49 @@ type tagType = {
 };
 
 type State = {
+  titleValue: ?string,
   tags: Array<tagType>
 };
 
 class RianListEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		full: false,
+		title: null,
+		loading: null,
 	};
 
 	constructor(props: Props) {
 		super(props);
+		this.handleChange = this.handleChange.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
 		this.handleAddition = this.handleAddition.bind(this);
 	}
 
 	state = {
+		titleValue: this.props.title && !this.props.loading ? this.props.title : '로딩중',
 		tags: [{ id: 1, text: '#명상' }, { id: 2, text: '#자기계발' }],
 	};
 
+	componentWillReceiveProps(nextProps: Props) {
+		// console.log('title get new Props', nextProps);
+		if (process.env.NODE_ENV === 'production') {
+			const { loading, title } = nextProps;
+			if (!loading) {
+				this.setState({
+					titleValue: title,
+				});
+			}
+		}
+	}
+
+	handleChange: Function;
 	handleDelete: Function;
 	handleAddition: Function;
+
+	handleChange({ target: { value } }: any) {
+		this.setState({
+			titleValue: value,
+		});
+	}
 
 	handleDelete(i: number) {
 		const tags = this.state.tags;
@@ -56,40 +80,21 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		const { tags } = this.state;
-		const { full } = this.props;
+		// const { tags } = this.state;
 		return (
 			<div className={parentCss.editorHead}>
 				<div className={css.container}>
-					<div
-						className={css.tagBox}
-						style={{
-							height: !full ? '40px' : '0px',
-							marginTop: !full ? '0px' : '40px',
-						}}
-					>
+					<div className={css.tagBox} style={{ height: '40px', marginTop: '0px' }}>
 						<div className={css.gutter}>
 							{/* <p className={css.gutterName}>#</p> */}
 						</div>
-						<div className={css.tagContainer}>
-							{/* <ReactTags
-								tags={tags}
-								handleDelete={this.handleDelete}
-								handleAddition={this.handleAddition}
-								placeholder=""
-								classNames={{
-									tags: 'editorTagsClass',
-									tagInputField: 'editorTagsInputField',
-									tag: 'editorTagsheadTag',
-								}}
-							/> */}
-						</div>
+						<div className={css.tagContainer} />
 					</div>
 					<div className={css.titleHead}>
 						<div className={css.gutter}>
 							<p className={css.gutterName}>Title</p>
 						</div>
-						<input className={css.title} placeholder="" />
+						<input className={css.title} placeholder="" value={this.state.titleValue} onChange={this.handleChange} />
 					</div>
 					<div className={css.borderBox}>
 						<div className={css.borderLine} />

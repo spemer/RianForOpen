@@ -62,7 +62,8 @@ type DefaultProps = {
   full: boolean,
   timelineLeftBar: null,
   changeTimelineLeftBarDispatch: null,
-  match: any
+  match: any,
+  location: any,
 };
 
 type Props = {
@@ -75,7 +76,8 @@ type Props = {
     params: {
       noteId: string
     }
-  }
+  },
+location: {}
 };
 
 type State = {
@@ -100,6 +102,7 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 		timelineLeftBar: null,
 		changeTimelineLeftBarDispatch: null,
 		match: {},
+		location: {},
 	};
 
 	constructor(props: Props) {
@@ -109,9 +112,11 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 	state = {}
 
 	componentWillReceiveProps(nextProps: Props) {
-		if (process.env.NODE_ENV === 'production') {
+		console.log('new props in list editor', this.props, nextProps);
+		if (process.env.NODE_ENV === 'production' && nextProps.location.pathname !== '/list/main') {
 			const { match: { params: { noteId } }, oneOfNoteData: { refetch } } = nextProps;
 			if (this.props.match.params.noteId !== noteId) {
+				console.log('refetch in list editor', this.props, nextProps);
 				refetch({
 					noteId,
 				});

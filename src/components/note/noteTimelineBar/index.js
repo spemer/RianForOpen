@@ -265,9 +265,8 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 										/>
 									</svg>
 								</div>
-								{timelineLeftBar &&
-                  onSortList &&
-                  <div className={!leftBar ? css.selectList : css.selectListWithLeftBar}>
+								{timelineLeftBar && onSortList &&
+								<div className={!leftBar ? css.selectList : css.selectListWithLeftBar}>
 	<div className={css.menuTitle}>
 		<p>태그분류</p>
 	</div>

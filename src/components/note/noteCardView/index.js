@@ -6,16 +6,6 @@ import { graphql, compose } from 'react-apollo';
 import moment from 'moment';
 import ModalEditor from '../noteRianEditor/rianModalEditor';
 import Mock from '../../../../MockData/noteList';
-// react virtualized
-// import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
-// import CellMeasurer from 'react-virtualized/dist/commonjs/CellMeasurer';
-// import CellMeasurerCache
-//   from 'react-virtualized/dist/commonjs/CellMeasurer/CellMeasurerCache';
-// import createMasonryCellPositioner
-//   from 'react-virtualized/dist/commonjs/Masonry/createCellPositioner';
-// import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller';
-// import Masonry from 'react-virtualized/dist/commonjs/Masonry';
-// graphQL
 import { getAllMyNotePreviewsByTags } from '../../../graphqls/TimelineGraphQl';
 import CardInstance from './CardInstance';
 import css from './noteCardView.css';
@@ -125,21 +115,12 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 
 	render() {
 		let { showModal } = this.state;
-		const { match, history, noteData, renderTags } = this.props;
-		const tagName = renderTags.length === 0
-      ? '전체노트'
-      : `#${renderTags.join('#')}`;
-		let noteId;
-		if (
-      this.props.location.pathname.slice(6) &&
-      this.props.location.pathname.slice(6) !== 'main'
-    ) {
+		const { match, history, location, noteData, renderTags } = this.props;
+		const tagName = renderTags.length === 0 ? '전체노트' : `#${renderTags.join('#')}`;
+		if (this.props.location.pathname.slice(6) && this.props.location.pathname.slice(6) !== 'main') {
 			showModal = true;
-			noteId = this.props.location.pathname.slice(5);
 		}
-		let noteCount = process.env.NODE_ENV === 'development'
-      ? `${Mock.length}개의 노트`
-      : '';
+		let noteCount = process.env.NODE_ENV === 'development' ? `${Mock.length}개의 노트` : '';
 		if (noteData && !noteData.loading && noteData.getAllMyNotePreviewsByTags) {
 			noteCount = `${noteData.getAllMyNotePreviewsByTags.notes.length}개의 노트`;
 		}
@@ -149,8 +130,8 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 					showModal={showModal}
 					changeModalState={this.changeModalState}
 					match={match}
+					location={location}
 					history={history}
-					noteId={noteId}
 				/>
 				<div className={css.head}>
 					<div className={css.tagTitle}>
@@ -161,10 +142,15 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 					</div>
 				</div>
 				<div className={css.mainBox}>
-					{noteData &&
-            !noteData.loading &&
-            this.cardRenderer(noteData.getAllMyNotePreviewsByTags.notes)}
-					{process.env.NODE_ENV === 'development' && this.cardRenderer(Mock)}
+					{
+						noteData &&
+						!noteData.loading &&
+						this.cardRenderer(noteData.getAllMyNotePreviewsByTags.notes)
+					}
+					{
+						process.env.NODE_ENV === 'development' &&
+						this.cardRenderer(Mock)
+					}
 				</div>
 			</div>
 		);

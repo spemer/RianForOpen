@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import FroalaEditor from 'react-froala-wysiwyg';
 // import 'FroalaEditor/froala_editor_sources_2.6.2/js/froala_editor.pkgd.js';
+import FroalaEditor from 'react-froala-wysiwyg';
 import 'froala-editor/js/froala_editor.min';
 import 'froala-editor/js/plugins/image.min';
 import 'froala-editor/js/plugins/quote.min';
@@ -15,16 +15,26 @@ import '../../fontawesome.global.css';
 import './rianModal.global.css';
 import './editor.global.css';
 
-type DefaultProps = {};
+type DefaultProps = {
+	data: null,
+	loading: null,
+};
 
-type Props = {};
+type Props = {
+	data: ?string,
+	loading: ?boolean,
+};
 
 type State = {
-  content: string
+  content: ?string
 };
 
 class MainEditor extends Component<DefaultProps, Props, State> {
-	static defaultProps = {};
+	static defaultProps = {
+		data: null,
+		loading: null,
+	};
+
 
 	constructor(props: Props) {
 		super(props);
@@ -33,7 +43,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	state = {
-		content: '',
+		content: this.props.data && !this.props.loading ? this.props.data : '<h1>"로딩중"</h1>',
 	};
 
 	componentDidMount() {
@@ -170,6 +180,18 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 			'letter-spacing': '-0.4px',
 			color: '#515861',
 		});
+	}
+
+	componentWillReceiveProps(nextProps: Props) {
+		// console.log('editor get new Props', nextProps);
+		if (process.env.NODE_ENV === 'production') {
+			const { loading, data } = nextProps;
+			if (!loading) {
+				this.setState({
+					content: data,
+				});
+			}
+		}
 	}
 
 	handleModelChange: Function;
