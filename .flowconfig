@@ -3,6 +3,8 @@
 [include]
 
 [libs]
+./node_modules/react-apollo/lib/index.js.flow
+./node_modules/apollo-client/lib/index.js.flow
 flow-typed
 [options]
 esproposal.decorators=ignore

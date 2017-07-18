@@ -11,7 +11,6 @@ export const getAllMyNotePreviewsByTags = gql`
 				preview
 				createdAt
 				updatedAt
-				isPublish
 				tags
 			}
 		}

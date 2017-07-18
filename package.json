@@ -7,7 +7,6 @@
   "scripts": {
     "test": "jest",
     "build": "cross-env WEBPACK_CONFIG=browser_prod,server webpack --colors",
-    "build-mlab": "cross-env MLAB=true WEBPACK_CONFIG=browser_prod,server webpack --colors",
     "build-browser": "cross-env WEBPACK_CONFIG=browser_prod webpack --colors",
     "build-server": "cross-env WEBPACK_CONFIG=server webpack --colors",
     "build-server-mock": "cross-env IS_MOCK_DB=true WEBPACK_CONFIG=server webpack --colors",
@@ -15,7 +14,8 @@
     "aws-build-run": "cross-env IS_DOCKER=true AWS_IP=52.79.157.76 WEBPACK_CONFIG=browser_prod,server webpack --colors && node dist/server",
     "lint": "eslint .",
     "clean": "rimraf dist",
-    "server": "node dist/server",
+    "server": "node dist/server && node dist/server",
+    "build-mlab": "cross-env MLAB=true WEBPACK_CONFIG=browser_prod,server webpack --colors && node dist/server",
     "start": "cross-env WEBPACK_CONFIG=browser_dev webpack-dev-server",
     "flow start": "flow start",
     "flow stop": "flow stop",

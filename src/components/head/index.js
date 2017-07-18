@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import profileImageMock from '../../../static/image/thumb-ex-img.png';
 import SearchBox from './searchBox';
 import { fullScreenChange, changeLeftBar } from '../../actions/AppActions';
-import addNoteIcon from '../../../static/icons/add-note.png';
 import parentCss from '../app/app.css';
 import css from './head.css';
 import icFullScreenIcon from '../../../static/icons/ic_fullScreen.svg';
@@ -17,7 +16,7 @@ type DefaultProps = {
   full: boolean,
   themeColor: string,
   pathname: string,
-  leftBar: null,
+  leftBar: boolean,
 };
 
 type Props = {
@@ -71,7 +70,7 @@ class Head extends Component<DefaultProps, Props, State> {
 		string: '',
 		pathname: '/card',
 		themeColor: '',
-		leftBar: null,
+		leftBar: true,
 	};
 
 	constructor(props: Props) {
@@ -134,7 +133,11 @@ class Head extends Component<DefaultProps, Props, State> {
 				style={{ height: !full ? '48px' : '0px' }}
 			>
 				<div className={css.container}>
-					<SearchBox themeColor={themeColor} modeIsTag={modeIsTag} changeSearchMode={this.changeSearchMode} />
+					<SearchBox
+						themeColor={themeColor}
+						modeIsTag={modeIsTag}
+						changeSearchMode={this.changeSearchMode}
+					/>
 					<svg
 						version="1.1"
 						id="Capa_1"

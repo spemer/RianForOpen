@@ -15,16 +15,25 @@ import '../../fontawesome.global.css';
 import './rianList.global.css';
 import './editor.global.css';
 
-type DefaultProps = {};
+type DefaultProps = {
+	data: null,
+	loading: null,
+};
 
-type Props = {};
+type Props = {
+	data: string,
+	loading: boolean,
+};
 
 type State = {
   content: string
 };
 
 class MainEditor extends Component<DefaultProps, Props, State> {
-	static defaultProps = {};
+	static defaultProps = {
+		data: null,
+		loading: null,
+	};
 
 	constructor(props: Props) {
 		super(props);
@@ -33,7 +42,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	state = {
-		content: '',
+		content: this.props.data && !this.props.loading ? this.props.data : '<h1>"로딩중"</h1>',
 	};
 
 	componentDidMount() {
@@ -41,14 +50,14 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 		$.FroalaEditor.RegisterShortcut(49, 'paragraphFormat', 'H1', 'H', false);
 		$.FroalaEditor.RegisterShortcut(50, 'paragraphFormat', 'H2', 'H', false);
 		$.FroalaEditor.RegisterShortcut(51, 'paragraphFormat', 'H3', 'H', false);
-		const isActive = function (cmd) {
+		function isActive(cmd) {
 			const blocks = this.selection.blocks();
 			let tag;
 			if (blocks.length) {
 				const blk = blocks[0];
 				tag = 'N';
-				const default_tag = this.html.defaultTag();
-				if (blk.tagName.toLowerCase() != default_tag && blk != this.el) {
+				const defaultTag = this.html.defaultTag();
+				if (blk.tagName.toLowerCase() != defaultTag && blk != this.el) {
 					tag = blk.tagName;
 				}
 			}
@@ -58,7 +67,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 			}
 
 			return tag.toLowerCase() == cmd;
-		};
+		}
 
     // Define custom buttons.//////
 		$.FroalaEditor.DefineIcon('normal', {
@@ -97,7 +106,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 
 		$.FroalaEditor.RegisterCommand('h1', {
 			title: 'Heading 1',
-			callback(cmd, val, params) {
+			callback(cmd) {
 				if (isActive.apply(this, [cmd])) {
 					this.paragraphFormat.apply('N');
 				} else {
@@ -138,7 +147,7 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 		});
 		$.FroalaEditor.RegisterCommand('pre', {
 			title: 'CODE',
-			callback(cmd, val, params) {
+			callback(cmd) {
 				if (isActive.apply(this, [cmd])) {
 					this.paragraphFormat.apply('N');
 				} else {
@@ -167,6 +176,18 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 			'letter-spacing': '-0.4px',
 			color: '#515861',
 		});
+	}
+
+	componentWillReceiveProps(nextProps: Props) {
+		console.log('editor get new Props', nextProps);
+		if (process.env.NODE_ENV === 'production') {
+			const { loading, data } = nextProps;
+			if (!loading) {
+				this.setState({
+					content: data,
+				});
+			}
+		}
 	}
 
 	handleModelChange: Function;

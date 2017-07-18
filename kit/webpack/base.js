@@ -108,6 +108,7 @@ export default new WebpackConfig().merge({
 				AWS_IP: JSON.stringify(process.env.AWS_IP),
 				IS_DOCKER: JSON.stringify(process.env.IS_DOCKER),
 				IS_MOCK_DB: JSON.stringify(process.env.IS_MOCK_DB),
+				MLAB: JSON.stringify(process.env.MLAB),
 			},
 		}),
     // Jquery for Froala Editor

@@ -10,13 +10,21 @@ import MainEditor from './editor';
 import {
   getSelectedMyNoteData,
   autoSave,
-  saveTheme,
 } from '../../../../graphqls/NoteEditorGraphQl';
 
-const mapToState = ({ App: { full, timelineLeftBar } }) => ({
-	full,
-	timelineLeftBar,
-});
+type Store = {
+  App: {
+    full: boolean,
+    timelineLeftBar: boolean
+  }
+};
+
+function mapToState({ App: { full, timelineLeftBar } }: Store) {
+	return {
+		full,
+		timelineLeftBar,
+	};
+}
 
 function mapToDispatch(dispatch) {
 	return {
@@ -27,53 +35,50 @@ function mapToDispatch(dispatch) {
 }
 
 const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
-	options: props => ({
+	options: ({ match: { params: { noteId } } }) => ({
 		variables: {
-			noteId: props.noteId,
+			noteId,
 		},
 		ssr: false,
 	}),
 	name: 'oneOfNoteData',
-	skip: true,
+	skip: ({ location: { pathname } }) => (process.env.NODE_ENV === 'development' || pathname === '/list/main' && true),
 });
 
 const autoSaveMutation = graphql(autoSave, {
-	options: () => ({
-		ssr: true,
+	options: ({ match: { params: { noteId } } }) => ({
+		variables: {
+			noteId,
+		},
+		ssr: false,
 	}),
 	name: 'autoSave',
-	skip: true,
-});
-
-const saveThemeMutation = graphql(saveTheme, {
-	options: () => ({
-		ssr: true,
-	}),
-	name: 'saveTheme',
-	skip: true,
+	skip: process.env.NODE_ENV === 'development' && true,
 });
 
 type DefaultProps = {
-  oneOfNoteData: boolean,
-  autoSave: boolean,
-  saveTheme: boolean,
+  oneOfNoteData: null,
+  autoSave: null,
   full: boolean,
   timelineLeftBar: null,
-  changeTimelineLeftBarDispatch: null
+  changeTimelineLeftBarDispatch: null,
+  match: any
 };
 
 type Props = {
-  oneOfNoteData: boolean,
-  autoSave: boolean,
-  saveTheme: boolean,
+  oneOfNoteData: any,
+  autoSave: any,
   full: boolean,
   timelineLeftBar: boolean,
-  changeTimelineLeftBarDispatch: Function
+  changeTimelineLeftBarDispatch: Function,
+  match: {
+    params: {
+      noteId: string
+    }
+  }
 };
 
 type State = {
-  title: string,
-  isPublish: boolean
 };
 
 type SaveFormat = {
@@ -86,36 +91,69 @@ type SaveFormat = {
 };
 
 @connect(mapToState, mapToDispatch)
-@compose(getSelectedMyNoteDataQuery, autoSaveMutation, saveThemeMutation)
+@compose(getSelectedMyNoteDataQuery, autoSaveMutation)
 class RianListEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		autoSave: false,
-		saveTheme: false,
-		oneOfNoteData: false,
+		autoSave: null,
+		oneOfNoteData: null,
 		full: false,
 		timelineLeftBar: null,
 		changeTimelineLeftBarDispatch: null,
+		match: {},
 	};
 
 	constructor(props: Props) {
 		super(props);
 	}
 
-	state = {
-		title: '',
-		isPublish: false,
-	};
+	state = {}
+
+	componentWillReceiveProps(nextProps: Props) {
+		if (process.env.NODE_ENV === 'production') {
+			const { match: { params: { noteId } }, oneOfNoteData: { refetch } } = nextProps;
+			if (this.props.match.params.noteId !== noteId) {
+				refetch({
+					noteId,
+				});
+			}
+		}
+	}
 
 	render() {
-		const { full, timelineLeftBar, changeTimelineLeftBarDispatch } = this.props;
+		const {
+			full,
+			timelineLeftBar,
+			changeTimelineLeftBarDispatch,
+			oneOfNoteData,
+		} = this.props;
+		console.log(this.props);
 		return (
 			<div
 				className={css.container}
 				style={{ paddingTop: !full ? '0px' : '40px' }}
 			>
-				{!full && <SideHead timelineLeftBar={timelineLeftBar} changeTimelineLeftBarDispatch={changeTimelineLeftBarDispatch} />}
-				<EditorHead full={full} />
-				<MainEditor />
+				{!full &&
+				<SideHead
+					timelineLeftBar={timelineLeftBar}
+					changeTimelineLeftBarDispatch={changeTimelineLeftBarDispatch}
+				/>}
+				<EditorHead
+					full={full}
+					loading={oneOfNoteData ? oneOfNoteData.loading : null}
+					title={
+					oneOfNoteData && !oneOfNoteData.loading
+					? oneOfNoteData.getSelectedMyNoteData.title
+					: null
+					}
+				/>
+				<MainEditor
+					loading={oneOfNoteData ? oneOfNoteData.loading : null}
+					data={
+						oneOfNoteData && !oneOfNoteData.loading
+						? oneOfNoteData.getSelectedMyNoteData.data
+						: null
+					}
+				/>
 			</div>
 		);
 	}

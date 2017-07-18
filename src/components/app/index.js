@@ -84,7 +84,7 @@ function mapToState({ User: { userId, userName }, App: { full } }: Store) {
 }
 
 function MainComponent({ userId, userName, full, location: { pathname } }: Props) {
-	// if (!userName) {
+	// if (!userName && process.env.NODE_ENV === 'production') {
 	// 	return <Redirect to="/firstLogin" />;
 	// }
 	if (process.env.NODE_ENV !== 'development') {

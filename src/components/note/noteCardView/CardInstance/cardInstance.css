@@ -7,6 +7,7 @@
     border-radius: 4px;
     outline: none;
     transition: all ease 0.25s;
+    border: solid 1px #dfdfdf;
     & .head {
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
