@@ -9,11 +9,16 @@
         width: 258px;
         height: 29px;
     }
-    & .addNoteIcon {
+    & .addNoteIconBox {
         position: absolute; top: 0; bottom:0;
         left: 295px;
         height: 25px; margin-top:auto; margin-bottom:auto;
         width: 25px;
+        outline: none;
+        & .addNoteIcon {
+            height: 25px; margin-top:auto; margin-bottom:auto;
+            width: 25px;
+        }
     }
     & .changeMode {
         position: absolute;

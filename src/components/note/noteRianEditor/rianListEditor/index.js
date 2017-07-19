@@ -1,38 +1,11 @@
 // @flow
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import { changeTimelineLeftBar } from '../../../../actions/AppActions';
-import css from './rianListEditor.css';
-import SideHead from './sideHead';
-import EditorHead from './editorHead';
-import MainEditor from './editor';
+import EditorBox from './editor';
 import {
   getSelectedMyNoteData,
   autoSave,
 } from '../../../../graphqls/NoteEditorGraphQl';
-
-type Store = {
-  App: {
-    full: boolean,
-    timelineLeftBar: boolean
-  }
-};
-
-function mapToState({ App: { full, timelineLeftBar } }: Store) {
-	return {
-		full,
-		timelineLeftBar,
-	};
-}
-
-function mapToDispatch(dispatch) {
-	return {
-		changeTimelineLeftBarDispatch() {
-			dispatch(changeTimelineLeftBar());
-		},
-	};
-}
 
 const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
 	options: ({ match: { params: { noteId } } }) => ({
@@ -40,80 +13,95 @@ const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
 			noteId,
 		},
 		ssr: false,
+		fetchPolicy: 'network-only',
 	}),
 	name: 'oneOfNoteData',
-	skip: ({ location: { pathname } }) => (process.env.NODE_ENV === 'development' || pathname === '/list/main' && true),
+	skip: ({ location: { pathname } }) => (!!(process.env.NODE_ENV === 'development' || pathname === '/list/main' || pathname === '/list/newNote')),
 });
 
-const autoSaveMutation = graphql(autoSave, {
-	options: ({ match: { params: { noteId } } }) => ({
-		variables: {
-			noteId,
-		},
-		ssr: false,
-	}),
-	name: 'autoSave',
+const saveMutation = graphql(autoSave, {
+	name: 'saveMutate',
 	skip: process.env.NODE_ENV === 'development' && true,
 });
 
 type DefaultProps = {
-  oneOfNoteData: null,
-  autoSave: null,
-  full: boolean,
-  timelineLeftBar: null,
-  changeTimelineLeftBarDispatch: null,
-  match: any
+	oneOfNoteData: null,
+	saveMutate: Function,
+	match: any,
+	location: any,
 };
 
 type Props = {
-  oneOfNoteData: any,
-  autoSave: any,
-  full: boolean,
-  timelineLeftBar: boolean,
-  changeTimelineLeftBarDispatch: Function,
-  match: {
-    params: {
-      noteId: string
-    }
-  }
+	oneOfNoteData: any,
+	saveMutate: Function,
+	match: any,
+	location: any,
 };
 
 type State = {
+	noteId: ?string,
+	title: string,
+	data: string,
+	isPublish: null,
+	isBooked: null,
 };
 
-type SaveFormat = {
-  noteId: string,
-  title: string,
-  tags: Array<string>,
-  data: string,
-  preImage: string,
-  isPublish: boolean
-};
-
-@connect(mapToState, mapToDispatch)
-@compose(getSelectedMyNoteDataQuery, autoSaveMutation)
+@compose(getSelectedMyNoteDataQuery, saveMutation)
 class RianListEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		autoSave: null,
 		oneOfNoteData: null,
-		full: false,
-		timelineLeftBar: null,
-		changeTimelineLeftBarDispatch: null,
+		saveMutate: () => {},
 		match: {},
+		location: {},
 	};
 
 	constructor(props: Props) {
 		super(props);
 	}
 
-	state = {}
+	state = {
+		noteId: null,
+		title: '',
+		data: '',
+		isPublish: null,
+		isBooked: null,
+	}
 
 	componentWillReceiveProps(nextProps: Props) {
-		if (process.env.NODE_ENV === 'production') {
-			const { match: { params: { noteId } }, oneOfNoteData: { refetch } } = nextProps;
-			if (this.props.match.params.noteId !== noteId) {
-				refetch({
+		console.log('new props in list editor in Apollo', this.props, nextProps);
+		if (process.env.NODE_ENV === 'development') return;
+
+		const { location: { pathname }, match: { params: { noteId } }, oneOfNoteData } = nextProps;
+		if (pathname !== '/list/main' && pathname !== '/list/newNote') {
+			// user click other note
+			console.log('check', this.props.match.params.noteId, noteId);
+			// if (this.props.match.params.noteId !== noteId) {
+			// 	console.log('refetch in list editor', this.props.match.params.noteId, noteId);
+			// 	oneOfNoteData.refetch({
+			// 		noteId,
+			// 	});
+			// }
+			// not loading
+			if (oneOfNoteData.loading) {
+				this.setState({
 					noteId,
+					title: '로딩중',
+					data: '<h1>로딩중</h1>',
+					isPublish: null,
+				});
+			}
+			if (!oneOfNoteData.loading) {
+				console.log('loaded!', oneOfNoteData);
+				const { getSelectedMyNoteData: { _id, title, data, isPublish } } = oneOfNoteData;
+				// 라우터랑 가져온 노트 아이디랑 일치해야함
+				if (noteId !== _id) {
+					console.log(noteId === _id);
+				}
+				this.setState({
+					noteId: _id,
+					title,
+					data,
+					isPublish,
 				});
 			}
 		}
@@ -121,40 +109,22 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const {
-			full,
-			timelineLeftBar,
-			changeTimelineLeftBarDispatch,
-			oneOfNoteData,
+			saveMutate,
 		} = this.props;
-		console.log(this.props);
+		const {
+			noteId,
+			title,
+			data,
+			isPublish,
+		} = this.state;
 		return (
-			<div
-				className={css.container}
-				style={{ paddingTop: !full ? '0px' : '40px' }}
-			>
-				{!full &&
-				<SideHead
-					timelineLeftBar={timelineLeftBar}
-					changeTimelineLeftBarDispatch={changeTimelineLeftBarDispatch}
-				/>}
-				<EditorHead
-					full={full}
-					loading={oneOfNoteData ? oneOfNoteData.loading : null}
-					title={
-					oneOfNoteData && !oneOfNoteData.loading
-					? oneOfNoteData.getSelectedMyNoteData.title
-					: null
-					}
-				/>
-				<MainEditor
-					loading={oneOfNoteData ? oneOfNoteData.loading : null}
-					data={
-						oneOfNoteData && !oneOfNoteData.loading
-						? oneOfNoteData.getSelectedMyNoteData.data
-						: null
-					}
-				/>
-			</div>
+			<EditorBox
+				noteId={noteId}
+				saveMutate={saveMutate}
+				title={title}
+				data={data}
+				isPublish={isPublish}
+			/>
 		);
 	}
 }

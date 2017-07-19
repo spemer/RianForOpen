@@ -9,7 +9,8 @@ type Props = {
     preview: string,
     updatedAt: string,
     style: any,
-    changeClickedBox: Function,
+	selected: boolean,
+	themeColor: string,
 };
 
 const TimelineSnippet = ({
@@ -18,23 +19,54 @@ const TimelineSnippet = ({
   preview = '',
   updatedAt = '3일전',
   style = '',
-  changeClickedBox = () => {},
-}: Props) => (
-	<Link to={`/list/${noteId}`}>
-		<div className={css.container} style={style}>
-			<div className={css.box} onClick={(e) => { changeClickedBox(e); }} role="button" tabIndex="0">
-				<div className={css.timestamp}>
-					{updatedAt}
-				</div>
-				<div className={css.title}>
-					{title}
-				</div>
-				<div className={css.preview}>
-					{preview}
+  selected = false,
+  themeColor = '',
+}: Props) => {
+	let boxStyle;
+	if (selected) {
+		boxStyle = {
+			backgroundColor: '#f4f4f4',
+			paddingLeft: '19px',
+			borderLeft: `4px solid ${themeColor}`,
+		};
+		return (
+			<div className={css.container} style={style}>
+				<div className={css.box} style={boxStyle} role="button" tabIndex="0">
+					<div className={css.timestamp}>
+						{updatedAt}
+					</div>
+					<div className={css.title}>
+						{title}
+					</div>
+					<div className={css.preview}>
+						{preview}
+					</div>
 				</div>
 			</div>
-		</div>
-	</Link>
-);
+		);
+	}
+	boxStyle = {
+		backgroundColor: null,
+		paddingLeft: '23px',
+		borderLeft: null,
+	};
+	return (
+		<Link to={`/list/${noteId}`}>
+			<div className={css.container} style={style}>
+				<div className={css.box} style={boxStyle} role="button" tabIndex="0">
+					<div className={css.timestamp}>
+						{updatedAt}
+					</div>
+					<div className={css.title}>
+						{title}
+					</div>
+					<div className={css.preview}>
+						{preview}
+					</div>
+				</div>
+			</div>
+		</Link>
+	);
+};
 
 export default TimelineSnippet;

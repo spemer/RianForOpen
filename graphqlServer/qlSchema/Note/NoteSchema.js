@@ -14,9 +14,23 @@ const Note = `
 		preImage: String
 		createdAt: String
 		updatedAt: String
+		isPublish: Boolean,
 		tags: [String]
 		preview: String
 		like: Int
+	}
+
+	type MyOneNote {
+		_id: ID!
+		userId: ID
+		title: String
+		data: String
+		preImage: String
+		createdAt: String
+		updatedAt: String
+		isPublish: Boolean,
+		tags: [String]
+		preview: String
 	}
 
 	type Success {

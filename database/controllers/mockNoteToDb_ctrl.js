@@ -27,6 +27,7 @@ const mockeNoteToDb = async (userId) => {
 				createdAt: Date.now(),
 				updatedAt: Date.now(),
 				isPublish: false,
+				isBooked: false,
 				tags: tagObjectIdList,
 			});
 			await newNote.save();

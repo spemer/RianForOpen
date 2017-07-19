@@ -16,3 +16,16 @@ export const getAllMyNotePreviewsByTags = gql`
 		}
 	}
 `;
+export const notePreviewUpdate = gql`
+    query notePreviewUpdateQuery($noteId: ID!) {
+            notePreviewUpdate(noteId: $noteId) {
+				_id
+				preImage
+				tags
+				title
+				preview
+				updatedAt
+				tags
+            }
+	}
+`;

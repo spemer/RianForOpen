@@ -1,19 +1,17 @@
 // @flow
 import {
-  AUTO_SAVE_COMPLETE,
-  AUTO_SAVE_REQUEST,
+  SAVE_COMPLETE,
+  SAVE_REQUEST,
+  MAKE_NEW_REQUEST,
+  MAKE_NEW_COMPLETE,
   THEME_SAVE_CLICK,
   THEME_SAVE_REQUEST,
   THEME_SAVE_COMPLETE,
-  CHANGE_NOTE_ID,
-  NOTE_SHOW_CHANGE,
-  CHANGE_NOTE_ID_AND_NOTE_SHOW_CHANGE,
 } from '../constants';
 
 type State = {
-  show: "GET" | "MAKE" | "HIDDEN",
-  noteId: string,
-  autosave: boolean,
+  save: boolean,
+  makeNew: boolean,
   themesave: "nothing" | "click" | "progress"
 };
 
@@ -66,9 +64,8 @@ type State = {
 //   | ChangeNoteIdAndchangeNoteShowAction;
 
 const NoteEditorState: State = {
-	show: 'HIDDEN',
-	noteId: '',
-	autosave: false,
+	save: false,
+	makeNew: false,
 	themesave: 'nothing',
 };
 
@@ -77,17 +74,21 @@ export default function NoteEditor(
   action: any,
 ): State {
 	switch (action.type) {
-	case AUTO_SAVE_REQUEST:
+	case SAVE_REQUEST:
 		return Object.assign({}, state, {
-			autosave: true,
+			save: true,
 		});
-	case AUTO_SAVE_COMPLETE:
+	case SAVE_COMPLETE:
 		return Object.assign({}, state, {
-			autosave: false,
+			save: false,
 		});
-	case CHANGE_NOTE_ID:
+	case MAKE_NEW_REQUEST:
 		return Object.assign({}, state, {
-			noteId: action.noteId,
+			makeNew: true,
+		});
+	case MAKE_NEW_COMPLETE:
+		return Object.assign({}, state, {
+			makeNew: false,
 		});
 	case THEME_SAVE_CLICK:
 		return Object.assign({}, state, {
@@ -100,15 +101,6 @@ export default function NoteEditor(
 	case THEME_SAVE_COMPLETE:
 		return Object.assign({}, state, {
 			themesave: 'nothing',
-		});
-	case NOTE_SHOW_CHANGE:
-		return Object.assign({}, state, {
-			show: action.show,
-		});
-	case CHANGE_NOTE_ID_AND_NOTE_SHOW_CHANGE:
-		return Object.assign({}, state, {
-			noteId: action.noteId,
-			show: action.show,
 		});
 	default:
 		return state;

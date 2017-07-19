@@ -71,7 +71,8 @@ type Store = {
 type Props = {
 	userId: string,
 	full: boolean,
-	location: Location,
+	location: any,
+	history: any,
 	userName: string,
 };
 
@@ -83,10 +84,10 @@ function mapToState({ User: { userId, userName }, App: { full } }: Store) {
 	};
 }
 
-function MainComponent({ userId, userName, full, location: { pathname } }: Props) {
-	// if (!userName && process.env.NODE_ENV === 'production') {
-	// 	return <Redirect to="/firstLogin" />;
-	// }
+function MainComponent({ userId, userName, full, location: { pathname }, history }: Props) {
+	if (userName && process.env.NODE_ENV === 'production') {
+		return <Redirect to="/firstLogin" />;
+	}
 	if (process.env.NODE_ENV !== 'development') {
 		if (!userId) {
 			return <Redirect to="/login" />;
@@ -98,15 +99,13 @@ function MainComponent({ userId, userName, full, location: { pathname } }: Props
 	}
 	return (
 		<div id={css.mainComponent}>
-			<Head pathname={pathname} />
+			<Head pathname={pathname} history={history} />
 			<div className={css.mainContainer} style={{ marginTop: !full ? '48px' : '0px' }}>
 				<div className={css.note} >
 					<TagListBar />
-					{pathname.slice(0, 5) === '/list' && <NoteTimelineBar />}
-					<Switch>
-						<Route path="/card/:noteId" component={NoteCardView} />
-						<Route path="/list/:noteId" component={RianListEditor} />
-					</Switch>
+					<Route path="/card/:noteId" component={NoteCardView} />
+					<Route path="/list/:noteId" component={NoteTimelineBar} />
+					<Route path="/list/:noteId" component={RianListEditor} />
 				</div>
 			</div>
 		</div>

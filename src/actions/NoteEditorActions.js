@@ -1,7 +1,9 @@
 // @flow
 import {
-  AUTO_SAVE_REQUEST,
-  AUTO_SAVE_COMPLETE,
+  SAVE_REQUEST,
+  SAVE_COMPLETE,
+  MAKE_NEW_REQUEST,
+  MAKE_NEW_COMPLETE,
   THEME_SAVE_CLICK,
   THEME_SAVE_REQUEST,
   THEME_SAVE_COMPLETE,
@@ -10,13 +12,21 @@ import {
   CHANGE_NOTE_ID_AND_NOTE_SHOW_CHANGE,
 } from '../constants';
 
-type AutoSaveRequestAction = {
-	type: AUTO_SAVE_REQUEST,
+type saveRequestAction = {
+	type: SAVE_REQUEST,
 	method: any
 }
 
-type AutoSaveCompleteAction = {
-	type: AUTO_SAVE_COMPLETE,
+type saveCompleteAction = {
+	type: SAVE_COMPLETE,
+}
+
+type makeNewRuquestAction = {
+	type: MAKE_NEW_REQUEST,
+}
+
+type makeNewCompleteAction = {
+	type: MAKE_NEW_COMPLETE,
 }
 
 type ThemeSaveClickAction = {
@@ -49,16 +59,28 @@ type ChangeNoteIdAndchangeNoteShowAction = {
 }
 
 
-export function autoSaveRequest(method: any): AutoSaveRequestAction {
+export function saveRequest(method: any): saveRequestAction {
 	return {
-		type: AUTO_SAVE_REQUEST,
+		type: SAVE_REQUEST,
 		method,
 	};
 }
 
-export function autoSaveComplete(): AutoSaveCompleteAction {
+export function saveComplete(): saveCompleteAction {
 	return {
-		type: AUTO_SAVE_COMPLETE,
+		type: SAVE_COMPLETE,
+	};
+}
+
+export function makeNewRequest(): makeNewRuquestAction {
+	return {
+		type: MAKE_NEW_REQUEST,
+	};
+}
+
+export function makeNewComplete(): makeNewCompleteAction {
+	return {
+		type: MAKE_NEW_COMPLETE,
 	};
 }
 

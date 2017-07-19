@@ -93,3 +93,4 @@ declare module 'react-apollo/lib/shallowEqual.js' {
 declare module 'react-apollo/lib/test-utils.js' {
   declare module.exports: $Exports<'react-apollo/lib/test-utils'>;
 }
+

@@ -103,6 +103,8 @@ import koaBody from 'koa-bodyparser';
 import { createServer } from 'http';
 // ----------------------
 
+import noteSaveCtrl from '../../database/controllers/noteSave_ctrl';
+
 import cors from 'koa-cors';
 
 // Read in manifest files
@@ -130,6 +132,10 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 
   // Set up routes
 	const router = new KoaRouter()
+		.post('/api/savenote', async (ctx) => { 
+				const result = await noteSaveCtrl(ctx.state.user._id, ctx.request.body.data, ctx);
+				ctx.body = result;
+		})
     .post('/api/graphql', graphqlKoa(ctx => ({
 	schema,
 	context: { userId: ctx.state.user },

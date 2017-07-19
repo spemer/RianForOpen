@@ -7,7 +7,8 @@ const RootQuery = `
   type Query {
      getTagsByCondition(condition: String userId: ID): TagList
      getAllMyNotePreviewsByTags(tags: [String] userId: ID): NoteHead
-     getSelectedMyNoteData(noteId: ID!): Note
+     notePreviewUpdate(noteId: ID!): Note
+     getSelectedMyNoteData(noteId: ID!): MyOneNote
      getNoteList(userId: ID tags: [String] after: String limit: Int sortby: String): NoteHead
   }
 `;
@@ -15,7 +16,7 @@ const RootQuery = `
 const RootMutation = `
   type Mutation {
     makeNote: MakeNoteSuccess
-    autoSave(noteId: ID! title: String tags:[String] data: String isPublish: Boolean preImage: String): Success
+    noteSave(noteId: ID! title: String tags:[String] data: String isBooked: Boolean isPublish: Boolean preImage: String): Success
     saveTheme(tags: [String] themedata: String): Success
   }
 `;

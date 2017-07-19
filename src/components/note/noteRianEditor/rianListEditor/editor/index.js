@@ -1,48 +1,129 @@
 // @flow
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+// froala
 // import 'FroalaEditor/froala_editor_sources_2.6.2/js/froala_editor.pkgd.js';
+import FroalaEditor from 'react-froala-wysiwyg';
 import 'froala-editor/js/froala_editor.min';
 import 'froala-editor/js/plugins/image.min';
 import 'froala-editor/js/plugins/quote.min';
 import 'froala-editor/js/plugins/align.min';
+import 'froala-editor/js/plugins/file.min';
 import 'froala-editor/js/plugins/paragraph_format.min';
 import 'froala-editor/js/plugins/code_view.min';
 import 'froala-editor/js/plugins/lists.min';
-import FroalaEditor from 'react-froala-wysiwyg';
 import editorConfig from './editorConfig';
+import { changeTimelineLeftBar } from '../../../../../actions/AppActions';
+import { saveRequest } from '../../../../../actions/NoteEditorActions';
+import { notePreviewUpdate } from '../../../../../graphqls/TimelineGraphQl';
+import SideHead from './sideHead';
+// css
 import parentCss from '../rianListEditor.css';
+import editorHeadCss from './style/editorHead.css';
+import './style/rianList.global.css';
+import './style/editor.global.css';
+import './style/reactTag.global.css';
 import '../../fontawesome.global.css';
-import './rianList.global.css';
-import './editor.global.css';
+
+type Store = {
+  App: {
+    full: boolean,
+    timelineLeftBar: boolean
+  }
+};
+
+function mapToState({ App: { full, timelineLeftBar } }: Store) {
+	return {
+		full,
+		timelineLeftBar,
+	};
+}
+
+function mapToDispatch(dispatch) {
+	return {
+		changeTimelineLeftBarDispatch() {
+			dispatch(changeTimelineLeftBar());
+		},
+		saveRequestDispatch(method: Function) {
+			dispatch(saveRequest(method));
+		},
+	};
+}
 
 type DefaultProps = {
-	data: null,
-	loading: null,
+  full: boolean,
+  timelineLeftBar: null,
+  changeTimelineLeftBarDispatch: null,
+  saveRequestDispatch: Function,
+  noteId: ?string,
+  saveMutate: Function,
+  title: string,
+  data: string,
+  isPublish: null,
+  full: boolean,
+  timelineLeftBar: boolean,
+  saveRequestDispatch: Function,
+  changeTimelineLeftBarDispatch: Function
 };
 
 type Props = {
-	data: string,
-	loading: boolean,
+  noteId: ?string,
+  saveMutate: Function,
+  title: ?string,
+  data: ?string,
+  isPublish: ?boolean,
+  full: boolean,
+  timelineLeftBar: boolean,
+  saveRequestDispatch: Function,
+  changeTimelineLeftBarDispatch: Function
+};
+
+type SaveFormat = {
+  noteId: ?string,
+  title: ?string,
+  tags: ?Array<string>,
+  data: ?string,
+  preImage: ?string,
+  isPublish: ?boolean
 };
 
 type State = {
-  content: string
+  noteId: ?string,
+  data: ?string,
+  tags: ?Array<string>,
+  title: ?string,
+  isPublish: ?boolean
 };
 
-class MainEditor extends Component<DefaultProps, Props, State> {
+@connect(mapToState, mapToDispatch)
+class EditorBox extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		data: null,
-		loading: null,
+		noteId: null,
+		saveMutate: () => {},
+		data: '',
+		full: false,
+		title: '',
+		isPublish: null,
+		timelineLeftBar: true,
+		saveRequestDispatch: () => {},
+		changeTimelineLeftBarDispatch: () => {},
 	};
 
 	constructor(props: Props) {
 		super(props);
+		this.saveObservable = this.saveObservable.bind(this);
 		this.handleModelChange = this.handleModelChange.bind(this);
 		this.handleController = this.handleController.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 	}
 
 	state = {
-		content: this.props.data && !this.props.loading ? this.props.data : '<h1>"로딩중"</h1>',
+		loading: null,
+		noteId: null,
+		tags: [],
+		title: '',
+		data: '',
+		isPublish: null,
 	};
 
 	componentDidMount() {
@@ -66,7 +147,10 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 				tag = 'N';
 			}
 
-			return tag.toLowerCase() == cmd;
+			if (tag && tag.toLowerCase) {
+				return tag.toLowerCase() == cmd;
+			}
+			return null;
 		}
 
     // Define custom buttons.//////
@@ -176,46 +260,192 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 			'letter-spacing': '-0.4px',
 			color: '#515861',
 		});
+    // if (process.env.NODE_ENV === 'production') {
+    // 	this.Interval = setInterval(() => {
+    // 		// if compoennent has noteId, it will be saved
+    // 		console.log('setInterval');
+    // 		this.saveObservable();
+    // 	}, 8000);
+    // }
+		const { title, data, isPublish, noteId } = this.props;
+		setTimeout(() => {
+			this.setState({
+				noteId,
+				title,
+				data,
+				isPublish,
+			});
+		}, 0);
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
-		console.log('editor get new Props', nextProps);
+		console.log('editior get new Props', this.props, nextProps);
 		if (process.env.NODE_ENV === 'production') {
-			const { loading, data } = nextProps;
-			if (!loading) {
-				this.setState({
-					content: data,
-				});
-			}
+			const {
+        noteId,
+        data,
+        isPublish,
+        title,
+        full,
+        timelineLeftBar,
+      } = nextProps;
+
+			if (this.props.full !== full) return;
+			if (this.props.timelineLeftBar !== timelineLeftBar) return;
+			this.setState({
+				noteId,
+				title,
+				data,
+				isPublish,
+			});
+
+      // change noteID and loading = true
+      // if (this.props.noteId !== noteId && loading) {
+      // 	console.log('this.props.noteId !== noteId && loading', this.props.noteId, noteId);
+      // 	this.setState({
+      // 		loading,
+      // 		noteId,
+      // 		data: '로딩중',
+      // 		title: '로딩중',
+      // 		isBooked: null,
+      // 		isPublish: null,
+      // 	});
+      // }
+      // // newnote infor arrived = loading = false
+      // if (this.state.noteId === noteId && this.state.loading && !loading) {
+      // 	console.log('this.state.noteId === noteId && this.state.loading', this.props.noteId, noteId);
+      // 	this.setState({
+      // 		loading,
+      // 		noteId,
+      // 		data,
+      // 		title,
+      // 		isPublish,
+      // 	});
+      // }
+      // // i dont want to you
+      // if (this.state.noteId === noteId && !this.state.loading) {
+      // 	console.log('this.state.noteId === noteId && !this.state.loading');
+      // }
 		}
 	}
-
+	saveObservable: Function;
 	handleModelChange: Function;
 	handleController: Function;
+	handleChange: Function;
 	initControls: any;
+	Interval: any;
+
+	saveObservable() {
+		const { noteId, saveMutate } = this.props;
+		const { title, data, isPublish, tags } = this.state;
+		let preImage = '';
+		if (
+      document
+        .getElementsByClassName('fr-element fr-view')[0]
+        .getElementsByTagName('img').length > 0
+    ) {
+			preImage = document
+        .getElementsByClassName('fr-element fr-view')[0]
+        .getElementsByTagName('img')[0].src;
+		}
+		const variables: SaveFormat = {
+			noteId,
+			title,
+			data,
+			tags,
+			isPublish,
+			preImage,
+		};
+		console.log(variables);
+		return saveMutate({
+			variables,
+			refetchQueries: [
+				{
+					query: notePreviewUpdate,
+					variables: { noteId },
+				},
+			],
+		});
+	}
 
 	handleModelChange(model: string) {
-		this.setState(() => ({ content: model }));
+		this.setState(() => ({ data: model }));
 	}
 
 	handleController(initControls: any) {
 		this.initControls = initControls;
 	}
 
+	handleChange({ target: { value } }: any) {
+		this.setState({
+			title: value,
+		});
+	}
+
 	render() {
+		const {
+			timelineLeftBar,
+			full,
+			saveRequestDispatch,
+			changeTimelineLeftBarDispatch,
+		} = this.props;
 		const config = editorConfig;
 		return (
-			<div className={parentCss.mainEditor}>
-				<FroalaEditor
-					tag="div"
-					model={this.state.content}
-					config={config}
-					onModelChange={this.handleModelChange}
-					onManualControllerReady={this.handleController}
-				/>
+			<div
+				className={parentCss.container}
+				style={{ paddingTop: !full ? '0px' : '40px' }}
+			>
+				<div className={parentCss.editorBox}>
+					{!full &&
+					<SideHead
+						timelineLeftBar={timelineLeftBar}
+						changeTimelineLeftBarDispatch={changeTimelineLeftBarDispatch}
+						saveObservable={this.saveObservable}
+						saveRequestDispatch={saveRequestDispatch}
+					/>}
+					<div className={parentCss.editorHead}>
+						<div className={editorHeadCss.container}>
+							<div
+								className={editorHeadCss.tagBox}
+								style={{
+									height: !full ? '40px' : '0px',
+									marginTop: !full ? '0px' : '40px',
+								}}
+							>
+								<div className={editorHeadCss.gutter}>
+									{/* <p className={css.gutterName}>#</p> */}
+								</div>
+								<div className={editorHeadCss.tagContainer} />
+							</div>
+							<div className={editorHeadCss.titleHead}>
+								<div className={editorHeadCss.gutter}>
+									<p className={editorHeadCss.gutterName}>Title</p>
+								</div>
+								<input
+									className={editorHeadCss.title}
+									placeholder=""
+									value={this.state.title}
+									onChange={this.handleChange}
+								/>
+							</div>
+							<div className={editorHeadCss.borderBox}>
+								<div className={editorHeadCss.borderLine} />
+							</div>
+						</div>
+					</div>
+					<div className={parentCss.mainEditor}>
+						<FroalaEditor
+							tag="div"
+							model={this.state.data}
+							config={config}
+							onModelChange={this.handleModelChange}
+							onManualControllerReady={this.handleController}
+						/>
+					</div>
+				</div>
 			</div>
 		);
 	}
 }
 
-export default MainEditor;
+export default EditorBox;

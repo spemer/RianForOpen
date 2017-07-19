@@ -2,25 +2,13 @@ import Note from '../models/note_model';
 
 const getSelectedMyNoteDataCtrl = async (userId, noteId) => {
 	let result;
-	if (!noteId) {
-		result = {
-			_id: '',
-			title: '',
-			tags: [],
-			data: '',
-			isPublish: false,
-			isBooked: false,
-			createdAt: Date.now(),
-			updatedAt: Date.now(),
-			like: null,
-		};
-	}
+	if (!noteId) throw 'error'
 	try {
 		const OneNote = await Note.findOne({ _id: noteId })
             .populate({ path: 'tags', select: 'name' })
             .lean()
             .select(
-                '_id title tags data isPublish isBooked createdAt updatedAt like',
+                '_id title tags isPublish preview updatedAt preImage',
             );
 		OneNote.tags = OneNote.tags.map(tag => tag.name);
 		result = OneNote;
@@ -32,10 +20,7 @@ const getSelectedMyNoteDataCtrl = async (userId, noteId) => {
 			tags: [],
 			data: '',
 			isPublish: false,
-			isBooked: false,
-			createdAt: Date.now(),
 			updatedAt: Date.now(),
-			like: null,
 		};
 	}
 	return result;
