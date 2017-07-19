@@ -1,38 +1,59 @@
 // @flow
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+// froala
 // import 'FroalaEditor/froala_editor_sources_2.6.2/js/froala_editor.pkgd.js';
 import FroalaEditor from 'react-froala-wysiwyg';
 import 'froala-editor/js/froala_editor.min';
 import 'froala-editor/js/plugins/image.min';
 import 'froala-editor/js/plugins/quote.min';
 import 'froala-editor/js/plugins/align.min';
+import 'froala-editor/js/plugins/file.min';
 import 'froala-editor/js/plugins/paragraph_format.min';
 import 'froala-editor/js/plugins/code_view.min';
 import 'froala-editor/js/plugins/lists.min';
-import parentCss from '../rianModalEditor.css';
 import editorConfig from './editorConfig';
+// css
+import parentCss from '../rianModalEditor.css';
+import sideHeadCss from './style/sidehead.css';
+import editorHeadCss from './style/editorHead.css';
+import './style/rianModal.global.css';
+import './style/editor.global.css';
+import './style/reactTag.global.css';
 import '../../fontawesome.global.css';
-import './rianModal.global.css';
-import './editor.global.css';
 
 type DefaultProps = {
 	data: null,
 	loading: null,
+	title: null,
+	changeModalState: Function,
 };
 
 type Props = {
 	data: ?string,
 	loading: ?boolean,
+	title: ?string,
+	changeModalState: Function,
 };
+
+type tagType = {
+	id: number,
+	text: string
+};
+
 
 type State = {
-  content: ?string
+	titleValue: ?string,
+	tags: Array<tagType>,
+	content: ?string
 };
 
-class MainEditor extends Component<DefaultProps, Props, State> {
+class EditorBox extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		data: null,
 		loading: null,
+		title: null,
+		changeModalState: () => {},
 	};
 
 
@@ -40,9 +61,14 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 		super(props);
 		this.handleModelChange = this.handleModelChange.bind(this);
 		this.handleController = this.handleController.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
+		this.handleAddition = this.handleAddition.bind(this);
 	}
 
 	state = {
+		tags: [{ id: 1, text: '#명상' }, { id: 2, text: '#자기계발' }],
+		titleValue: this.props.title && !this.props.loading ? this.props.title : '로딩중',
 		content: this.props.data && !this.props.loading ? this.props.data : '<h1>"로딩중"</h1>',
 	};
 
@@ -183,12 +209,13 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
-		// console.log('editor get new Props', nextProps);
+		console.log('editor get new Props', nextProps);
 		if (process.env.NODE_ENV === 'production') {
-			const { loading, data } = nextProps;
-			if (!loading) {
+			const { loading, data, title } = nextProps;
+			if (this.props.loading && !loading) {
 				this.setState({
 					content: data,
+					titleValue: title,
 				});
 			}
 		}
@@ -196,6 +223,9 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 
 	handleModelChange: Function;
 	handleController: Function;
+	handleChange: Function;
+	handleDelete: Function;
+	handleAddition: Function;
 	initControls: any;
 
 	handleModelChange(model: string) {
@@ -206,20 +236,99 @@ class MainEditor extends Component<DefaultProps, Props, State> {
 		this.initControls = initControls;
 	}
 
+	handleChange({ target: { value } }: any) {
+		this.setState({
+			titleValue: value,
+		});
+	}
+
+	handleDelete(i: number) {
+		const tags = this.state.tags;
+		tags.splice(i, 1);
+		this.setState({ tags });
+	}
+
+	handleAddition(tag: string) {
+		const tags = this.state.tags;
+		tags.push({
+			id: tags.length + 1,
+			text: `#${tag.replace(/ /gi, '')}`,
+		});
+		this.setState({ tags });
+	}
+
 	render() {
+		const { changeModalState } = this.props;
 		const config = editorConfig;
 		return (
-			<div className={parentCss.mainEditor}>
-				<FroalaEditor
-					tag="div"
-					model={this.state.content}
-					config={config}
-					onModelChange={this.handleModelChange}
-					onManualControllerReady={this.handleController}
-				/>
+			<div className={parentCss.editorBox}>
+				<div className={parentCss.sideHead}>
+					<Link to={'/card/main'} >
+						<svg
+							version="1.1"
+							width="20px"
+							height="20px"
+							opacity="0.38"
+							viewBox="0 0 24 24"
+							enableBackground="new 0 0 24 24"
+							className={sideHeadCss.close}
+							onClick={() => {
+								changeModalState(false);
+							}}
+						>
+							<path d="M16.5,8.4l-0.9-0.9L12,11.1L8.4,7.5L7.5,8.4l3.6,3.6l-3.6,3.6l0.9,0.9l3.6-3.6l3.6,3.6l0.9-0.9L12.9,12L16.5,8.4z" />
+						</svg>
+					</Link>
+					<div className={sideHeadCss.save}><p className={sideHeadCss.name}>저장</p></div>
+					<svg
+						viewBox="0 0 24 24"
+						opacity="0.38"
+						width="13px"
+						height="20px"
+						className={sideHeadCss.trash}
+					>
+						<path
+							fill="none"
+							stroke="#000"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeMiterlimit="10"
+							strokeWidth="1.5"
+							d="M4.4 20.8c0 1.2 1 2.2 2.2 2.2h10.8c1.2 0 2.2-1 2.2-2.2V7.6H4.4v13.2zM19.6 2.1h-3.8L14.7 1H9.3L8.2 2.1H4.4v3.3h15.2zM12 10.4v9.9M15.3 10.4v9.9M8.7 10.4v9.9"
+						/>
+					</svg>
+				</div>
+				<div className={parentCss.editorHead}>
+					<div className={editorHeadCss.container}>
+						<div className={editorHeadCss.tagBox} style={{ height: '40px', marginTop: '0px' }}>
+							<div className={editorHeadCss.gutter}>
+								{/* <p className={css.gutterName}>#</p> */}
+							</div>
+							<div className={editorHeadCss.tagContainer} />
+						</div>
+						<div className={editorHeadCss.titleHead}>
+							<div className={editorHeadCss.gutter}>
+								<p className={editorHeadCss.gutterName}>Title</p>
+							</div>
+							<input className={editorHeadCss.title} placeholder="" value={this.state.titleValue} onChange={this.handleChange} />
+						</div>
+						<div className={editorHeadCss.borderBox}>
+							<div className={editorHeadCss.borderLine} />
+						</div>
+					</div>
+				</div>
+				<div className={parentCss.mainEditor}>
+					<FroalaEditor
+						tag="div"
+						model={this.state.content}
+						config={config}
+						onModelChange={this.handleModelChange}
+						onManualControllerReady={this.handleController}
+					/>
+				</div>
 			</div>
 		);
 	}
 }
 
-export default MainEditor;
+export default EditorBox;

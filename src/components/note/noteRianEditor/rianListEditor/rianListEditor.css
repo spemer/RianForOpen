@@ -4,21 +4,27 @@
     height: 100%;
     margin-top: 1px;
     overflow: auto;
-    & .sideHead {
+    & .editorBox {
         width: 100%;
-        height: 40px;
-        position: relative;
-    }
-    & .editorHead {
-        display: flex;
-        justify-content: center;
-        height: 120px;
-        width: 100%;
-    }
-    & .mainEditor {
-        width: 100%;
-        display: flex;
-        justify-content: center;
+        height: 100%;
+        & .sideHead {
+            width: 100%;
+            height: 40px;
+            position: relative;
+        }
+        & .editorHead {
+            display: flex;
+            justify-content: center;
+            height: 120px;
+            width: 100%;
+        }
+        & .mainEditor {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 100px;
+            box-sizing: border-box;
+        }
     }
 }
 

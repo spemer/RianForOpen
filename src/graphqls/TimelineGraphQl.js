@@ -1,7 +1,5 @@
 import gql from 'graphql-tag';
 
-export const basic = {};
-
 export const getAllMyNotePreviewsByTags = gql`
 	query getAllMyNotePreviewsByTagsQuery($tags: [String] $userId: ID){
 		getAllMyNotePreviewsByTags(tags: $tags userId: $userId){
@@ -16,5 +14,18 @@ export const getAllMyNotePreviewsByTags = gql`
 				tags
 			}
 		}
+	}
+`;
+export const notePreviewUpdate = gql`
+    query notePreviewUpdateQuery($noteId: ID!) {
+            notePreviewUpdate(noteId: $noteId) {
+				_id
+				preImage
+				tags
+				title
+				preview
+				updatedAt
+				tags
+            }
 	}
 `;

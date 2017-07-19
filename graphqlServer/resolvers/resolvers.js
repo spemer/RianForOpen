@@ -3,9 +3,10 @@ import makeNoteCtrl from 'database/controllers/makeNote_ctrl';
 import getTagsByConditionCtrl
   from 'database/controllers/getTagsByCondition_ctrl';
 import getAllMyNotePreviewsByTagsCtrl
-  from 'database/controllers/getAllMyNotePreviewsByTags_ctrl';
+	from 'database/controllers/getAllMyNotePreviewsByTags_ctrl';
+import getOneNotePreviewCtrl from '../../database/controllers/getOneNotePreview_ctrl';
 import getSelectedMyNoteDataCtrl from 'database/controllers/getSelectedMyNoteData_ctrl';
-import autoSaveCtrl from 'database/controllers/autoSave_ctrl';
+import noteSaveCtrl from 'database/controllers/noteSave_ctrl';
 
 export const resolvers = {
 	Query: {
@@ -19,6 +20,11 @@ export const resolvers = {
 			return {
 				tags: args.tags,
 			};
+		},
+
+		notePreviewUpdate(obj, args, context) {
+			const userId = context.userId ? context.userId._id : '';
+			return getOneNotePreviewCtrl(userId, args.noteId);
 		},
 
 		getSelectedMyNoteData(obj, args, context) {
@@ -64,9 +70,9 @@ export const resolvers = {
 		makeNote(obj, args, context) {
 			return makeNoteCtrl(context.userId._id);
 		},
-		autoSave(obj, args, context) {
-      // console.log('autoSAve!!!!!!!', args);
-			return autoSaveCtrl(context.userId._id, args);
+		noteSave(obj, args, context) {
+      // console.log('noteSave!!!!!!!', args);
+			return noteSaveCtrl(context.userId._id, args);
 		},
 		saveTheme(obj, args, context) {
 			return {

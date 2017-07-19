@@ -2,30 +2,44 @@
 import React, { Component } from 'react';
 import screenfull from 'screenfull';
 import { connect } from 'react-redux';
+import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import profileImageMock from '../../../static/image/thumb-ex-img.png';
 import SearchBox from './searchBox';
 import { fullScreenChange, changeLeftBar } from '../../actions/AppActions';
+import { makeNewRequest, makeNewComplete } from '../../actions/NoteEditorActions';
+import { makeNote } from '../../graphqls/NoteEditorGraphQl';
+import { getAllMyNotePreviewsByTags } from '../../graphqls/TimelineGraphQl';
 import parentCss from '../app/app.css';
 import css from './head.css';
 import icFullScreenIcon from '../../../static/icons/ic_fullScreen.svg';
 
 type DefaultProps = {
-  changeFullScreenApp: Function,
-  changeLeftBarDispatch: Function,
-  full: boolean,
-  themeColor: string,
-  pathname: string,
-  leftBar: boolean,
+	changeFullScreenApp: Function,
+	changeLeftBarDispatch: Function,
+	makeNewRequestDispatch: Function,
+	makeNewCompleteDispatch: Function,
+	makeNote: Function,
+	full: boolean,
+	themeColor: string,
+	pathname: string,
+	history: any,
+	leftBar: boolean,
+	renderTags: Array<string>
 };
 
 type Props = {
   changeFullScreenApp: Function,
   changeLeftBarDispatch: Function,
+  makeNewRequestDispatch: Function,
+  makeNewCompleteDispatch: Function,
+  makeNote: Function,
   full: boolean,
   themeColor: string,
   pathname: string,
+  history: any,
   leftBar: boolean,
+  renderTags: Array<string>
 };
 
 type State = {
@@ -34,11 +48,12 @@ type State = {
   trashOnOff: boolean
 };
 
-function mapToState({ App: { full, themeColor, leftBar } }) {
+function mapToState({ App: { full, themeColor, leftBar, renderTags } }) {
 	return {
 		full,
 		themeColor,
 		leftBar,
+		renderTags,
 	};
 }
 
@@ -50,8 +65,21 @@ function mapToDispatch(dispatch) {
 		changeLeftBarDispatch() {
 			dispatch(changeLeftBar());
 		},
+		makeNewRequestDispatch() {
+			dispatch(makeNewRequest());
+		},
+		makeNewCompleteDispatch() {
+			dispatch(makeNewComplete());
+		},
 	};
 }
+
+const makeNoteMutation = graphql(makeNote, {
+	options: () => ({
+		ssr: false,
+	}),
+	name: 'makeNote',
+});
 
 function fullScreen() {
 	if (screenfull.enabled) {
@@ -62,15 +90,21 @@ function fullScreen() {
 }
 
 @connect(mapToState, mapToDispatch)
+@compose(makeNoteMutation)
 class Head extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		changeFullScreenApp: () => {},
 		changeLeftBarDispatch: () => {},
+		makeNewRequestDispatch: () => {},
+		makeNewCompleteDispatch: () => {},
+		makeNote: () => {},
 		full: false,
 		string: '',
 		pathname: '/card',
+		history: {},
 		themeColor: '',
 		leftBar: true,
+		renderTags: [],
 	};
 
 	constructor(props: Props) {
@@ -79,6 +113,7 @@ class Head extends Component<DefaultProps, Props, State> {
 		this.changeSocialState = this.changeSocialState.bind(this);
 		this.changeTagState = this.changeTagState.bind(this);
 		this.changeTrashState = this.changeTrashState.bind(this);
+		this.fireMutation = this.fireMutation.bind(this);
 	}
 
 	state = {
@@ -101,6 +136,7 @@ class Head extends Component<DefaultProps, Props, State> {
 	changeSocialState: Function;
 	changeTagState: Function;
 	changeTrashState: Function;
+	fireMutation: Function;
 
 	changeSearchMode() {
 		this.setState(prevState => ({
@@ -124,6 +160,46 @@ class Head extends Component<DefaultProps, Props, State> {
 		}));
 	}
 
+	async fireMutation() {
+		const {
+			pathname,
+			history,
+			makeNewRequestDispatch,
+			makeNewCompleteDispatch,
+			renderTags,
+		} = this.props;
+		if (pathname.slice(0, 5) === '/card') {
+			history.push('/card/newNote');
+			makeNewRequestDispatch();
+			if (process.env.NODE_ENV === 'production') {
+				const makeNoteResult = await this.props.makeNote({
+					refetchQueries: [{
+						query: getAllMyNotePreviewsByTags,
+						variables: { tags: renderTags, userId: null },
+					}],
+				});
+				const { data } = makeNoteResult;
+				history.push(`/card/${data.makeNote.noteId}`);
+				makeNewCompleteDispatch();
+			}
+		}
+		if (pathname.slice(0, 5) === '/list') {
+			history.push('/list/newNote');
+			makeNewRequestDispatch();
+			if (process.env.NODE_ENV === 'production') {
+				const makeNoteResult = await this.props.makeNote({
+					refetchQueries: [{
+						query: getAllMyNotePreviewsByTags,
+						variables: { tags: renderTags, userId: null },
+					}],
+				});
+				const { data } = makeNoteResult;
+				history.push(`/list/${data.makeNote.noteId}`);
+				makeNewCompleteDispatch();
+			}
+		}
+	}
+
 	render() {
 		const { modeIsTag, socialOnOff, trashOnOff } = this.state;
 		const { full, themeColor, pathname, leftBar } = this.props;
@@ -138,24 +214,26 @@ class Head extends Component<DefaultProps, Props, State> {
 						modeIsTag={modeIsTag}
 						changeSearchMode={this.changeSearchMode}
 					/>
-					<svg
-						version="1.1"
-						id="Capa_1"
-						viewBox="0 0 24 24"
-						enableBackground="new 0 0 24 24"
-						role="button"
-						className={css.addNoteIcon}
-						fill={themeColor}
-					>
-						<path d="M8.7,12.4l-1,3c-0.1,0.3,0,0.6,0.2,0.7c0.1,0.1,0.3,0.2,0.5,0.2c0.1,0,0.2,0,0.2,0l3-1c0.1,0,0.2-0.1,0.3-0.2l6.8-6.8
-	c0.6-0.6,0.6-1.6,0-2.2l-0.9-0.9c-0.6-0.6-1.6-0.6-2.2,0l-6.8,6.8C8.8,12.2,8.8,12.3,8.7,12.4z M16.3,8.6l-1-1l1.4-1.4
-	c0,0,0,0,0.1,0l0.9,0.9c0,0,0,0.1,0,0.1L16.3,8.6z M14.4,8.7l1,1L11,13.9l-1.4,0.5l0.5-1.4L14.4,8.7z"
-						/>
-						<path d="M19.2,10.3c-0.4,0-0.8,0.4-0.8,0.8v6.9c0,0.2-0.2,0.4-0.4,0.4H6.1c-0.2,0-0.4-0.2-0.4-0.4V6.1c0-0.2,0.2-0.4,0.4-0.4h6.9
-	c0.4,0,0.8-0.4,0.8-0.8S13.4,4,12.9,4H6.1C4.9,4,4,4.9,4,6.1v11.9C4,19.1,4.9,20,6.1,20h11.9c1.1,0,2.1-0.9,2.1-2.1v-6.9
-	C20,10.6,19.6,10.3,19.2,10.3z"
-						/>
-					</svg>
+					<div className={css.addNoteIconBox} onClick={this.fireMutation} role="button" tabIndex="-6">
+						<svg
+							version="1.1"
+							id="Capa_1"
+							viewBox="0 0 24 24"
+							enableBackground="new 0 0 24 24"
+							role="button"
+							className={css.addNoteIcon}
+							fill={themeColor}
+						>
+							<path d="M8.7,12.4l-1,3c-0.1,0.3,0,0.6,0.2,0.7c0.1,0.1,0.3,0.2,0.5,0.2c0.1,0,0.2,0,0.2,0l3-1c0.1,0,0.2-0.1,0.3-0.2l6.8-6.8
+									c0.6-0.6,0.6-1.6,0-2.2l-0.9-0.9c-0.6-0.6-1.6-0.6-2.2,0l-6.8,6.8C8.8,12.2,8.8,12.3,8.7,12.4z M16.3,8.6l-1-1l1.4-1.4
+									c0,0,0,0,0.1,0l0.9,0.9c0,0,0,0.1,0,0.1L16.3,8.6z M14.4,8.7l1,1L11,13.9l-1.4,0.5l0.5-1.4L14.4,8.7z"
+							/>
+							<path d="M19.2,10.3c-0.4,0-0.8,0.4-0.8,0.8v6.9c0,0.2-0.2,0.4-0.4,0.4H6.1c-0.2,0-0.4-0.2-0.4-0.4V6.1c0-0.2,0.2-0.4,0.4-0.4h6.9
+									c0.4,0,0.8-0.4,0.8-0.8S13.4,4,12.9,4H6.1C4.9,4,4,4.9,4,6.1v11.9C4,19.1,4.9,20,6.1,20h11.9c1.1,0,2.1-0.9,2.1-2.1v-6.9
+									C20,10.6,19.6,10.3,19.2,10.3z"
+							/>
+						</svg>
+					</div>
 					<div className={css.changeMode}>
 						<Link
 							className={css.cardButton}
@@ -190,8 +268,8 @@ class Head extends Component<DefaultProps, Props, State> {
 								opacity: leftBar ? '1' : '0.38',
 							}}
 						>
-              태그
-            </p>
+						태그
+						</p>
 					</div>
 					<div
 						className={css.social}
@@ -205,8 +283,8 @@ class Head extends Component<DefaultProps, Props, State> {
 								opacity: socialOnOff ? '1' : '0.38',
 							}}
 						>
-              소셜
-            </p>
+						소셜
+						</p>
 					</div>
 					<div
 						className={css.trash}
@@ -220,8 +298,8 @@ class Head extends Component<DefaultProps, Props, State> {
 								opacity: trashOnOff ? '1' : '0.38',
 							}}
 						>
-              휴지통
-            </p>
+						휴지통
+						</p>
 					</div>
 					<div
 						className={css.icon}

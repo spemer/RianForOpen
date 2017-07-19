@@ -25,34 +25,48 @@ const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
 });
 
 type Store = {
-  User: {
-    userId: string
-  },
-  App: {
-    full: boolean,
-    themeColor: string,
-	renderTags: Array<string>,
-	leftBar: boolean,
-	timelineLeftBar: boolean,
-  }
+	User: {
+		userId: string
+	},
+	App: {
+		full: boolean,
+		themeColor: string,
+		renderTags: Array<string>,
+		leftBar: boolean,
+		timelineLeftBar: boolean,
+	},
+	NoteEditor: {
+		save: boolean,
+		makeNew: boolean,
+	},
 };
 
 type DefaultProps = {
-  full: boolean,
-  themeColor: string,
-  renderTags: Array<string>,
-  noteData: null,
-  leftBar: boolean,
-  timelineLeftBar: boolean,
+	full: boolean,
+	themeColor: string,
+	renderTags: Array<string>,
+	noteData: null,
+	leftBar: boolean,
+	timelineLeftBar: boolean,
+	save: boolean,
+	makeNew: boolean,
+	match: any,
 };
 
 type Props = {
-  full: boolean,
-  themeColor: string,
-  renderTags: Array<string>,
-  noteData: any,
-  leftBar: boolean,
-  timelineLeftBar: boolean,
+	full: boolean,
+	themeColor: string,
+	renderTags: Array<string>,
+	noteData: any,
+	leftBar: boolean,
+	timelineLeftBar: boolean,
+	save: boolean,
+	makeNew: boolean,
+	match: {
+		params: {
+			noteId: string
+		}
+	},
 };
 
 type State = {
@@ -63,6 +77,7 @@ type State = {
 const mapToState = ({
   User: { userId },
   App: { full, themeColor, renderTags, leftBar, timelineLeftBar },
+  NoteEditor: { save, makeNew },
 }: Store) => ({
 	userId,
 	full,
@@ -70,6 +85,8 @@ const mapToState = ({
 	renderTags,
 	leftBar,
 	timelineLeftBar,
+	save,
+	makeNew,
 });
 
 @connect(mapToState)
@@ -83,6 +100,9 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		noteData: null,
 		leftBar: true,
 		timelineLeftBar: true,
+		makeNew: false,
+		save: false,
+		match: {},
 	};
 
 	constructor(props: Props) {
@@ -90,7 +110,6 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		this.currentSelected = '';
 		this.rowRenderer = this.rowRenderer.bind(this);
 		this.developmentRowRenderer = this.developmentRowRenderer.bind(this);
-		this.changeClickedBox = this.changeClickedBox.bind(this);
 		this.changeOnSortState = this.changeOnSortState.bind(this);
 	}
 
@@ -108,15 +127,27 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		}
 		if (process.env.NODE_ENV === 'production') {
 			if (this.props.renderTags !== nextProps.renderTags) {
+				console.log('refetch');
 				this.props.noteData.refetch({
 					tags: nextProps.renderTags,
 				});
 			}
+			// if (this.props.save && !nextProps.save) {
+			// 	console.log('refetch');
+			// 	this.props.noteData.refetch({
+			// 		tags: nextProps.renderTags,
+			// 	});
+			// }
+			// if (this.props.makeNew && nextProps.makeNew) {
+			// 	console.log('refetch');
+			// 	this.props.noteData.refetch({
+			// 		tags: nextProps.renderTags,
+			// 	});
+			// }
 		}
 	}
 
 	rowRenderer: Function;
-	changeClickedBox: Function;
 	changeOnSortState: Function;
 	developmentRowRenderer: Function;
 	currentSelected: any;
@@ -126,15 +157,22 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		const index = argu.index;
 		const style = argu.style;
 		const data = this.props.noteData.getAllMyNotePreviewsByTags.notes[index];
+		const noteId = this.props.match.params.noteId;
+		let selected = false;
+		if (`${data._id}` === noteId) {
+			selected = true;
+		}
+		// console.log(noteId === `${data._id}`, this.props, noteId, data._id);
 		return (
 			<TimelineSnippet
+				selected={selected}
 				key={data._id}
 				noteId={data._id}
 				title={data.title}
 				preview={data.preview}
 				updatedAt={moment(data.updatedAt).format('LL')}
 				style={style}
-				changeClickedBox={this.changeClickedBox}
+				themeColor={this.props.themeColor}
 			/>
 		);
 	}
@@ -143,8 +181,15 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		const index = argu.index;
 		const style = argu.style;
 		const data = Mock[index];
+		const noteId = this.props.match.params.noteId;
+		let selected = false;
+		if (`${data._id}` === noteId) {
+			selected = true;
+		}
+		// console.log(noteId === `${data._id}`, this.props, noteId, data._id);
 		return (
 			<TimelineSnippet
+				selected={selected}
 				key={data._id}
 				noteId={data._id}
 				title={data.title}
@@ -152,21 +197,9 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 				tags={[data.tag]}
 				updatedAt={moment(data.updatedAt).format('LL')}
 				style={style}
-				changeClickedBox={this.changeClickedBox}
+				themeColor={this.props.themeColor}
 			/>
 		);
-	}
-
-	changeClickedBox(e: any) {
-		if (this.currentSelected) {
-			this.currentSelected.style.backgroundColor = null;
-			this.currentSelected.style.paddingLeft = '23px';
-			this.currentSelected.style.borderLeft = null;
-		}
-		this.currentSelected = e.currentTarget;
-		this.currentSelected.style.backgroundColor = '#f4f4f4';
-		this.currentSelected.style.paddingLeft = '19px';
-		this.currentSelected.style.borderLeft = `4px solid ${this.props.themeColor}`;
 	}
 
 	changeClickedSortBox(e: any, sortName: string) {
@@ -202,16 +235,15 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 				style={{
 					x: spring(timelineLeftBar && !full ? 258 : 0),
 					y: spring(timelineLeftBar && !full ? 1 : 0),
-					z: spring(timelineLeftBar && !full ? '1px solid #dfdfdf' : 'none'),
 				}}
 			>
-				{({ x, y, z }) => (
+				{({ x, y }) => (
 					<div
 						className={css.container}
 						style={{
 							flex: `0 0 ${x}px`,
 							opacity: y,
-							borderRight: z,
+							borderRight: timelineLeftBar && !full ? '1px solid #dfdfdf' : 'none',
 						}}
 					>
 						<div className={css.head}>
@@ -267,77 +299,77 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 								</div>
 								{timelineLeftBar && onSortList &&
 								<div className={!leftBar ? css.selectList : css.selectListWithLeftBar}>
-	<div className={css.menuTitle}>
-		<p>태그분류</p>
-	</div>
-	<div className={css.selectBox}>
-		<div
-			className={css.selectOne}
-			onClick={(e) => {
-				this.changeClickedSortBox(e, 'all');
-			}}
-			role="button"
-			tabIndex="0"
-		>
-			<p>작성한 시간 순</p>
-		</div>
-		<div
-			className={css.selectOne}
-			onClick={(e) => {
-				this.changeClickedSortBox(e, 'bookmark');
-			}}
-			role="button"
-			tabIndex="-3"
-		>
-			<p>작성한 시간 역순</p>
-		</div>
-		<div
-			className={css.selectOne}
-			onClick={(e) => {
-				this.changeClickedSortBox(e, 'publish');
-			}}
-			role="button"
-			tabIndex="-7"
-		>
-			<p>수정한 시간 순</p>
-		</div>
-		<div
-			className={css.selectOne}
-			onClick={(e) => {
-				this.changeClickedSortBox(e, 'publish');
-			}}
-			role="button"
-			tabIndex="-7"
-		>
-			<p>수정한 시간 역순</p>
-		</div>
-		<div
-			className={css.selectOne}
-			onClick={(e) => {
-				this.changeClickedSortBox(e, 'publish');
-			}}
-			role="button"
-			tabIndex="-7"
-		>
-			<p>가나다 순</p>
-		</div>
-		<div
-			className={css.selectOne}
-			onClick={(e) => {
-				this.changeClickedSortBox(e, 'publish');
-			}}
-			role="button"
-			tabIndex="-7"
-		>
-			<p>가나다 역순</p>
-		</div>
-	</div>
-                  </div>}
+									<div className={css.menuTitle}>
+										<p>태그분류</p>
+									</div>
+									<div className={css.selectBox}>
+										<div
+											className={css.selectOne}
+											onClick={(e) => {
+												this.changeClickedSortBox(e, 'all');
+											}}
+											role="button"
+											tabIndex="0"
+										>
+											<p>작성한 시간 순</p>
+										</div>
+										<div
+											className={css.selectOne}
+											onClick={(e) => {
+												this.changeClickedSortBox(e, 'bookmark');
+											}}
+											role="button"
+											tabIndex="-3"
+										>
+											<p>작성한 시간 역순</p>
+										</div>
+										<div
+											className={css.selectOne}
+											onClick={(e) => {
+												this.changeClickedSortBox(e, 'publish');
+											}}
+											role="button"
+											tabIndex="-7"
+										>
+											<p>수정한 시간 순</p>
+										</div>
+										<div
+											className={css.selectOne}
+											onClick={(e) => {
+												this.changeClickedSortBox(e, 'publish');
+											}}
+											role="button"
+											tabIndex="-7"
+										>
+											<p>수정한 시간 역순</p>
+										</div>
+										<div
+											className={css.selectOne}
+											onClick={(e) => {
+												this.changeClickedSortBox(e, 'publish');
+											}}
+											role="button"
+											tabIndex="-7"
+										>
+											<p>가나다 순</p>
+										</div>
+										<div
+											className={css.selectOne}
+											onClick={(e) => {
+												this.changeClickedSortBox(e, 'publish');
+											}}
+											role="button"
+											tabIndex="-7"
+										>
+											<p>가나다 역순</p>
+										</div>
+									</div>
+								</div>}
 							</div>
 						</div>
 						<div className={css.scrollBox}>
 							{noteData &&
-                !noteData.loading &&
+                noteData.getAllMyNotePreviewsByTags &&
                 <AutoSizer>
 	{({ height, width }) => (
 		<List

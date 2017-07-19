@@ -5,22 +5,8 @@ import Modal from 'react-modal';
 import {
   getSelectedMyNoteData,
 } from '../../../../graphqls/NoteEditorGraphQl';
-import SideHead from './sideHead';
-import EditorHead from './editorHead';
-import MainEditor from './editor';
+import EditorBox from './editor';
 import css from './rianModalEditor.css';
-
-const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
-	options: ({ match: { params: { noteId } } }) => ({
-		variables: {
-			noteId,
-		},
-		ssr: false,
-	}),
-	name: 'oneOfNoteData',
-	skip: ({ location: { pathname } }) => (!!(process.env.NODE_ENV === 'development' || pathname === '/card/main')),
-});
-
 
 type DefaultProps = {
 	showModal: boolean,
@@ -47,6 +33,17 @@ type Props = {
 type State = {
 };
 
+const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
+	options: ({ match: { params: { noteId } } }) => ({
+		variables: {
+			noteId,
+		},
+		ssr: false,
+	}),
+	name: 'oneOfNoteData',
+	skip: ({ location: { pathname } }) => (process.env.NODE_ENV === 'development' || pathname === '/card/main' || pathname === '/card/newNote'),
+});
+
 @compose(getSelectedMyNoteDataQuery)
 class ModalEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
@@ -67,10 +64,10 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 	componentWillReceiveProps(nextProps: Props) {
 		console.log('new props in card editor', this.props, nextProps);
 		if (process.env.NODE_ENV === 'production' && nextProps.location.pathname !== '/card/main') {
-			const { match: { params: { noteId } }, oneOfNoteData: { refetch } } = nextProps;
-			if (this.props.match.params.noteId !== noteId) {
+			const { match: { params: { noteId } }, oneOfNoteData } = nextProps;
+			if (oneOfNoteData && this.props.match.params.noteId !== noteId) {
 				console.log('refetch in modal editor', this.props, nextProps);
-				refetch({
+				oneOfNoteData.refetch({
 					noteId,
 				});
 			}
@@ -79,7 +76,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 
 
 	render() {
-		const { showModal, changeModalState, history, oneOfNoteData } = this.props;
+		const { showModal, changeModalState, oneOfNoteData, history } = this.props;
 		return (
 			<Modal
 				isOpen={showModal}
@@ -92,22 +89,19 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 				contentLabel="ModalEditor"
 			>
 				<div className={css.ModalContainer}>
-					<SideHead changeModalState={changeModalState} history={history} />
-					<EditorHead
+					<EditorBox
 						loading={oneOfNoteData ? oneOfNoteData.loading : null}
 						title={
 							oneOfNoteData && !oneOfNoteData.loading
 							? oneOfNoteData.getSelectedMyNoteData.title
 							: null
 						}
-					/>
-					<MainEditor
-						loading={oneOfNoteData ? oneOfNoteData.loading : null}
 						data={
 							oneOfNoteData && !oneOfNoteData.loading
 							? oneOfNoteData.getSelectedMyNoteData.data
 							: null
 						}
+						changeModalState={changeModalState}
 					/>
 				</div>
 			</Modal>

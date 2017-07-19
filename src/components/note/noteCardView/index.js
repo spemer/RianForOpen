@@ -42,9 +42,8 @@ type DefaultProps = {
   renderTags: null,
   match: any,
   history: any,
-  location: any,
+  location: any
 };
-
 
 type Props = {
   themeColor: string,
@@ -52,7 +51,7 @@ type Props = {
   renderTags: Array<string>,
   match: any,
   history: any,
-  location: any,
+  location: any
 };
 
 type State = {
@@ -81,7 +80,10 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	};
 
 	componentWillReceiveProps(nextProps: Props) {
-		if (process.env.NODE_ENV === 'production' && this.props.renderTags !== nextProps.renderTags) {
+		if (
+      process.env.NODE_ENV === 'production' &&
+      this.props.renderTags !== nextProps.renderTags
+    ) {
 			this.props.noteData.refetch({
 				tags: nextProps.renderTags,
 			});
@@ -92,19 +94,29 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	changeModalState: Function;
 
 	cardRenderer(noteData: Array<any>) {
-		return noteData.map(({ _id, title, updatedAt, tags, preImage }) => (
+		return noteData.map(({
+			_id,
+			title,
+			updatedAt,
+			tags,
+			preImage,
+			preview,
+		}) => (
 			<CardInstance
 				key={_id}
 				noteId={_id}
 				title={title}
-				preview="자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 "
+				preview={
+					preview ||
+					'자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 '
+				}
 				updatedAt={moment(updatedAt).format('LL')}
 				tags={tags}
 				preImage={preImage}
 				themeColor={this.props.themeColor}
 				changeModalState={this.changeModalState}
 			/>
-    ));
+		));
 	}
 
 	changeModalState(argu: boolean) {
@@ -117,6 +129,7 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 		let { showModal } = this.state;
 		const { match, history, location, noteData, renderTags } = this.props;
 		const tagName = renderTags.length === 0 ? '전체노트' : `#${renderTags.join('#')}`;
+		console.log('pathname', this.props.location.pathname.slice(6));
 		if (this.props.location.pathname.slice(6) && this.props.location.pathname.slice(6) !== 'main') {
 			showModal = true;
 		}
@@ -142,15 +155,10 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 					</div>
 				</div>
 				<div className={css.mainBox}>
-					{
-						noteData &&
-						!noteData.loading &&
-						this.cardRenderer(noteData.getAllMyNotePreviewsByTags.notes)
-					}
-					{
-						process.env.NODE_ENV === 'development' &&
-						this.cardRenderer(Mock)
-					}
+					{noteData &&
+					!noteData.loading &&
+					this.cardRenderer(noteData.getAllMyNotePreviewsByTags.notes)}
+					{process.env.NODE_ENV === 'development' && this.cardRenderer(Mock)}
 				</div>
 			</div>
 		);

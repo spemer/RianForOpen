@@ -11,7 +11,6 @@ const autoSaveCtrl = async (userId, noteData) => {
 			const tagModelList = await makeTagCtrl(userId, noteData.tags);
 			tagObjectIdList = tagModelList.map(model => model._id);
 		}
-
 		const newNoteInfor = {
 			title: noteData.title,
 			tags: tagObjectIdList,
@@ -26,10 +25,13 @@ const autoSaveCtrl = async (userId, noteData) => {
 
 		result = {
 			success: true,
+			noteId: noteData.noteId,
 		};
 	} catch (e) {
+		console.log(e);
 		result = {
 			success: false,
+			noteId: null,
 		};
 	}
 	return result;

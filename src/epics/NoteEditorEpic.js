@@ -1,17 +1,17 @@
 import { Observable } from 'rxjs/Rx';
 import {
-  autoSaveComplete,
+  saveComplete,
   themeSaveComplete,
 } from '../actions/NoteEditorActions';
-import { AUTO_SAVE_REQUEST, THEME_SAVE_REQUEST } from '../constants/index';
+import { SAVE_REQUEST, THEME_SAVE_REQUEST } from '../constants/index';
 
-export const AutoSaveEpic = (action$, store) =>
+export const AutoSaveEpic = action$ =>
   action$
-    .ofType(AUTO_SAVE_REQUEST)
+    .ofType(SAVE_REQUEST)
     .switchMap(action => Observable.fromPromise(action.method()))
-    .map(() => autoSaveComplete());
+    .map(() => saveComplete());
 
-export const ThemeSaveEpic = (action$, store) =>
+export const ThemeSaveEpic = action$ =>
   action$
     .ofType(THEME_SAVE_REQUEST)
     .switchMap(action => Observable.fromPromise(action.method()))
