@@ -3379,7 +3379,7 @@ fresh@0.5.0, fresh@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.0.tgz#f474ca5e6a9246d6fd8e0953cfa9b9c805afa78e"
 
-froala-editor@^2.6.0:
+froala-editor@^2.6.0, froala-editor@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/froala-editor/-/froala-editor-2.6.2.tgz#7ec92f4425b6274b0e9107c986f33c1b91d6e50d"
   dependencies:
@@ -7372,6 +7372,10 @@ react-input-autosize@^1.1.3:
   dependencies:
     create-react-class "^15.5.2"
     prop-types "^15.5.8"
+
+react-loading@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-0.1.4.tgz#b329ff2b870f1dc26c7068e91a1574f7dda27e67"
 
 react-modal@^2.0.7:
   version "2.2.1"

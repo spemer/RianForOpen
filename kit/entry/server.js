@@ -90,9 +90,6 @@ import passport from 'koa-passport';
 import passportRoutes from 'config/routes';
 import passportConfig from 'config/passport';
 import cookieConfig from 'config/cookie';
-
-import { getMyNoteListInfo } from 'database/controllers/note_ctrl';
-
 // GraphQL Server
 import { graphqlKoa, graphiqlKoa } from 'graphql-server-koa';
 import { SubscriptionManager, PubSub } from 'graphql-subscriptions';
@@ -102,8 +99,6 @@ import { pubsub } from 'graphqlServer/pubsub/pubsub';
 import koaBody from 'koa-bodyparser';
 import { createServer } from 'http';
 // ----------------------
-
-import noteSaveCtrl from '../../database/controllers/noteSave_ctrl';
 
 import cors from 'koa-cors';
 
@@ -132,10 +127,6 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 
   // Set up routes
 	const router = new KoaRouter()
-		.post('/api/savenote', async (ctx) => { 
-				const result = await noteSaveCtrl(ctx.state.user._id, ctx.request.body.data, ctx);
-				ctx.body = result;
-		})
     .post('/api/graphql', graphqlKoa(ctx => ({
 	schema,
 	context: { userId: ctx.state.user },
@@ -155,17 +146,6 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 	ctx.logout();
 	ctx.redirect('/');
 })
-		.get('/api/test', async (ctx) => {
-			const arg = {
-				userId: '593e422abfc14bfb57224337', // 9번 user
-				tags: ['성찬', '문규'],
-				updatedAt: '2013-08-12T15:02:28.854Z',
-			};
-
-			const myNoteListInfo = await getMyNoteListInfo(arg).then(result => result);
-
-			ctx.body = myNoteListInfo;
-		})
     // Everything else is React
     .get('/*', async (ctx) => {
       // const preloadedState = ctx.state.initial || {};
@@ -180,6 +160,7 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 
 					// inject initial state to serverSideRendering Html Store
 	if (ctx.isAuthenticated()) {
+		console.log(ctx.state.user);
 		store.dispatch(userLogin(ctx.state.user));
 	}
 

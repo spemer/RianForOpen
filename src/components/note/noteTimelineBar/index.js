@@ -4,6 +4,7 @@ import { Motion, spring } from 'react-motion';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { graphql, compose } from 'react-apollo';
+import ReactLoading from 'react-loading';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
 import TimelineSnippet from './TimelineSnippet';
@@ -16,7 +17,7 @@ const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
 	options: props => ({
 		variables: {
 			userId: SERVER ? props.userId : null,
-			tags: [],
+			tags: props.renderTags,
 		},
 		ssr: false,
 	}),
@@ -35,21 +36,15 @@ type Store = {
 		leftBar: boolean,
 		timelineLeftBar: boolean,
 	},
-	NoteEditor: {
-		save: boolean,
-		makeNew: boolean,
-	},
 };
 
 type DefaultProps = {
 	full: boolean,
 	themeColor: string,
 	renderTags: Array<string>,
-	noteData: null,
+	noteData: any,
 	leftBar: boolean,
 	timelineLeftBar: boolean,
-	save: boolean,
-	makeNew: boolean,
 	match: any,
 };
 
@@ -60,8 +55,6 @@ type Props = {
 	noteData: any,
 	leftBar: boolean,
 	timelineLeftBar: boolean,
-	save: boolean,
-	makeNew: boolean,
 	match: {
 		params: {
 			noteId: string
@@ -77,7 +70,6 @@ type State = {
 const mapToState = ({
   User: { userId },
   App: { full, themeColor, renderTags, leftBar, timelineLeftBar },
-  NoteEditor: { save, makeNew },
 }: Store) => ({
 	userId,
 	full,
@@ -85,8 +77,6 @@ const mapToState = ({
 	renderTags,
 	leftBar,
 	timelineLeftBar,
-	save,
-	makeNew,
 });
 
 @connect(mapToState)
@@ -97,12 +87,12 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		full: false,
 		themeColor: '',
 		renderTags: [],
-		noteData: null,
 		leftBar: true,
 		timelineLeftBar: true,
-		makeNew: false,
-		save: false,
 		match: {},
+		noteData: {
+			loading: true,
+		},
 	};
 
 	constructor(props: Props) {
@@ -221,7 +211,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const { onSortList } = this.state;
-		const { full, noteData, leftBar, renderTags, timelineLeftBar } = this.props;
+		const { full, noteData, leftBar, renderTags, timelineLeftBar, themeColor } = this.props;
 		const tagName = renderTags.length === 0
       ? '전체노트'
       : `#${renderTags.join('#')}`;
@@ -255,6 +245,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 									{noteCount}
 								</div>
 							</div>
+							{noteData.loading && <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 							<div className={css.selectButton}>
 								<div
 									className={css.button}

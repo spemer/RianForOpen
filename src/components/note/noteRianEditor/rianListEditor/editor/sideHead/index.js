@@ -1,23 +1,29 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
+import ReactLoading from 'react-loading';
 import parentCss from '../../rianListEditor.css';
 import css from './sidehead.css';
 
 type Store = {
+	App: {
+		themeColor: string
+	},
 	NoteEditor: {
 		save: boolean
 	}
 }
 
-function mapToState({ NoteEditor: { save } }: Store) {
+function mapToState({ App: { themeColor }, NoteEditor: { save } }: Store) {
 	return {
 		save,
+		themeColor,
 	};
 }
 
 type Props = {
 	save: boolean,
+	themeColor: string,
 	timelineLeftBar: boolean,
 	saveObservable: Function,
 	saveRequestDispatch: Function,
@@ -26,6 +32,7 @@ type Props = {
 
 const SideHead = ({
 	save,
+	themeColor,
 	timelineLeftBar,
 	saveObservable,
 	saveRequestDispatch,
@@ -45,10 +52,11 @@ const SideHead = ({
 		<div
 			className={css.save}
 			onClick={() => !save && saveRequestDispatch(saveObservable)}
+			style={{ backgroundColor: !save ? '#f4f4f4' : 'none' }}
 			role="button"
 			tabIndex="-3"
 		>
-			<p>{!save ? '저장' : '저장중'}</p>
+			{!save ? <p>저장</p> : <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 		</div>
 		<svg
 			viewBox="0 0 24 24"

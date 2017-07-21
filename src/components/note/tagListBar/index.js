@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Motion, spring } from 'react-motion';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
+import ReactLoading from 'react-loading';
 import makeSortableTag from './util';
 import GroupedBoxContainer from './groupedBoxContainer';
 import SortByManyBoxContainer from './sortByManyBoxContainer';
@@ -97,7 +98,9 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		themeColor: '',
 		leftBar: false,
 		changeRenderTagsDispatch: () => {},
-		tagData: null,
+		tagData: {
+			loading: true,
+		},
 	};
 
 	constructor(props: Props) {
@@ -231,6 +234,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 									{`${tagCount}개의 태그`}
 								</div>
 							</div>
+							{tagData.loading && <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 							<div className={css.selectButton}>
 								<div
 									className={css.button}

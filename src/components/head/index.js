@@ -4,10 +4,10 @@ import screenfull from 'screenfull';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
+import ReactLoading from 'react-loading';
 import profileImageMock from '../../../static/image/thumb-ex-img.png';
 import SearchBox from './searchBox';
 import { fullScreenChange, changeLeftBar } from '../../actions/AppActions';
-import { makeNewRequest, makeNewComplete } from '../../actions/NoteEditorActions';
 import { makeNote } from '../../graphqls/NoteEditorGraphQl';
 import { getAllMyNotePreviewsByTags } from '../../graphqls/TimelineGraphQl';
 import parentCss from '../app/app.css';
@@ -17,11 +17,10 @@ import icFullScreenIcon from '../../../static/icons/ic_fullScreen.svg';
 type DefaultProps = {
 	changeFullScreenApp: Function,
 	changeLeftBarDispatch: Function,
-	makeNewRequestDispatch: Function,
-	makeNewCompleteDispatch: Function,
 	makeNote: Function,
 	full: boolean,
 	themeColor: string,
+	noteData: any,
 	pathname: string,
 	history: any,
 	leftBar: boolean,
@@ -29,23 +28,23 @@ type DefaultProps = {
 };
 
 type Props = {
-  changeFullScreenApp: Function,
-  changeLeftBarDispatch: Function,
-  makeNewRequestDispatch: Function,
-  makeNewCompleteDispatch: Function,
-  makeNote: Function,
-  full: boolean,
-  themeColor: string,
-  pathname: string,
-  history: any,
-  leftBar: boolean,
-  renderTags: Array<string>
+	changeFullScreenApp: Function,
+	changeLeftBarDispatch: Function,
+	makeNote: Function,
+	full: boolean,
+	themeColor: string,
+	noteData: any,
+	pathname: string,
+	history: any,
+	leftBar: boolean,
+	renderTags: Array<string>
 };
 
 type State = {
   modeIsTag: boolean,
   socialOnOff: boolean,
-  trashOnOff: boolean
+  trashOnOff: boolean,
+  makeNoteLoading: boolean,
 };
 
 function mapToState({ App: { full, themeColor, leftBar, renderTags } }) {
@@ -65,14 +64,20 @@ function mapToDispatch(dispatch) {
 		changeLeftBarDispatch() {
 			dispatch(changeLeftBar());
 		},
-		makeNewRequestDispatch() {
-			dispatch(makeNewRequest());
-		},
-		makeNewCompleteDispatch() {
-			dispatch(makeNewComplete());
-		},
 	};
 }
+
+const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
+	options: props => ({
+		variables: {
+			userId: SERVER ? props.userId : null,
+			tags: props.renderTags,
+		},
+		ssr: false,
+	}),
+	name: 'noteData',
+	skip: process.env.NODE_ENV === 'development' && true,
+});
 
 const makeNoteMutation = graphql(makeNote, {
 	options: () => ({
@@ -90,13 +95,11 @@ function fullScreen() {
 }
 
 @connect(mapToState, mapToDispatch)
-@compose(makeNoteMutation)
+@compose(makeNoteMutation, getAllMyNotePreviewsByTagsQuery)
 class Head extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		changeFullScreenApp: () => {},
 		changeLeftBarDispatch: () => {},
-		makeNewRequestDispatch: () => {},
-		makeNewCompleteDispatch: () => {},
 		makeNote: () => {},
 		full: false,
 		string: '',
@@ -105,6 +108,12 @@ class Head extends Component<DefaultProps, Props, State> {
 		themeColor: '',
 		leftBar: true,
 		renderTags: [],
+		noteData: {
+			loading: false,
+			getAllMyNotePreviewsByTags: {
+				notes: [{ _id: '342!!@31312312312' }, { _id: 'sdf123sdfasdfasdf' }],
+			},
+		},
 	};
 
 	constructor(props: Props) {
@@ -120,6 +129,7 @@ class Head extends Component<DefaultProps, Props, State> {
 		modeIsTag: false,
 		socialOnOff: false,
 		trashOnOff: false,
+		makeNoteLoading: false,
 	};
 
 	componentDidMount() {
@@ -164,13 +174,12 @@ class Head extends Component<DefaultProps, Props, State> {
 		const {
 			pathname,
 			history,
-			makeNewRequestDispatch,
-			makeNewCompleteDispatch,
 			renderTags,
 		} = this.props;
 		if (pathname.slice(0, 5) === '/card') {
-			history.push('/card/newNote');
-			makeNewRequestDispatch();
+			this.setState({
+				makeNoteLoading: true,
+			});
 			if (process.env.NODE_ENV === 'production') {
 				const makeNoteResult = await this.props.makeNote({
 					refetchQueries: [{
@@ -179,13 +188,16 @@ class Head extends Component<DefaultProps, Props, State> {
 					}],
 				});
 				const { data } = makeNoteResult;
+				this.setState({
+					makeNoteLoading: false,
+				});
 				history.push(`/card/${data.makeNote.noteId}`);
-				makeNewCompleteDispatch();
 			}
 		}
 		if (pathname.slice(0, 5) === '/list') {
-			history.push('/list/newNote');
-			makeNewRequestDispatch();
+			this.setState({
+				makeNoteLoading: true,
+			});
 			if (process.env.NODE_ENV === 'production') {
 				const makeNoteResult = await this.props.makeNote({
 					refetchQueries: [{
@@ -194,15 +206,17 @@ class Head extends Component<DefaultProps, Props, State> {
 					}],
 				});
 				const { data } = makeNoteResult;
+				this.setState({
+					makeNoteLoading: false,
+				});
 				history.push(`/list/${data.makeNote.noteId}`);
-				makeNewCompleteDispatch();
 			}
 		}
 	}
 
 	render() {
-		const { modeIsTag, socialOnOff, trashOnOff } = this.state;
-		const { full, themeColor, pathname, leftBar } = this.props;
+		const { modeIsTag, socialOnOff, trashOnOff, makeNoteLoading } = this.state;
+		const { full, themeColor, pathname, leftBar, noteData } = this.props;
 		return (
 			<div
 				className={parentCss.head}
@@ -214,26 +228,28 @@ class Head extends Component<DefaultProps, Props, State> {
 						modeIsTag={modeIsTag}
 						changeSearchMode={this.changeSearchMode}
 					/>
-					<div className={css.addNoteIconBox} onClick={this.fireMutation} role="button" tabIndex="-6">
-						<svg
-							version="1.1"
-							id="Capa_1"
-							viewBox="0 0 24 24"
-							enableBackground="new 0 0 24 24"
-							role="button"
-							className={css.addNoteIcon}
-							fill={themeColor}
-						>
-							<path d="M8.7,12.4l-1,3c-0.1,0.3,0,0.6,0.2,0.7c0.1,0.1,0.3,0.2,0.5,0.2c0.1,0,0.2,0,0.2,0l3-1c0.1,0,0.2-0.1,0.3-0.2l6.8-6.8
-									c0.6-0.6,0.6-1.6,0-2.2l-0.9-0.9c-0.6-0.6-1.6-0.6-2.2,0l-6.8,6.8C8.8,12.2,8.8,12.3,8.7,12.4z M16.3,8.6l-1-1l1.4-1.4
-									c0,0,0,0,0.1,0l0.9,0.9c0,0,0,0.1,0,0.1L16.3,8.6z M14.4,8.7l1,1L11,13.9l-1.4,0.5l0.5-1.4L14.4,8.7z"
-							/>
-							<path d="M19.2,10.3c-0.4,0-0.8,0.4-0.8,0.8v6.9c0,0.2-0.2,0.4-0.4,0.4H6.1c-0.2,0-0.4-0.2-0.4-0.4V6.1c0-0.2,0.2-0.4,0.4-0.4h6.9
-									c0.4,0,0.8-0.4,0.8-0.8S13.4,4,12.9,4H6.1C4.9,4,4,4.9,4,6.1v11.9C4,19.1,4.9,20,6.1,20h11.9c1.1,0,2.1-0.9,2.1-2.1v-6.9
-									C20,10.6,19.6,10.3,19.2,10.3z"
-							/>
-						</svg>
-					</div>
+					{!makeNoteLoading ?
+						<div className={css.addNoteIconBox} onClick={this.fireMutation} role="button" tabIndex="-6">
+							<svg
+								version="1.1"
+								id="Capa_1"
+								viewBox="0 0 24 24"
+								enableBackground="new 0 0 24 24"
+								role="button"
+								className={css.addNoteIcon}
+								fill={themeColor}
+							>
+								<path d="M8.7,12.4l-1,3c-0.1,0.3,0,0.6,0.2,0.7c0.1,0.1,0.3,0.2,0.5,0.2c0.1,0,0.2,0,0.2,0l3-1c0.1,0,0.2-0.1,0.3-0.2l6.8-6.8
+										c0.6-0.6,0.6-1.6,0-2.2l-0.9-0.9c-0.6-0.6-1.6-0.6-2.2,0l-6.8,6.8C8.8,12.2,8.8,12.3,8.7,12.4z M16.3,8.6l-1-1l1.4-1.4
+										c0,0,0,0,0.1,0l0.9,0.9c0,0,0,0.1,0,0.1L16.3,8.6z M14.4,8.7l1,1L11,13.9l-1.4,0.5l0.5-1.4L14.4,8.7z"
+								/>
+								<path d="M19.2,10.3c-0.4,0-0.8,0.4-0.8,0.8v6.9c0,0.2-0.2,0.4-0.4,0.4H6.1c-0.2,0-0.4-0.2-0.4-0.4V6.1c0-0.2,0.2-0.4,0.4-0.4h6.9
+										c0.4,0,0.8-0.4,0.8-0.8S13.4,4,12.9,4H6.1C4.9,4,4,4.9,4,6.1v11.9C4,19.1,4.9,20,6.1,20h11.9c1.1,0,2.1-0.9,2.1-2.1v-6.9
+										C20,10.6,19.6,10.3,19.2,10.3z"
+								/>
+							</svg>
+						</div> :
+						<ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 					<div className={css.changeMode}>
 						<Link
 							className={css.cardButton}
@@ -247,7 +263,7 @@ class Head extends Component<DefaultProps, Props, State> {
 						</Link>
 						<Link
 							className={css.noteButton}
-							to="/list/main"
+							to={!noteData.loading && noteData.getAllMyNotePreviewsByTags.notes[0] ? `/list/${noteData.getAllMyNotePreviewsByTags.notes[0]._id}` : '/list/loading}'}
 							style={{
 								backgroundColor: pathname.slice(0, 5) === '/list' ? themeColor : 'white',
 								color: pathname.slice(0, 5) === '/list' ? 'white' : '#babac0',

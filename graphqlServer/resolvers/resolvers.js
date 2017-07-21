@@ -1,12 +1,11 @@
-import { getMyNoteListInfo } from 'database/controllers/note_ctrl';
-import makeNoteCtrl from 'database/controllers/makeNote_ctrl';
-import getTagsByConditionCtrl
-  from 'database/controllers/getTagsByCondition_ctrl';
-import getAllMyNotePreviewsByTagsCtrl
-	from 'database/controllers/getAllMyNotePreviewsByTags_ctrl';
+import { getMyNoteListInfo } from '../../database/controllers/note_ctrl';
+import makeNoteCtrl from '../../database/controllers/makeNote_ctrl';
+import getTagsByConditionCtrl from '../../database/controllers/getTagsByCondition_ctrl';
+import getAllMyNotePreviewsByTagsCtrl from '../../database/controllers/getAllMyNotePreviewsByTags_ctrl';
 import getOneNotePreviewCtrl from '../../database/controllers/getOneNotePreview_ctrl';
-import getSelectedMyNoteDataCtrl from 'database/controllers/getSelectedMyNoteData_ctrl';
-import noteSaveCtrl from 'database/controllers/noteSave_ctrl';
+import getSelectedMyNoteDataCtrl from '../../database/controllers/getSelectedMyNoteData_ctrl';
+import noteSaveCtrl from '../../database/controllers/noteSave_ctrl';
+import makeUserNameCtrl from '../../database/controllers/makeUserName_ctrl';
 
 export const resolvers = {
 	Query: {
@@ -67,6 +66,10 @@ export const resolvers = {
 	},
 
 	Mutation: {
+		makeUserName(obj, args, context) {
+			const userId = context.userId ? context.userId._id : args.userId;
+			return makeUserNameCtrl(userId, args.userName);
+		},
 		makeNote(obj, args, context) {
 			return makeNoteCtrl(context.userId._id);
 		},

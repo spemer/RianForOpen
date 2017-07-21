@@ -25,7 +25,7 @@ const saveMutation = graphql(autoSave, {
 });
 
 type DefaultProps = {
-	oneOfNoteData: null,
+	oneOfNoteData: any,
 	saveMutate: Function,
 	match: any,
 	location: any,
@@ -39,6 +39,7 @@ type Props = {
 };
 
 type State = {
+	loading: boolean,
 	noteId: ?string,
 	title: string,
 	data: string,
@@ -49,7 +50,9 @@ type State = {
 @compose(getSelectedMyNoteDataQuery, saveMutation)
 class RianListEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		oneOfNoteData: null,
+		oneOfNoteData: {
+			loading: true,
+		},
 		saveMutate: () => {},
 		match: {},
 		location: {},
@@ -60,6 +63,7 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	state = {
+		loading: false,
 		noteId: null,
 		title: '',
 		data: '',
@@ -75,18 +79,12 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 		if (pathname !== '/list/main' && pathname !== '/list/newNote') {
 			// user click other note
 			console.log('check', this.props.match.params.noteId, noteId);
-			// if (this.props.match.params.noteId !== noteId) {
-			// 	console.log('refetch in list editor', this.props.match.params.noteId, noteId);
-			// 	oneOfNoteData.refetch({
-			// 		noteId,
-			// 	});
-			// }
-			// not loading
 			if (oneOfNoteData.loading) {
 				this.setState({
+					loading: oneOfNoteData.loading,
 					noteId,
-					title: '로딩중',
-					data: '<h1>로딩중</h1>',
+					title: '',
+					data: '',
 					isPublish: null,
 				});
 			}
@@ -98,6 +96,7 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 					console.log(noteId === _id);
 				}
 				this.setState({
+					loading: oneOfNoteData.loading,
 					noteId: _id,
 					title,
 					data,
@@ -112,13 +111,15 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 			saveMutate,
 		} = this.props;
 		const {
+			loading,
 			noteId,
 			title,
 			data,
 			isPublish,
-		} = this.state;
+		} = this.state;G
 		return (
 			<EditorBox
+				loading={loading}
 				noteId={noteId}
 				saveMutate={saveMutate}
 				title={title}

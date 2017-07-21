@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
+import ReactLoading from 'react-loading';
 import moment from 'moment';
 import ModalEditor from '../noteRianEditor/rianModalEditor';
 import Mock from '../../../../MockData/noteList';
@@ -38,7 +39,7 @@ const mapToState = ({ App: { themeColor, renderTags } }: Store) => ({
 
 type DefaultProps = {
   themeColor: string,
-  noteData: null,
+  noteData: any,
   renderTags: null,
   match: any,
   history: any,
@@ -63,7 +64,9 @@ type State = {
 class NoteCardView extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		themeColor: '',
-		noteData: null,
+		noteData: {
+			loading: true,
+		},
 		renderTags: null,
 		history: {},
 		match: {},
@@ -127,7 +130,7 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 
 	render() {
 		let { showModal } = this.state;
-		const { match, history, location, noteData, renderTags } = this.props;
+		const { match, history, location, noteData, renderTags, themeColor } = this.props;
 		const tagName = renderTags.length === 0 ? '전체노트' : `#${renderTags.join('#')}`;
 		console.log('pathname', this.props.location.pathname.slice(6));
 		if (this.props.location.pathname.slice(6) && this.props.location.pathname.slice(6) !== 'main') {
@@ -153,6 +156,7 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 					<div className={css.noteCount}>
 						{noteCount}
 					</div>
+					{noteData.loading && <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 				</div>
 				<div className={css.mainBox}>
 					{noteData &&
