@@ -1,20 +1,28 @@
 // @flow
-import { USER_LOGIN } from '../constants';
+import { USER_LOGIN, USER_NAME_INJECT } from '../constants';
 
-type UserLoginAction = {
-  type: USER_LOGIN,
-  userId: string,
-  email: string,
-  photo: string,
-  token: string,
-  userName: string,
-  createdAt: string,
-  fbId: string,
-  naverId: string,
-  kakaoId: string,
-  googleId: string,
-  lastLogin: string,
-};
+// type UserLoginAction = {
+//   type: USER_LOGIN,
+//   userId: string,
+//   email: string,
+//   photo: string,
+//   token: string,
+//   userName: string,
+//   createdAt: string,
+//   fbId: string,
+//   naverId: string,
+//   kakaoId: string,
+//   googleId: string,
+//   lastLogin: string,
+// };
+
+// type UserNameInjectAction = {
+//   type: USER_NAME_INJECT,
+//   userName: string
+// }
+
+// type Action = UserLoginAction | UserNameInjectAction;
+
 
 type State = {
   userId: ?string,
@@ -26,8 +34,6 @@ type State = {
   fbI?: string
 };
 
-type Action = UserLoginAction;
-
 const UserState = {
 	userId: null,
 	email: null,
@@ -38,7 +44,7 @@ const UserState = {
 	fbId: null,
 };
 
-export default function User(state: State = UserState, action: Action): State {
+export default function User(state: State = UserState, action: any): State {
 	switch (action.type) {
 	case USER_LOGIN:
 		return Object.assign({}, state, {
@@ -53,6 +59,11 @@ export default function User(state: State = UserState, action: Action): State {
 			kakaoId: action.kakaoId,
 			googleId: action.googleId,
 			lastLogin: action.lastLogin,
+		});
+	case USER_NAME_INJECT:
+		console.log('inject', action);
+		return Object.assign({}, state, {
+			userName: action.userName,
 		});
 	default:
 		return state;

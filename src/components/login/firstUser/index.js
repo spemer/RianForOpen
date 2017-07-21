@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 import { Form, Text, FormError } from 'react-form';
+import { userNameInject } from '../../../actions/UserActions';
+import { makeUserName } from '../../../graphqls/UserGraphQl';
 import './firstUser.global.css';
 import css from './firstUser.css';
 
@@ -21,20 +23,42 @@ function mapToState({ User: { userId, userName } }: Store) {
 	};
 }
 
+function mapToDispatch(dispatch) {
+	return {
+		userLoginDispatch(userName: string) {
+			dispatch(userNameInject(userName));
+		},
+	};
+}
+
+const makeUserNameMutatation = graphql(makeUserName, {
+	name: 'makeUserNameMutate',
+});
+
 type DefaultProps = {
-	userName: null
+	userId: null,
+	userName: null,
+	makeUserNameMutate: null,
+	userLoginDispatch: Function,
 };
 
 type Props = {
-	userName: string
+	userId: string,
+	userName: string,
+	makeUserNameMutate: Function,
+	userLoginDispatch: Function,
 };
 
 type State = {};
 
-@connect(mapToState)
+@connect(mapToState, mapToDispatch)
+@compose(makeUserNameMutatation)
 class FirstUser extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
+		userId: null,
 		userName: null,
+		makeUserNameMutate: null,
+		userLoginDispatch: () => {},
 	};
 
 	constructor(props: Props) {
@@ -44,7 +68,8 @@ class FirstUser extends Component<DefaultProps, Props, State> {
 	state = {};
 
 	render() {
-		const { userName } = this.props;
+		console.log('firstLogin', this.props);
+		const { userId, userName, makeUserNameMutate, userLoginDispatch } = this.props;
 		if (userName) {
 			return <Redirect to="/" />;
 		}
@@ -57,11 +82,23 @@ class FirstUser extends Component<DefaultProps, Props, State> {
 				<div className={css.middle}>
 					<Form
 						onSubmit={(values) => {
+							const variables = {
+								userId,
+								userName: values.name,
+							};
+							makeUserNameMutate({
+								variables,
+							}).then(({ data: { makeUserName: { success, reason, userName } } }) => {
+								if (success) {
+									userLoginDispatch(userName);
+								}
+								return console.log(reason);
+							});
 						}}
-						validate={({ name }) => {
-							if (!name || name.length >= 10) {
+						validate={(values) => {
+							if (values.name.indexOf(' ') !== -1) {
 								return {
-									errorSet: '입력하신 이름이 10자를 초과했습니다',
+									errorSet: '공백은 사용하실 수 없습니다.',
 								};
 							}
 							return {

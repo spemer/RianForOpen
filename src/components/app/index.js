@@ -85,16 +85,16 @@ function mapToState({ User: { userId, userName }, App: { full } }: Store) {
 }
 
 function MainComponent({ userId, userName, full, location: { pathname }, history }: Props) {
-	if (userName && process.env.NODE_ENV === 'production') {
-		return <Redirect to="/firstLogin" />;
-	}
-	if (process.env.NODE_ENV !== 'development') {
+	if (!SERVER && process.env.NODE_ENV !== 'development') {
 		if (!userId) {
 			return <Redirect to="/login" />;
 		}
 	}
+	if (!SERVER && !userName && process.env.NODE_ENV !== 'development') {
+		return <Redirect to="/firstLogin" />;
+	}
 		// if setup initial page -> 'card'
-	if (pathname === '/') {
+	if (!SERVER && pathname === '/') {
 		return <Redirect to="/card/main" />;
 	}
 	return (

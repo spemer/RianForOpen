@@ -12,6 +12,7 @@ import 'froala-editor/js/plugins/file.min';
 import 'froala-editor/js/plugins/paragraph_format.min';
 import 'froala-editor/js/plugins/code_view.min';
 import 'froala-editor/js/plugins/lists.min';
+import ReactLoading from 'react-loading';
 import editorConfig from './editorConfig';
 import { changeTimelineLeftBar } from '../../../../../actions/AppActions';
 import { saveRequest } from '../../../../../actions/NoteEditorActions';
@@ -26,16 +27,18 @@ import './style/reactTag.global.css';
 import '../../fontawesome.global.css';
 
 type Store = {
-  App: {
-    full: boolean,
-    timelineLeftBar: boolean
-  }
+	App: {
+		full: boolean,
+		timelineLeftBar: boolean,
+		themeColor: string,
+	}
 };
 
-function mapToState({ App: { full, timelineLeftBar } }: Store) {
+function mapToState({ App: { full, timelineLeftBar, themeColor } }: Store) {
 	return {
 		full,
 		timelineLeftBar,
+		themeColor,
 	};
 }
 
@@ -51,60 +54,63 @@ function mapToDispatch(dispatch) {
 }
 
 type DefaultProps = {
-  full: boolean,
-  timelineLeftBar: null,
-  changeTimelineLeftBarDispatch: null,
-  saveRequestDispatch: Function,
-  noteId: ?string,
-  saveMutate: Function,
-  title: string,
-  data: string,
-  isPublish: null,
-  full: boolean,
-  timelineLeftBar: boolean,
-  saveRequestDispatch: Function,
-  changeTimelineLeftBarDispatch: Function
+	full: boolean,
+	timelineLeftBar: boolean,
+	themeColor: string,
+	loading: boolean,
+	noteId: ?string,
+	saveMutate: Function,
+	title: string,
+	data: string,
+	isPublish: null,
+	saveRequestDispatch: Function,
+	changeTimelineLeftBarDispatch: Function
 };
 
 type Props = {
-  noteId: ?string,
-  saveMutate: Function,
-  title: ?string,
-  data: ?string,
-  isPublish: ?boolean,
-  full: boolean,
-  timelineLeftBar: boolean,
-  saveRequestDispatch: Function,
-  changeTimelineLeftBarDispatch: Function
+	full: boolean,
+	timelineLeftBar: boolean,
+	themeColor: string,
+	noteId: ?string,
+	saveMutate: Function,
+	title: ?string,
+	loading: boolean,
+	data: ?string,
+	isPublish: ?boolean,
+	saveRequestDispatch: Function,
+	changeTimelineLeftBarDispatch: Function
 };
 
 type SaveFormat = {
-  noteId: ?string,
-  title: ?string,
-  tags: ?Array<string>,
-  data: ?string,
-  preImage: ?string,
-  isPublish: ?boolean
+	noteId: ?string,
+	title: ?string,
+	tags: ?Array<string>,
+	data: ?string,
+	preImage: ?string,
+	isPublish: ?boolean,
 };
 
 type State = {
-  noteId: ?string,
-  data: ?string,
-  tags: ?Array<string>,
-  title: ?string,
-  isPublish: ?boolean
+	loading: boolean,
+	noteId: ?string,
+	data: ?string,
+	tags: ?Array<string>,
+	title: ?string,
+	isPublish: ?boolean,
 };
 
 @connect(mapToState, mapToDispatch)
 class EditorBox extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
+		full: false,
+		timelineLeftBar: true,
+		themeColor: '',
 		noteId: null,
 		saveMutate: () => {},
 		data: '',
-		full: false,
+		loading: false,
 		title: '',
 		isPublish: null,
-		timelineLeftBar: true,
 		saveRequestDispatch: () => {},
 		changeTimelineLeftBarDispatch: () => {},
 	};
@@ -118,7 +124,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 	}
 
 	state = {
-		loading: null,
+		loading: this.props.loading,
 		noteId: null,
 		tags: [],
 		title: '',
@@ -282,6 +288,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		console.log('editior get new Props', this.props, nextProps);
 		if (process.env.NODE_ENV === 'production') {
 			const {
+		loading,
         noteId,
         data,
         isPublish,
@@ -293,39 +300,12 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			if (this.props.full !== full) return;
 			if (this.props.timelineLeftBar !== timelineLeftBar) return;
 			this.setState({
+				loading,
 				noteId,
 				title,
 				data,
 				isPublish,
 			});
-
-      // change noteID and loading = true
-      // if (this.props.noteId !== noteId && loading) {
-      // 	console.log('this.props.noteId !== noteId && loading', this.props.noteId, noteId);
-      // 	this.setState({
-      // 		loading,
-      // 		noteId,
-      // 		data: '로딩중',
-      // 		title: '로딩중',
-      // 		isBooked: null,
-      // 		isPublish: null,
-      // 	});
-      // }
-      // // newnote infor arrived = loading = false
-      // if (this.state.noteId === noteId && this.state.loading && !loading) {
-      // 	console.log('this.state.noteId === noteId && this.state.loading', this.props.noteId, noteId);
-      // 	this.setState({
-      // 		loading,
-      // 		noteId,
-      // 		data,
-      // 		title,
-      // 		isPublish,
-      // 	});
-      // }
-      // // i dont want to you
-      // if (this.state.noteId === noteId && !this.state.loading) {
-      // 	console.log('this.state.noteId === noteId && !this.state.loading');
-      // }
 		}
 	}
 	saveObservable: Function;
@@ -339,14 +319,8 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		const { noteId, saveMutate } = this.props;
 		const { title, data, isPublish, tags } = this.state;
 		let preImage = '';
-		if (
-      document
-        .getElementsByClassName('fr-element fr-view')[0]
-        .getElementsByTagName('img').length > 0
-    ) {
-			preImage = document
-        .getElementsByClassName('fr-element fr-view')[0]
-        .getElementsByTagName('img')[0].src;
+		if (document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img').length > 0) {
+			preImage = document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img')[0].src;
 		}
 		const variables: SaveFormat = {
 			noteId,
@@ -384,11 +358,17 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const {
-			timelineLeftBar,
 			full,
+			timelineLeftBar,
+			themeColor,
 			saveRequestDispatch,
 			changeTimelineLeftBarDispatch,
 		} = this.props;
+		const {
+			loading,
+			data,
+			title,
+		} = this.state;
 		const config = editorConfig;
 		return (
 			<div
@@ -396,6 +376,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 				style={{ paddingTop: !full ? '0px' : '40px' }}
 			>
 				<div className={parentCss.editorBox}>
+					{loading && <ReactLoading className={parentCss.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 					{!full &&
 					<SideHead
 						timelineLeftBar={timelineLeftBar}
@@ -424,7 +405,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 								<input
 									className={editorHeadCss.title}
 									placeholder=""
-									value={this.state.title}
+									value={title}
 									onChange={this.handleChange}
 								/>
 							</div>
@@ -436,7 +417,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 					<div className={parentCss.mainEditor}>
 						<FroalaEditor
 							tag="div"
-							model={this.state.data}
+							model={data}
 							config={config}
 							onModelChange={this.handleModelChange}
 							onManualControllerReady={this.handleController}

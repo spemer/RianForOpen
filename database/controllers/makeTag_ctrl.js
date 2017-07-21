@@ -1,5 +1,4 @@
 import Tag from '../models/tag_model';
-import User from '../models/user_model';
 
 const makeTagCtrl = async (userId, tagList) => {
 	let result = [];
@@ -8,7 +7,7 @@ const makeTagCtrl = async (userId, tagList) => {
 		try {
 			const tagName = tagList[i];
 			const findTag = await Tag.findOne({
-				userId: userId,
+				userId,
 				name: tagName,
 			});
 
@@ -16,7 +15,7 @@ const makeTagCtrl = async (userId, tagList) => {
 				result = result.concat(findTag);
 			} else {
 				const newTag = new Tag({
-					userId: userId,
+					userId,
 					name: tagName,
 					isBooked: false,
 					isPublish: false,

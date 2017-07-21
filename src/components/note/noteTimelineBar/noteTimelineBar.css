@@ -38,6 +38,10 @@
                 color: #515861;
             }
         }
+        & .loader {
+            position: absolute; top: 34px; bottom:0;
+            left: 120px;
+        }
         & .selectButton {
             position: absolute;
             display: inline-block;
