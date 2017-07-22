@@ -3379,9 +3379,16 @@ fresh@0.5.0, fresh@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.0.tgz#f474ca5e6a9246d6fd8e0953cfa9b9c805afa78e"
 
-froala-editor@^2.6.0, froala-editor@^2.6.2:
+froala-editor@^2.6.0:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/froala-editor/-/froala-editor-2.6.2.tgz#7ec92f4425b6274b0e9107c986f33c1b91d6e50d"
+  dependencies:
+    font-awesome ">=4.4.0"
+    jquery ">=1.11.0"
+
+froala-editor@^2.6.4:
+  version "2.6.4"
+  resolved "https://registry.yarnpkg.com/froala-editor/-/froala-editor-2.6.4.tgz#30d380b357725c07f11f2e61ae03f56942a0dc2d"
   dependencies:
     font-awesome ">=4.4.0"
     jquery ">=1.11.0"

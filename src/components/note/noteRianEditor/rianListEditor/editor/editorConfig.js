@@ -2,11 +2,7 @@
 // const crypto = require('crypto');
 
 const toolbarButton = [
-	'normal',
-	'h1',
-	'h2',
-	'h3',
-	'pre',
+	'paragraphFormat',
 	'underline',
 	'quote',
 	'formatOL',
@@ -15,7 +11,6 @@ const toolbarButton = [
 	'insertImage',
 	'insertLink',
 	'align',
-	'paragraphFormat',
 	'html',
 ]; //
 
@@ -67,7 +62,7 @@ const config = {
 	],
 	shortcutsEnabled: ['paragraphFormat', 'undo', 'redo'],
 	pastePlain: true,
-	toolbarVisibleWithoutSelection: true,
+	toolbarVisibleWithoutSelection: false,
 	colorsDefaultTab: 'background',
 	colorsBackground: ['#FFFAA5', '#9BDBFF', '#FF3466', 'REMOVE'],
 	colorsText: ['#FFFAA5', '#9BDBFF', '#FF3466', 'REMOVE'],
