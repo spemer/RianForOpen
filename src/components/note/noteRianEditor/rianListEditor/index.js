@@ -116,7 +116,7 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 			title,
 			data,
 			isPublish,
-		} = this.state;G
+		} = this.state;
 		return (
 			<EditorBox
 				loading={loading}

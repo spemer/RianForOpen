@@ -52,7 +52,7 @@ const SideHead = ({
 		<div
 			className={css.save}
 			onClick={() => !save && saveRequestDispatch(saveObservable)}
-			style={{ backgroundColor: !save ? '#f4f4f4' : 'none' }}
+			style={{ backgroundColor: !save ? '#f4f4f4' : null }}
 			role="button"
 			tabIndex="-3"
 		>

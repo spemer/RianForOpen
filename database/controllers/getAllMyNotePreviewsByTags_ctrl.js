@@ -22,7 +22,7 @@ const getAllMyNotePreviewsByTagsCtrl = async (userId, tagList) => {
 			const tagObjectIdList = await getTagsObjectIDByTagNameCtrl(
         userId,
         tagList,
-      );
+			);
 			const NoteList = await Note.find({
 				userId,
 				tags: { $all: tagObjectIdList },
@@ -32,7 +32,6 @@ const getAllMyNotePreviewsByTagsCtrl = async (userId, tagList) => {
 			.select(
         '_id title tags preImage preview isPublish createdAt updatedAt',
       );
-
 			result = NoteList.map((note) => {
 				note.tags = note.tags.map(tag => tag.name);
 				return note;
