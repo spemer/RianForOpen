@@ -33,8 +33,8 @@
             letter-spacing: 0.5px;
         }
         & .loader {
-            position: absolute; top: 34px; bottom:0;
-            left: 120px;
+            position: absolute; top: 12px; bottom:0;
+            right: 12px;
         }
     }
     & .mainBox {

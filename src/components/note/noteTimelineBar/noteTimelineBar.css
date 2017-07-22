@@ -39,8 +39,8 @@
             }
         }
         & .loader {
-            position: absolute; top: 34px; bottom:0;
-            left: 120px;
+            position: absolute; top: 12px; bottom:0;
+            right: 12px;
         }
         & .selectButton {
             position: absolute;
@@ -67,7 +67,7 @@
                 left: 200px;
                 z-index: 999;
                 width: 133px;
-                height: 210px;
+                height: 157px;
                 background-color: white;
                 box-shadow: 0 5px 10px 0 rgba(53, 57, 70, 0.2);
                 display: flex;
@@ -121,7 +121,7 @@
                 left: 375px;
                 z-index: 999;
                 width: 133px;
-                height: 210px;
+                height: 157px;
                 background-color: white;
                 box-shadow: 0 5px 10px 0 rgba(53, 57, 70, 0.2);
                 display: flex;

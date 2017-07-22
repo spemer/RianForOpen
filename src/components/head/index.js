@@ -12,7 +12,6 @@ import { makeNote } from '../../graphqls/NoteEditorGraphQl';
 import { getAllMyNotePreviewsByTags } from '../../graphqls/TimelineGraphQl';
 import parentCss from '../app/app.css';
 import css from './head.css';
-import icFullScreenIcon from '../../../static/icons/ic_fullScreen.svg';
 
 type DefaultProps = {
 	changeFullScreenApp: Function,
@@ -249,7 +248,7 @@ class Head extends Component<DefaultProps, Props, State> {
 								/>
 							</svg>
 						</div> :
-						<ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
+						<ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="15px" width="15px" />}
 					<div className={css.changeMode}>
 						<Link
 							className={css.cardButton}
@@ -259,7 +258,7 @@ class Head extends Component<DefaultProps, Props, State> {
 								color: pathname.slice(0, 5) === '/card' ? 'white' : '#babac0',
 							}}
 						>
-							<p>카드</p>
+							<div className={css.modeName}>카드</div>
 						</Link>
 						<Link
 							className={css.noteButton}
@@ -269,7 +268,7 @@ class Head extends Component<DefaultProps, Props, State> {
 								color: pathname.slice(0, 5) === '/list' ? 'white' : '#babac0',
 							}}
 						>
-							<p>목록</p>
+							<div className={css.modeName}>목록</div>
 						</Link>
 					</div>
 					<div
@@ -305,6 +304,7 @@ class Head extends Component<DefaultProps, Props, State> {
 					<div
 						className={css.trash}
 						onClick={this.changeTrashState}
+						onClick={fullScreen}
 						role="button"
 						tabIndex="-5"
 					>
@@ -314,17 +314,8 @@ class Head extends Component<DefaultProps, Props, State> {
 								opacity: trashOnOff ? '1' : '0.38',
 							}}
 						>
-						휴지통
+						집중
 						</p>
-					</div>
-					<div
-						className={css.icon}
-						onClick={fullScreen}
-						alt="fullscreen"
-						role="button"
-						tabIndex="0"
-					>
-						<img src={icFullScreenIcon} alt="FullScreen" />
 					</div>
 					<div className={css.profileBox}>
 						<div

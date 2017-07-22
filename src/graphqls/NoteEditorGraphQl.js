@@ -24,7 +24,7 @@ export const getSelectedMyNoteData = gql`
 	}
 `;
 
-export const autoSave = gql`
+export const noteSave = gql`
     mutation noteSaveMutation($noteId: ID! $title: String $tags: [String] $data: String $isBooked: Boolean $isPublish: Boolean $preImage: String){
         noteSave(noteId: $noteId, title: $title, tags: $tags, data: $data isBooked: $isBooked isPublish: $isPublish preImage: $preImage){
             success

@@ -16,7 +16,6 @@ type Props = {
   tags: Array<string>,
   themeColor: string,
   preImage: string,
-  changeModalState: Function
 };
 
 const CardInstance = ({
@@ -27,14 +26,10 @@ const CardInstance = ({
   tags = [],
   themeColor = '#ff3466',
   preImage = '',
-  changeModalState = () => {},
 }: Props) => (
 	<Link to={`/card/${noteId}`}>
 		<div
 			className={css.container}
-			onClick={() => {
-				changeModalState(true);
-			}}
 			role="button"
 			tabIndex="-10"
 		>

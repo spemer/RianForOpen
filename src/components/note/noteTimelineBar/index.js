@@ -152,7 +152,6 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		if (`${data._id}` === noteId) {
 			selected = true;
 		}
-		// console.log(noteId === `${data._id}`, this.props, noteId, data._id);
 		return (
 			<TimelineSnippet
 				selected={selected}
@@ -245,7 +244,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 									{noteCount}
 								</div>
 							</div>
-							{noteData.loading && <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
+							{noteData.loading && <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="15px" width="15px" />}
 							<div className={css.selectButton}>
 								<div
 									className={css.button}
@@ -333,26 +332,6 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 											tabIndex="-7"
 										>
 											<p>수정한 시간 역순</p>
-										</div>
-										<div
-											className={css.selectOne}
-											onClick={(e) => {
-												this.changeClickedSortBox(e, 'publish');
-											}}
-											role="button"
-											tabIndex="-7"
-										>
-											<p>가나다 순</p>
-										</div>
-										<div
-											className={css.selectOne}
-											onClick={(e) => {
-												this.changeClickedSortBox(e, 'publish');
-											}}
-											role="button"
-											tabIndex="-7"
-										>
-											<p>가나다 역순</p>
 										</div>
 									</div>
 								</div>}
