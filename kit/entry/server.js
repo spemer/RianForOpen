@@ -164,7 +164,7 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 		store.dispatch(userLogin(ctx.state.user));
 	}
 
-					// Generate the HTML from our React tree.  We're wrapping the result
+					//	erate the HTML from our React tree.  We're wrapping the result
 					// in `react-router`'s <StaticRouter> which will pull out URL info and
 					// store it in our empty `route` object
 	const components = (
