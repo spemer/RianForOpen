@@ -40,7 +40,7 @@ type State = {
 
 const ModeState = {
 	full: false,
-	themeColor: '#0088ff',
+	themeColor: '#ff9ab2',
 	leftBar: true,
 	timelineLeftBar: true,
 	renderTags: [],
