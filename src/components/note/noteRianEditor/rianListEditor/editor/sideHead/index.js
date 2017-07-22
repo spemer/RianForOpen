@@ -24,31 +24,17 @@ function mapToState({ App: { themeColor }, NoteEditor: { save } }: Store) {
 type Props = {
 	save: boolean,
 	themeColor: string,
-	timelineLeftBar: boolean,
 	saveObservable: Function,
 	saveRequestDispatch: Function,
-	changeTimelineLeftBarDispatch: Function
 };
 
 const SideHead = ({
 	save,
 	themeColor,
-	timelineLeftBar,
 	saveObservable,
 	saveRequestDispatch,
-	changeTimelineLeftBarDispatch,
 }: Props) => (
 	<div className={parentCss.sideHead}>
-		<div
-			className={css.arrowBox}
-			onClick={changeTimelineLeftBarDispatch}
-			role="button"
-			tabIndex="-13"
-		>
-			{timelineLeftBar
-						? <div className={css.leftArrow} />
-						: <div className={css.rightArrow} />}
-		</div>
 		<div
 			className={css.save}
 			onClick={() => !save && saveRequestDispatch(saveObservable)}

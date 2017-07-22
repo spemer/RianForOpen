@@ -358,6 +358,18 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 				className={parentCss.container}
 				style={{ paddingTop: !full ? '0px' : '40px' }}
 			>
+				<div className={parentCss.sideLine}>
+					<div
+						className={parentCss.arrowBox}
+						onClick={changeTimelineLeftBarDispatch}
+						role="button"
+						tabIndex="-13"
+					>
+						{timelineLeftBar
+								? <div className={parentCss.leftArrow} />
+								: <div className={parentCss.rightArrow} />}
+					</div>
+				</div>
 				<div className={parentCss.editorBox}>
 					{loading && <ReactLoading className={parentCss.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 					{!full &&
