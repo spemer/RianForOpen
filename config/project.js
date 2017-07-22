@@ -11,8 +11,4 @@ export const BUNDLE_ANALYZER = {
 };
 
 export const CSS_VARIABLES = {
-	headerHeight: '70px',
-	navWidth: '120px',
-	timelineWidth: '300px',
-	rianColor: '#ff3466;',
 };

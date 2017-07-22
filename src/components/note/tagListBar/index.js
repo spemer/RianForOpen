@@ -234,7 +234,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 									{`${tagCount}개의 태그`}
 								</div>
 							</div>
-							{tagData.loading && <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
+							{tagData.loading && <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="15px" width="15px" />}
 							<div className={css.selectButton}>
 								<div
 									className={css.button}

@@ -1,15 +1,40 @@
 // @flow
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import parentCss from '../rianModalEditor.css';
+import ReactLoading from 'react-loading';
+import parentCss from '../../rianModalEditor.css';
 import css from './sidehead.css';
 
+type Store = {
+	App: {
+		themeColor: string
+	},
+	NoteEditor: {
+		save: boolean
+	}
+}
+
+function mapToState({ App: { themeColor }, NoteEditor: { save } }: Store) {
+	return {
+		save,
+		themeColor,
+	};
+}
+
 type Props = {
-  changeModalState: Function,
-  history: any
+	save: boolean,
+	themeColor: string,
+	saveObservable: Function,
+	saveRequestDispatch: Function,
 };
 
-const SideHead = ({ history = {} }: Props) => (
+const SideHead = ({
+	save,
+	themeColor,
+	saveObservable,
+	saveRequestDispatch,
+}: Props) => (
 	<div className={parentCss.sideHead}>
 		<Link to={'/card/main'} >
 			<svg
@@ -24,7 +49,15 @@ const SideHead = ({ history = {} }: Props) => (
 				<path d="M16.5,8.4l-0.9-0.9L12,11.1L8.4,7.5L7.5,8.4l3.6,3.6l-3.6,3.6l0.9,0.9l3.6-3.6l3.6,3.6l0.9-0.9L12.9,12L16.5,8.4z" />
 			</svg>
 		</Link>
-		<div className={css.save}><p className={css.name}>저장</p></div>
+		<div
+			className={css.save}
+			onClick={() => !save && saveRequestDispatch(saveObservable)}
+			style={{ backgroundColor: !save ? '#f4f4f4' : null }}
+			role="button"
+			tabIndex="-3"
+		>
+			{!save ? <p>저장</p> : <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
+		</div>
 		<svg
 			viewBox="0 0 24 24"
 			opacity="0.38"
@@ -45,4 +78,4 @@ const SideHead = ({ history = {} }: Props) => (
 	</div>
 );
 
-export default SideHead;
+export default connect(mapToState)(SideHead);

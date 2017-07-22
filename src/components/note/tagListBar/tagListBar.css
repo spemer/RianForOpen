@@ -38,8 +38,8 @@
             }
         }
         & .loader {
-            position: absolute; top: 34px; bottom:0;
-            left: 80px;
+            position: absolute; top: 12px; bottom:0;
+            right: 12px;
         }
         & .selectButton {
             position: absolute;

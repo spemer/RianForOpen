@@ -56,7 +56,6 @@ type Props = {
 };
 
 type State = {
-  showModal: boolean
 };
 
 @connect(mapToState)
@@ -75,11 +74,9 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	constructor(props: Props) {
 		super(props);
 		this.cardRenderer = this.cardRenderer.bind(this);
-		this.changeModalState = this.changeModalState.bind(this);
 	}
 
 	state = {
-		showModal: false,
 	};
 
 	componentWillReceiveProps(nextProps: Props) {
@@ -94,7 +91,6 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	}
 
 	cardRenderer: Function;
-	changeModalState: Function;
 
 	cardRenderer(noteData: Array<any>) {
 		return noteData.map(({
@@ -117,25 +113,14 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 				tags={tags}
 				preImage={preImage}
 				themeColor={this.props.themeColor}
-				changeModalState={this.changeModalState}
 			/>
 		));
 	}
 
-	changeModalState(argu: boolean) {
-		this.setState({
-			showModal: argu,
-		});
-	}
-
 	render() {
-		let { showModal } = this.state;
 		const { match, history, location, noteData, renderTags, themeColor } = this.props;
 		const tagName = renderTags.length === 0 ? '전체노트' : `#${renderTags.join('#')}`;
-		console.log('pathname', this.props.location.pathname.slice(6));
-		if (this.props.location.pathname.slice(6) && this.props.location.pathname.slice(6) !== 'main') {
-			showModal = true;
-		}
+		// console.log('pathname', this.props.location.pathname.slice(6));
 		let noteCount = process.env.NODE_ENV === 'development' ? `${Mock.length}개의 노트` : '';
 		if (noteData && !noteData.loading && noteData.getAllMyNotePreviewsByTags) {
 			noteCount = `${noteData.getAllMyNotePreviewsByTags.notes.length}개의 노트`;
@@ -143,8 +128,6 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 		return (
 			<div className={css.container}>
 				<ModalEditor
-					showModal={showModal}
-					changeModalState={this.changeModalState}
 					match={match}
 					location={location}
 					history={history}
@@ -156,7 +139,7 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 					<div className={css.noteCount}>
 						{noteCount}
 					</div>
-					{noteData.loading && <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
+					{noteData.loading && <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="15px" width="15px" />}
 				</div>
 				<div className={css.mainBox}>
 					{noteData &&

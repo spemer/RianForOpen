@@ -10,23 +10,22 @@
 
 .save {
     position: absolute;
-    display: flex;
     top: 1rem;
     right: 3.3rem;
     width: 52px;
 	height: 28px;
 	border-radius: 4px;
-    background-color: #f4f4f4;
     font-family: NotoSansCJKkr-Regular;
-	font-size: 12px;
-	line-height: 1.62;
-	letter-spacing: -0.3px;
-	text-align: center;
     color: #515861;
-    align-items: center;
-    justify-content: center;
-    .name {
-        margin: 0;
+    outline: none;
+    p {
+        position: absolute; top: 0; right:0; bottom:0; left:0;
+        width: 52px; margin-left:auto; margin-right:auto; 
+        height: 12px; margin-top:auto; margin-bottom:auto;
+        font-family: NotoSansCJKkr-Regular;
+        font-size: 12px;
+        letter-spacing: -0.3px;
+        text-align: center;
     }
 }
 
