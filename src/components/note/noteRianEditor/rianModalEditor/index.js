@@ -34,7 +34,7 @@ type State = {
 	noteId: ?string,
 	title: string,
 	data: string,
-	isPublish: null,
+	tags: Array<string>,
 };
 
 const getSelectedMyNoteDataQuery = graphql(getSelectedMyNoteData, {
@@ -75,7 +75,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 		noteId: null,
 		title: '',
 		data: '',
-		isPublish: null,
+		tags: [],
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
@@ -88,7 +88,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 				noteId,
 				title: '',
 				data: '',
-				isPublish: null,
+				tags: [],
 			});
 		}
 		if (nextProps.location.pathname !== '/card/main') {
@@ -100,12 +100,12 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 					noteId,
 					title: '',
 					data: '',
-					isPublish: null,
+					tags: [],
 				});
 			}
 			if (!oneOfNoteData.loading) {
 				console.log('loaded!', oneOfNoteData);
-				const { getSelectedMyNoteData: { _id, title, data, isPublish } } = oneOfNoteData;
+				const { getSelectedMyNoteData: { _id, title, data, tags } } = oneOfNoteData;
 				// 라우터랑 가져온 노트 아이디랑 일치해야함
 				if (noteId !== _id) {
 					console.log(noteId === _id);
@@ -115,7 +115,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 					noteId: _id,
 					title,
 					data,
-					isPublish,
+					tags,
 				});
 			}
 		}
@@ -130,13 +130,12 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 			noteId,
 			title,
 			data,
-			isPublish,
+			tags,
 		} = this.state;
 		return (
 			<Modal
 				isOpen={pathname !== '/card/main'}
 				onRequestClose={() => {
-					console.log('onq');
 					history.push('/card/main');
 				}}
 				className={css.modal}
@@ -149,8 +148,8 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 					noteId={noteId}
 					saveMutate={saveMutate}
 					title={title}
+					tags={tags}
 					data={data}
-					isPublish={isPublish}
 				/>}
 			</Modal>
 		);

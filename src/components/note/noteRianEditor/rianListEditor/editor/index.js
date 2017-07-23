@@ -109,7 +109,6 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		tags: [],
 		loading: false,
 		title: '',
-		isPublish: null,
 		saveRequestDispatch: () => {},
 		changeTimelineLeftBarDispatch: () => {},
 	};
@@ -196,12 +195,12 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 	saveObservable() {
 		const { noteId, saveMutate } = this.props;
 		const { title, data } = this.state;
-		let { tags } = this.state; 
+		let { tags } = this.state;
 		let preImage = '';
 		if (document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img').length > 0) {
 			preImage = document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img')[0].src;
 		}
-		tags = tags.replace(/(\s*)/g, '')
+		tags = tags.replace(/(\s*)/g, '');
 		if (tags[0] !== '#') {
 			tags = `#${tags}`;
 		}
@@ -241,7 +240,6 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 	}
 
 	handleTagChange({ target: { value } }: any) {
-		console.log('sdf', value);
 		this.setState({
 			tags: value,
 		});
