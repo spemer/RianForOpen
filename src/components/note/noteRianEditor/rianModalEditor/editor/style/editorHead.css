@@ -11,6 +11,8 @@
             opacity: 0.38;
             font-size: 10px;
             letter-spacing: -0.3px;
+            opacity: 0.38;
+            color: #babac0;
             text-align: right;
             margin-right: 6px;
             font-family: NotoSansCJKkr-Regular;
@@ -43,6 +45,7 @@
             letter-spacing: -0.3px;
             text-align: center;
             & .gutterName {
+                opacity: 0.38;
                 color: #babac0;
                 font-family: NotoSansCJKkr-Regular;
                 margin-bottom: 0px;
