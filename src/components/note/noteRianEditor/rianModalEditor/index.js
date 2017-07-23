@@ -10,7 +10,6 @@ import EditorBox from './editor';
 import css from './rianModalEditor.css';
 
 type DefaultProps = {
-	changeModalState: Function,
 	location: any,
 	history: any,
 	match: any,
@@ -19,7 +18,6 @@ type DefaultProps = {
 };
 
 type Props = {
-	changeModalState: Function,
 	location: any,
 	history: any,
 	match: {
@@ -59,7 +57,6 @@ const saveMutation = graphql(noteSave, {
 @compose(getSelectedMyNoteDataQuery, saveMutation)
 class ModalEditor extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
-		changeModalState: () => {},
 		location: {},
 		history: {},
 		match: {},
@@ -84,8 +81,17 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 	componentWillReceiveProps(nextProps: Props) {
 		console.log('new props in card editor', this.props, nextProps);
 		if (process.env.NODE_ENV === 'development') return;
+		const { match: { params: { noteId } }, oneOfNoteData } = nextProps;
+		if (nextProps.location.pathname === '/card/main') {
+			this.setState({
+				loading: oneOfNoteData.loading,
+				noteId,
+				title: '',
+				data: '',
+				isPublish: null,
+			});
+		}
 		if (nextProps.location.pathname !== '/card/main') {
-			const { match: { params: { noteId } }, oneOfNoteData } = nextProps;
 			// user click other note
 			console.log('check', this.props.match.params.noteId, noteId);
 			if (oneOfNoteData.loading) {
@@ -117,7 +123,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 
 
 	render() {
-		const { changeModalState, history, location: { pathname }, saveMutate } = this.props;
+		const { history, location: { pathname }, saveMutate } = this.props;
 		console.log('this.state', this.state);
 		const {
 			loading,
@@ -130,13 +136,14 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 			<Modal
 				isOpen={pathname !== '/card/main'}
 				onRequestClose={() => {
+					console.log('onq');
 					history.push('/card/main');
-					changeModalState(false);
 				}}
 				className={css.modal}
 				overlayClassName={css.overlay}
 				contentLabel="ModalEditor"
 			>
+				{pathname !== '/card/main' &&
 				<EditorBox
 					loading={loading}
 					noteId={noteId}
@@ -144,7 +151,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 					title={title}
 					data={data}
 					isPublish={isPublish}
-				/>
+				/>}
 			</Modal>
 		);
 	}

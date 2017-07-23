@@ -28,9 +28,8 @@ const example = [
 ];
 
 const getTagsByConditionQuery = graphql(getTagsByCondition, {
-	options: props => ({
+	options: () => ({
 		variables: {
-			userId: SERVER ? props.userId : null,
 			condition: 'All',
 		},
 		ssr: false,

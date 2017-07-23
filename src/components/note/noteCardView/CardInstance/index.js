@@ -15,7 +15,7 @@ type Props = {
   updatedAt?: string,
   tags: Array<string>,
   themeColor: string,
-  preImage: string,
+  preImage: ?string,
 };
 
 const CardInstance = ({
@@ -25,7 +25,7 @@ const CardInstance = ({
   updatedAt = '2017.08.24',
   tags = [],
   themeColor = '#ff3466',
-  preImage = '',
+  preImage,
 }: Props) => (
 	<Link to={`/card/${noteId}`}>
 		<div
@@ -36,7 +36,7 @@ const CardInstance = ({
 			<div
 				className={css.head}
 				style={{
-					backgroundImage: `url(${preImage})`,
+					backgroundImage: preImage && `url(${preImage})`,
 				}}
 			>
 				<div className={css.box}>

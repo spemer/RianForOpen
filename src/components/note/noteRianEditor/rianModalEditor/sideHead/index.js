@@ -4,12 +4,7 @@ import { Link } from 'react-router-dom';
 import parentCss from '../rianModalEditor.css';
 import css from './sidehead.css';
 
-type Props = {
-  changeModalState: Function,
-  history: any
-};
-
-const SideHead = ({ history = {} }: Props) => (
+const SideHead = () => (
 	<div className={parentCss.sideHead}>
 		<Link to={'/card/main'} >
 			<svg
