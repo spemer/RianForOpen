@@ -16,7 +16,6 @@ import Mock from '../../../../MockData/noteList';
 const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
 	options: props => ({
 		variables: {
-			userId: SERVER ? props.userId : null,
 			tags: props.renderTags,
 		},
 		ssr: false,
@@ -115,26 +114,26 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 				onSortList: false,
 			});
 		}
-		if (process.env.NODE_ENV === 'production') {
-			if (this.props.renderTags !== nextProps.renderTags) {
-				console.log('refetch');
-				this.props.noteData.refetch({
-					tags: nextProps.renderTags,
-				});
-			}
-			// if (this.props.save && !nextProps.save) {
-			// 	console.log('refetch');
-			// 	this.props.noteData.refetch({
-			// 		tags: nextProps.renderTags,
-			// 	});
-			// }
-			// if (this.props.makeNew && nextProps.makeNew) {
-			// 	console.log('refetch');
-			// 	this.props.noteData.refetch({
-			// 		tags: nextProps.renderTags,
-			// 	});
-			// }
-		}
+		// if (process.env.NODE_ENV === 'production') {
+		// 	if (this.props.renderTags !== nextProps.renderTags) {
+		// 		console.log('refetch');
+		// 		this.props.noteData.refetch({
+		// 			tags: nextProps.renderTags,
+		// 		});
+		// 	}
+		// 	if (this.props.save && !nextProps.save) {
+		// 		console.log('refetch');
+		// 		this.props.noteData.refetch({
+		// 			tags: nextProps.renderTags,
+		// 		});
+		// 	}
+		// 	if (this.props.makeNew && nextProps.makeNew) {
+		// 		console.log('refetch');
+		// 		this.props.noteData.refetch({
+		// 			tags: nextProps.renderTags,
+		// 		});
+		// 	}
+		// }
 	}
 
 	rowRenderer: Function;

@@ -69,7 +69,6 @@ function mapToDispatch(dispatch) {
 const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
 	options: props => ({
 		variables: {
-			userId: SERVER ? props.userId : null,
 			tags: props.renderTags,
 		},
 		ssr: false,
@@ -303,7 +302,6 @@ class Head extends Component<DefaultProps, Props, State> {
 					</div>
 					<div
 						className={css.trash}
-						onClick={this.changeTrashState}
 						onClick={fullScreen}
 						role="button"
 						tabIndex="-5"

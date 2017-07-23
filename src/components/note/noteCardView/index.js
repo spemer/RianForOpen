@@ -16,7 +16,6 @@ moment.locale('ko');
 const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
 	options: props => ({
 		variables: {
-			userId: SERVER ? props.userId : null,
 			tags: props.renderTags,
 		},
 		ssr: false,
@@ -79,15 +78,16 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	state = {
 	};
 
-	componentWillReceiveProps(nextProps: Props) {
-		if (
-      process.env.NODE_ENV === 'production' &&
-      this.props.renderTags !== nextProps.renderTags
-    ) {
-			this.props.noteData.refetch({
-				tags: nextProps.renderTags,
-			});
-		}
+	componentWillReceiveProps(props: Props) {
+		console.log('cardsview', this.props, props);
+	// 	if (
+    //   process.env.NODE_ENV === 'production' &&
+    //   this.props.renderTags !== nextProps.renderTags
+    // ) {
+	// 		this.props.noteData.refetch({
+	// 			tags: nextProps.renderTags,
+	// 		});
+	// 	}
 	}
 
 	cardRenderer: Function;
@@ -120,7 +120,7 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	render() {
 		const { match, history, location, noteData, renderTags, themeColor } = this.props;
 		const tagName = renderTags.length === 0 ? '전체노트' : `#${renderTags.join('#')}`;
-		// console.log('pathname', this.props.location.pathname.slice(6));
+		console.log('pathname', this.props.location.pathname.slice(6));
 		let noteCount = process.env.NODE_ENV === 'development' ? `${Mock.length}개의 노트` : '';
 		if (noteData && !noteData.loading && noteData.getAllMyNotePreviewsByTags) {
 			noteCount = `${noteData.getAllMyNotePreviewsByTags.notes.length}개의 노트`;
