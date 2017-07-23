@@ -1381,4 +1381,20 @@ table {
   border-collapse: collapse;
 }
 
+.fa-paragraph {
+  margin-left: 12px !important;
+  margin-right: 12px !important;
+}
+
+.fa-quote-left {
+  margin-left: 12px !important;
+  margin-right: 12px !important;
+}
+
+
+.fa-align-left {
+  margin-left: 12px !important;
+  margin-right: 12px !important;
+}
+
 
