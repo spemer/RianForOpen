@@ -62,7 +62,7 @@ type DefaultProps = {
 	saveMutate: Function,
 	title: string,
 	data: string,
-	isPublish: null,
+	tags: Array<string>,
 	saveRequestDispatch: Function,
 	changeTimelineLeftBarDispatch: Function
 };
@@ -76,7 +76,7 @@ type Props = {
 	title: ?string,
 	loading: boolean,
 	data: ?string,
-	isPublish: ?boolean,
+	tags: Array<string>,
 	saveRequestDispatch: Function,
 	changeTimelineLeftBarDispatch: Function
 };
@@ -84,19 +84,17 @@ type Props = {
 type SaveFormat = {
 	noteId: ?string,
 	title: ?string,
-	tags: ?Array<string>,
+	tags: Array<string>,
 	data: ?string,
 	preImage: ?string,
-	isPublish: ?boolean,
 };
 
 type State = {
 	loading: boolean,
 	noteId: ?string,
 	data: ?string,
-	tags: ?Array<string>,
+	tags: string,
 	title: ?string,
-	isPublish: ?boolean,
 };
 
 @connect(mapToState, mapToDispatch)
@@ -108,6 +106,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		noteId: null,
 		saveMutate: () => {},
 		data: '',
+		tags: [],
 		loading: false,
 		title: '',
 		isPublish: null,
@@ -120,15 +119,15 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		this.saveObservable = this.saveObservable.bind(this);
 		this.handleModelChange = this.handleModelChange.bind(this);
 		this.handleChange = this.handleChange.bind(this);
+		this.handleTagChange = this.handleTagChange.bind(this);
 	}
 
 	state = {
 		loading: this.props.loading,
 		noteId: this.props.noteId,
-		tags: [],
+		tags: '',
 		title: this.props.title,
 		data: this.props.data,
-		isPublish: this.props.isPublish,
 	};
 
 	componentDidMount() {
@@ -150,119 +149,6 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			'letter-spacing': '-0.4px',
 			color: '#515861',
 		});
-		// function isActive(cmd) {
-		// 	const blocks = this.selection.blocks();
-		// 	let tag;
-		// 	if (blocks.length) {
-		// 		const blk = blocks[0];
-		// 		tag = 'N';
-		// 		const defaultTag = this.html.defaultTag();
-		// 		if (blk.tagName.toLowerCase() != defaultTag && blk != this.el) {
-		// 			tag = blk.tagName;
-		// 		}
-		// 	}
-
-		// 	if (['LI', 'TD', 'TH'].indexOf(tag) >= 0) {
-		// 		tag = 'N';
-		// 	}
-
-		// 	if (tag && tag.toLowerCase) {
-		// 		return tag.toLowerCase() == cmd;
-		// 	}
-		// 	return null;
-		// }
-
-	// Define custom buttons.//////
-		// setTimeout(() => {
-			// $.FroalaEditor.DefineIcon('normal', {
-			// 	NAME: '<strong>H0</strong>',
-			// 	template: 'text',
-			// });
-			// $.FroalaEditor.RegisterCommand('normal', {
-			// 	title: 'Normal',
-			// 	callback(cmd) {
-			// 		if (isActive.apply(this, [cmd])) {
-			// 			this.paragraphFormat.apply('N');
-			// 		} else {
-			// 			this.paragraphFormat.apply(cmd);
-			// 		}
-			// 	},
-			// 	refresh($btn) {
-			// 		$btn.toggleClass('fr-active', isActive.apply(this, [$btn.data('cmd')]));
-			// 	},
-			// });
-		// 	$.FroalaEditor.DefineIcon('h1', {
-		// 		NAME: '<strong>H1</strong>',
-		// 		template: 'text',
-		// 	});
-		// 	$.FroalaEditor.DefineIcon('h2', {
-		// 		NAME: '<strong>H2</strong>',
-		// 		template: 'text',
-		// 	});
-		// 	$.FroalaEditor.DefineIcon('h3', {
-		// 		NAME: '<strong>H3</strong>',
-		// 		template: 'text',
-		// 	});
-		// 	$.FroalaEditor.DefineIcon('pre', {
-		// 		NAME: '<strong>CO</strong>',
-		// 		template: 'text',
-		// 	});
-
-		// 	$.FroalaEditor.RegisterCommand('h1', {
-		// 		title: 'Heading 1',
-		// 		callback(cmd) {
-		// 			if (isActive.apply(this, [cmd])) {
-		// 				this.paragraphFormat.apply('N');
-		// 			} else {
-		// 				this.paragraphFormat.apply(cmd);
-		// 			}
-		// 		},
-		// 		refresh($btn) {
-		// 			$btn.toggleClass('fr-active', isActive.apply(this, [$btn.data('cmd')]));
-		// 		},
-		// 	});
-
-		// 	$.FroalaEditor.RegisterCommand('h2', {
-		// 		title: 'Heading 2',
-		// 		callback(cmd) {
-		// 			if (isActive.apply(this, [cmd])) {
-		// 				this.paragraphFormat.apply('N');
-		// 			} else {
-		// 				this.paragraphFormat.apply(cmd);
-		// 			}
-		// 		},
-		// 		refresh($btn) {
-		// 			$btn.toggleClass('fr-active', isActive.apply(this, [$btn.data('cmd')]));
-		// 		},
-		// 	});
-
-		// 	$.FroalaEditor.RegisterCommand('h3', {
-		// 		title: 'Heading 3',
-		// 		callback(cmd) {
-		// 			if (isActive.apply(this, [cmd])) {
-		// 				this.paragraphFormat.apply('N');
-		// 			} else {
-		// 				this.paragraphFormat.apply(cmd);
-		// 			}
-		// 		},
-		// 		refresh($btn) {
-		// 			$btn.toggleClass('fr-active', isActive.apply(this, [$btn.data('cmd')]));
-		// 		},
-		// 	});
-		// 	$.FroalaEditor.RegisterCommand('pre', {
-		// 		title: 'CODE',
-		// 		callback(cmd) {
-		// 			if (isActive.apply(this, [cmd])) {
-		// 				this.paragraphFormat.apply('N');
-		// 			} else {
-		// 				this.paragraphFormat.apply(cmd);
-		// 			}
-		// 		},
-		// 		refresh($btn) {
-		// 			$btn.toggleClass('fr-active', isActive.apply(this, [$btn.data('cmd')]));
-		// 		},
-		// 	});
-		// }, 10)
     // if (process.env.NODE_ENV === 'production') {
     // 	this.Interval = setInterval(() => {
     // 		// if compoennent has noteId, it will be saved
@@ -280,44 +166,59 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 				loading,
 				noteId,
 				data,
-				isPublish,
+				tags,
 				title,
 				full,
 				timelineLeftBar,
 			} = nextProps;
 			if (this.props.full !== full) return;
 			if (this.props.timelineLeftBar !== timelineLeftBar) return;
-
+			let tagsString = tags.join('#').replace(/(\s*)/g, '');
+			if (tagsString[0] !== '#') {
+				tagsString = `#${tagsString}`;
+			}
 			this.setState({
 				loading,
 				noteId,
 				title,
+				tags: tagsString,
 				data,
-				isPublish,
 			});
 		}
 	}
 	saveObservable: Function;
 	handleModelChange: Function;
 	handleChange: Function;
+	handleTagChange: Function;
 	initControls: any;
 	Interval: any;
 
 	saveObservable() {
 		const { noteId, saveMutate } = this.props;
-		const { title, data, isPublish, tags } = this.state;
+		const { title, data } = this.state;
+		let { tags } = this.state; 
 		let preImage = '';
 		if (document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img').length > 0) {
 			preImage = document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img')[0].src;
 		}
+		tags = tags.replace(/(\s*)/g, '')
+		if (tags[0] !== '#') {
+			tags = `#${tags}`;
+		}
+		if (tags[tags.length - 1] !== '#') {
+			tags = `${tags}#`;
+		}
+		const tagsArray = tags.split('#');
+		tagsArray.pop();
+		tagsArray.shift();
 		const variables: SaveFormat = {
 			noteId,
 			title,
 			data,
-			tags,
-			isPublish,
+			tags: tagsArray,
 			preImage,
 		};
+		console.log('variables', variables);
 		return saveMutate({
 			variables,
 			refetchQueries: [
@@ -339,6 +240,13 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		});
 	}
 
+	handleTagChange({ target: { value } }: any) {
+		console.log('sdf', value);
+		this.setState({
+			tags: value,
+		});
+	}
+
 	render() {
 		const {
 			full,
@@ -350,6 +258,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		const {
 			loading,
 			data,
+			tags,
 			title,
 		} = this.state;
 		const config = editorConfig;
@@ -384,14 +293,18 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 							<div
 								className={editorHeadCss.tagBox}
 								style={{
-									height: !full ? '40px' : '0px',
-									marginTop: !full ? '0px' : '40px',
+									height: full && '0px',
+									marginTop: full && '40px',
 								}}
 							>
 								<div className={editorHeadCss.gutter}>
-									{/* <p className={css.gutterName}>#</p> */}
+									Tag
 								</div>
-								<div className={editorHeadCss.tagContainer} />
+								<input
+									className={editorHeadCss.tagContainer}
+									value={tags}
+									onChange={this.handleTagChange}
+								/>
 							</div>
 							<div className={editorHeadCss.titleHead}>
 								<div className={editorHeadCss.gutter}>

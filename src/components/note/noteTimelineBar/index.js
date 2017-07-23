@@ -90,7 +90,10 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		timelineLeftBar: true,
 		match: {},
 		noteData: {
-			loading: true,
+			loading: false,
+			getAllMyNotePreviewsByTags: {
+				notes: Mock,
+			},
 		},
 	};
 
@@ -98,7 +101,6 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		super(props);
 		this.currentSelected = '';
 		this.rowRenderer = this.rowRenderer.bind(this);
-		this.developmentRowRenderer = this.developmentRowRenderer.bind(this);
 		this.changeOnSortState = this.changeOnSortState.bind(this);
 	}
 
@@ -114,31 +116,10 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 				onSortList: false,
 			});
 		}
-		// if (process.env.NODE_ENV === 'production') {
-		// 	if (this.props.renderTags !== nextProps.renderTags) {
-		// 		console.log('refetch');
-		// 		this.props.noteData.refetch({
-		// 			tags: nextProps.renderTags,
-		// 		});
-		// 	}
-		// 	if (this.props.save && !nextProps.save) {
-		// 		console.log('refetch');
-		// 		this.props.noteData.refetch({
-		// 			tags: nextProps.renderTags,
-		// 		});
-		// 	}
-		// 	if (this.props.makeNew && nextProps.makeNew) {
-		// 		console.log('refetch');
-		// 		this.props.noteData.refetch({
-		// 			tags: nextProps.renderTags,
-		// 		});
-		// 	}
-		// }
 	}
 
 	rowRenderer: Function;
 	changeOnSortState: Function;
-	developmentRowRenderer: Function;
 	currentSelected: any;
 	currentSelectedSort: any;
 
@@ -165,31 +146,6 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		);
 	}
 
-	developmentRowRenderer(argu: { index: number, style: any }) {
-		const index = argu.index;
-		const style = argu.style;
-		const data = Mock[index];
-		const noteId = this.props.match.params.noteId;
-		let selected = false;
-		if (`${data._id}` === noteId) {
-			selected = true;
-		}
-		// console.log(noteId === `${data._id}`, this.props, noteId, data._id);
-		return (
-			<TimelineSnippet
-				selected={selected}
-				key={data._id}
-				noteId={data._id}
-				title={data.title}
-				preview={data.preview}
-				tags={[data.tag]}
-				updatedAt={moment(data.updatedAt).format('LL')}
-				style={style}
-				themeColor={this.props.themeColor}
-			/>
-		);
-	}
-
 	changeClickedSortBox(e: any, sortName: string) {
 		if (this.currentSelectedSort) {
 			this.currentSelectedSort.style.color = '#515861';
@@ -209,13 +165,16 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const { onSortList } = this.state;
-		const { full, noteData, leftBar, renderTags, timelineLeftBar, themeColor } = this.props;
-		const tagName = renderTags.length === 0
-      ? '전체노트'
-      : `#${renderTags.join('#')}`;
-
-		let noteCount = process.env.NODE_ENV === 'development' ? `${Mock.length}개의 노트` : '';
-		if (noteData && !noteData.loading && noteData.getAllMyNotePreviewsByTags) {
+		const { full,
+			noteData,
+			leftBar,
+			renderTags,
+			timelineLeftBar,
+			themeColor,
+		} = this.props;
+		const tagName = renderTags.length === 0 ? '전체노트' : `#${renderTags.join('#')}`;
+		let noteCount = '';
+		if (!noteData.loading && noteData.getAllMyNotePreviewsByTags) {
 			noteCount = `${noteData.getAllMyNotePreviewsByTags.notes.length}개의 노트`;
 		}
 		return (
@@ -337,35 +296,17 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 							</div>
 						</div>
 						<div className={css.scrollBox}>
-							{noteData &&
-                noteData.getAllMyNotePreviewsByTags &&
-                <AutoSizer>
-	{({ height, width }) => (
-		<List
-			rowRenderer={this.rowRenderer}
-			height={height}
-			width={width}
-			rowHeight={132}
-			rowCount={
-                        noteData.getAllMyNotePreviewsByTags.notes
-                          .length
-                      }
-			style={{ outline: 'none' }}
-		/>
-                  )}
-                </AutoSizer>}
-							{process.env.NODE_ENV === 'development' &&
-							<AutoSizer>
+							{noteData.getAllMyNotePreviewsByTags && <AutoSizer>
 								{({ height, width }) => (
 									<List
-										rowRenderer={this.developmentRowRenderer}
+										rowRenderer={this.rowRenderer}
 										height={height}
 										width={width}
 										rowHeight={132}
-										rowCount={Mock.length}
+										rowCount={noteData.getAllMyNotePreviewsByTags.notes.length}
 										style={{ outline: 'none' }}
 									/>
-                  )}
+								)}
 							</AutoSizer>}
 						</div>
 					</div>

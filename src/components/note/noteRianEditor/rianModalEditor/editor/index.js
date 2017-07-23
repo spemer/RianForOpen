@@ -128,7 +128,6 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		$(`.${parentCss.overlay}`).scroll(() => {
 			$('.fr-toolbar.fr-desktop.fr-inline').css('display', 'none');
 		});
-
 		$('.fr-box').css({
 			position: 'relative',
 			'max-width': '540px',
@@ -142,119 +141,6 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			'letter-spacing': '-0.4px',
 			color: '#515861',
 		});
-		// function isActive(cmd) {
-		// 	const blocks = this.selection.blocks();
-		// 	let tag;
-		// 	if (blocks.length) {
-		// 		const blk = blocks[0];
-		// 		tag = 'N';
-		// 		const defaultTag = this.html.defaultTag();
-		// 		if (blk.tagName.toLowerCase() != defaultTag && blk != this.el) {
-		// 			tag = blk.tagName;
-		// 		}
-		// 	}
-
-		// 	if (['LI', 'TD', 'TH'].indexOf(tag) >= 0) {
-		// 		tag = 'N';
-		// 	}
-
-		// 	if (tag && tag.toLowerCase) {
-		// 		return tag.toLowerCase() == cmd;
-		// 	}
-		// 	return null;
-		// }
-
-	// Define custom buttons.//////
-		// setTimeout(() => {
-			// $.FroalaEditor.DefineIcon('normal', {
-			// 	NAME: '<strong>H0</strong>',
-			// 	template: 'text',
-			// });
-			// $.FroalaEditor.RegisterCommand('normal', {
-			// 	title: 'Normal',
-			// 	callback(cmd) {
-			// 		if (isActive.apply(this, [cmd])) {
-			// 			this.paragraphFormat.apply('N');
-			// 		} else {
-			// 			this.paragraphFormat.apply(cmd);
-			// 		}
-			// 	},
-			// 	refresh($btn) {
-			// 		$btn.toggleClass('fr-active', isActive.apply(this, [$btn.data('cmd')]));
-			// 	},
-			// });
-		// 	$.FroalaEditor.DefineIcon('h1', {
-		// 		NAME: '<strong>H1</strong>',
-		// 		template: 'text',
-		// 	});
-		// 	$.FroalaEditor.DefineIcon('h2', {
-		// 		NAME: '<strong>H2</strong>',
-		// 		template: 'text',
-		// 	});
-		// 	$.FroalaEditor.DefineIcon('h3', {
-		// 		NAME: '<strong>H3</strong>',
-		// 		template: 'text',
-		// 	});
-		// 	$.FroalaEditor.DefineIcon('pre', {
-		// 		NAME: '<strong>CO</strong>',
-		// 		template: 'text',
-		// 	});
-
-		// 	$.FroalaEditor.RegisterCommand('h1', {
-		// 		title: 'Heading 1',
-		// 		callback(cmd) {
-		// 			if (isActive.apply(this, [cmd])) {
-		// 				this.paragraphFormat.apply('N');
-		// 			} else {
-		// 				this.paragraphFormat.apply(cmd);
-		// 			}
-		// 		},
-		// 		refresh($btn) {
-		// 			$btn.toggleClass('fr-active', isActive.apply(this, [$btn.data('cmd')]));
-		// 		},
-		// 	});
-
-		// 	$.FroalaEditor.RegisterCommand('h2', {
-		// 		title: 'Heading 2',
-		// 		callback(cmd) {
-		// 			if (isActive.apply(this, [cmd])) {
-		// 				this.paragraphFormat.apply('N');
-		// 			} else {
-		// 				this.paragraphFormat.apply(cmd);
-		// 			}
-		// 		},
-		// 		refresh($btn) {
-		// 			$btn.toggleClass('fr-active', isActive.apply(this, [$btn.data('cmd')]));
-		// 		},
-		// 	});
-
-		// 	$.FroalaEditor.RegisterCommand('h3', {
-		// 		title: 'Heading 3',
-		// 		callback(cmd) {
-		// 			if (isActive.apply(this, [cmd])) {
-		// 				this.paragraphFormat.apply('N');
-		// 			} else {
-		// 				this.paragraphFormat.apply(cmd);
-		// 			}
-		// 		},
-		// 		refresh($btn) {
-		// 			$btn.toggleClass('fr-active', isActive.apply(this, [$btn.data('cmd')]));
-		// 		},
-		// 	});
-		// 	$.FroalaEditor.RegisterCommand('pre', {
-		// 		title: 'CODE',
-		// 		callback(cmd) {
-		// 			if (isActive.apply(this, [cmd])) {
-		// 				this.paragraphFormat.apply('N');
-		// 			} else {
-		// 				this.paragraphFormat.apply(cmd);
-		// 			}
-		// 		},
-		// 		refresh($btn) {
-		// 			$btn.toggleClass('fr-active', isActive.apply(this, [$btn.data('cmd')]));
-		// 		},
-		// 	});
-		// }, 10)
     // if (process.env.NODE_ENV === 'production') {
     // 	this.Interval = setInterval(() => {
     // 		// if compoennent has noteId, it will be saved
