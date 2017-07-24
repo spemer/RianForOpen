@@ -27,7 +27,7 @@ import './style/rianModal.global.css';
 import './style/reactTag.global.css';
 import '../../fontawesome.global.css';
 import '../../froalaImage.global.css';
-import '../../froalaStyle.global.css';
+
 
 type Store = {
 	App: {
