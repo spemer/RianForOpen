@@ -124,7 +124,7 @@ class Head extends Component<DefaultProps, Props, State> {
 	}
 
 	state = {
-		modeIsTag: false,
+		modeIsTag: true,
 		socialOnOff: false,
 		trashOnOff: false,
 		makeNoteLoading: false,
@@ -182,7 +182,7 @@ class Head extends Component<DefaultProps, Props, State> {
 				const makeNoteResult = await this.props.makeNote({
 					refetchQueries: [{
 						query: getAllMyNotePreviewsByTags,
-						variables: { tags: renderTags, userId: null },
+						variables: { tags: renderTags },
 					}],
 				});
 				const { data } = makeNoteResult;
@@ -200,7 +200,7 @@ class Head extends Component<DefaultProps, Props, State> {
 				const makeNoteResult = await this.props.makeNote({
 					refetchQueries: [{
 						query: getAllMyNotePreviewsByTags,
-						variables: { tags: renderTags, userId: null },
+						variables: { tags: renderTags },
 					}],
 				});
 				const { data } = makeNoteResult;

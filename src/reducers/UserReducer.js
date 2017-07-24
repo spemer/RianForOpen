@@ -61,7 +61,7 @@ export default function User(state: State = UserState, action: any): State {
 			lastLogin: action.lastLogin,
 		});
 	case USER_NAME_INJECT:
-		console.log('inject', action);
+		// console.log('inject', action);
 		return Object.assign({}, state, {
 			userName: action.userName,
 		});

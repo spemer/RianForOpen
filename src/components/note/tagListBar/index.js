@@ -114,7 +114,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	}
 
 	state = {
-		tagCount: 174,
+		tagCount: 0,
 		onSortList: false,
 		sortByhowMany: false,
 		selectedTag: '',

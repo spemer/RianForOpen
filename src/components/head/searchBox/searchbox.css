@@ -1,10 +1,10 @@
 .searchIc {
-            position: absolute; top: 0;
-            top: 1px; bottom:0;
-            width: 30px;
-            height: 30px; margin-top:auto; margin-bottom:auto;
-            z-index: 1;
-            opacity: 0.38;
+    position: absolute; top: 0;
+    top: 1px; bottom:0;
+    width: 30px;
+    height: 30px; margin-top:auto; margin-bottom:auto;
+    z-index: 1;
+    opacity: 0.38;
 }
 
 .container {
@@ -19,7 +19,7 @@
         position: absolute; top: 0; bottom:0;
         left: 30px;
         border: none; 
-        height:26px; margin-top:auto; margin-bottom:auto;
+        height:20px; margin-top:auto; margin-bottom:auto;
         font-family: NotoSansCJKkr-Regular;
         color: #353946;
         font-size: 14px;
