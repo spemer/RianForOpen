@@ -5,7 +5,7 @@ const toolbarButton = [
 	'paragraphFormat',
 	'underline',
 	'bold',
-	'link',
+	'strikeThrough',
 	'italic',
 	'formatOL',
 	'formatUL',
@@ -58,7 +58,6 @@ const config = {
 	videoInsertButtons: ['videoBack', 'videoByURL'],
 	linkList: [],
 	pluginsEnabled: [
-		'link',
 		'lists',
 		'image',
 		'paragraphFormat',

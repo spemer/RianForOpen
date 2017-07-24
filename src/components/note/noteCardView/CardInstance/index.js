@@ -20,8 +20,8 @@ type Props = {
 
 const CardInstance = ({
   noteId = 'temp',
-  title = '',
-  preview = '',
+  title = '제목없음',
+  preview = '내용없음',
   updatedAt = '2017.08.24',
   tags = [],
   themeColor = '#ff3466',
@@ -63,7 +63,7 @@ const CardInstance = ({
 			<div className={css.preview}>
 				{preview}
 			</div>
-			<div className={css.tags} style={{ color: themeColor }}>
+			<div className={css.tags}>
 				{makeTagToElement(tags)}
 			</div>
 		</div>
