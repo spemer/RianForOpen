@@ -49,7 +49,7 @@
                     }
                     & .editorHead {
                         position: relative;
-                        height: 120px;
+                        height: 100px;
                         width: 100%;
                     }
                     & .mainEditor {

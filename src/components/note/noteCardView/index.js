@@ -105,10 +105,7 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 				key={_id}
 				noteId={_id}
 				title={title}
-				preview={
-					preview ||
-					'자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 자바스크립트(영어: JavaScript)는 객체 기반의 스크립트 프로그래밍 언어이다. 이 언어는 웹브라우저 내에서 주로 사용하며, 다른 응용 '
-				}
+				preview={preview}
 				updatedAt={moment(updatedAt).format('LL')}
 				tags={tags}
 				preImage={preImage}
