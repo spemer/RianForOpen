@@ -17,6 +17,7 @@
     "server": "node dist/server",
     "build-mlab": "cross-env MLAB=true WEBPACK_CONFIG=browser_prod,server webpack --colors",
     "start": "cross-env WEBPACK_CONFIG=browser_dev webpack-dev-server",
+    "start-host": "cross-env WEBPACK_CONFIG=browser_dev webpack-dev-server",
     "flow start": "flow start",
     "flow stop": "flow stop",
     "flow status": "flow status",

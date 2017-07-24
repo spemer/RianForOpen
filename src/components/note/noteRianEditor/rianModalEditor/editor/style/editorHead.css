@@ -44,9 +44,9 @@
             line-height: 1.62;
             letter-spacing: -0.3px;
             text-align: center;
+            color: #babac0;
             & .gutterName {
                 opacity: 0.38;
-                color: #babac0;
                 font-family: NotoSansCJKkr-Regular;
                 margin-bottom: 0px;
                 margin-top: 0px;

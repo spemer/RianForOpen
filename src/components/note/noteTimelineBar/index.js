@@ -177,6 +177,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		if (!noteData.loading && noteData.getAllMyNotePreviewsByTags) {
 			noteCount = `${noteData.getAllMyNotePreviewsByTags.notes.length}개의 노트`;
 		}
+		console.log('sdfsdf', this.props);
 		return (
 			<Motion
 				style={{

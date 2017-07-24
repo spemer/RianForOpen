@@ -159,7 +159,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
-		console.log('editior get new Props', this.props, nextProps);
+		// console.log('editior get new Props', this.props, nextProps);
 		if (process.env.NODE_ENV === 'production') {
 			const {
 				loading,
@@ -217,7 +217,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			tags: tagsArray,
 			preImage,
 		};
-		console.log('variables', variables);
+		// console.log('variables', variables);
 		return saveMutate({
 			variables,
 			refetchQueries: [

@@ -79,7 +79,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
-		console.log('new props in card editor', this.props, nextProps);
+		// console.log('new props in card editor', this.props, nextProps);
 		if (process.env.NODE_ENV === 'development') return;
 		const { match: { params: { noteId } }, oneOfNoteData } = nextProps;
 		if (nextProps.location.pathname === '/card/main') {
@@ -93,7 +93,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 		}
 		if (nextProps.location.pathname !== '/card/main') {
 			// user click other note
-			console.log('check', this.props.match.params.noteId, noteId);
+			// console.log('check', this.props.match.params.noteId, noteId);
 			if (oneOfNoteData.loading) {
 				this.setState({
 					loading: oneOfNoteData.loading,
@@ -104,11 +104,11 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 				});
 			}
 			if (!oneOfNoteData.loading) {
-				console.log('loaded!', oneOfNoteData);
+				// console.log('loaded!', oneOfNoteData);
 				const { getSelectedMyNoteData: { _id, title, data, tags } } = oneOfNoteData;
 				// 라우터랑 가져온 노트 아이디랑 일치해야함
 				if (noteId !== _id) {
-					console.log(noteId === _id);
+					// console.log(noteId === _id);
 				}
 				this.setState({
 					loading: oneOfNoteData.loading,
@@ -124,7 +124,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const { history, location: { pathname }, saveMutate } = this.props;
-		console.log('this.state', this.state);
+		// console.log('this.state', this.state);
 		const {
 			loading,
 			noteId,
