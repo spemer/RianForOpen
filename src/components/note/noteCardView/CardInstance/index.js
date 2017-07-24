@@ -5,7 +5,7 @@ import css from './cardInstance.css';
 
 const makeTagToElement = (tagSet: Array<string>) => {
 	const SumTagSet = tagSet.reduce((a: string, b: string) => `${a} #${b}`, '');
-	return <p className={css.tagInstance}>{SumTagSet}</p>;
+	return <div className={css.tagInstance}>{SumTagSet}</div>;
 };
 
 type Props = {
