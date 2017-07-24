@@ -18,6 +18,7 @@ import editorConfig from './editorConfig';
 import { changeTimelineLeftBar } from '../../../../../actions/AppActions';
 import { saveRequest } from '../../../../../actions/NoteEditorActions';
 import { notePreviewUpdate } from '../../../../../graphqls/TimelineGraphQl';
+import { getTagsByCondition } from '../../../../../graphqls/TagGraphQl';
 import SideHead from './sideHead';
 // css
 import parentCss from '../rianModalEditor.css';
@@ -212,6 +213,9 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 				{
 					query: notePreviewUpdate,
 					variables: { noteId },
+				}, {
+					query: getTagsByCondition,
+					variables: { condition: 'All' },
 				},
 			],
 		});

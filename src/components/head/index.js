@@ -9,6 +9,7 @@ import profileImageMock from '../../../static/image/thumb-ex-img.png';
 import SearchBox from './searchBox';
 import { fullScreenChange, changeLeftBar } from '../../actions/AppActions';
 import { makeNote } from '../../graphqls/NoteEditorGraphQl';
+import { getTagsByCondition } from '../../graphqls/TagGraphQl';
 import { getAllMyNotePreviewsByTags } from '../../graphqls/TimelineGraphQl';
 import parentCss from '../app/app.css';
 import css from './head.css';
@@ -183,6 +184,9 @@ class Head extends Component<DefaultProps, Props, State> {
 					refetchQueries: [{
 						query: getAllMyNotePreviewsByTags,
 						variables: { tags: renderTags },
+					}, {
+						query: getTagsByCondition,
+						variables: { condition: 'All' },
 					}],
 				});
 				const { data } = makeNoteResult;
@@ -201,6 +205,9 @@ class Head extends Component<DefaultProps, Props, State> {
 					refetchQueries: [{
 						query: getAllMyNotePreviewsByTags,
 						variables: { tags: renderTags },
+					}, {
+						query: getTagsByCondition,
+						variables: { condition: 'All' },
 					}],
 				});
 				const { data } = makeNoteResult;
