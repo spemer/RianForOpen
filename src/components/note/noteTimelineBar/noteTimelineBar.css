@@ -10,6 +10,8 @@
     height: 100%;
     border-right: 1px solid #dfdfdf;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     & .head {
         position: relative;
         width: 100%;
@@ -172,7 +174,7 @@
         }
     }
     & .scrollBox {
-        height: calc(100% - 98px);
+        flex: 1;
         overflow-y: auto;
     }
      & .scrollBox::-webkit-scrollbar {
