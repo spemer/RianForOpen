@@ -1,4 +1,5 @@
 .tagBlock {
+        Gcursor:pointer;
         display: flex;
         padding-left: 24px;
         height: 28px;

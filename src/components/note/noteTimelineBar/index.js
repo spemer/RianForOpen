@@ -132,6 +132,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		if (`${data._id}` === noteId) {
 			selected = true;
 		}
+		console.log(data._id);
 		return (
 			<TimelineSnippet
 				selected={selected}
