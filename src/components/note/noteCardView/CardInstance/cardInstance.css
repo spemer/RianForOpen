@@ -52,12 +52,18 @@
         overflow: hidden;
     }
     & .tags {
-        margin-bottom: 18px;
-        margin-left: 16px;
+        height: calc(100% - 122px - 20px - 95px);
         font-family: NotoSansCJKkr-Regular;
         font-size: 12px;
-        line-height: 1.62;
+        box-sizing: border-box;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-top: 16px;
         letter-spacing: -0.3px;
+        & .tagInstance {
+            height: 14px;
+            overflow: hidden;
+        }
     }
 }
 
