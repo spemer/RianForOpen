@@ -49,6 +49,7 @@
             right: 5px;
             width: 30px;
             height: 30px;
+            cursor: pointer;
             & .button {
                 position: absolute; top: 0; right:0; bottom:0;
                 left:0;
@@ -93,6 +94,7 @@
                     flex: 1;
                     display: flex;
                     flex-direction: column;
+                    cursor: pointer;
                     & .selectOne {
                         flex: 1;
                         display: flex;
@@ -137,6 +139,7 @@
             color: #515861;
             outline: none;
             text-align: left;
+            cursor:pointer;
         }
         & .sortButtonRight {
             display: inline-block;
@@ -150,6 +153,7 @@
             color: #515861;
             outline: none;
             text-align: right;
+            cursor:pointer;
         }
     }
     & .scrollBox {
