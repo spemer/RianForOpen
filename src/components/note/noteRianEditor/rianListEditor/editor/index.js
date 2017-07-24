@@ -16,6 +16,7 @@ import 'froala-editor/js/plugins/lists.min';
 import ReactLoading from 'react-loading';
 import editorConfig from './editorConfig';
 import { changeTimelineLeftBar } from '../../../../../actions/AppActions';
+import { getTagsByCondition } from '../../../../../graphqls/TagGraphQl';
 import { saveRequest } from '../../../../../actions/NoteEditorActions';
 import { notePreviewUpdate } from '../../../../../graphqls/TimelineGraphQl';
 import SideHead from './sideHead';
@@ -224,6 +225,9 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 				{
 					query: notePreviewUpdate,
 					variables: { noteId },
+				}, {
+					query: getTagsByCondition,
+					variables: { condition: 'All' },
 				},
 			],
 		});
