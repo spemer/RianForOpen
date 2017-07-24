@@ -13,8 +13,11 @@ import 'froala-editor/js/plugins/file.min';
 import 'froala-editor/js/plugins/paragraph_format.min';
 import 'froala-editor/js/plugins/code_view.min';
 import 'froala-editor/js/plugins/lists.min';
+import 'froala-editor/js/plugins/line_breaker.min';
+import 'froala-editor/js/plugins/video.min';
+import 'froala-editor/js/plugins/link.min';
 import ReactLoading from 'react-loading';
-import editorConfig from './editorConfig';
+import editorConfig from '../../editorConfig';
 import { changeTimelineLeftBar } from '../../../../../actions/AppActions';
 import { getTagsByCondition } from '../../../../../graphqls/TagGraphQl';
 import { saveRequest } from '../../../../../actions/NoteEditorActions';
@@ -27,6 +30,7 @@ import './style/rianList.global.css';
 import './style/reactTag.global.css';
 import '../../fontawesome.global.css';
 import '../../froalaImage.global.css';
+import '../../lineBreaker.global.css';
 
 
 type Store = {
