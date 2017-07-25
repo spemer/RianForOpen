@@ -4,6 +4,7 @@ import {
   CHANGE_LEFT_BAR,
   CHANGE_RENDER_TAGS,
   CHANGE_TIMELINE_LEFT_BAR_TAGS,
+  CHANGE_THEME_COLOR,
 } from '../constants';
 
 type State = {
@@ -63,6 +64,10 @@ export default function App(state: State = ModeState, action: any): State {
 	case CHANGE_TIMELINE_LEFT_BAR_TAGS:
 		return Object.assign({}, state, {
 			timelineLeftBar: !state.timelineLeftBar,
+		});
+	case CHANGE_THEME_COLOR:
+		return Object.assign({}, state, {
+			themeColor: action.themeColor,
 		});
 	default:
 		return state;
