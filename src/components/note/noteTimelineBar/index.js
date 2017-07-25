@@ -132,7 +132,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		if (`${data._id}` === noteId) {
 			selected = true;
 		}
-		console.log(data._id);
+		// console.log(data._id);
 		return (
 			<TimelineSnippet
 				selected={selected}
@@ -178,7 +178,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		if (!noteData.loading && noteData.getAllMyNotePreviewsByTags) {
 			noteCount = `${noteData.getAllMyNotePreviewsByTags.notes.length}개의 노트`;
 		}
-		console.log('sdfsdf', this.props);
+		// console.log('sdfsdf', this.props);
 		return (
 			<Motion
 				style={{

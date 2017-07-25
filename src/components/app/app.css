@@ -45,11 +45,11 @@ body::-webkit-scrollbar {
       border-bottom: solid 1px #dfdfdf; 
       overflow: auto;
       position: fixed;
-      z-index: 999;
+      z-index: 1;
     }
     & .mainContainer {
         position: absolute;
-        z-index: 500;
+        z-index: 0;
         top: 0;
         bottom: 0;
         right: 0;

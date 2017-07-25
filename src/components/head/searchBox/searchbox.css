@@ -10,7 +10,8 @@
 .container {
     position: relative;
     width: 100%;
-	height: 30px;
+    height: 100%;
+    box-sizing: border-box;
     background-color: #f4f4f4;
     box-sizing: border-box;
     padding-left: 30px;
@@ -37,7 +38,8 @@
     right: 0;
     border-top-right-radius: 4px;
     z-index: 888;
-    height: 30px;
+    height: 100%;
+    box-sizing: border-box;
     width: 29px;
     border-bottom-right-radius: 4px;    
     outline: none;
