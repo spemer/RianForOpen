@@ -107,7 +107,6 @@ type Props = {
 };
 
 type State = {
-  modeIsTag: boolean,
   socialOnOff: boolean,
   themeOnOff: boolean,
   makeNoteLoading: boolean,
@@ -139,7 +138,6 @@ class Head extends Component<DefaultProps, Props, State> {
 
 	constructor(props: Props) {
 		super(props);
-		this.changeSearchMode = this.changeSearchMode.bind(this);
 		this.changeSocialState = this.changeSocialState.bind(this);
 		this.changeTagState = this.changeTagState.bind(this);
 		this.changeThemeState = this.changeThemeState.bind(this);
@@ -147,7 +145,6 @@ class Head extends Component<DefaultProps, Props, State> {
 	}
 
 	state = {
-		modeIsTag: true,
 		socialOnOff: false,
 		themeOnOff: false,
 		makeNoteLoading: false,
@@ -163,17 +160,10 @@ class Head extends Component<DefaultProps, Props, State> {
 		});
 	}
 
-	changeSearchMode: Function;
 	changeSocialState: Function;
 	changeTagState: Function;
 	changeThemeState: Function;
 	fireMutation: Function;
-
-	changeSearchMode() {
-		this.setState(prevState => ({
-			modeIsTag: !prevState.modeIsTag,
-		}));
-	}
 
 	changeTagState() {
 		this.props.changeLeftBarDispatch();
@@ -243,7 +233,6 @@ class Head extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const {
-			modeIsTag,
 			socialOnOff,
 			themeOnOff,
 			makeNoteLoading,
@@ -262,11 +251,7 @@ class Head extends Component<DefaultProps, Props, State> {
 				style={{ height: !full ? '48px' : '0px' }}
 			>
 				<div className={css.container}>
-					<SearchBox
-						themeColor={themeColor}
-						modeIsTag={modeIsTag}
-						changeSearchMode={this.changeSearchMode}
-					/>
+					<SearchBox />
 					{!makeNoteLoading ?
 						<div className={css.addNoteIconBox} onClick={this.fireMutation} role="button" tabIndex="-6">
 							<svg
@@ -345,7 +330,7 @@ class Head extends Component<DefaultProps, Props, State> {
 					</div>
 					<div
 						className={css.focusFull}
-						onClick={fullScreen}
+						onClick={pathname.slice(0, 5) === '/list' && fullScreen}
 						role="button"
 						tabIndex="-5"
 					>
@@ -353,7 +338,7 @@ class Head extends Component<DefaultProps, Props, State> {
 							className={css.name}
 							style={{
 								color: 'black',
-								opacity: '0.38',
+								opacity: pathname.slice(0, 5) === '/card' ? '0.1' : '0.38',
 							}}
 						>
 						집중

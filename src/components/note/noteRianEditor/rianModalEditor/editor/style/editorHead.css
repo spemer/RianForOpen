@@ -6,9 +6,9 @@
         height: 25px;
         display: flex;
         overflow: hidden;
+        opacity: 0.38;
         & .gutter {
             flex: 0 0 30px;
-            opacity: 0.38;
             font-size: 10px;
             letter-spacing: -0.3px;
             opacity: 0.38;
@@ -16,10 +16,9 @@
             text-align: right;
             margin-right: 6px;
             font-family: NotoSansCJKkr-Regular;
-           
-            & .gutter:hover {
-                color: #515861;
-            }
+        }
+        & .gutter:hover {
+            color: #515861;
         }
         & .tagContainer {
             flex: 0 0 540px;
@@ -31,6 +30,9 @@
             height: 100%;
             outline: none;
             background-color: #FCFCFC;
+        }
+        & .tagContainer:hover {
+            color: #515861;
         }
     }
     & .titleHead {

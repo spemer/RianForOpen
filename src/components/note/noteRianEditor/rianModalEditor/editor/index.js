@@ -17,6 +17,7 @@ import 'froala-editor/js/plugins/line_breaker.min';
 import 'froala-editor/js/plugins/link.min';
 import 'froala-editor/js/languages/ko';
 import ReactLoading from 'react-loading';
+import { makeTagToString, makeStringToTagArray } from '../../../../util/handleData';
 import editorConfig from '../../editorConfig';
 import { changeTimelineLeftBar } from '../../../../../actions/AppActions';
 import { saveRequest } from '../../../../../actions/NoteEditorActions';
@@ -165,15 +166,12 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 				tags,
 				title,
 			} = nextProps;
-			let tagsString = tags.join('#').replace(/(\s*)/g, '');
-			if (tagsString[0] !== '#') {
-				tagsString = `#${tagsString}`;
-			}
+
 			this.setState({
 				loading,
 				noteId,
 				title,
-				tags: tagsString,
+				tags: makeTagToString(tags),
 				data,
 			});
 		}
@@ -188,27 +186,16 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 
 	saveObservable() {
 		const { noteId, saveMutate } = this.props;
-		const { title, data } = this.state;
-		let { tags } = this.state;
+		const { title, data, tags } = this.state;
 		let preImage = '';
 		if (document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img').length > 0) {
 			preImage = document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img')[0].src;
 		}
-		tags = tags.replace(/(\s*)/g, '');
-		if (tags[0] !== '#') {
-			tags = `#${tags}`;
-		}
-		if (tags[tags.length - 1] !== '#') {
-			tags = `${tags}#`;
-		}
-		const tagsArray = tags.split('#');
-		tagsArray.pop();
-		tagsArray.shift();
 		const variables: SaveFormat = {
 			noteId,
 			title,
 			data,
-			tags: tagsArray,
+			tags: makeStringToTagArray(tags),
 			preImage,
 		};
 		// console.log('variables', variables);
