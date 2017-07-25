@@ -141,7 +141,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		$.FroalaEditor.RegisterShortcut(49, 'paragraphFormat', 'H1', 'H', false);
 		$.FroalaEditor.RegisterShortcut(50, 'paragraphFormat', 'H2', 'H', false);
 		$.FroalaEditor.RegisterShortcut(51, 'paragraphFormat', 'H3', 'H', false);
-		$(`.${parentCss.container}`).scroll(() => {
+		$(`.${parentCss.editorBox}`).scroll(() => {
 			$('.fr-toolbar.fr-desktop.fr-inline').css('display', 'none');
 		});
 		$('.fr-box').css({
