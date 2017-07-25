@@ -345,7 +345,7 @@ class Head extends Component<DefaultProps, Props, State> {
 					</div>
 					<div
 						className={css.focusFull}
-						onClick={fullScreen}
+						onClick={pathname.slice(0, 5) === '/list' && fullScreen}
 						role="button"
 						tabIndex="-5"
 					>
@@ -353,7 +353,7 @@ class Head extends Component<DefaultProps, Props, State> {
 							className={css.name}
 							style={{
 								color: 'black',
-								opacity: '0.38',
+								opacity: pathname.slice(0, 5) === '/card' ? '0.1' : '0.38',
 							}}
 						>
 						집중
