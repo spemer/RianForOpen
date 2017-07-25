@@ -2,7 +2,6 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin-top: 1px;
     justify-content: flex-start;
     align-items: center;
     height: 100%;

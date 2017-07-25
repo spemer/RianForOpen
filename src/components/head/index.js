@@ -369,7 +369,7 @@ class Head extends Component<DefaultProps, Props, State> {
 						</div>
 					</div>
 					{themeOnOff &&
-					<div className={css.selectList}>
+					<div className={css.selectList} style={{ zIndex: '777' }}>
 						<div className={css.menuTitle}>
 							<div className={css.name}>색상선택</div>
 						</div>
