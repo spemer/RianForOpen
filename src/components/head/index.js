@@ -276,24 +276,32 @@ class Head extends Component<DefaultProps, Props, State> {
 						<ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="15px" width="15px" />}
 					<div className={css.changeMode}>
 						<Link
-							className={css.cardButton}
+							className={css.changeLink}
 							to="/card/main"
-							style={{
-								backgroundColor: pathname.slice(0, 5) === '/card' ? themeColor : 'white',
-								color: pathname.slice(0, 5) === '/card' ? 'white' : '#babac0',
-							}}
 						>
-							<div className={css.modeName}>카드</div>
+							<div
+								className={css.Button}
+								style={{
+									backgroundColor: pathname.slice(0, 5) === '/card' ? themeColor : 'white',
+									color: pathname.slice(0, 5) === '/card' ? 'white' : '#babac0',
+								}}
+							>
+								<div className={css.name}>카드</div>
+							</div>
 						</Link>
 						<Link
-							className={css.noteButton}
+							className={css.changeLink}
 							to={!noteData.loading && noteData.getAllMyNotePreviewsByTags.notes[0] ? `/list/${noteData.getAllMyNotePreviewsByTags.notes[0]._id}` : '/list/loading}'}
-							style={{
-								backgroundColor: pathname.slice(0, 5) === '/list' ? themeColor : 'white',
-								color: pathname.slice(0, 5) === '/list' ? 'white' : '#babac0',
-							}}
 						>
-							<div className={css.modeName}>목록</div>
+							<div
+								className={css.Button}
+								style={{
+									backgroundColor: pathname.slice(0, 5) === '/list' ? themeColor : 'white',
+									color: pathname.slice(0, 5) === '/list' ? 'white' : '#babac0',
+								}}
+							>
+								<div className={css.name}>목록</div>
+							</div>
 						</Link>
 					</div>
 					<div
@@ -433,7 +441,7 @@ class Head extends Component<DefaultProps, Props, State> {
 								role="button"
 								tabIndex="-7"
 							>
-								<div className={css.name} style={{ color: '#9f9f9f', left: themeColor === '#9f9f9f' && '10px' }}>원 그레이</div>
+								<div className={css.name} style={{ color: '#9f9f9f', left: themeColor === '#9f9f9f' && '10px' }}>웜 그레이</div>
 								<div className={css.circle} style={{ backgroundColor: '#9f9f9f' }} />
 							</div>
 							<div
