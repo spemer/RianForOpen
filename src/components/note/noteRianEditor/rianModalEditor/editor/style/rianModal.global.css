@@ -1220,6 +1220,8 @@ span.fr-sr-only {
 .fr-view p {
   margin: 1px 0 1px 0;
   line-height: 25px;
+  font-weight: 400;
+  font-family: NotoSansCJKkr-Regular;
 }
 
 .fr-view pre {
@@ -1242,7 +1244,7 @@ span.fr-sr-only {
 .fr-view h3:before {
   opacity: 0.38;
   font-family: NotoSansCJKkr-Regular;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
   color: #babac0;
@@ -1255,7 +1257,7 @@ span.fr-sr-only {
 .fr-view h3:hover:before {
   opacity: 0.38;
   font-family: NotoSansCJKkr-Regular;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
   letter-spacing: -0.3px;
@@ -1277,7 +1279,7 @@ span.fr-sr-only {
 .fr-view h2:before {
   opacity: 0.38;
   font-family: NotoSansCJKkr-Regular;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
   color: #babac0;
@@ -1290,7 +1292,7 @@ span.fr-sr-only {
 .fr-view h2:hover:before {
   opacity: 0.38;
   font-family: NotoSansCJKkr-Regular;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
   color: #515861;
@@ -1303,7 +1305,6 @@ span.fr-sr-only {
 .fr-view h1 {
   font-family: NotoSansCJKkr-Bold;
 	font-size: 25px;
-	font-weight: bold;
 	line-height: 1.62;
 	letter-spacing: -0.8px;
   margin-top: 8px;
@@ -1313,7 +1314,7 @@ span.fr-sr-only {
 .fr-view h1:before {
   opacity: 0.38;
   font-family: NotoSansCJKkr-Regular;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
   letter-spacing: -0.3px;
@@ -1326,7 +1327,7 @@ span.fr-sr-only {
 .fr-view h1:hover:before {
   opacity: 0.38;
   font-family: NotoSansCJKkr-Regular;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
   color: #515861;
@@ -1381,4 +1382,18 @@ table {
   border-collapse: collapse;
 }
 
+.fa-paragraph {
+  margin-left: 12px !important;
+  margin-right: 12px !important;
+}
 
+.fa-quote-left {
+  margin-left: 12px !important;
+  margin-right: 12px !important;
+}
+
+
+.fa-align-left {
+  margin-left: 12px !important;
+  margin-right: 12px !important;
+}
