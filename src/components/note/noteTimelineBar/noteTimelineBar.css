@@ -73,6 +73,8 @@
                 height: 157px;
                 background-color: white;
                 box-shadow: 0 5px 10px 0 rgba(53, 57, 70, 0.2);
+	            border: solid 1px #dfdfdf;
+	            border: solid 1px #dfdfdf;
                 display: flex;
                 flex-direction: column;
                 & .menuTitle {

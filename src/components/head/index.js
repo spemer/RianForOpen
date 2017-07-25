@@ -7,52 +7,32 @@ import { Link } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import profileImageMock from '../../../static/image/thumb-ex-img.png';
 import SearchBox from './searchBox';
-import { fullScreenChange, changeLeftBar } from '../../actions/AppActions';
+import { fullScreenChange, changeLeftBar, changeThemeColor } from '../../actions/AppActions';
 import { makeNote } from '../../graphqls/NoteEditorGraphQl';
 import { getTagsByCondition } from '../../graphqls/TagGraphQl';
 import { getAllMyNotePreviewsByTags } from '../../graphqls/TimelineGraphQl';
 import parentCss from '../app/app.css';
 import css from './head.css';
 
-type DefaultProps = {
-	changeFullScreenApp: Function,
-	changeLeftBarDispatch: Function,
-	makeNote: Function,
-	full: boolean,
-	themeColor: string,
-	noteData: any,
-	pathname: string,
-	history: any,
-	leftBar: boolean,
-	renderTags: Array<string>
-};
+type Store = {
+	App: {
+		full: boolean,
+		themeColor: string,
+		leftBar: boolean,
+		renderTags: Array<string>,
+	},
+	User: {
+		photo: string
+	}
+}
 
-type Props = {
-	changeFullScreenApp: Function,
-	changeLeftBarDispatch: Function,
-	makeNote: Function,
-	full: boolean,
-	themeColor: string,
-	noteData: any,
-	pathname: string,
-	history: any,
-	leftBar: boolean,
-	renderTags: Array<string>
-};
-
-type State = {
-  modeIsTag: boolean,
-  socialOnOff: boolean,
-  trashOnOff: boolean,
-  makeNoteLoading: boolean,
-};
-
-function mapToState({ App: { full, themeColor, leftBar, renderTags } }) {
+function mapToState({ App: { full, themeColor, leftBar, renderTags }, User: { photo } }: Store) {
 	return {
 		full,
 		themeColor,
 		leftBar,
 		renderTags,
+		photo,
 	};
 }
 
@@ -63,6 +43,9 @@ function mapToDispatch(dispatch) {
 		},
 		changeLeftBarDispatch() {
 			dispatch(changeLeftBar());
+		},
+		changeThemeColorDispatch(themeColor: string) {
+			dispatch(changeThemeColor(themeColor));
 		},
 	};
 }
@@ -93,12 +76,50 @@ function fullScreen() {
 	}
 }
 
+type DefaultProps = {
+	changeFullScreenApp: Function,
+	changeLeftBarDispatch: Function,
+	changeThemeColorDispatch: Function,
+	makeNote: Function,
+	full: boolean,
+	themeColor: string,
+	leftBar: boolean,
+	photo: string,
+	noteData: any,
+	pathname: string,
+	history: any,
+	renderTags: Array<string>
+};
+
+type Props = {
+	changeFullScreenApp: Function,
+	changeLeftBarDispatch: Function,
+	changeThemeColorDispatch: Function,
+	makeNote: Function,
+	full: boolean,
+	leftBar: boolean,
+	themeColor: string,
+	photo: string,
+	noteData: any,
+	pathname: string,
+	history: any,
+	renderTags: Array<string>
+};
+
+type State = {
+  modeIsTag: boolean,
+  socialOnOff: boolean,
+  themeOnOff: boolean,
+  makeNoteLoading: boolean,
+};
+
 @connect(mapToState, mapToDispatch)
 @compose(makeNoteMutation, getAllMyNotePreviewsByTagsQuery)
 class Head extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		changeFullScreenApp: () => {},
 		changeLeftBarDispatch: () => {},
+		changeThemeColorDispatch: () => {},
 		makeNote: () => {},
 		full: false,
 		string: '',
@@ -106,6 +127,7 @@ class Head extends Component<DefaultProps, Props, State> {
 		history: {},
 		themeColor: '',
 		leftBar: true,
+		photo: profileImageMock,
 		renderTags: [],
 		noteData: {
 			loading: false,
@@ -120,14 +142,14 @@ class Head extends Component<DefaultProps, Props, State> {
 		this.changeSearchMode = this.changeSearchMode.bind(this);
 		this.changeSocialState = this.changeSocialState.bind(this);
 		this.changeTagState = this.changeTagState.bind(this);
-		this.changeTrashState = this.changeTrashState.bind(this);
+		this.changeThemeState = this.changeThemeState.bind(this);
 		this.fireMutation = this.fireMutation.bind(this);
 	}
 
 	state = {
 		modeIsTag: true,
 		socialOnOff: false,
-		trashOnOff: false,
+		themeOnOff: false,
 		makeNoteLoading: false,
 	};
 
@@ -144,7 +166,7 @@ class Head extends Component<DefaultProps, Props, State> {
 	changeSearchMode: Function;
 	changeSocialState: Function;
 	changeTagState: Function;
-	changeTrashState: Function;
+	changeThemeState: Function;
 	fireMutation: Function;
 
 	changeSearchMode() {
@@ -163,9 +185,9 @@ class Head extends Component<DefaultProps, Props, State> {
 		}));
 	}
 
-	changeTrashState() {
+	changeThemeState() {
 		this.setState(prevState => ({
-			trashOnOff: !prevState.trashOnOff,
+			themeOnOff: !prevState.themeOnOff,
 		}));
 	}
 
@@ -220,8 +242,20 @@ class Head extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		const { modeIsTag, socialOnOff, trashOnOff, makeNoteLoading } = this.state;
-		const { full, themeColor, pathname, leftBar, noteData } = this.props;
+		const {
+			modeIsTag,
+			socialOnOff,
+			themeOnOff,
+			makeNoteLoading,
+		} = this.state;
+		const { full,
+			changeThemeColorDispatch,
+			themeColor,
+			pathname,
+			leftBar,
+			noteData,
+			photo,
+		} = this.props;
 		return (
 			<div
 				className={parentCss.head}
@@ -283,14 +317,15 @@ class Head extends Component<DefaultProps, Props, State> {
 						role="button"
 						tabIndex="0"
 					>
-						<p
+						<div
+							className={css.name}
 							style={{
 								color: leftBar ? themeColor : 'black',
 								opacity: leftBar ? '1' : '0.38',
 							}}
 						>
 						태그
-						</p>
+						</div>
 					</div>
 					<div
 						className={css.social}
@@ -298,34 +333,140 @@ class Head extends Component<DefaultProps, Props, State> {
 						role="button"
 						tabIndex="-1"
 					>
-						<p
+						<div
+							className={css.name}
 							style={{
 								color: socialOnOff ? themeColor : 'black',
 								opacity: socialOnOff ? '1' : '0.38',
 							}}
 						>
 						소셜
-						</p>
+						</div>
 					</div>
 					<div
-						className={css.trash}
+						className={css.focusFull}
 						onClick={fullScreen}
 						role="button"
 						tabIndex="-5"
 					>
-						<p
+						<div
+							className={css.name}
 							style={{
-								color: trashOnOff ? themeColor : 'black',
-								opacity: trashOnOff ? '1' : '0.38',
+								color: 'black',
+								opacity: '0.38',
 							}}
 						>
 						집중
-						</p>
+						</div>
 					</div>
+					<div
+						className={css.theme}
+						onClick={this.changeThemeState}
+						role="button"
+						tabIndex="-5"
+					>
+						<div
+							className={css.name}
+							style={{
+								color: themeOnOff ? themeColor : 'black',
+								opacity: themeOnOff ? '1' : '0.38',
+							}}
+						>
+						테마
+						</div>
+					</div>
+					{themeOnOff &&
+					<div className={css.selectList}>
+						<div className={css.menuTitle}>
+							<div className={css.name}>색상선택</div>
+						</div>
+						<div className={css.selectBox}>
+							<div
+								className={css.selectOne}
+								onClick={() => { changeThemeColorDispatch('#ff9ab2'); }}
+								style={{ borderLeft: themeColor === '#ff9ab2' && '4px solid #ff9ab2' }}
+								role="button"
+								tabIndex="0"
+							>
+								<div className={css.name} style={{ color: '#ff9ab2', left: themeColor === '#ff9ab2' && '10px' }}>베이비 핑크</div>
+								<div className={css.circle} style={{ backgroundColor: '#ff9ab2' }} />
+							</div>
+							<div
+								className={css.selectOne}
+								onClick={() => { changeThemeColorDispatch('#ff3466'); }}
+								style={{ borderLeft: themeColor === '#ff3466' && '4px solid #ff3466' }}
+								role="button"
+								tabIndex="-7"
+							>
+								<div className={css.name} style={{ color: '#ff3466', left: themeColor === '#ff3466' && '10px' }}>레드 핑크</div>
+								<div className={css.circle} style={{ backgroundColor: '#ff3466' }} />
+							</div>
+							<div
+								className={css.selectOne}
+								onClick={() => { changeThemeColorDispatch('#1ce8b5'); }}
+								style={{ borderLeft: themeColor === '#1ce8b5' && '4px solid #1ce8b5' }}
+								role="button"
+								tabIndex="-7"
+							>
+								<div className={css.name} style={{ color: '#1ce8b5', left: themeColor === '#1ce8b5' && '10px' }}>아쿠아마린</div>
+								<div className={css.circle} style={{ backgroundColor: '#1ce8b5' }} />
+							</div>
+							<div
+								className={css.selectOne}
+								onClick={() => { changeThemeColorDispatch('#2dcc4f'); }}
+								style={{ borderLeft: themeColor === '#2dcc4f' && '4px solid #2dcc4f' }}
+								role="button"
+								tabIndex="-7"
+							>
+								<div className={css.name} style={{ color: '#2dcc4f', left: themeColor === '#2dcc4f' && '10px' }}>네츄럴 그린</div>
+								<div className={css.circle} style={{ backgroundColor: '#2dcc4f' }} />
+							</div>
+							<div
+								className={css.selectOne}
+								onClick={() => { changeThemeColorDispatch('#0088ff'); }}
+								style={{ borderLeft: themeColor === '#0088ff' && '4px solid #0088ff' }}
+								role="button"
+								tabIndex="-7"
+							>
+								<div className={css.name} style={{ color: '#0088ff', left: themeColor === '#0088ff' && '10px' }}>라이트 블루</div>
+								<div className={css.circle} style={{ backgroundColor: '#0088ff' }} />
+							</div>
+							<div
+								className={css.selectOne}
+								onClick={() => { changeThemeColorDispatch('#536dfe'); }}
+								style={{ borderLeft: themeColor === '#536dfe' && '4px solid #536dfe' }}
+								role="button"
+								tabIndex="-7"
+							>
+								<div className={css.name} style={{ color: '#536dfe', left: themeColor === '#536dfe' && '10px' }}>퍼플 블루</div>
+								<div className={css.circle} style={{ backgroundColor: '#536dfe' }} />
+							</div>
+							<div
+								className={css.selectOne}
+								onClick={() => { changeThemeColorDispatch('#9f9f9f'); }}
+								style={{ borderLeft: themeColor === '#9f9f9f' && '4px solid #9f9f9f' }}
+								role="button"
+								tabIndex="-7"
+							>
+								<div className={css.name} style={{ color: '#9f9f9f', left: themeColor === '#9f9f9f' && '10px' }}>원 그레이</div>
+								<div className={css.circle} style={{ backgroundColor: '#9f9f9f' }} />
+							</div>
+							<div
+								className={css.selectOne}
+								onClick={() => { changeThemeColorDispatch('#353946'); }}
+								style={{ borderLeft: themeColor === '#353946' && '4px solid #353946' }}
+								role="button"
+								tabIndex="-7"
+							>
+								<div className={css.name} style={{ color: '#353946', left: themeColor === '#353946' && '10px' }}>클래식 다크</div>
+								<div className={css.circle} style={{ backgroundColor: '#353946' }} />
+							</div>
+						</div>
+					</div>}
 					<div className={css.profileBox}>
 						<div
 							className={css.photo}
-							style={{ backgroundImage: `url(${profileImageMock})` }}
+							style={{ backgroundImage: `url(${photo})` }}
 						/>
 					</div>
 				</div>
