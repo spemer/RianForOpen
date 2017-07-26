@@ -425,7 +425,16 @@ class Head extends Component<DefaultProps, Props, State> {
 									color: pathname.slice(0, 5) === '/card' ? 'white' : '#babac0',
 								}}
 							>
-								<div className={css.name}>카드</div>
+								<svg className={css.name} viewBox="0 0 54 29" enableBackground="new 0 0 54 29">
+									<g>
+										<path
+											fill={pathname.slice(0, 5) === '/card' ? '#ffffff' : '#BABAC0'}
+											d="M22.2,10.1c0,3.4-0.8,6.2-4.9,8.3l-0.8-1.2c1.8-0.9,2.9-1.9,3.5-3.1l-3.2,0.3L16.6,13l3.9-0.2
+		c0.1-0.5,0.2-0.9,0.2-1.5h-3.5v-1.3H22.2z M26.7,14.5h-1.5V20h-1.6V9h1.6v4.2h1.5V14.5z"
+										/>
+										<path fill={pathname.slice(0, 5) === '/card' ? '#ffffff' : '#BABAC0'} d="M37.5,17.4v1.3h-10v-1.3H37.5z M36.5,15.4h-7.8V9.9h7.7v1.3h-6.1v2.9h6.2V15.4z" />
+									</g>
+								</svg>
 							</div>
 						</Link>
 						<Link
@@ -439,7 +448,12 @@ class Head extends Component<DefaultProps, Props, State> {
 									color: pathname.slice(0, 5) === '/list' ? 'white' : '#babac0',
 								}}
 							>
-								<div className={css.name}>목록</div>
+								<svg className={css.name} viewBox="0 0 54 29" enableBackground="new 0 0 54 29">
+									<g>
+										<path fill={pathname.slice(0, 5) === '/list' ? '#ffffff' : '#BABAC0'} d="M26.5,17.7V19h-10v-1.3h4.2v-2.5h-3.1V10h1.6v3.9h6.2v1.3h-3.2v2.5H26.5z" />
+										<path fill={pathname.slice(0, 5) === '/list' ? '#ffffff' : '#BABAC0'} d="M37.5,17.7V19h-10v-1.3H37.5z M36.5,16.1h-7.8V10h7.7v1.3h-6.1v1.2h5.8v1.2h-5.8v1.2h6.2V16.1z" />
+									</g>
+								</svg>
 							</div>
 						</Link>
 					</div>

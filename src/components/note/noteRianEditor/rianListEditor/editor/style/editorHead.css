@@ -87,6 +87,7 @@
         margin-top: 5px;
         & .borderLine {
             width: 540px;
+            min-width: 340px;
             height: 10px;
             border-bottom: 1px solid #dfdfdf;
         }

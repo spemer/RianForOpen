@@ -152,8 +152,9 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		});
 		$('.fr-box').css({
 			position: 'relative',
+			width: '540px',
 			'max-width': '540px',
-			'min-width': '540px',
+			'min-width': '340px',
 			'font-family': 'NotoSansCJKkr-Regular',
 			height: '100%',
 			'font-size': '15px',

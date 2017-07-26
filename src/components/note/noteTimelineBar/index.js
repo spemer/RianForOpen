@@ -298,18 +298,19 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 							</div>
 						</div>
 						<div className={css.scrollBox}>
-							{noteData.getAllMyNotePreviewsByTags && <AutoSizer>
-								{({ height, width }) => (
-									<List
-										rowRenderer={this.rowRenderer}
-										height={height}
-										width={width}
-										rowHeight={132}
-										rowCount={noteData.getAllMyNotePreviewsByTags.notes.length}
-										style={{ outline: 'none' }}
-									/>
+							{noteData.getAllMyNotePreviewsByTags &&
+								<AutoSizer>
+									{({ height, width }) => (
+										<List
+											rowRenderer={this.rowRenderer}
+											height={height}
+											width={width}
+											rowHeight={132}
+											rowCount={noteData.getAllMyNotePreviewsByTags.notes.length}
+											style={{ outline: 'none' }}
+										/>
 								)}
-							</AutoSizer>}
+								</AutoSizer>}
 						</div>
 					</div>
         )}

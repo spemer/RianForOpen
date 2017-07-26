@@ -14,14 +14,14 @@ import css from './tagListBar.css';
 
 const example = [
   { name: '교양', howMany: 14, _id: '123123676iutyregdfvc123123' },
-  { name: '병신', howMany: 41, _id: '12312312312sd3' },
+  { name: '가글', howMany: 41, _id: '12312312312sd3' },
   { name: '퍼블', howMany: 5, _id: '1231231231dsssdfdffass23' },
   { name: '다다익선', howMany: 36, _id: '12sdfadfsdfsdf3123123123' },
   { name: '집앞', howMany: 13, _id: '1231asdfasdgsadgsadfg23123123' },
   { name: 'asef', howMany: 1, _id: 'dsdfdfg15ff' },
-  { name: '상소리', howMany: 123, _id: '123123sfgnhm7891231sdfsdf23' },
-  { name: '뷰경', howMany: 45, _id: '123123sdsdfsddwer1dfs231sdfsdf23' },
-  { name: '십잘알', howMany: 2, _id: '123123agrgdf12g31sdfsdf23' },
+  { name: '개구리', howMany: 123, _id: '123123sfgnhm7891231sdfsdf23' },
+  { name: '그런', howMany: 45, _id: '123123sdsdfsddwer1dfs231sdfsdf23' },
+  { name: '많은', howMany: 2, _id: '123123agrgdf12g31sdfsdf23' },
   { name: 'trustme', howMany: 0, _id: '123123sdfbvcvbsadf1231sdfsdf23' },
   { name: '$', howMany: 0, _id: '123123123asdfskjjhgfdfgxccxadfsadf1sdfsdf23' },
   { name: '&*', howMany: 13, _id: '123asdghe1231sdf231sdfsdf23' },

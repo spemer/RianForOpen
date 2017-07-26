@@ -55,7 +55,24 @@ const SideHead = ({
 			role="button"
 			tabIndex="-3"
 		>
-			{!save ? <p>저장</p> : <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
+			{!save ?
+				<svg x="0px" y="0px" viewBox="0 0 54 29" enableBackground="new 0 0 54 29">
+					<g>
+						<path
+							fill="#BABAC0"
+							d="M20.6,11.7c0,1.9,0.9,4,2.7,4.8l-0.9,1.2c-1.2-0.6-2.1-1.8-2.6-3.1c-0.5,1.5-1.3,2.7-2.6,3.3l-0.9-1.2
+		c1.8-0.9,2.7-3,2.7-5v-0.4h-2.3V10h6.1v1.3h-2.3V11.7z M25.8,9V20h-1.6v-5.9h-1.9v-1.3h1.9V9H25.8z"
+						/>
+						<path
+							fill="#BABAC0"
+							d="M33.4,15.2c-1.2-0.4-2.1-1.1-2.5-2c-0.5,1.1-1.4,2-2.7,2.4l-0.8-1.2c1.8-0.6,2.6-2,2.6-3.4h-2.2V9.7h6V11
+		h-2.2c0,1.3,0.8,2.5,2.5,3L33.4,15.2z M36.3,17.9c0,1.3-1.4,2.1-3.7,2.1c-2.3,0-3.7-0.8-3.7-2.1c0-1.4,1.4-2.2,3.7-2.2
+		C34.9,15.7,36.3,16.5,36.3,17.9z M34.8,17.9c0-0.6-0.8-0.9-2.2-0.9c-1.4,0-2.2,0.3-2.2,0.9c0,0.6,0.8,0.9,2.2,0.9
+		C34,18.8,34.8,18.5,34.8,17.9z M37.7,11.5v1.3h-1.5v2.7h-1.6V9h1.6v2.5H37.7z"
+						/>
+					</g>
+				</svg> :
+				<ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 		</div>
 		{!progress ?
 			<svg
