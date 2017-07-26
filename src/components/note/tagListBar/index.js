@@ -185,7 +185,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const { tagCount, sortByhowMany, onSortList } = this.state;
-		const { leftBar, full, themeColor, tagData } = this.props;
+		const { leftBar, full, themeColor, tagData, changeRenderTagsDispatch } = this.props;
 		const tagListGroup = {
 			sortedKor: null,
 			sortedEng: null,
@@ -342,6 +342,9 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 							>
 								노트 개수순
 							</div>
+						</div>
+						<div className={css.showAllNote} onClick={() => { changeRenderTagsDispatch([]); }} role="button" tabIndex="-5">
+							전체노트보기
 						</div>
 						{!sortByhowMany ?
 							<GroupedBoxContainer

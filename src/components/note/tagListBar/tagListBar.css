@@ -5,12 +5,12 @@
 }
 
 .container {
+    display: flex;
+    flex-direction: column;
     overflow-x: auto;
     height: 100%;
     border-right: 1px solid #dfdfdf;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
     & .head {
         position: relative;
         width: 100%;
@@ -40,8 +40,8 @@
             }
         }
         & .loader {
-            position: absolute; top: 12px; bottom:0;
-            right: 12px;
+            position: absolute; top: 12px;
+            right: 12px; bottom:0;
         }
         & .selectButton {
             position: absolute;
@@ -69,12 +69,12 @@
                 flex-direction: column;
                 top: 100px;
                 left: 130px;
+	            border: solid 1px #dfdfdf;
                 z-index: 999;
                 width: 133px;
                 height: 126px;
                 background-color: white;
                 box-shadow: 0 5px 10px 0 rgba(53, 57, 70, 0.2);
-	            border: solid 1px #dfdfdf;
                 & .menuTitle {
                     flex: 0 0 32px; 
                     display: flex;
@@ -129,8 +129,8 @@
         padding-bottom: 10px;
         margin-bottom: 30px;
         & .sortButtonLeft {
-            display: inline-block;
-            position: absolute; top: 0; right:0; bottom:0;
+            position: absolute;
+            display: inline-block; top: 0; right:0; bottom:0;
             left: 24px;
             height: 11px; margin-top:auto; margin-bottom:auto;
             font-family: NotoSansCJKkr-Regular;
@@ -143,9 +143,9 @@
             cursor:pointer;
         }
         & .sortButtonRight {
-            display: inline-block;
-            position: absolute; top: 0; right:0; bottom:0;
-            right: 24px;
+            position: absolute;
+            display: inline-block; top: 0; right:0;
+            right: 24px; bottom:0;
             height: 11px; margin-top:auto; margin-bottom:auto;
             font-family: NotoSansCJKkr-Regular;
             width: 40%;
@@ -154,8 +154,21 @@
             color: #515861;
             outline: none;
             text-align: right;
-            cursor:pointer;
+            cursor: pointer;
         }
+    }
+    & .showAllNote {
+        cursor: pointer;
+        outline: none;
+        box-sizing: border-box;
+        padding-left: 24px;
+        font-size: 14px;
+        width: 100%;
+        height: 40px;
+        font-family: NotoSansCJKkr-Bold;
+        font-weight: 700;
+        letter-spacing: -.3px;
+        color: #515861;
     }
     & .scrollBox {
         flex: 1;
