@@ -154,7 +154,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			position: 'relative',
 			width: '540px',
 			'max-width': '540px',
-			'min-width': '340px',
+			'min-width': '200px',
 			'font-family': 'NotoSansCJKkr-Regular',
 			height: '100%',
 			'font-size': '15px',

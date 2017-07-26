@@ -1,71 +1,76 @@
-.container {
-    background-color: #FCFCFC;
-    width: 100%;
-    height: 100%;
-    & .sideLine {
-        float: left;
-        width: 20px;
+
+
+
+    .container {
+        background-color: #FCFCFC;
+        width: 100%;
         height: 100%;
-        position: relative;
-        & .arrowBox {
-            position: absolute;
-            top: 6px;
-            left: 4px;
+        & .sideLine {
+            float: left;
             width: 20px;
-            height: 20px;
-            z-index: 999;
-            outline: none;
-            & .leftArrow {
+            height: 100%;
+            position: relative;
+            & .arrowBox {
+                position: absolute;
+                top: 6px;
+                left: 4px;
+                width: 20px;
+                height: 20px;
+                z-index: 999;
+                outline: none;
+                & .leftArrow {
+                        position: absolute; top: 0; right:0; bottom:0;
+                        left:0;
+                        width: 0px; margin-left:auto; margin-right:auto; 
+                        height: 0px; margin-top:auto; margin-bottom:auto; 
+                        border-top: 5px solid transparent;
+                        border-bottom: 5px solid transparent; 
+                        border-right: 5px solid #babac0;
+                }
+                & .rightArrow {
                     position: absolute; top: 0; right:0; bottom:0;
                     left:0;
                     width: 0px; margin-left:auto; margin-right:auto; 
                     height: 0px; margin-top:auto; margin-bottom:auto; 
                     border-top: 5px solid transparent;
                     border-bottom: 5px solid transparent; 
-                    border-right: 5px solid #babac0;
-            }
-            & .rightArrow {
-                position: absolute; top: 0; right:0; bottom:0;
-                left:0;
-                width: 0px; margin-left:auto; margin-right:auto; 
-                height: 0px; margin-top:auto; margin-bottom:auto; 
-                border-top: 5px solid transparent;
-                border-bottom: 5px solid transparent; 
-                border-left: 5px solid #babac0;
+                    border-left: 5px solid #babac0;
+                }
             }
         }
-    }
-    & .editorBox {
-        display: inline-block;
-        width: calc(100% - 20px);
-        height: 100%;
-        position: relative;
-        overflow: auto;
-        & .loader {
-            position: absolute;
-            top: 15px;
-            left: 30px;
-        }
-        & .sideHead {
-            width: 100%;
-            height: 40px;
-            position: relative;
-        }
-        & .editorHead {
-            display: flex;
-            justify-content: center;
-            height: 100px;
-            width: 100%;
-        }
-        & .mainEditor {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            padding-bottom: 128px;
+        & .editorBox {
+            display: inline-block;
+            width: calc(100% - 20px);
             box-sizing: border-box;
+            padding-right: 20px;
+            height: 100%;
+            position: relative;
+            overflow: auto;
+            & .loader {
+                position: absolute;
+                top: 15px;
+                left: 30px;
+            }
+            & .sideHead {
+                width: 100%;
+                height: 40px;
+                position: relative;
+            }
+            & .editorHead {
+                display: flex;
+                justify-content: center;
+                height: 100px;
+                width: 100%;
+            }
+            & .mainEditor {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                padding-bottom: 128px;
+                box-sizing: border-box;
+            }
         }
-    }
-    & .editorBox::-webkit-scrollbar {
-        display: none;
-    } 
-}     
+        & .editorBox::-webkit-scrollbar {
+            display: none;
+        } 
+    }   

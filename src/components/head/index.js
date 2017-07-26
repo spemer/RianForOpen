@@ -411,6 +411,17 @@ class Head extends Component<DefaultProps, Props, State> {
 										C20,10.6,19.6,10.3,19.2,10.3z"
 								/>
 							</svg>
+							<svg className={css.textIcon} x="0px" y="0px" viewBox="0 0 54 29" enableBackground="new 0 0 54 29">
+								<g>
+									<path
+										fill={themeColor}
+										d="M17.9,8V21h-1.8v-6.4h-1v5.8h-1.7v-3.8L12.3,18c-1.1-0.6-1.8-1.7-2.2-2.9c-0.4,1.4-1.2,2.6-2.4,3.3L6.6,17
+										c1.9-1.1,2.6-3.5,2.6-5.7V9.2H11v2c0,2.2,0.6,4.3,2.4,5.3V8.3h1.7v4.8h1V8H17.9z"
+									/>
+									<path fill={themeColor} d="M34.5,18v1.5H22.9V18h4.9v-2.9h-3.6V9H26v4.6h7.3v1.5h-3.7V18H34.5z" />
+									<path fill={themeColor} d="M47.4,18v1.5H35.7V18H47.4z M46.2,16.2h-9.1V9h9v1.5H39v1.4h6.8v1.4H39v1.4h7.2V16.2z" />
+								</g>
+							</svg>
 						</div> :
 						<ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="15px" width="15px" />}
 					<div className={css.changeMode}>
@@ -425,14 +436,17 @@ class Head extends Component<DefaultProps, Props, State> {
 									color: pathname.slice(0, 5) === '/card' ? 'white' : '#babac0',
 								}}
 							>
-								<svg className={css.name} viewBox="0 0 54 29" enableBackground="new 0 0 54 29">
+								<svg className={css.name} x="0px" y="0px" viewBox="0 0 54 29" enableBackground="new 0 0 54 29">
 									<g>
 										<path
 											fill={pathname.slice(0, 5) === '/card' ? '#ffffff' : '#BABAC0'}
-											d="M22.2,10.1c0,3.4-0.8,6.2-4.9,8.3l-0.8-1.2c1.8-0.9,2.9-1.9,3.5-3.1l-3.2,0.3L16.6,13l3.9-0.2
-		c0.1-0.5,0.2-0.9,0.2-1.5h-3.5v-1.3H22.2z M26.7,14.5h-1.5V20h-1.6V9h1.6v4.2h1.5V14.5z"
+											d="M21.4,9.3c0,4-0.9,7.3-5.7,9.7l-1-1.4c2.1-1.1,3.4-2.3,4.1-3.7L15,14.3l-0.2-1.6l4.5-0.3
+											c0.1-0.5,0.2-1.1,0.3-1.7h-4.1V9.3H21.4z M26.7,14.5h-1.8v6.4H23V8.1h1.8V13h1.8V14.5z"
 										/>
-										<path fill={pathname.slice(0, 5) === '/card' ? '#ffffff' : '#BABAC0'} d="M37.5,17.4v1.3h-10v-1.3H37.5z M36.5,15.4h-7.8V9.9h7.7v1.3h-6.1v2.9h6.2V15.4z" />
+										<path
+											fill={pathname.slice(0, 5) === '/card' ? '#ffffff' : '#BABAC0'}
+											d="M39.3,17.9v1.5H27.6v-1.5H39.3z M38.1,15.5H29V9.1h9v1.5h-7.1V14h7.2V15.5z"
+										/>
 									</g>
 								</svg>
 							</div>
@@ -448,10 +462,18 @@ class Head extends Component<DefaultProps, Props, State> {
 									color: pathname.slice(0, 5) === '/list' ? 'white' : '#babac0',
 								}}
 							>
-								<svg className={css.name} viewBox="0 0 54 29" enableBackground="new 0 0 54 29">
+								<svg className={css.name} x="0px" y="0px" viewBox="0 0 54 29" enableBackground="new 0 0 54 29">
 									<g>
-										<path fill={pathname.slice(0, 5) === '/list' ? '#ffffff' : '#BABAC0'} d="M26.5,17.7V19h-10v-1.3h4.2v-2.5h-3.1V10h1.6v3.9h6.2v1.3h-3.2v2.5H26.5z" />
-										<path fill={pathname.slice(0, 5) === '/list' ? '#ffffff' : '#BABAC0'} d="M37.5,17.7V19h-10v-1.3H37.5z M36.5,16.1h-7.8V10h7.7v1.3h-6.1v1.2h5.8v1.2h-5.8v1.2h6.2V16.1z" />
+										<path
+											fill={pathname.slice(0, 5) === '/list' ? '#ffffff' : '#BABAC0'}
+											d="M26.4,14.2v1.5H14.7v-1.5h4.9V13h-3.5V8.4h8.8V13h-3.4v1.2H26.4z M16,16.6h9v4.2h-1.8v-2.8H16V16.6z
+											M18,11.5h5.1V9.9H18V11.5z"
+										/>
+										<path
+											fill={pathname.slice(0, 5) === '/list' ? '#ffffff' : '#BABAC0'}
+											d="M39.3,14.8v1.5H27.6v-1.5h4.9v-0.9h-3.5v-3.5h7V9.6h-7V8.2h8.8v3.5h-7v0.8h7.2v1.4h-3.8v0.9H39.3z M28.9,17
+											h9v3.8h-1.8v-2.3h-7.2V17z"
+										/>
 									</g>
 								</svg>
 							</div>
@@ -463,15 +485,27 @@ class Head extends Component<DefaultProps, Props, State> {
 						role="button"
 						tabIndex="0"
 					>
-						<div
+						<svg
 							className={css.name}
-							style={{
-								color: leftBar ? themeColor : 'black',
-								opacity: leftBar ? '1' : '0.38',
-							}}
+							x="0px"
+							y="0px"
+							viewBox="0 0 54 29"
+							enableBackground="new 0 0 54 29"
+							opacity={leftBar ? '1' : '0.38'}
 						>
-						태그
-						</div>
+							<g>
+								<path
+									fill={leftBar ? themeColor : 'black'}
+									d="M16.7,16.5c1.4,0,2.5-0.1,3.7-0.3l0.2,1.5C19,18,17.8,18,15.8,18h-0.9V9.4h5.2v1.5h-3.5v1.9h3.2v1.4h-3.2
+									V16.5z M25.6,8V21h-1.8v-6.4h-1v5.9h-1.7V8.3h1.7V13h1V8H25.6z"
+								/>
+								<path
+									fill={leftBar ? themeColor : 'black'}
+									d="M39.1,17.8v1.5H27.4v-1.5H39.1z M35.8,10.7h-7.2V9.2h9v1.5c0,1.8,0,3.6-0.5,6.2l-1.8-0.2
+									C35.8,14.4,35.8,12.5,35.8,10.7L35.8,10.7z"
+								/>
+							</g>
+						</svg>
 					</div>
 					<div
 						className={css.social}
@@ -479,15 +513,28 @@ class Head extends Component<DefaultProps, Props, State> {
 						role="button"
 						tabIndex="-1"
 					>
-						<div
+						<svg
 							className={css.name}
-							style={{
-								color: socialOnOff ? themeColor : 'black',
-								opacity: socialOnOff ? '1' : '0.38',
-							}}
+							x="0px"
+							y="0px"
+							viewBox="0 0 54 29"
+							enableBackground="new 0 0 54 29"
+							opacity={socialOnOff ? '1' : '0.38'}
 						>
-						소셜
-						</div>
+							<g>
+								<path
+									fill={socialOnOff ? themeColor : 'black'}
+									d="M26.7,18v1.5H15V18h4.9v-2.9h1.8V18H26.7z M25.5,15.5c-2.3-0.4-3.9-1.6-4.8-3.2c-0.8,1.6-2.5,2.8-4.7,3.2
+									L15.3,14c2.9-0.5,4.5-2.5,4.5-4.2V8.8h2v0.9c0,1.8,1.6,3.8,4.5,4.2L25.5,15.5z"
+								/>
+								<path
+									fill={socialOnOff ? themeColor : 'black'}
+									d="M34.6,14.8c-1.4-0.5-2.3-1.4-2.9-2.6c-0.6,1.3-1.6,2.3-3,2.8l-0.9-1.4c2.1-0.7,3-2.3,3-4V8.5h1.9v1.1
+									c0,1.6,0.9,3.2,2.9,3.8L34.6,14.8z M39,19.5v1.4h-8.9v-3.5h6.7v-0.7h-6.7v-1.4h8.5v3.4H32v0.8H39z M36.8,12.7h-2.1v-1.4h2.1v-0.8
+									h-2.1V9.1h2.1V8.1h1.8v6.7h-1.8V12.7z"
+								/>
+							</g>
+						</svg>
 					</div>
 					<div
 						className={css.focusFull}
@@ -495,15 +542,30 @@ class Head extends Component<DefaultProps, Props, State> {
 						role="button"
 						tabIndex="-5"
 					>
-						<div
+						<svg
 							className={css.name}
-							style={{
-								color: 'black',
-								opacity: pathname.slice(0, 5) === '/card' ? '0.1' : '0.38',
-							}}
+							x="0px"
+							y="0px"
+							viewBox="0 0 54 29"
+							enableBackground="new 0 0 54 29"
+							opacity={pathname.slice(0, 5) === '/card' ? '1' : '0.38'}
 						>
-						집중
-						</div>
+							<g>
+								<path
+									fill="black"
+									d="M21.9,14.9c-1.5-0.4-2.5-1.3-3-2.4c-0.6,1.2-1.6,2.2-3.1,2.6l-0.9-1.5c2-0.6,3-2,3.1-3.5h-2.6V8.7h7v1.5
+									h-2.5c0.1,1.4,1.1,2.7,3,3.3L21.9,14.9z M23.6,15.6h1.8v5.2h-8.6v-5.2h1.8v1.2h4.9V15.6z M23.6,18.2h-4.9v1.1h4.9V18.2z M25.4,8v7
+									h-1.9V8H25.4z"
+								/>
+								<path
+									fill="black"
+									d="M34.3,15.4v1c2.2,0.2,3.5,1,3.5,2.3c0,1.5-1.7,2.3-4.5,2.3c-2.8,0-4.5-0.9-4.5-2.3c0-1.3,1.3-2.1,3.6-2.3
+									v-0.9h-4.9v-1.5h11.7v1.5H34.3z M28.1,12c2.4-0.2,3.7-1.1,4-1.9h-3.4V8.6h9.5V10h-3.4c0.3,0.9,1.6,1.7,4,1.9l-0.6,1.4
+									c-2.4-0.2-4-1.1-4.7-2.3c-0.7,1.2-2.3,2.1-4.7,2.3L28.1,12z M33.4,17.7c-1.7,0-2.6,0.3-2.6,0.9c0,0.6,0.9,0.9,2.6,0.9
+									s2.6-0.3,2.6-0.9C36,18,35.1,17.7,33.4,17.7z"
+								/>
+							</g>
+						</svg>
 					</div>
 					<div
 						className={css.theme}
@@ -511,15 +573,27 @@ class Head extends Component<DefaultProps, Props, State> {
 						role="button"
 						tabIndex="-5"
 					>
-						<div
+						<svg
 							className={css.name}
-							style={{
-								color: themeOnOff ? themeColor : 'black',
-								opacity: themeOnOff ? '1' : '0.38',
-							}}
+							x="0px"
+							y="0px"
+							viewBox="0 0 54 29"
+							enableBackground="new 0 0 54 29"
+							opacity={themeOnOff ? '1' : '0.38'}
 						>
-						테마
-						</div>
+							<g>
+								<path
+									fill={themeOnOff ? themeColor : 'black'}
+									d="M16.5,16.6c1.3,0,2.4-0.1,3.5-0.3l0.2,1.5c-1.5,0.2-2.7,0.3-4.5,0.3h-0.9V9.5h4.8v1.5h-3v2H19v1.4h-2.5
+									V16.6z M21,8.3h1.7v12.1H21v-6.1h-1.4v-1.5H21V8.3z M25.5,8v12.9h-1.8V8H25.5z"
+								/>
+								<path
+									fill={themeOnOff ? themeColor : 'black'}
+									d="M27.7,9.3h6.2v8.5h-6.2V9.3z M29.5,16.4H32v-5.6h-2.5V16.4z M39.2,14.4h-1.9V21h-1.8V8.1h1.8v4.8h1.9V14.4z
+									"
+								/>
+							</g>
+						</svg>
 					</div>
 					{themeOnOff &&
 					<div className={css.selectList} style={{ zIndex: '777' }}>

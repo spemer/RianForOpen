@@ -1,7 +1,9 @@
 .container {
-    width: 580px;
+    width: 603px;
+    min-width: 200px;
     height: 100%;
-    margin-right: 30px;
+    box-sizing: border-box;
+    padding-right: 30px;
     & .tagBox {
         height: 25px;
         display: flex;
@@ -12,7 +14,7 @@
             font-size: 10px;
             color: #babac0;
             letter-spacing: -0.3px;
-            text-align: right;
+            text-align: right;s
             margin-right: 6px;
             font-family: NotoSansCJKkr-Regular;
         }
@@ -23,7 +25,7 @@
             color: #515861;
         }
         & .tagContainer {
-            flex: 0 0 540px;
+            flex: 0 0 calc(100% - 36px);
             border: none;
             font-family: NotoSansCJKkr-Regular;
             font-size: 12px;
@@ -42,9 +44,9 @@
     }
     & .titleHead {
         height: 45px;
-        display: flex;
         & .gutter {
-            flex: 0 0 35px;
+            display: inline-block;
+            width: 35px;
             opacity: 0.38;
             font-family: NotoSansCJKkr-Bold;
             font-size: 14px;
@@ -62,7 +64,8 @@
             }
         }
         & .title {
-            flex: 0 0 540px;
+            width: calc(100% - 37px);
+            display: inline-block;
             border: none;
             font-family: NotoSansCJKkr-Bold;
             font-size: 30px;
@@ -80,14 +83,12 @@
         }
     }
     & .borderBox {
-        display: flex;
-        justify-content: flex-end;
         width:100%;
         height: 10px;
         margin-top: 5px;
         & .borderLine {
-            width: 540px;
-            min-width: 340px;
+            margin-left: 35px;
+            width: calc(100% - 35px);
             height: 10px;
             border-bottom: 1px solid #dfdfdf;
         }
