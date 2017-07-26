@@ -39,11 +39,11 @@ const getTagsByConditionQuery = graphql(getTagsByCondition, {
 });
 
 type Store = {
-  App: {
-    full: boolean,
-    themeColor: string,
-    leftBar: boolean
-  }
+	App: {
+	full: boolean,
+	themeColor: string,
+	leftBar: boolean
+	}
 };
 
 function mapToState({
@@ -65,26 +65,26 @@ function mapToDispatch(dispatch) {
 }
 
 type DefaultProps = {
-  full: boolean,
-  themeColor: string,
-  leftBar: boolean,
-  changeRenderTagsDispatch: Function,
-  tagData: any
+	full: boolean,
+	themeColor: string,
+	leftBar: boolean,
+	changeRenderTagsDispatch: Function,
+	tagData: any
 };
 
 type Props = {
-  full: boolean,
-  themeColor: string,
-  leftBar: boolean,
-  changeRenderTagsDispatch: Function,
-  tagData: any
+	full: boolean,
+	themeColor: string,
+	leftBar: boolean,
+	changeRenderTagsDispatch: Function,
+	tagData: any
 };
 
 type State = {
-  selectedTag: string,
-  selectedSort: string,
-  onSortList: boolean,
-  sortByhowMany: boolean
+	selectedTag: string,
+	selectedSort: string,
+	onSortList: boolean,
+	sortByhowMany: boolean
 };
 
 @connect(mapToState, mapToDispatch)

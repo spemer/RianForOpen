@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReactLoading from 'react-loading';
 import { graphql, compose } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 import { Form, Text, FormError } from 'react-form';
@@ -49,7 +50,13 @@ type Props = {
 	userLoginDispatch: Function,
 };
 
-type State = {};
+type State = {
+	error: {
+		errorState: boolean,
+		message: ?string,
+	},
+	loading: boolean,
+};
 
 @connect(mapToState, mapToDispatch)
 @compose(makeUserNameMutatation)
@@ -63,12 +70,38 @@ class FirstUser extends Component<DefaultProps, Props, State> {
 
 	constructor(props: Props) {
 		super(props);
+		this.handleErrorMessage = this.handleErrorMessage.bind(this);
+		this.handleLoadingState = this.handleLoadingState.bind(this);
 	}
 
-	state = {};
+	state = {
+		error: {
+			errorState: false,
+			message: null,
+		},
+		loading: false,
+	};
+
+	handleErrorMessage: Function;
+
+	handleErrorMessage(message: string) {
+		this.setState({
+			error: {
+				errorState: true,
+				message,
+			},
+		});
+	}
+
+	handleLoadingState(argu: boolean) {
+		this.setState({
+			loading: argu,
+		});
+	}
 
 	render() {
 		console.log('firstLogin', this.props);
+		const { error: { errorState, message }, loading } = this.state;
 		const { userId, userName, makeUserNameMutate, userLoginDispatch } = this.props;
 		if (userName) {
 			return <Redirect to="/" />;
@@ -86,13 +119,16 @@ class FirstUser extends Component<DefaultProps, Props, State> {
 								userId,
 								userName: values.name,
 							};
+							this.handleLoadingState(true);
 							makeUserNameMutate({
 								variables,
 							}).then(({ data: { makeUserName: { success, reason, userName } } }) => {
+								this.handleLoadingState(false);
 								if (success) {
 									userLoginDispatch(userName);
+								} else if (!success) {
+									this.handleErrorMessage(reason);
 								}
-								return console.log(reason);
 							});
 						}}
 						validate={(values) => {
@@ -116,15 +152,16 @@ class FirstUser extends Component<DefaultProps, Props, State> {
 								rightBoxOpacity = {
 									opacity: '0.38',
 								};
-							} else if (values.name.length > 10) {
+							} else {
+								formBorderstyle = { border: '2px solid #0088ff' };
+								rightBoxOpacity = {
+									opacity: '1',
+								};
+							}
+							if (errorState) {
 								formBorderstyle = {
 									border: '2px solid #ff3466',
 								};
-								rightBoxOpacity = {
-									opacity: '0.38',
-								};
-							} else if (values.name.length <= 10) {
-								formBorderstyle = { border: '2px solid #0088ff' };
 								rightBoxOpacity = {
 									opacity: '1',
 								};
@@ -132,6 +169,7 @@ class FirstUser extends Component<DefaultProps, Props, State> {
 							return (
 								<form onSubmit={submitForm} className={css.form}>
 									<div className={css.leftBox}>
+
 										<Text
 											className={css.formInput}
 											style={formBorderstyle}
@@ -139,7 +177,6 @@ class FirstUser extends Component<DefaultProps, Props, State> {
 											placeholder="이름을 입력해주세요"
 											maxLength="10"
 										/>
-
 										<svg
 											className={css.close}
 											version="1.1"
@@ -150,17 +187,27 @@ class FirstUser extends Component<DefaultProps, Props, State> {
 										</svg>
 										<div className={css.leftBoxBottom}>
 											<FormError className={css.formError} field="errorSet" />
+											{errorState &&
+												<div className={css.formError}>{message}</div>}
 											<div className={css.count}>
 												{values.name ? `${values.name.length}/10` : '0/10'}
 											</div>
 										</div>
 									</div>
 									<div className={css.rightBox}>
-										<button
-											className={css.button}
-											style={rightBoxOpacity}
-											type="submit"
-										>시작하기</button>
+										{!loading ?
+											<button
+												className={css.button}
+												style={rightBoxOpacity}
+												type="submit"
+											>시작하기
+											</button> :
+											<ReactLoading
+												className={css.loader}
+												type="bubbles"
+												color="#0088ff"
+												width="50px"
+											/>}
 									</div>
 								</form>
 							);

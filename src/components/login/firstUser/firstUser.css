@@ -27,6 +27,8 @@
             margin-top: -7px;
         }
     }
+    & .Loader {
+    }
     & .middle {
         position: absolute;
         height: 100px;
@@ -117,7 +119,9 @@
                     text-align: center;
                     color: white;
                     opacity: 0.38;
-                }   
+                }  
+                & .loader {
+                } 
             }
         }
     }

@@ -86,6 +86,7 @@ function mapToState({ User: { userId, userName }, App: { full } }: Store) {
 
 function MainComponent({ userId, userName, full, location: { pathname }, history }: Props) {
 	// console.log(pathname);
+	if (process.env.NODE_ENV === 'development') return <Redirect to="/firstLogin" />;
 	if (!SERVER && process.env.NODE_ENV !== 'development') {
 		if (!userId) {
 			return <Redirect to="/login" />;
