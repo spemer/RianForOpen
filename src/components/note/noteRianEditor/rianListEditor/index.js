@@ -68,7 +68,7 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 
 	componentWillReceiveProps(nextProps: Props) {
 		// console.log('new props in list editor in Apollo', this.props, nextProps);
-		if (process.env.NODE_ENV === 'development') return;
+		if (process.env.NODE_ENV === 'development' && !SERVER) return;
 
 		const { match: { params: { noteId } }, oneOfNoteData } = nextProps;
 		// user click other note

@@ -80,7 +80,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 
 	componentWillReceiveProps(nextProps: Props) {
 		// console.log('new props in card editor', this.props, nextProps);
-		if (process.env.NODE_ENV === 'development') return;
+		if (process.env.NODE_ENV === 'development' && !SERVER) return;
 		const { match: { params: { noteId } }, oneOfNoteData } = nextProps;
 		if (nextProps.location.pathname === '/card/main') {
 			this.setState({

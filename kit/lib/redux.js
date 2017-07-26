@@ -37,7 +37,7 @@ export default function createNewStore(apolloClient, preloadedState) {
   );
 
 	if (!SERVER) {
-		console.log('FIRST STORE: ', store.getState());
+		// console.log('FIRST STORE: ', store.getState());
 	}
 	return store;
 }

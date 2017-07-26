@@ -13,14 +13,14 @@ import css from './firstUser.css';
 type Store = {
   User: {
     userId: string,
-    userName: string
+    userName: string,
   }
 };
 
 function mapToState({ User: { userId, userName } }: Store) {
 	return {
 		userId,
-		userName,
+		userNameState: userName,
 	};
 }
 
@@ -38,14 +38,14 @@ const makeUserNameMutatation = graphql(makeUserName, {
 
 type DefaultProps = {
 	userId: null,
-	userName: null,
+	userNameState: null,
 	makeUserNameMutate: null,
 	userLoginDispatch: Function,
 };
 
 type Props = {
 	userId: string,
-	userName: string,
+	userNameState: string,
 	makeUserNameMutate: Function,
 	userLoginDispatch: Function,
 };
@@ -63,7 +63,7 @@ type State = {
 class FirstUser extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		userId: null,
-		userName: null,
+		userNameState: null,
 		makeUserNameMutate: null,
 		userLoginDispatch: () => {},
 	};
@@ -83,6 +83,7 @@ class FirstUser extends Component<DefaultProps, Props, State> {
 	};
 
 	handleErrorMessage: Function;
+	handleLoadingState: Function;
 
 	handleErrorMessage(message: string) {
 		this.setState({
@@ -100,10 +101,9 @@ class FirstUser extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		console.log('firstLogin', this.props);
 		const { error: { errorState, message }, loading } = this.state;
-		const { userId, userName, makeUserNameMutate, userLoginDispatch } = this.props;
-		if (userName) {
+		const { userId, userNameState, makeUserNameMutate, userLoginDispatch } = this.props;
+		if (userNameState) {
 			return <Redirect to="/" />;
 		}
 		return (

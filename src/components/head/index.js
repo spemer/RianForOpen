@@ -515,7 +515,7 @@ class Head extends Component<DefaultProps, Props, State> {
 						<div className={css.selectBox}>
 							<div
 								className={css.selectOne}
-								onClick={() => { changeThemeColorDispatch('#ff9ab2'); }}
+								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#ff9ab2'); }}
 								style={{ borderLeft: themeColor === '#ff9ab2' && '4px solid #ff9ab2' }}
 								role="button"
 								tabIndex="0"
@@ -525,7 +525,7 @@ class Head extends Component<DefaultProps, Props, State> {
 							</div>
 							<div
 								className={css.selectOne}
-								onClick={() => { changeThemeColorDispatch('#ff3466'); }}
+								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#ff3466'); }}
 								style={{ borderLeft: themeColor === '#ff3466' && '4px solid #ff3466' }}
 								role="button"
 								tabIndex="-7"
@@ -535,7 +535,7 @@ class Head extends Component<DefaultProps, Props, State> {
 							</div>
 							<div
 								className={css.selectOne}
-								onClick={() => { changeThemeColorDispatch('#1ce8b5'); }}
+								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#1ce8b5'); }}
 								style={{ borderLeft: themeColor === '#1ce8b5' && '4px solid #1ce8b5' }}
 								role="button"
 								tabIndex="-7"
@@ -545,7 +545,7 @@ class Head extends Component<DefaultProps, Props, State> {
 							</div>
 							<div
 								className={css.selectOne}
-								onClick={() => { changeThemeColorDispatch('#2dcc4f'); }}
+								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#2dcc4f'); }}
 								style={{ borderLeft: themeColor === '#2dcc4f' && '4px solid #2dcc4f' }}
 								role="button"
 								tabIndex="-7"
@@ -555,7 +555,7 @@ class Head extends Component<DefaultProps, Props, State> {
 							</div>
 							<div
 								className={css.selectOne}
-								onClick={() => { changeThemeColorDispatch('#0088ff'); }}
+								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#0088ff'); }}
 								style={{ borderLeft: themeColor === '#0088ff' && '4px solid #0088ff' }}
 								role="button"
 								tabIndex="-7"
@@ -565,7 +565,7 @@ class Head extends Component<DefaultProps, Props, State> {
 							</div>
 							<div
 								className={css.selectOne}
-								onClick={() => { changeThemeColorDispatch('#536dfe'); }}
+								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#536dfe'); }}
 								style={{ borderLeft: themeColor === '#536dfe' && '4px solid #536dfe' }}
 								role="button"
 								tabIndex="-7"
@@ -575,7 +575,7 @@ class Head extends Component<DefaultProps, Props, State> {
 							</div>
 							<div
 								className={css.selectOne}
-								onClick={() => { changeThemeColorDispatch('#9f9f9f'); }}
+								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#9f9f9f'); }}
 								style={{ borderLeft: themeColor === '#9f9f9f' && '4px solid #9f9f9f' }}
 								role="button"
 								tabIndex="-7"
@@ -585,7 +585,7 @@ class Head extends Component<DefaultProps, Props, State> {
 							</div>
 							<div
 								className={css.selectOne}
-								onClick={() => { changeThemeColorDispatch('#353946'); }}
+								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#353946'); }}
 								style={{ borderLeft: themeColor === '#353946' && '4px solid #353946' }}
 								role="button"
 								tabIndex="-7"

@@ -190,7 +190,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 			sortedEtc: null,
 		};
 		let tagList;
-		let tagCount;
+		let tagCount = '';
 		if (process.env.NODE_ENV === 'production') {
 			if (!tagData.loading && tagData.getTagsByCondition) {
 				tagCount = tagData.getTagsByCondition.tags.length;
