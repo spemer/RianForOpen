@@ -278,43 +278,95 @@ class Head extends Component<DefaultProps, Props, State> {
 	async deleteNoteMutation() {
 		const {
 			pathname,
-			// history,
+			history,
 			renderTags,
 			deleteNoteMutate,
 			deleteNoteState: { noteId },
 			deleteCompleteActionDispatch,
 		} = this.props;
-		if (pathname.slice(0, 5) === '/card') {
-			const deleteNoteResult = await deleteNoteMutate({
-				variables: {
-					noteId,
-				},
-				refetchQueries: [{
-					query: getAllMyNotePreviewsByTags,
-					variables: { tags: renderTags },
-				}, {
-					query: getTagsByCondition,
-					variables: { condition: 'All' },
-				}],
-			});
+		try {
+			if (pathname.slice(0, 5) === '/card') {
+				const deleteNoteResult = await deleteNoteMutate({
+					variables: {
+						noteId,
+					},
+					refetchQueries: [{
+						query: getAllMyNotePreviewsByTags,
+						variables: { tags: renderTags },
+					}, {
+						query: getTagsByCondition,
+						variables: { condition: 'All' },
+					}],
+					update: (store) => {
+						let i;
+						const data = store.readQuery({
+							query: getAllMyNotePreviewsByTags,
+							variables: { tags: renderTags },
+						});
+						for (i = 0; i < data.getAllMyNotePreviewsByTags.notes.length; i += 1) {
+							if (data.getAllMyNotePreviewsByTags.notes[i]._id === noteId) {
+								data.getAllMyNotePreviewsByTags.notes.splice(i, 1);
+								break;
+							}
+						}
+						store.writeQuery({
+							query: getAllMyNotePreviewsByTags,
+							variables: { tags: renderTags },
+							data,
+						});
+					},
+				});
+				const { data: { deleteNote: { success } } } = deleteNoteResult;
+				if (success) {
+					deleteCompleteActionDispatch();
+					history.push('/card/main');
+				}
+			}
+			if (pathname.slice(0, 5) === '/list') {
+				let nextRenderNoteId = '';
+				const deleteNoteResult = await deleteNoteMutate({
+					variables: {
+						noteId,
+					},
+					refetchQueries: [{
+						query: getAllMyNotePreviewsByTags,
+						variables: { tags: renderTags },
+					}, {
+						query: getTagsByCondition,
+						variables: { condition: 'All' },
+					}],
+					update: (store) => {
+						let i;
+						const data = store.readQuery({
+							query: getAllMyNotePreviewsByTags,
+							variables: { tags: renderTags },
+						});
+						for (i = 0; i < data.getAllMyNotePreviewsByTags.notes.length; i += 1) {
+							if (data.getAllMyNotePreviewsByTags.notes[i]._id === noteId) {
+								data.getAllMyNotePreviewsByTags.notes.splice(i, 1);
+								break;
+							}
+						}
+						store.writeQuery({
+							query: getAllMyNotePreviewsByTags,
+							variables: { tags: renderTags },
+							data,
+						});
+						if (data.getAllMyNotePreviewsByTags.notes[0]) {
+							const nextId = data.getAllMyNotePreviewsByTags.notes[0]._id;
+							nextRenderNoteId = nextId || 'loading';
+						}
+					},
+				});
+				nextRenderNoteId = nextRenderNoteId || 'loading';
+				const { data: { deleteNote: { success } } } = deleteNoteResult;
+				if (success) {
+					deleteCompleteActionDispatch();
+					history.push(`/list/${nextRenderNoteId}`);
+				}
+			}
+		} catch (e) {
 			deleteCompleteActionDispatch();
-			const { data } = deleteNoteResult;
-		}
-		if (pathname.slice(0, 5) === '/list') {
-			const deleteNoteResult = await deleteNoteMutate({
-				variables: {
-					noteId,
-				},
-				refetchQueries: [{
-					query: getAllMyNotePreviewsByTags,
-					variables: { tags: renderTags },
-				}, {
-					query: getTagsByCondition,
-					variables: { condition: 'All' },
-				}],
-			});
-			deleteCompleteActionDispatch();
-			const { data } = deleteNoteResult;
 		}
 	}
 
@@ -378,7 +430,7 @@ class Head extends Component<DefaultProps, Props, State> {
 						</Link>
 						<Link
 							className={css.changeLink}
-							to={!noteData.loading && noteData.getAllMyNotePreviewsByTags.notes[0] ? `/list/${noteData.getAllMyNotePreviewsByTags.notes[0]._id}` : '/list/loading}'}
+							to={!noteData.loading && noteData.getAllMyNotePreviewsByTags.notes[0] ? `/list/${noteData.getAllMyNotePreviewsByTags.notes[0]._id}` : '/list/loading'}
 						>
 							<div
 								className={css.Button}
