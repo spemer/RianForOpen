@@ -81,7 +81,6 @@ type Props = {
 };
 
 type State = {
-  tagCount: number,
   selectedTag: string,
   selectedSort: string,
   onSortList: boolean,
@@ -114,7 +113,6 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	}
 
 	state = {
-		tagCount: 0,
 		onSortList: false,
 		sortByhowMany: false,
 		selectedTag: '',
@@ -184,7 +182,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		const { tagCount, sortByhowMany, onSortList } = this.state;
+		const { sortByhowMany, onSortList } = this.state;
 		const { leftBar, full, themeColor, tagData, changeRenderTagsDispatch } = this.props;
 		const tagListGroup = {
 			sortedKor: null,
@@ -192,8 +190,10 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 			sortedEtc: null,
 		};
 		let tagList;
+		let tagCount;
 		if (process.env.NODE_ENV === 'production') {
 			if (!tagData.loading && tagData.getTagsByCondition) {
+				tagCount = tagData.getTagsByCondition.tags.length;
 				if (!sortByhowMany) {
 					Object.assign(tagListGroup, makeSortableTag(tagData.getTagsByCondition.tags));
 				} else {
@@ -202,6 +202,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 			}
 		}
 		if (process.env.NODE_ENV === 'development') {
+			tagCount = example.length;
 			if (!sortByhowMany) {
 				Object.assign(tagListGroup, makeSortableTag(example));
 			} else {
