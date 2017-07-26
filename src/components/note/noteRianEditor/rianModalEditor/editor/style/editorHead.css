@@ -20,6 +20,9 @@
         & .gutter:hover {
             color: #515861;
         }
+        & .gutter:focus {
+            color: #515861;
+        }       
         & .tagContainer {
             flex: 0 0 540px;
             border: none;
@@ -32,6 +35,9 @@
             background-color: #FCFCFC;
         }
         & .tagContainer:hover {
+            color: #515861;
+        }
+        & .tagContainer:focus {
             color: #515861;
         }
     }

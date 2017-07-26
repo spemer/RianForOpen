@@ -3,7 +3,7 @@ import Tag from '../models/tag_model';
 const makeTagCtrl = async (userId, tagList) => {
 	let result = [];
   // tagName must be Array
-	for (let i = 0; i < tagList.length; i++) {
+	for (let i = 0; i < tagList.length; i += 1) {
 		try {
 			const tagName = tagList[i];
 			const findTag = await Tag.findOne({

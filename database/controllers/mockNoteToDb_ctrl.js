@@ -1,8 +1,7 @@
-import Note from '../models/note_model';
-import makeNoteCtrl from './makeNote_ctrl';
-import makeTagCtrl from './makeTag_ctrl';
-import MockData from 'MockData/noteList';
 import htmlToText from 'html-to-text';
+import Note from '../models/note_model';
+import makeTagCtrl from './makeTag_ctrl';
+import MockData from '../../MockData/noteList';
 
 const mockeNoteToDb = async (userId) => {
 	let result;
