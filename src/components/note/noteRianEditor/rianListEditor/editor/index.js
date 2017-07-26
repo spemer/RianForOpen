@@ -284,22 +284,21 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 				</div>
 				<div className={parentCss.editorBox}>
 					{loading && <ReactLoading className={parentCss.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
-					{!full &&
 					<SideHead
+						full={full}
 						noteId={noteId}
 						timelineLeftBar={timelineLeftBar}
 						changeTimelineLeftBarDispatch={changeTimelineLeftBarDispatch}
 						saveObservable={this.saveObservable}
 						saveRequestDispatch={saveRequestDispatch}
 						deleteRequestDispatch={deleteRequestDispatch}
-					/>}
+					/>
 					<div className={parentCss.editorHead}>
 						<div className={editorHeadCss.container}>
 							<div
 								className={editorHeadCss.tagBox}
 								style={{
-									height: full && '0px',
-									marginTop: full && '40px',
+									visibility: full && 'hidden',
 								}}
 							>
 								<div className={editorHeadCss.gutter}>
