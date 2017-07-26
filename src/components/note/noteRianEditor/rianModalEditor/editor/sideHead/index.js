@@ -11,29 +11,41 @@ type Store = {
 		themeColor: string
 	},
 	NoteEditor: {
-		save: boolean
-	}
+		save: boolean,
+		deleteNoteState: {
+			progress: boolean,
+		},
+	},
 }
 
-function mapToState({ App: { themeColor }, NoteEditor: { save } }: Store) {
+function mapToState({
+	App: { themeColor },
+	NoteEditor: { save, deleteNoteState: { progress } } }: Store) {
 	return {
 		save,
 		themeColor,
+		progress,
 	};
 }
 
 type Props = {
 	save: boolean,
 	themeColor: string,
+	progress: boolean,
+	noteId: ?string,
 	saveObservable: Function,
 	saveRequestDispatch: Function,
+	deleteRequestDispatch: Function,
 };
 
 const SideHead = ({
 	save,
 	themeColor,
+	progress,
+	noteId,
 	saveObservable,
 	saveRequestDispatch,
+	deleteRequestDispatch,
 }: Props) => (
 	<div className={parentCss.sideHead}>
 		<Link to={'/card/main'} >
@@ -58,23 +70,26 @@ const SideHead = ({
 		>
 			{!save ? <p>저장</p> : <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 		</div>
-		<svg
-			viewBox="0 0 24 24"
-			opacity="0.38"
-			width="13px"
-			height="20px"
-			className={css.trash}
-		>
-			<path
-				fill="none"
-				stroke="#000"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-				strokeMiterlimit="10"
-				strokeWidth="1.5"
-				d="M4.4 20.8c0 1.2 1 2.2 2.2 2.2h10.8c1.2 0 2.2-1 2.2-2.2V7.6H4.4v13.2zM19.6 2.1h-3.8L14.7 1H9.3L8.2 2.1H4.4v3.3h15.2zM12 10.4v9.9M15.3 10.4v9.9M8.7 10.4v9.9"
-			/>
-		</svg>
+		{!progress ?
+			<svg
+				viewBox="0 0 24 24"
+				opacity="0.38"
+				width="13px"
+				height="20px"
+				className={css.trash}
+				onClick={() => { deleteRequestDispatch(noteId); }}
+			>
+				<path
+					fill="none"
+					stroke="#000"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+					strokeMiterlimit="10"
+					strokeWidth="1.5"
+					d="M4.4 20.8c0 1.2 1 2.2 2.2 2.2h10.8c1.2 0 2.2-1 2.2-2.2V7.6H4.4v13.2zM19.6 2.1h-3.8L14.7 1H9.3L8.2 2.1H4.4v3.3h15.2zM12 10.4v9.9M15.3 10.4v9.9M8.7 10.4v9.9"
+				/>
+			</svg> :
+			<ReactLoading className={css.trashLoader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 	</div>
 );
 

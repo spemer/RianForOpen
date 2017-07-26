@@ -8,7 +8,8 @@ import ReactLoading from 'react-loading';
 import profileImageMock from '../../../static/image/thumb-ex-img.png';
 import SearchBox from './searchBox';
 import { fullScreenChange, changeLeftBar, changeThemeColor } from '../../actions/AppActions';
-import { makeNote } from '../../graphqls/NoteEditorGraphQl';
+import { deleteComplete } from '../../actions/NoteEditorActions';
+import { makeNote, deleteNote } from '../../graphqls/NoteEditorGraphQl';
 import { getTagsByCondition } from '../../graphqls/TagGraphQl';
 import { getAllMyNotePreviewsByTags } from '../../graphqls/TimelineGraphQl';
 import parentCss from '../app/app.css';
@@ -21,17 +22,27 @@ type Store = {
 		leftBar: boolean,
 		renderTags: Array<string>,
 	},
+	NoteEditor: {
+		deleteNoteState: {
+			progress: boolean,
+			noteId: ?string
+		},
+	},
 	User: {
-		photo: string
+		photo: string,
 	}
 }
 
-function mapToState({ App: { full, themeColor, leftBar, renderTags }, User: { photo } }: Store) {
+function mapToState({
+	App: { full, themeColor, leftBar, renderTags },
+	NoteEditor: { deleteNoteState },
+	User: { photo } }: Store) {
 	return {
 		full,
 		themeColor,
 		leftBar,
 		renderTags,
+		deleteNoteState,
 		photo,
 	};
 }
@@ -46,6 +57,9 @@ function mapToDispatch(dispatch) {
 		},
 		changeThemeColorDispatch(themeColor: string) {
 			dispatch(changeThemeColor(themeColor));
+		},
+		deleteCompleteActionDispatch() {
+			dispatch(deleteComplete());
 		},
 	};
 }
@@ -62,10 +76,11 @@ const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
 });
 
 const makeNoteMutation = graphql(makeNote, {
-	options: () => ({
-		ssr: false,
-	}),
-	name: 'makeNote',
+	name: 'makeNoteMutate',
+});
+
+const deleteNoteMutation = graphql(deleteNote, {
+	name: 'deleteNoteMutate',
 });
 
 function fullScreen() {
@@ -80,30 +95,42 @@ type DefaultProps = {
 	changeFullScreenApp: Function,
 	changeLeftBarDispatch: Function,
 	changeThemeColorDispatch: Function,
-	makeNote: Function,
+	deleteCompleteActionDispatch: Function,
+	makeNoteMutate: Function,
+	deleteNoteMutate: Function,
+	noteData: any,
 	full: boolean,
 	themeColor: string,
 	leftBar: boolean,
+	deleteNoteState: {
+		progress: boolean,
+		noteId: ?string
+	},
+	renderTags: Array<string>,
 	photo: string,
-	noteData: any,
 	pathname: string,
 	history: any,
-	renderTags: Array<string>
 };
 
 type Props = {
 	changeFullScreenApp: Function,
 	changeLeftBarDispatch: Function,
 	changeThemeColorDispatch: Function,
-	makeNote: Function,
-	full: boolean,
-	leftBar: boolean,
-	themeColor: string,
-	photo: string,
+	deleteCompleteActionDispatch: Function,
+	makeNoteMutate: Function,
+	deleteNoteMutate: Function,
 	noteData: any,
+	full: boolean,
+	themeColor: string,
+	leftBar: boolean,
+	deleteNoteState: {
+		progress: boolean,
+		noteId: ?string
+	},
+	renderTags: Array<string>,
+	photo: string,
 	pathname: string,
 	history: any,
-	renderTags: Array<string>
 };
 
 type State = {
@@ -113,27 +140,32 @@ type State = {
 };
 
 @connect(mapToState, mapToDispatch)
-@compose(makeNoteMutation, getAllMyNotePreviewsByTagsQuery)
+@compose(getAllMyNotePreviewsByTagsQuery, makeNoteMutation, deleteNoteMutation)
 class Head extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		changeFullScreenApp: () => {},
 		changeLeftBarDispatch: () => {},
 		changeThemeColorDispatch: () => {},
-		makeNote: () => {},
-		full: false,
-		string: '',
-		pathname: '/card',
-		history: {},
-		themeColor: '',
-		leftBar: true,
-		photo: profileImageMock,
-		renderTags: [],
+		deleteCompleteActionDispatch: () => {},
+		deleteNoteMutate: () => {},
+		makeNoteMutate: () => {},
 		noteData: {
 			loading: false,
 			getAllMyNotePreviewsByTags: {
 				notes: [{ _id: '342!!@31312312312' }, { _id: 'sdf123sdfasdfasdf' }],
 			},
 		},
+		full: false,
+		pathname: '/card',
+		history: {},
+		themeColor: '',
+		leftBar: true,
+		deleteNoteState: {
+			progress: false,
+			noteId: null,
+		},
+		renderTags: [],
+		photo: profileImageMock,
 	};
 
 	constructor(props: Props) {
@@ -142,6 +174,7 @@ class Head extends Component<DefaultProps, Props, State> {
 		this.changeTagState = this.changeTagState.bind(this);
 		this.changeThemeState = this.changeThemeState.bind(this);
 		this.fireMutation = this.fireMutation.bind(this);
+		this.deleteNoteMutation = this.deleteNoteMutation.bind(this);
 	}
 
 	state = {
@@ -160,10 +193,20 @@ class Head extends Component<DefaultProps, Props, State> {
 		});
 	}
 
+	componentDidUpdate(prevProps: Props) {
+		// console.log('componentDidUpdate in Head', prevProps, this.props);
+		if (!prevProps.deleteNoteState.progress &&
+			this.props.deleteNoteState.progress &&
+			this.props.deleteNoteState.noteId) {
+			this.deleteNoteMutation();
+		}
+	}
+
 	changeSocialState: Function;
 	changeTagState: Function;
 	changeThemeState: Function;
 	fireMutation: Function;
+	deleteNoteMutation: Function;
 
 	changeTagState() {
 		this.props.changeLeftBarDispatch();
@@ -186,13 +229,14 @@ class Head extends Component<DefaultProps, Props, State> {
 			pathname,
 			history,
 			renderTags,
+			makeNoteMutate,
 		} = this.props;
 		if (pathname.slice(0, 5) === '/card') {
 			this.setState({
 				makeNoteLoading: true,
 			});
 			if (process.env.NODE_ENV === 'production') {
-				const makeNoteResult = await this.props.makeNote({
+				const makeNoteResult = await makeNoteMutate({
 					refetchQueries: [{
 						query: getAllMyNotePreviewsByTags,
 						variables: { tags: renderTags },
@@ -213,7 +257,7 @@ class Head extends Component<DefaultProps, Props, State> {
 				makeNoteLoading: true,
 			});
 			if (process.env.NODE_ENV === 'production') {
-				const makeNoteResult = await this.props.makeNote({
+				const makeNoteResult = await makeNoteMutate({
 					refetchQueries: [{
 						query: getAllMyNotePreviewsByTags,
 						variables: { tags: renderTags },
@@ -228,6 +272,49 @@ class Head extends Component<DefaultProps, Props, State> {
 				});
 				history.push(`/list/${data.makeNote.noteId}`);
 			}
+		}
+	}
+
+	async deleteNoteMutation() {
+		const {
+			pathname,
+			// history,
+			renderTags,
+			deleteNoteMutate,
+			deleteNoteState: { noteId },
+			deleteCompleteActionDispatch,
+		} = this.props;
+		if (pathname.slice(0, 5) === '/card') {
+			const deleteNoteResult = await deleteNoteMutate({
+				variables: {
+					noteId,
+				},
+				refetchQueries: [{
+					query: getAllMyNotePreviewsByTags,
+					variables: { tags: renderTags },
+				}, {
+					query: getTagsByCondition,
+					variables: { condition: 'All' },
+				}],
+			});
+			deleteCompleteActionDispatch();
+			const { data } = deleteNoteResult;
+		}
+		if (pathname.slice(0, 5) === '/list') {
+			const deleteNoteResult = await deleteNoteMutate({
+				variables: {
+					noteId,
+				},
+				refetchQueries: [{
+					query: getAllMyNotePreviewsByTags,
+					variables: { tags: renderTags },
+				}, {
+					query: getTagsByCondition,
+					variables: { condition: 'All' },
+				}],
+			});
+			deleteCompleteActionDispatch();
+			const { data } = deleteNoteResult;
 		}
 	}
 

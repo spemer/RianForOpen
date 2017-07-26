@@ -42,6 +42,11 @@ const Note = `
 		success: Boolean
 		noteId: ID
 	}
+
+	type deleteNoteSuccess {
+		success: Boolean
+		noteId: ID
+	}
 `;
 
 export default () => [Note];
