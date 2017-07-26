@@ -13,16 +13,17 @@ type Store = {
 		save: boolean,
 		deleteNoteState: {
 			progress: boolean,
-			noteId: ?string
 		},
 	},
 }
 
-function mapToState({ App: { themeColor }, NoteEditor: { save, deleteNoteState } }: Store) {
+function mapToState({
+	App: { themeColor },
+	NoteEditor: { save, deleteNoteState: { progress } } }: Store) {
 	return {
 		save,
 		themeColor,
-		deleteNoteState,
+		progress,
 	};
 }
 
@@ -30,10 +31,7 @@ function mapToState({ App: { themeColor }, NoteEditor: { save, deleteNoteState }
 type Props = {
 	save: boolean,
 	themeColor: string,
-	deleteNoteState: {
-		progress: boolean,
-		noteId: ?string
-	},
+	progress: boolean,
 	noteId: ?string,
 	saveObservable: Function,
 	saveRequestDispatch: Function,
@@ -43,7 +41,7 @@ type Props = {
 const SideHead = ({
 	save,
 	themeColor,
-	deleteNoteState,
+	progress,
 	noteId,
 	saveObservable,
 	saveRequestDispatch,
@@ -59,7 +57,7 @@ const SideHead = ({
 		>
 			{!save ? <p>저장</p> : <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 		</div>
-		{!deleteNoteState.progress ?
+		{!progress ?
 			<svg
 				viewBox="0 0 24 24"
 				opacity="0.38"
