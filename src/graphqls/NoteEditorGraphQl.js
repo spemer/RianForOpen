@@ -9,6 +9,15 @@ export const makeNote = gql`
     }
 `;
 
+export const deleteNote = gql`
+    mutation deleteNoteMutation($userId: ID $noteId: ID!) {
+        deleteNote(userId: $userId noteId: $noteId) {
+            success
+            noteId
+        }
+    }
+`;
+
 
 export const getSelectedMyNoteData = gql`
     query getSelectedMyNoteDataQuery($noteId: ID!) {

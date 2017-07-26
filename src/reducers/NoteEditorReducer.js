@@ -1,18 +1,18 @@
 // @flow
 import {
-  SAVE_COMPLETE,
   SAVE_REQUEST,
-  MAKE_NEW_REQUEST,
-  MAKE_NEW_COMPLETE,
-  THEME_SAVE_CLICK,
-  THEME_SAVE_REQUEST,
-  THEME_SAVE_COMPLETE,
+  SAVE_COMPLETE,
+  DELETE_REQUEST,
+  DELETE_COMPLETE,
 } from '../constants';
+
 
 type State = {
   save: boolean,
-  makeNew: boolean,
-  themesave: "nothing" | "click" | "progress"
+  deleteNoteState: {
+	progress: boolean,
+	noteId: ?string
+  },
 };
 
 // type AutoSaveRequestAction = {
@@ -65,8 +65,10 @@ type State = {
 
 const NoteEditorState: State = {
 	save: false,
-	makeNew: false,
-	themesave: 'nothing',
+	deleteNoteState: {
+		progress: false,
+		noteId: null,
+	},
 };
 
 export default function NoteEditor(
@@ -82,25 +84,19 @@ export default function NoteEditor(
 		return Object.assign({}, state, {
 			save: false,
 		});
-	case MAKE_NEW_REQUEST:
+	case DELETE_REQUEST:
 		return Object.assign({}, state, {
-			makeNew: true,
+			deleteNoteState: {
+				progress: true,
+				noteId: action.noteId,
+			},
 		});
-	case MAKE_NEW_COMPLETE:
+	case DELETE_COMPLETE:
 		return Object.assign({}, state, {
-			makeNew: false,
-		});
-	case THEME_SAVE_CLICK:
-		return Object.assign({}, state, {
-			themesave: 'click',
-		});
-	case THEME_SAVE_REQUEST:
-		return Object.assign({}, state, {
-			themesave: 'progress',
-		});
-	case THEME_SAVE_COMPLETE:
-		return Object.assign({}, state, {
-			themesave: 'nothing',
+			deleteNoteState: {
+				progress: false,
+				noteId: null,
+			},
 		});
 	default:
 		return state;

@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable';
-import { AutoSaveEpic, ThemeSaveEpic } from './NoteEditorEpic';
+import { AutoSaveEpic } from './NoteEditorEpic';
 
-const rootEpic = combineEpics(AutoSaveEpic, ThemeSaveEpic);
+const rootEpic = combineEpics(AutoSaveEpic);
 
 export default rootEpic;

@@ -21,7 +21,7 @@ import { makeTagToString, makeStringToTagArray } from '../../../../util/handleDa
 import editorConfig from '../../editorConfig';
 import { changeTimelineLeftBar } from '../../../../../actions/AppActions';
 import { getTagsByCondition } from '../../../../../graphqls/TagGraphQl';
-import { saveRequest } from '../../../../../actions/NoteEditorActions';
+import { saveRequest, deleteRequest } from '../../../../../actions/NoteEditorActions';
 import { notePreviewUpdate } from '../../../../../graphqls/TimelineGraphQl';
 import SideHead from './sideHead';
 // css
@@ -58,6 +58,9 @@ function mapToDispatch(dispatch) {
 		saveRequestDispatch(method: Function) {
 			dispatch(saveRequest(method));
 		},
+		deleteRequestDispatch(noteId: string) {
+			dispatch(deleteRequest(noteId));
+		},
 	};
 }
 
@@ -72,7 +75,8 @@ type DefaultProps = {
 	data: string,
 	tags: Array<string>,
 	saveRequestDispatch: Function,
-	changeTimelineLeftBarDispatch: Function
+	changeTimelineLeftBarDispatch: Function,
+	deleteRequestDispatch: Function,
 };
 
 type Props = {
@@ -86,7 +90,8 @@ type Props = {
 	data: ?string,
 	tags: Array<string>,
 	saveRequestDispatch: Function,
-	changeTimelineLeftBarDispatch: Function
+	changeTimelineLeftBarDispatch: Function,
+	deleteRequestDispatch: Function,
 };
 
 type SaveFormat = {
@@ -119,6 +124,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		title: '',
 		saveRequestDispatch: () => {},
 		changeTimelineLeftBarDispatch: () => {},
+		deleteRequestDispatch: () => {},
 	};
 
 	constructor(props: Props) {
@@ -197,8 +203,8 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 	Interval: any;
 
 	saveObservable() {
-		const { noteId, saveMutate } = this.props;
-		const { title, data, tags } = this.state;
+		const { saveMutate } = this.props;
+		const { noteId, title, data, tags } = this.state;
 		let preImage = '';
 		if (document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img').length > 0) {
 			preImage = document.getElementsByClassName('fr-element fr-view')[0].getElementsByTagName('img')[0].src;
@@ -248,8 +254,10 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			themeColor,
 			saveRequestDispatch,
 			changeTimelineLeftBarDispatch,
+			deleteRequestDispatch,
 		} = this.props;
 		const {
+			noteId,
 			loading,
 			data,
 			tags,
@@ -277,10 +285,12 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 					{loading && <ReactLoading className={parentCss.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 					{!full &&
 					<SideHead
+						noteId={noteId}
 						timelineLeftBar={timelineLeftBar}
 						changeTimelineLeftBarDispatch={changeTimelineLeftBarDispatch}
 						saveObservable={this.saveObservable}
 						saveRequestDispatch={saveRequestDispatch}
+						deleteRequestDispatch={deleteRequestDispatch}
 					/>}
 					<div className={parentCss.editorHead}>
 						<div className={editorHeadCss.container}>
