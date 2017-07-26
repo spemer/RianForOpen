@@ -11,7 +11,14 @@ type Props = {
 
 const SortByManyBoxContainer = ({ tagList, themeColor, changeClickedBox }: Props) => (
 	<div className={parentCss.scrollBox}>
-		{tagList.map((tag, index) =>
+		{tagList.sort((a, b) => {
+			if (a.howMany > b.howMany) {
+				return -1;
+			} else if (a.howMany < b.howMany) {
+				return 1;
+			}
+			return 0;
+		}).map((tag, index) =>
 			(<div className={css.tagBlock} key={tag._id} onClick={(e) => { changeClickedBox(e, tag.name); }} role="button" tabIndex={index}>
 				<span className={css.tagName}>{`#${tag.name}`}</span>
 				<span className={css.tagHowMany} style={{ color: themeColor }}>{tag.howMany}</span>
