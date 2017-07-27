@@ -344,7 +344,22 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 								노트 개수순
 							</div>
 						</div>
-						<div className={css.showAllNote} onClick={() => { changeRenderTagsDispatch([]); }} role="button" tabIndex="-5">
+						<div
+							className={css.showAllNote}
+							onClick={() => {
+								changeRenderTagsDispatch([]);
+								if (this.currentSelected) {
+									this.currentSelected.style.backgroundColor = null;
+									this.currentSelected.style.paddingLeft = '24px';
+									this.currentSelected.style.borderLeft = null;
+								}
+								if (this.currentSelectedSort) {
+									this.currentSelectedSort.style.color = '#515861';
+								}
+							}}
+							role="button"
+							tabIndex="-5"
+						>
 							전체노트보기
 						</div>
 						{!sortByhowMany ?
