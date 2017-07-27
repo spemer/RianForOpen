@@ -21,6 +21,7 @@ const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
 		ssr: false,
 	}),
 	name: 'noteData',
+	fetchPolicy: 'network-only',
 	skip: process.env.NODE_ENV === 'development' && true,
 });
 

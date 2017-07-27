@@ -19,6 +19,7 @@ const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
 			tags: props.renderTags,
 		},
 		ssr: false,
+		fetchPolicy: 'network-only',
 	}),
 	name: 'noteData',
 	skip: process.env.NODE_ENV === 'development' && true,
