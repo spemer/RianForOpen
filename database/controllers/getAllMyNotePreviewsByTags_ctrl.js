@@ -23,6 +23,9 @@ const getAllMyNotePreviewsByTagsCtrl = async (userId, tagList) => {
         userId,
         tagList,
 			);
+			if (tagObjectIdList.length !== tagList.length) {
+				return [];
+			}
 			const NoteList = await Note.find({
 				userId,
 				tags: { $all: tagObjectIdList },
@@ -31,7 +34,7 @@ const getAllMyNotePreviewsByTagsCtrl = async (userId, tagList) => {
 			.lean()
 			.select(
         '_id title tags preImage preview isPublish createdAt updatedAt',
-      );
+			);
 			result = NoteList.map((note) => {
 				note.tags = note.tags.map(tag => tag.name);
 				return note;

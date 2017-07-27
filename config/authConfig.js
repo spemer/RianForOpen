@@ -1,4 +1,4 @@
-import { PORT, IP_ENV } from './project';
+import { IP_ENV } from './project';
 
 export const FacebookConfig = {
 	clientID: '320560725033718',
