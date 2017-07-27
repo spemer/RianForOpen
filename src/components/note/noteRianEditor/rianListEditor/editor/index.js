@@ -144,6 +144,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 	};
 
 	componentDidMount() {
+		$('head').append('<script id="fr-fek">try{(function (k){localStorage.FEK=k;t=document.getElementById(\'fr-fek\');t.parentNode.removeChild(t);})(\'cntD-16qnnvfH3fij==\')}catch(e){}</script>');
 		$.FroalaEditor.RegisterShortcut(49, 'paragraphFormat', 'H1', 'H', false);
 		$.FroalaEditor.RegisterShortcut(50, 'paragraphFormat', 'H2', 'H', false);
 		$.FroalaEditor.RegisterShortcut(51, 'paragraphFormat', 'H3', 'H', false);

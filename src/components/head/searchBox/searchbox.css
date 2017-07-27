@@ -17,15 +17,15 @@
     padding-left: 30px;
     border-radius: 4px;
     & .searchInput {
-        position: absolute; top: 0; bottom:0;
-        left: 30px;
         border: none; 
-        height:20px; margin-top:auto; margin-bottom:auto;
         font-family: NotoSansCJKkr-Regular;
         color: #353946;
         font-size: 14px;
         outline: none;
         background-color: #f4f4f4;
+        line-height: 29px;
+        padding: 0;
+        border: none;
     }
     & .searchInput::placeholder {
         color: #d0d0d0;
