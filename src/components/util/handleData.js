@@ -24,5 +24,5 @@ export function makeStringToTagArray(tags: string): Array<string> {
 			result.push(data);
 		}
 	});
-	return result;
+	return result.reduce((a, b) => { if (a.indexOf(b) < 0) a.push(b); return a; }, []);
 }

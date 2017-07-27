@@ -47,7 +47,7 @@ type State = {
 class SearchBox extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		themeColor: '',
-		changeRenderTagsDispatch: Function,
+		changeRenderTagsDispatch: () => {},
 	};
 
 	constructor(props: Props) {

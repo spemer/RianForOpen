@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import profileImageMock from '../../../static/image/thumb-ex-img.png';
 import SearchBox from './searchBox';
-import { fullScreenChange, changeLeftBar, changeThemeColor } from '../../actions/AppActions';
+import { fullScreenChange, changeRenderTags, changeLeftBar, changeThemeColor } from '../../actions/AppActions';
 import { deleteComplete } from '../../actions/NoteEditorActions';
 import { makeNote, deleteNote } from '../../graphqls/NoteEditorGraphQl';
 import { getTagsByCondition } from '../../graphqls/TagGraphQl';
@@ -61,6 +61,9 @@ function mapToDispatch(dispatch) {
 		deleteCompleteActionDispatch() {
 			dispatch(deleteComplete());
 		},
+		changeRenderTagsDispatch(tags: Array<string>) {
+			dispatch(changeRenderTags(tags));
+		},
 	};
 }
 
@@ -96,6 +99,7 @@ type DefaultProps = {
 	changeLeftBarDispatch: Function,
 	changeThemeColorDispatch: Function,
 	deleteCompleteActionDispatch: Function,
+	changeRenderTagsDispatch: Function,
 	makeNoteMutate: Function,
 	deleteNoteMutate: Function,
 	noteData: any,
@@ -117,6 +121,7 @@ type Props = {
 	changeLeftBarDispatch: Function,
 	changeThemeColorDispatch: Function,
 	deleteCompleteActionDispatch: Function,
+	changeRenderTagsDispatch: Function,
 	makeNoteMutate: Function,
 	deleteNoteMutate: Function,
 	noteData: any,
@@ -147,6 +152,7 @@ class Head extends Component<DefaultProps, Props, State> {
 		changeLeftBarDispatch: () => {},
 		changeThemeColorDispatch: () => {},
 		deleteCompleteActionDispatch: () => {},
+		changeRenderTagsDispatch: () => {},
 		deleteNoteMutate: () => {},
 		makeNoteMutate: () => {},
 		noteData: {
@@ -228,9 +234,10 @@ class Head extends Component<DefaultProps, Props, State> {
 		const {
 			pathname,
 			history,
-			renderTags,
 			makeNoteMutate,
+			changeRenderTagsDispatch,
 		} = this.props;
+		changeRenderTagsDispatch([]);
 		if (pathname.slice(0, 5) === '/card') {
 			this.setState({
 				makeNoteLoading: true,
@@ -239,7 +246,7 @@ class Head extends Component<DefaultProps, Props, State> {
 				const makeNoteResult = await makeNoteMutate({
 					refetchQueries: [{
 						query: getAllMyNotePreviewsByTags,
-						variables: { tags: renderTags },
+						variables: { tags: [] },
 					}, {
 						query: getTagsByCondition,
 						variables: { condition: 'All' },
@@ -260,7 +267,7 @@ class Head extends Component<DefaultProps, Props, State> {
 				const makeNoteResult = await makeNoteMutate({
 					refetchQueries: [{
 						query: getAllMyNotePreviewsByTags,
-						variables: { tags: renderTags },
+						variables: { tags: [] },
 					}, {
 						query: getTagsByCondition,
 						variables: { condition: 'All' },

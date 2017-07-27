@@ -62,7 +62,7 @@
         padding-top: 16px;
         letter-spacing: -0.3px;
         & .tagInstance {
-            height: 14px;
+            height: 13px;
             overflow: hidden;
         }
     }

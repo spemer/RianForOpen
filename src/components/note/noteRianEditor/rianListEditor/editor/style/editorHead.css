@@ -44,8 +44,8 @@
     }
     & .titleHead {
         height: 45px;
+        display: flex;
         & .gutter {
-            display: inline-block;
             width: 35px;
             opacity: 0.38;
             font-family: NotoSansCJKkr-Bold;

@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 const IsAWS = process.env.AWS_IP !== undefined;
 export const PORT = process.env.PORT || 4000;
-export const IP_ENV = IsAWS ? 'riannote.com' : 'localhost';
+export const IP_ENV = IsAWS ? 'riannote.com' : 'localhost:4000';
 export const IP_ENV_APOLLO = IsAWS ? 'riannote.com' : 'localhost:4000';
 
 export const APOLLO = {
