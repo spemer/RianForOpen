@@ -15,6 +15,7 @@
     "lint": "eslint .",
     "clean": "rimraf dist",
     "server": "node dist/server",
+    "server-forever": "forever start --minUptime 1000 --spinSleepTime 1000 dist/server.js",
     "build-mlab": "cross-env MLAB=true WEBPACK_CONFIG=browser_prod,server webpack --colors",
     "start": "cross-env WEBPACK_CONFIG=browser_dev webpack-dev-server",
     "start-host": "cross-env WEBPACK_CONFIG=browser_dev webpack-dev-server",
