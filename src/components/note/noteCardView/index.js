@@ -79,8 +79,8 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	state = {
 	};
 
-	componentWillReceiveProps(props: Props) {
-		// console.log('cardsview', this.props, props);
+	// componentWillReceiveProps(props: Props) {
+	// 	console.log('cardsview', this.props, props);
 	// 	if (
     //   process.env.NODE_ENV === 'production' &&
     //   this.props.renderTags !== nextProps.renderTags
@@ -89,7 +89,7 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 	// 			tags: nextProps.renderTags,
 	// 		});
 	// 	}
-	}
+	// }
 
 	cardRenderer: Function;
 
@@ -110,7 +110,6 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 				updatedAt={moment(updatedAt).format('LL')}
 				tags={tags}
 				preImage={preImage}
-				themeColor={this.props.themeColor}
 			/>
 		));
 	}

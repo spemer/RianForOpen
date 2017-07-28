@@ -14,7 +14,6 @@ type Props = {
   preview: string,
   updatedAt?: string,
   tags: Array<string>,
-  themeColor: string,
   preImage: ?string,
 };
 
@@ -24,7 +23,6 @@ const CardInstance = ({
   preview = '내용없음',
   updatedAt = '2017.08.24',
   tags = [],
-  themeColor = '#ff3466',
   preImage,
 }: Props) => (
 	<Link to={`/card/${noteId}`}>
