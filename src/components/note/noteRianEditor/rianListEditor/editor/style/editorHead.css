@@ -1,20 +1,20 @@
 .container {
-    width: 603px;
+    width: 607px;
     min-width: 200px;
     height: 100%;
     box-sizing: border-box;
-    padding-right: 30px;
+    padding-right: 33px;
     & .tagBox {
         height: 25px;
         display: flex;
         overflow: hidden;
         opacity: 0.38;
         & .gutter {
-            flex: 0 0 30px;
+            flex: 0 0 26px;
             font-size: 10px;
             color: #babac0;
             letter-spacing: -0.3px;
-            text-align: right;s
+            text-align: right;
             margin-right: 6px;
             font-family: NotoSansCJKkr-Regular;
         }
@@ -26,7 +26,6 @@
         }
         & .tagContainer {
             box-sizing: border-box;
-            padding-left: 0.5rem;
             flex: 0 0 calc(100% - 36px);
             border: none;
             font-family: NotoSansCJKkr-Regular;
@@ -48,13 +47,13 @@
         height: 45px;
         display: flex;
         & .gutter {
-            width: 35px;
+            flex: 0 0 31px;
             opacity: 0.38;
             font-family: NotoSansCJKkr-Bold;
             font-size: 14px;
             line-height: 1.62;
             letter-spacing: -0.3px;
-            text-align: center;
+            text-align: left;
             & .gutterName {
                 color: #babac0;
                 font-family: NotoSansCJKkr-Regular;
@@ -66,7 +65,7 @@
             }
         }
         & .title {
-            width: calc(100% - 37px);
+            width: calc(100% - 33px);
             display: inline-block;
             border: none;
             font-family: NotoSansCJKkr-Bold;
@@ -74,7 +73,7 @@
             font-weight: bold;
             line-height: 1.62;
             letter-spacing: -0.9px;
-            color: #353946;
+            color: rgb(81, 88, 97);
             height: 100%;
             outline: none;
             background-color: #FCFCFC;

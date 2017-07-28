@@ -38,6 +38,18 @@ type Store = {
 	},
 };
 
+const mapToState = ({
+  User: { userId },
+  App: { full, themeColor, renderTags, leftBar, timelineLeftBar },
+}: Store) => ({
+	userId,
+	full,
+	themeColor,
+	renderTags,
+	leftBar,
+	timelineLeftBar,
+});
+
 type DefaultProps = {
 	full: boolean,
 	themeColor: string,
@@ -64,20 +76,11 @@ type Props = {
 
 type State = {
   onSortList: boolean,
-  selectedSort: string
+  selectedSort: {
+	byUpdatedAt: boolean,
+	byLatest: boolean,
+  },
 };
-
-const mapToState = ({
-  User: { userId },
-  App: { full, themeColor, renderTags, leftBar, timelineLeftBar },
-}: Store) => ({
-	userId,
-	full,
-	themeColor,
-	renderTags,
-	leftBar,
-	timelineLeftBar,
-});
 
 @connect(mapToState)
 @compose(getAllMyNotePreviewsByTagsQuery)
@@ -107,7 +110,11 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 
 	state = {
 		onSortList: false,
-		selectedSort: '',
+		selectedSort: {
+			byUpdatedAt: true,
+			byLatest: true,
+		},
+		noteDataSorted: [],
 	};
 
 	componentWillReceiveProps(nextProps: Props) {
@@ -148,15 +155,14 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		);
 	}
 
-	changeClickedSortBox(e: any, sortName: string) {
-		if (this.currentSelectedSort) {
-			this.currentSelectedSort.style.color = '#515861';
-		}
+
+	changeClickedSortBox(byUpdatedAt: boolean, byLatest: boolean) {
 		this.setState({
-			selectedSort: sortName,
+			selectedSort: {
+				byUpdatedAt,
+				byLatest,
+			},
 		});
-		this.currentSelectedSort = e.currentTarget;
-		this.currentSelectedSort.style.color = this.props.themeColor;
 	}
 
 	changeOnSortState() {
@@ -166,7 +172,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		const { onSortList } = this.state;
+		const { onSortList, selectedSort } = this.state;
 		const { full,
 			noteData,
 			leftBar,
@@ -175,11 +181,11 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 			themeColor,
 		} = this.props;
 		const tagName = renderTags.length === 0 ? '전체노트' : `#${renderTags.join('#')}`;
+
 		let noteCount = '';
 		if (!noteData.loading && noteData.getAllMyNotePreviewsByTags) {
 			noteCount = `${noteData.getAllMyNotePreviewsByTags.notes.length}개의 노트`;
 		}
-		// console.log('sdfsdf', this.props);
 		return (
 			<Motion
 				style={{
@@ -256,8 +262,11 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 									<div className={css.selectBox}>
 										<div
 											className={css.selectOne}
-											onClick={(e) => {
-												this.changeClickedSortBox(e, 'all');
+											onClick={() => {
+												this.changeClickedSortBox(true, true);
+											}}
+											style={{
+												color: selectedSort.byUpdatedAt && selectedSort.byLatest && themeColor,
 											}}
 											role="button"
 											tabIndex="0"
@@ -266,8 +275,11 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 										</div>
 										<div
 											className={css.selectOne}
-											onClick={(e) => {
-												this.changeClickedSortBox(e, 'bookmark');
+											onClick={() => {
+												this.changeClickedSortBox(true, false);
+											}}
+											style={{
+												color: selectedSort.byUpdatedAt && !selectedSort.byLatest && themeColor,
 											}}
 											role="button"
 											tabIndex="-3"
@@ -276,8 +288,11 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 										</div>
 										<div
 											className={css.selectOne}
-											onClick={(e) => {
-												this.changeClickedSortBox(e, 'publish');
+											onClick={() => {
+												this.changeClickedSortBox(false, true);
+											}}
+											style={{
+												color: !selectedSort.byUpdatedAt && selectedSort.byLatest && themeColor,
 											}}
 											role="button"
 											tabIndex="-7"
@@ -286,8 +301,11 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 										</div>
 										<div
 											className={css.selectOne}
-											onClick={(e) => {
-												this.changeClickedSortBox(e, 'publish');
+											onClick={() => {
+												this.changeClickedSortBox(false, false);
+											}}
+											style={{
+												color: !selectedSort.byUpdatedAt && !selectedSort.byLatest && themeColor,
 											}}
 											role="button"
 											tabIndex="-7"

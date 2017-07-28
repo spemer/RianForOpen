@@ -103,7 +103,7 @@ class SearchBox extends Component<DefaultProps, Props, State> {
 				<div className={css.container}>
 					<input
 						className={css.searchInput}
-						placeholder={!modeIsTag ? '노트에서 검색하세요' : '태그에서 검색'}
+						placeholder={!modeIsTag ? '노트에서 검색' : '태그에서 검색'}
 						value={this.state.value}
 						onChange={this.handleValue}
 						onKeyPress={this.handleTag}

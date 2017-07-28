@@ -4,19 +4,17 @@ import GroupedBox from './groupedBox';
 import parentCss from '../tagListBar.css';
 
 type Props = {
-  tagListGroup: {
-    sortedKor: any,
-    sortedEng: any,
-    sortedEtc: any
-  },
+  tagListGroup: any,
   themeColor: string,
-  changeClickedBox: any
+	changeClickedBox: any,
+	selectedTag: string,
 };
 
 const GroupedBoxContainer = ({
   tagListGroup: { sortedKor, sortedEng, sortedEtc },
   themeColor,
-  changeClickedBox,
+	changeClickedBox,
+	selectedTag,
 }: Props) => (
 	<div className={parentCss.scrollBox}>
 		{sortedKor && sortedKor.map(tagGroup => (
@@ -26,6 +24,7 @@ const GroupedBoxContainer = ({
 				tagSet={tagGroup[1]}
 				changeClickedBox={changeClickedBox}
 				themeColor={themeColor}
+				selectedTag={selectedTag}
 			/>
         ))}
 		{sortedEng && sortedEng.map(tagGroup => (
@@ -35,6 +34,7 @@ const GroupedBoxContainer = ({
 				tagSet={tagGroup[1]}
 				changeClickedBox={changeClickedBox}
 				themeColor={themeColor}
+				selectedTag={selectedTag}
 			/>
         ))}
 		{sortedEtc && sortedEtc.map(tagGroup => (
@@ -44,6 +44,7 @@ const GroupedBoxContainer = ({
 				tagSet={tagGroup[1]}
 				changeClickedBox={changeClickedBox}
 				themeColor={themeColor}
+				selectedTag={selectedTag}
 			/>
         ))}
 	</div>

@@ -42,7 +42,6 @@ body::-webkit-scrollbar {
     box-sizing: border-box;
     top: 0px;
     width: 100%;
-    opacity: 0.97;
     background-color: #ffffff;
     border-bottom: solid 1px #dfdfdf; 
     overflow: auto;

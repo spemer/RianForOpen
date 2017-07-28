@@ -23,7 +23,7 @@
             font-weight: bold;
             line-height: 1.62;
             letter-spacing: -0.6px;
-            color: #353946;
+            color: rgb(81, 88, 97);
         }
         & .noteCount {
             font-family: NotoSansCJKkr-Regular;

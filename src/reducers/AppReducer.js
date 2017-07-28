@@ -8,11 +8,15 @@ import {
 } from '../constants';
 
 type State = {
-  full: boolean,
-  themeColor: string,
-  leftBar: boolean,
-  timelineLeftBar: boolean,
-  renderTags: Array<string>
+	full: boolean,
+	themeColor: string,
+	leftBar: boolean,
+	timelineLeftBar: boolean,
+	renderTags: Array<string>,
+	notePreviewSort: {
+		byUpdatedAt: boolean,
+		byLatest: boolean,
+	},
 };
 
 // type FullScreenChangeAction = {
@@ -45,6 +49,10 @@ const ModeState = {
 	leftBar: true,
 	timelineLeftBar: true,
 	renderTags: [],
+	notePreviewSort: {
+		byUpdatedAt: true,
+		byLatest: true,
+	},
 };
 
 export default function App(state: State = ModeState, action: any): State {

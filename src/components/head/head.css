@@ -23,6 +23,7 @@
         }
         & .textIcon {
             display: inline-block;
+            margin-left: -3px;
             height: 25px;
         }
     }
@@ -150,7 +151,8 @@
                 right: 80px;
                 border: solid 1px #dfdfdf;
                 width: 133px;
-                height: 282px;
+                height: 290px;
+                padding-bottom: 8px;
                 background-color: white;
                 box-sizing: border-box;
                 box-shadow: 0 5px 10px 0 rgba(53, 57, 70, 0.2);
@@ -162,7 +164,7 @@
                     & .name {
                         position: absolute; top: 15px; bottom:0;
                         left: 14px;
-                        opacity: 0.38;
+                        color: #babac0;
                         font-family: NotoSansCJKkr-Regular;
                         font-size: 10px;
                         letter-spacing: -0.2px; 
@@ -216,6 +218,7 @@
             height: 47px; margin-top:auto; margin-bottom:auto;
             width: 32px;
         & .photo {
+            border: 1px solid #dfdfdf;
             position: absolute; top: 0; right:0; bottom:0;
             left:0;
             width: 32px; margin-left:auto; margin-right:auto; 

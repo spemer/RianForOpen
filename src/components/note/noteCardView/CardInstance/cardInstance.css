@@ -48,7 +48,7 @@
         font-size: 12px;
         line-height: 1.62;
         letter-spacing: -0.3px;
-        color: #515861;
+        color: rgb(81, 88, 97);
         overflow: hidden;
     }
     & .tags {

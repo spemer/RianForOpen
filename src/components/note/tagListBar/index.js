@@ -40,9 +40,9 @@ const getTagsByConditionQuery = graphql(getTagsByCondition, {
 
 type Store = {
 	App: {
-	full: boolean,
-	themeColor: string,
-	leftBar: boolean
+		full: boolean,
+		themeColor: string,
+		leftBar: boolean
 	}
 };
 
@@ -105,7 +105,6 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		super(props);
 		this.currentSelected = null;
 		this.currentSelectedSort = null;
-		this.changeSelectedTag = this.changeSelectedTag.bind(this);
 		this.changeSortBy = this.changeSortBy.bind(this);
 		this.changeClickedBox = this.changeClickedBox.bind(this);
 		this.changeClickedSortBox = this.changeClickedSortBox.bind(this);
@@ -141,17 +140,10 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 
 	currentSelected: any;
 	currentSelectedSort: any;
-	changeSelectedTag: Function;
 	changeSortBy: Function;
 	changeClickedBox: Function;
 	changeClickedSortBox: Function;
 	changeOnSortState: Function;
-
-	changeSelectedTag(argu: string) {
-		this.setState({
-			selectedTag: argu,
-		});
-	}
 
 	changeSortBy(argu: boolean) {
 		this.setState({
@@ -193,7 +185,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	}
 
 	render() {
-		const { sortByhowMany, onSortList } = this.state;
+		const { sortByhowMany, onSortList, selectedTag } = this.state;
 		const { leftBar, full, themeColor, tagData, changeRenderTagsDispatch } = this.props;
 		const tagListGroup = {
 			sortedKor: null,
@@ -231,9 +223,9 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 					<div
 						className={css.container}
 						style={{
+							opacity: y,
 							flex: `0 0 ${x}px`,
 							borderRight: leftBar ? '1px solid #dfdfdf' : 'none',
-							opacity: y,
 						}}
 					>
 						<div className={css.head}>
@@ -249,7 +241,6 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 							<div className={css.selectButton}>
 								<div
 									className={css.button}
-									onClick={this.changeOnSortState}
 									role="button"
 									tabIndex="-10"
 								>
@@ -375,11 +366,13 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 						</div>
 						{!sortByhowMany ?
 							<GroupedBoxContainer
+								selectedTag={selectedTag}
 								tagListGroup={tagListGroup}
 								themeColor={themeColor}
 								changeClickedBox={this.changeClickedBox}
 							/> :
 							<SortByManyBoxContainer
+								selectedTag={selectedTag}
 								tagList={tagList}
 								themeColor={themeColor}
 								changeClickedBox={this.changeClickedBox}

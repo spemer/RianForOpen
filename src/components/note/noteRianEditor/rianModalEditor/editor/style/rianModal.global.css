@@ -1250,8 +1250,8 @@ span.fr-sr-only {
   color: #babac0;
   letter-spacing: -0.3px;
   content: 'H3';
-  margin-right: 6px;
-  margin-left: -24px;
+  margin-right: 15px;
+  margin-left: -30px;
 }
 
 .fr-view h3:hover:before {
@@ -1263,8 +1263,8 @@ span.fr-sr-only {
   letter-spacing: -0.3px;
   content: 'H3';
   color: #515861;
-  margin-right: 6px;
-  margin-left: -24px;
+  margin-right: 15px;
+  margin-left: -30px;
 }
 
 .fr-view h2 {
@@ -1285,8 +1285,8 @@ span.fr-sr-only {
   color: #babac0;
   letter-spacing: -0.3px;
   content: 'H2';
-  margin-right: 5.7px;
-  margin-left: -24px;
+  margin-right: 14.7px;
+  margin-left: -30px;
 }
 
 .fr-view h2:hover:before {
@@ -1298,8 +1298,8 @@ span.fr-sr-only {
   color: #515861;
   letter-spacing: -0.3px;
   content: 'H2';
-  margin-right: 5.7px;
-  margin-left: -24px;
+  margin-right: 14.7px;
+  margin-left: -30px;
 }
 
 .fr-view h1 {
@@ -1320,8 +1320,8 @@ span.fr-sr-only {
   letter-spacing: -0.3px;
   color: #babac0;
   content: 'H1';
-  margin-right: 7.3px;
-  margin-left: -24px;
+  margin-right: 16.3px;
+  margin-left: -30px;
 }
 
 .fr-view h1:hover:before {
@@ -1333,8 +1333,8 @@ span.fr-sr-only {
   color: #515861;
   letter-spacing: -0.3px;
   content: 'H1';
-  margin-right: 7.3px;
-  margin-left: -24px;
+  margin-right: 16.3px;
+  margin-left: -30px;
 }
 
 

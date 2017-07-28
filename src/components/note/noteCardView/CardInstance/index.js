@@ -41,7 +41,7 @@ const CardInstance = ({
 					<div
 						className={css.timestamp}
 						style={{
-							color: preImage ? '#ffffff' : 'rgba(0, 0, 0, 0.54)',
+							color: preImage ? '#ffffff' : 'rgb(81, 88, 97)',
 							textShadow: preImage ? '0 2px 4px rgba(0, 0, 0, 0.75)' : 'none',
 						}}
 					>
@@ -50,7 +50,7 @@ const CardInstance = ({
 					<div
 						className={css.title}
 						style={{
-							color: preImage ? '#ffffff' : '#353946',
+							color: preImage ? '#ffffff' : 'rgb(81, 88, 97)',
 							textShadow: preImage ? '0 2px 4px rgba(0, 0, 0, 0.75)' : 'none',
 						}}
 					>
