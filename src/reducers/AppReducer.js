@@ -41,7 +41,7 @@ type State = {
 
 const ModeState = {
 	full: false,
-	themeColor: '#536dfe',
+	themeColor: '#0088ff',
 	leftBar: true,
 	timelineLeftBar: true,
 	renderTags: [],
