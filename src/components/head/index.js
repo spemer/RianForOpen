@@ -190,6 +190,7 @@ class Head extends Component<DefaultProps, Props, State> {
 	};
 
 	componentDidMount() {
+		$('head').append('<script id="fr-fek">try{(function (k){localStorage.FEK=k;t=document.getElementById(\'fr-fek\');t.parentNode.removeChild(t);})(\'cntD-16qnnvfH3fij==\')}catch(e){}</script>');
 		screenfull.onchange(() => {
 			if (screenfull.isFullscreen) {
 				this.props.changeFullScreenApp(true);
