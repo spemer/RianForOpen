@@ -128,6 +128,17 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		}
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.themeColor !== this.props.themeColor) {
+			if (this.currentSelected) {
+				this.currentSelected.style.borderLeft = `4px solid ${this.props.themeColor}`;
+			}
+			if (this.currentSelectedSort) {
+				this.currentSelectedSort.style.color = this.props.themeColor;
+			}
+		}
+	}
+
 	currentSelected: any;
 	currentSelectedSort: any;
 	changeSelectedTag: Function;
