@@ -361,11 +361,11 @@ class Head extends Component<DefaultProps, Props, State> {
 						});
 						if (data.getAllMyNotePreviewsByTags.notes[0]) {
 							const nextId = data.getAllMyNotePreviewsByTags.notes[0]._id;
-							nextRenderNoteId = nextId || 'loading';
+							nextRenderNoteId = nextId || 'none';
 						}
 					},
 				});
-				nextRenderNoteId = nextRenderNoteId || 'loading';
+				nextRenderNoteId = nextRenderNoteId || 'none';
 				const { data: { deleteNote: { success } } } = deleteNoteResult;
 				if (success) {
 					deleteCompleteActionDispatch();
@@ -460,7 +460,7 @@ class Head extends Component<DefaultProps, Props, State> {
 						</Link>
 						<Link
 							className={css.changeLink}
-							to={!noteData.loading && noteData.getAllMyNotePreviewsByTags.notes[0] ? `/list/${noteData.getAllMyNotePreviewsByTags.notes[0]._id}` : '/list/loading'}
+							to={!noteData.loading && noteData.getAllMyNotePreviewsByTags.notes[0] ? `/list/${noteData.getAllMyNotePreviewsByTags.notes[0]._id}` : '/list/none'}
 						>
 							<div
 								className={css.Button}

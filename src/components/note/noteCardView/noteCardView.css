@@ -8,6 +8,7 @@
     background-color: #f4f4f4;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
+    outline: none;
     & .head {
         box-sizing: border-box;
         width: 100%;

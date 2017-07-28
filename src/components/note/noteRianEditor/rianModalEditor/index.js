@@ -20,11 +20,7 @@ type DefaultProps = {
 type Props = {
 	location: any,
 	history: any,
-	match: {
-		params: {
-			noteId: string,
-		}
-	},
+	match: any,
 	oneOfNoteData: any,
 	saveMutate: Function,
 };
@@ -76,6 +72,10 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 		title: '',
 		data: '',
 		tags: [],
+	}
+
+	componentDidMount() {
+		$('head').append('<script id="fr-fek">try{(function (k){localStorage.FEK=k;t=document.getElementById(\'fr-fek\');t.parentNode.removeChild(t);})(\'cntD-16qnnvfH3fij==\')}catch(e){}</script>');
 	}
 
 	componentWillReceiveProps(nextProps: Props) {

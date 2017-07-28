@@ -24,6 +24,8 @@
             color: #515861;
         }       
         & .tagContainer {
+            box-sizing: border-box;
+            padding-left: 0.5rem;
             flex: 0 0 540px;
             border: none;
             font-family: NotoSansCJKkr-Regular;
