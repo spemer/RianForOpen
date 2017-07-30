@@ -156,14 +156,6 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			'letter-spacing': '-0.4px',
 			color: '#515861',
 		});
-    // if (process.env.NODE_ENV === 'production') {
-    // 	this.Interval = setInterval(() => {
-    // 		// if compoennent has noteId, it will be saved
-    // 		console.log('setInterval');
-    // 		this.saveObservable();
-    // 	}, 8000);
-	// }
-			// when user scroll, it will hide inline toolbar
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
