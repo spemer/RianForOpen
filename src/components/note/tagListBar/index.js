@@ -109,6 +109,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		this.changeClickedBox = this.changeClickedBox.bind(this);
 		this.changeClickedSortBox = this.changeClickedSortBox.bind(this);
 		this.changeOnSortState = this.changeOnSortState.bind(this);
+		this.showAllNote = this.showAllNote.bind(this);
 	}
 
 	state = {
@@ -144,6 +145,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	changeClickedBox: Function;
 	changeClickedSortBox: Function;
 	changeOnSortState: Function;
+	showAllNote: Function;
 
 	changeSortBy(argu: boolean) {
 		this.setState({
@@ -184,9 +186,24 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		}));
 	}
 
+	showAllNote() {
+		if (this.currentSelected) {
+			this.currentSelected.style.backgroundColor = null;
+			this.currentSelected.style.paddingLeft = '24px';
+			this.currentSelected.style.borderLeft = null;
+		}
+		if (this.currentSelectedSort) {
+			this.currentSelectedSort.style.color = '#515861';
+		}
+		this.setState({
+			selectedTag: '',
+		});
+		this.props.changeRenderTagsDispatch([]);
+	}
+
 	render() {
 		const { sortByhowMany, onSortList, selectedTag } = this.state;
-		const { leftBar, full, themeColor, tagData, changeRenderTagsDispatch } = this.props;
+		const { leftBar, full, themeColor, tagData } = this.props;
 		const tagListGroup = {
 			sortedKor: null,
 			sortedEng: null,
@@ -348,17 +365,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 						</div>
 						<div
 							className={css.showAllNote}
-							onClick={() => {
-								changeRenderTagsDispatch([]);
-								if (this.currentSelected) {
-									this.currentSelected.style.backgroundColor = null;
-									this.currentSelected.style.paddingLeft = '24px';
-									this.currentSelected.style.borderLeft = null;
-								}
-								if (this.currentSelectedSort) {
-									this.currentSelectedSort.style.color = '#515861';
-								}
-							}}
+							onClick={this.showAllNote}
 							role="button"
 							tabIndex="-5"
 						>
