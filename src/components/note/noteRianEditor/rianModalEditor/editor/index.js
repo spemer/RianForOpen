@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery';
+import { debounce } from 'lodash';
 // froala
 // import 'FroalaEditor/froala_editor_sources_2.6.2/js/froala_editor.pkgd.js';
 import FroalaEditor from 'react-froala-wysiwyg';
@@ -122,6 +123,9 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		this.handleModelChange = this.handleModelChange.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleTagChange = this.handleTagChange.bind(this);
+		this.saveDebounce = debounce(() => {
+			this.props.saveRequestDispatch(this.saveObservable);
+		}, 1000);
 	}
 
 	state = {
@@ -187,6 +191,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 	handleModelChange: Function;
 	handleChange: Function;
 	handleTagChange: Function;
+	saveDebounce: Function;
 	initControls: any;
 	Interval: any;
 
@@ -221,6 +226,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 
 	handleModelChange(model: string) {
 		this.setState(() => ({ data: model }));
+		this.saveDebounce();
 	}
 
 	handleChange({ target: { value } }: any) {

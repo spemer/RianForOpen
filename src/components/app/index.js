@@ -4,18 +4,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-// GraphQL
-// import { gql, graphql } from 'react-apollo';
-
-// Routing
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-// <Helmet> component for setting the page title
 import Helmet from 'react-helmet';
-
-// Get the ReactQL logo.  This is a local .svg file, which will be made
-// available as a string relative to [root]/dist/assets/img/
-// import logo from './reactql-logo.svg';
 
 // <Login> Component
 import Login from '../login';
@@ -33,30 +24,6 @@ import RianListEditor from '../note/noteRianEditor/rianListEditor';
 // Styles
 import './styles.global.css';
 import css from './app.css';
-
-
-// Stats pulled from the environmenㅎt.  This demonstrates how data will
-// change depending where we're running the code (environment vars, etc)
-// and also how we can connect a 'vanilla' React component to an RxJS
-// observable source, and feed eventual values in as properties
-// const Stats = () => {
-//   const info = [
-//     ['Environment', process.env.NODE_ENV],
-//     ['Running', SERVER ? 'On the server' : 'In the browser'],
-//   ];
-
-//   return (
-//     <ul className={css.data}>
-//       {info.map(([key, val]) => (
-//         <li key={key}>{key}: <span>{val}</span></li>
-//       ))}
-//     </ul>
-//   );
-// };
-
-// Export a simple component that allows clicking on list items to change
-// the route, along with a <Route> 'listener' that will conditionally display
-// the <Page> component based on the route name
 
 type Store = {
 	User: {
@@ -95,7 +62,7 @@ function MainComponent({ userId, userName, full, location: { pathname }, history
 	if (!SERVER && !userName && process.env.NODE_ENV !== 'development') {
 		return <Redirect to="/firstLogin" />;
 	}
-		// if setup initial page -> 'card'
+
 	if (!SERVER && pathname === '/') {
 		return <Redirect to="/card/main" />;
 	}

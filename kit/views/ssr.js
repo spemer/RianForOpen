@@ -1,13 +1,5 @@
-/* eslint-disable react/no-danger, no-return-assign, no-param-reassign */
-
-// Component to render the full HTML response in React
-
-// ----------------------
-// IMPORTS
 import React from 'react';
 import PropTypes from 'prop-types';
-
-// ----------------------
 
 const Html = ({ head, html, scripts, window, css }) => (
 	<html lang="en" prefix="og: http://ogp.me/ns#">
