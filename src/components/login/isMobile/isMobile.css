@@ -6,21 +6,36 @@
         position: absolute; top: 0; right:0; bottom: 0; left:0;
         margin: auto;
         border: solid 1px #dfdfdf;
-        width: 200px;
-        height: 400px;
+        width: 300px;
+        height: 300px;
         border-radius: 4px;
         background-color: #ffffff;
         box-shadow: 0 8px 16px 0 rgba(53, 57, 70, 0.2);
-            & .subTitle {
+            & .title {
                 position: absolute;
-                top: 80px;
+                top: 85px;
                 right: 0; left:0;
                 margin-left: auto; margin-right: auto;
                 line-height: 1.8;
                 font-weight: bold;
-                width: 150px;
+                width: 270px;
                 font-family: NotoSansCJKkr-Regular;
-                font-size: 10px;
+                font-size: 14px;
+                height: 70px;
+                letter-spacing: -0.3px;
+                text-align: center;
+                color: #515861;
+            }
+            & .subTitle {
+                position: absolute;
+                top: 150px;
+                right: 0; left:0;
+                margin-left: auto; margin-right: auto;
+                line-height: 1.8;
+                font-weight: bold;
+                width: 270px;
+                font-family: NotoSansCJKkr-Regular;
+                font-size: 14px;
                 height: 70px;
                 letter-spacing: -0.3px;
                 text-align: center;
