@@ -104,7 +104,7 @@
         & .focusFull {
             position: absolute;
             top: 0;
-            right: 140px;
+            right: 190px;
             height: 47px; margin-top:auto; margin-bottom:auto;
             width: 48px;
             outline: none;
@@ -125,7 +125,7 @@
         & .theme {
             position: absolute;
             top: 0;
-            right: 190px;
+            right: 140px;
             height: 48px; margin-top:auto; margin-bottom:auto;
             width: 48px;
             outline: none;
