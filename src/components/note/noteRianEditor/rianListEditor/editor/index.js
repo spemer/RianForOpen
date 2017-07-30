@@ -240,7 +240,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 
 	handleModelChange(model: string) {
 		this.setState(() => ({ data: model }));
-		this.saveDebounce();
+		// this.saveDebounce();
 	}
 
 	handleChange({ target: { value } }: any) {

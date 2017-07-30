@@ -14,13 +14,9 @@ const Login = () => (
 			<div className={css.subTitle}>
 				리안노트는 쉽고 가벼운 웹 노트 어플리케이션입니다.
 				<br />
-				SNS 계정을 통한 간편 회원가입으로 세상에서 제일 편리한 노트를 경험해보세요.
+				SNS 계정을 통한 간편 회원가입으로
 				<br />
-			</div>
-			<div className={css.subTitle}>
-				리안노트는 쉽고 가벼운 웹 노트 어플리케이션입니다.
-				<br />
-				SNS 계정을 통한 간편 회원가입으로 당신에게 가장 편리한 노트를 경험해보세요.
+				세상에서 제일 편리한 노트를 경험해보세요.
 				<br />
 			</div>
 			<div className={css.socialTitle}>

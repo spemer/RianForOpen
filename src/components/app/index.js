@@ -10,7 +10,8 @@ import Helmet from 'react-helmet';
 
 // <Login> Component
 import Login from '../login';
-import firstLogin from '../login/firstUser';
+import FirstLogin from '../login/firstUser';
+import IsMobile from '../login/isMobile';
 
 // <Head> Component
 import Head from '../head';
@@ -53,7 +54,7 @@ function mapToState({ User: { userId, userName }, App: { full } }: Store) {
 
 function MainComponent({ userId, userName, full, location: { pathname }, history }: Props) {
 	// console.log(pathname);
-	// if (process.env.NODE_ENV === 'development') return <Redirect to="/login" />;
+	// if (process.env.NODE_ENV === 'development') return <IsMobile />;
 	if (!SERVER && process.env.NODE_ENV !== 'development') {
 		if (!userId) {
 			return <Redirect to="/login" />;
@@ -83,21 +84,27 @@ function MainComponent({ userId, userName, full, location: { pathname }, history
 
 const ConnectedMainComponent = connect(mapToState)(MainComponent);
 
-export default () => (
-	<div id={css.app}>
-		<Helmet
-			title="Rian"
-			meta={[
-				{
-					name: 'description',
-					content: 'Rian Desktop Web',
-				},
-			]}
-		/>
-		<Switch>
-			<Route exact path="/login" component={Login} />
-			<Route exact path="/firstLogin" component={firstLogin} />
-			<Route path="/" component={ConnectedMainComponent} />
-		</Switch>
-	</div>
-);
+export default () => {
+	if (navigator.userAgent.match(
+		/Android|Mobile|iP(hone|od|ad)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/)) {
+		return <IsMobile />;
+	}
+	return (
+		<div id={css.app}>
+			<Helmet
+				title="Rian"
+				meta={[
+					{
+						name: 'description',
+						content: 'Rian Desktop Web',
+					},
+				]}
+			/>
+			<Switch>
+				<Route exact path="/login" component={Login} />
+				<Route exact path="/firstLogin" component={FirstLogin} />
+				<Route path="/" component={ConnectedMainComponent} />
+			</Switch>
+		</div>
+	);
+};
