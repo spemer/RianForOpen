@@ -85,10 +85,24 @@ function MainComponent({ userId, userName, full, location: { pathname }, history
 const ConnectedMainComponent = connect(mapToState)(MainComponent);
 
 export default () => {
-	if (navigator.userAgent.match(
+	if (!SERVER && navigator.userAgent.match(
 		/Android|Mobile|iP(hone|od|ad)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/)) {
-		return <IsMobile />;
+		return (
+			<div id={css.app}>
+				<Helmet
+					title="Rian"
+					meta={[
+						{
+							name: 'description',
+							content: 'Rian Mobile Web',
+						},
+					]}
+				/>
+				<IsMobile />
+			</div>
+		);
 	}
+
 	return (
 		<div id={css.app}>
 			<Helmet
