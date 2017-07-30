@@ -112,7 +112,6 @@ class SearchBox extends Component<DefaultProps, Props, State> {
 				<div
 					className={css.changeOption}
 					style={{ backgroundColor: !modeIsTag ? '#dedee0' : themeColor }}
-					onClick={this.changeSearchMode}
 					role="button"
 					tabIndex="0"
 				>

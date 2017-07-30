@@ -83,7 +83,7 @@
         }
         & .social {
             position: absolute; top: 0;
-            right: 190px;
+            right: 90px;
             height: 47px; margin-top:auto; margin-bottom:auto;
             width: 48px;
             outline: none;
@@ -125,7 +125,7 @@
         & .theme {
             position: absolute;
             top: 0;
-            right: 90px;
+            right: 190px;
             height: 48px; margin-top:auto; margin-bottom:auto;
             width: 48px;
             outline: none;

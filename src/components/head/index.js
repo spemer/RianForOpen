@@ -527,16 +527,16 @@ class Head extends Component<DefaultProps, Props, State> {
 							y="0px"
 							viewBox="0 0 54 29"
 							enableBackground="new 0 0 54 29"
-							opacity={socialOnOff ? '1' : '0.38'}
+							opacity={'0.1'}
 						>
 							<g>
 								<path
-									fill={socialOnOff ? themeColor : 'black'}
+									fill={'black'}
 									d="M26.7,18v1.5H15V18h4.9v-2.9h1.8V18H26.7z M25.5,15.5c-2.3-0.4-3.9-1.6-4.8-3.2c-0.8,1.6-2.5,2.8-4.7,3.2
 									L15.3,14c2.9-0.5,4.5-2.5,4.5-4.2V8.8h2v0.9c0,1.8,1.6,3.8,4.5,4.2L25.5,15.5z"
 								/>
 								<path
-									fill={socialOnOff ? themeColor : 'black'}
+									fill={'black'}
 									d="M34.6,14.8c-1.4-0.5-2.3-1.4-2.9-2.6c-0.6,1.3-1.6,2.3-3,2.8l-0.9-1.4c2.1-0.7,3-2.3,3-4V8.5h1.9v1.1
 									c0,1.6,0.9,3.2,2.9,3.8L34.6,14.8z M39,19.5v1.4h-8.9v-3.5h6.7v-0.7h-6.7v-1.4h8.5v3.4H32v0.8H39z M36.8,12.7h-2.1v-1.4h2.1v-0.8
 									h-2.1V9.1h2.1V8.1h1.8v6.7h-1.8V12.7z"

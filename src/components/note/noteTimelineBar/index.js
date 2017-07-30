@@ -215,7 +215,6 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 							<div className={css.selectButton}>
 								<div
 									className={css.button}
-									onClick={this.changeOnSortState}
 									role="button"
 									tabIndex="-4"
 								>
