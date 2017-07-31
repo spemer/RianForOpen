@@ -1,6 +1,7 @@
 .tagBlock {
         cursor: pointer;
         display: flex;
+        box-sizing: border-box;
         padding-left: 24px;
         height: 28px;
         justify-content: flex-start;
@@ -13,6 +14,10 @@
             letter-spacing: -0.3px;
             color: #515861;
             margin-right: 10px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 90px;
+            overflow: hidden;
         }
         & .tagHowMany {
             font-family: NotoSansCJKkr-Regular;

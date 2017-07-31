@@ -2,6 +2,7 @@
     margin-bottom: 15px;
     & .titleBox {
         height: 20px;
+        box-sizing: border-box;
         padding-left: 24px;
         & .titleName {
             font-family: NotoSansCJKkr-Bold;
@@ -28,6 +29,10 @@
                 letter-spacing: -0.3px;
                 color: #515861;
                 margin-right: 10px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                max-width: 90px;
+                overflow: hidden;
             }
             & .tagHowMany {
                 font-family: NotoSansCJKkr-Regular;
