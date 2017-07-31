@@ -1225,8 +1225,11 @@ span.fr-sr-only {
 }
 
 .fr-view pre {
+  box-sizing: border-box;
   padding: 15px 20px 15px 20px;
   background-color: #f4f4f4;
+  white-space: pre-wrap;
+  word-wrap: break-word;
   font-weight: 400;
   margin-top: 8px;
   margin-bottom: 8px;
