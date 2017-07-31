@@ -1226,8 +1226,10 @@ span.fr-sr-only {
 
 .fr-view pre {
   box-sizing: border-box;
+  background-color: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 5px;
   padding: 15px 20px 15px 20px;
-  background-color: #f4f4f4;
   white-space: pre-wrap;
   word-wrap: break-word;
   font-weight: 400;
