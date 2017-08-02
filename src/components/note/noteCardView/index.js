@@ -17,6 +17,8 @@ const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
 	options: props => ({
 		variables: {
 			tags: props.renderTags,
+			byUpdatedAt: props.byUpdatedAt,
+			byLatest: props.byLatest,
 		},
 		ssr: false,
 		fetchPolicy: 'network-only',
@@ -28,31 +30,48 @@ const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
 type Store = {
   App: {
     themeColor: string,
-    renderTags: Array<string>
+	renderTags: Array<string>,
+	notePreviewSort: {
+		byUpdatedAt: boolean,
+		byLatest: boolean,
+	},
   }
 };
 
-const mapToState = ({ App: { themeColor, renderTags } }: Store) => ({
+const mapToState = ({ App: {
 	themeColor,
 	renderTags,
+	notePreviewSort: {
+		byUpdatedAt,
+		byLatest,
+	},
+} }: Store) => ({
+	themeColor,
+	renderTags,
+	byUpdatedAt,
+	byLatest,
 });
 
 type DefaultProps = {
-  themeColor: string,
-  noteData: any,
-  renderTags: null,
-  match: any,
-  history: any,
-  location: any
+	themeColor: string,
+	noteData: any,
+	renderTags: null,
+	match: any,
+	history: any,
+	location: any,
+	byUpdatedAt: boolean,
+	byLatest: boolean,
 };
 
 type Props = {
-  themeColor: string,
-  noteData: any,
-  renderTags: Array<string>,
-  match: any,
-  history: any,
-  location: any
+	themeColor: string,
+	noteData: any,
+	renderTags: Array<string>,
+	match: any,
+	history: any,
+	location: any,
+	byUpdatedAt: boolean,
+	byLatest: boolean,
 };
 
 type State = {
@@ -67,6 +86,8 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 			loading: true,
 		},
 		renderTags: null,
+		byUpdatedAt: true,
+		byLatest: true,
 		history: {},
 		match: {},
 		location: {},
@@ -78,7 +99,7 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 
 	state = {
 	};
-
+	
 	cardRenderer: Function;
 
 	cardRenderer(noteData: Array<any>) {

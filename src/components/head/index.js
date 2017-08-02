@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import profileImageMock from '../../../static/image/thumb-ex-img.png';
 import SearchBox from './searchBox';
-import { fullScreenChange, changeRenderTags, changeLeftBar, changeThemeColor } from '../../actions/AppActions';
+import { fullScreenChange, changeRenderTags, changeLeftBar, changeThemeColor, changeNotePreviewSort } from '../../actions/AppActions';
 import { deleteComplete } from '../../actions/NoteEditorActions';
 import { makeNote, deleteNote } from '../../graphqls/NoteEditorGraphQl';
 import { getTagsByCondition } from '../../graphqls/TagGraphQl';
@@ -21,6 +21,10 @@ type Store = {
 		themeColor: string,
 		leftBar: boolean,
 		renderTags: Array<string>,
+		notePreviewSort: {
+			byUpdatedAt: boolean,
+			byLatest: boolean,
+		},
 	},
 	NoteEditor: {
 		deleteNoteState: {
@@ -34,7 +38,15 @@ type Store = {
 }
 
 function mapToState({
-	App: { full, themeColor, leftBar, renderTags },
+	App: {
+		full,
+		themeColor,
+		leftBar,
+		renderTags,
+		notePreviewSort: {
+			byUpdatedAt,
+			byLatest,
+		} },
 	NoteEditor: { deleteNoteState },
 	User: { photo } }: Store) {
 	return {
@@ -42,6 +54,9 @@ function mapToState({
 		themeColor,
 		leftBar,
 		renderTags,
+		getAllMyNotePreviewsByTags,
+		byUpdatedAt,
+		byLatest,
 		deleteNoteState,
 		photo,
 	};
@@ -64,6 +79,9 @@ function mapToDispatch(dispatch) {
 		changeRenderTagsDispatch(tags: Array<string>) {
 			dispatch(changeRenderTags(tags));
 		},
+		changeNotePreviewSortDispatch(byUpdatedAt, byLatest) {
+			dispatch(changeNotePreviewSort(byUpdatedAt, byLatest));
+		},
 	};
 }
 
@@ -71,6 +89,8 @@ const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
 	options: props => ({
 		variables: {
 			tags: props.renderTags,
+			byUpdatedAt: props.byUpdatedAt,
+			byLatest: props.byLatest,
 		},
 		ssr: false,
 	}),
@@ -100,12 +120,15 @@ type DefaultProps = {
 	changeThemeColorDispatch: Function,
 	deleteCompleteActionDispatch: Function,
 	changeRenderTagsDispatch: Function,
+	changeNotePreviewSortDispatch: Function,
 	makeNoteMutate: Function,
 	deleteNoteMutate: Function,
 	noteData: any,
 	full: boolean,
 	themeColor: string,
 	leftBar: boolean,
+	byUpdatedAt: boolean,
+	byLatest: boolean,
 	deleteNoteState: {
 		progress: boolean,
 		noteId: ?string
@@ -122,12 +145,15 @@ type Props = {
 	changeThemeColorDispatch: Function,
 	deleteCompleteActionDispatch: Function,
 	changeRenderTagsDispatch: Function,
+	changeNotePreviewSortDispatch: Function,
 	makeNoteMutate: Function,
 	deleteNoteMutate: Function,
 	noteData: any,
 	full: boolean,
 	themeColor: string,
 	leftBar: boolean,
+	byUpdatedAt: boolean,
+	byLatest: boolean,
 	deleteNoteState: {
 		progress: boolean,
 		noteId: ?string
@@ -155,6 +181,7 @@ class Head extends Component<DefaultProps, Props, State> {
 		changeRenderTagsDispatch: () => {},
 		deleteNoteMutate: () => {},
 		makeNoteMutate: () => {},
+		changeNotePreviewSortDispatch: () => {},
 		noteData: {
 			loading: false,
 			getAllMyNotePreviewsByTags: {
@@ -165,12 +192,14 @@ class Head extends Component<DefaultProps, Props, State> {
 		pathname: '/card',
 		history: {},
 		themeColor: '',
+		renderTags: [],
 		leftBar: true,
+		byUpdatedAt: true,
+		byLatest: true,
 		deleteNoteState: {
 			progress: false,
 			noteId: null,
 		},
-		renderTags: [],
 		photo: profileImageMock,
 	};
 
@@ -237,8 +266,12 @@ class Head extends Component<DefaultProps, Props, State> {
 			history,
 			makeNoteMutate,
 			changeRenderTagsDispatch,
+			changeNotePreviewSortDispatch,
+			byUpdatedAt,
+			byLatest,
 		} = this.props;
 		changeRenderTagsDispatch([]);
+		changeNotePreviewSortDispatch(true, true);
 		if (pathname.slice(0, 5) === '/card') {
 			this.setState({
 				makeNoteLoading: true,
@@ -247,7 +280,7 @@ class Head extends Component<DefaultProps, Props, State> {
 				const makeNoteResult = await makeNoteMutate({
 					refetchQueries: [{
 						query: getAllMyNotePreviewsByTags,
-						variables: { tags: [] },
+						variables: { tags: [], byUpdatedAt, byLatest },
 					}, {
 						query: getTagsByCondition,
 						variables: { condition: 'All' },
@@ -268,7 +301,7 @@ class Head extends Component<DefaultProps, Props, State> {
 				const makeNoteResult = await makeNoteMutate({
 					refetchQueries: [{
 						query: getAllMyNotePreviewsByTags,
-						variables: { tags: [] },
+						variables: { tags: [], byUpdatedAt, byLatest },
 					}, {
 						query: getTagsByCondition,
 						variables: { condition: 'All' },
@@ -291,6 +324,8 @@ class Head extends Component<DefaultProps, Props, State> {
 			deleteNoteMutate,
 			deleteNoteState: { noteId },
 			deleteCompleteActionDispatch,
+			byUpdatedAt,
+			byLatest,
 		} = this.props;
 		try {
 			if (pathname.slice(0, 5) === '/card') {
@@ -300,7 +335,7 @@ class Head extends Component<DefaultProps, Props, State> {
 					},
 					refetchQueries: [{
 						query: getAllMyNotePreviewsByTags,
-						variables: { tags: renderTags },
+						variables: { tags: renderTags, byUpdatedAt, byLatest },
 					}, {
 						query: getTagsByCondition,
 						variables: { condition: 'All' },
@@ -309,7 +344,7 @@ class Head extends Component<DefaultProps, Props, State> {
 						let i;
 						const data = store.readQuery({
 							query: getAllMyNotePreviewsByTags,
-							variables: { tags: renderTags },
+							variables: { tags: renderTags, byUpdatedAt, byLatest },
 						});
 						for (i = 0; i < data.getAllMyNotePreviewsByTags.notes.length; i += 1) {
 							if (data.getAllMyNotePreviewsByTags.notes[i]._id === noteId) {
@@ -319,7 +354,7 @@ class Head extends Component<DefaultProps, Props, State> {
 						}
 						store.writeQuery({
 							query: getAllMyNotePreviewsByTags,
-							variables: { tags: renderTags },
+							variables: { tags: renderTags, byUpdatedAt, byLatest },
 							data,
 						});
 					},
@@ -347,7 +382,7 @@ class Head extends Component<DefaultProps, Props, State> {
 						let i;
 						const data = store.readQuery({
 							query: getAllMyNotePreviewsByTags,
-							variables: { tags: renderTags },
+							variables: { tags: renderTags, byUpdatedAt, byLatest },
 						});
 						for (i = 0; i < data.getAllMyNotePreviewsByTags.notes.length; i += 1) {
 							if (data.getAllMyNotePreviewsByTags.notes[i]._id === noteId) {
@@ -357,7 +392,7 @@ class Head extends Component<DefaultProps, Props, State> {
 						}
 						store.writeQuery({
 							query: getAllMyNotePreviewsByTags,
-							variables: { tags: renderTags },
+							variables: { tags: renderTags, byUpdatedAt, byLatest },
 							data,
 						});
 						if (data.getAllMyNotePreviewsByTags.notes[0]) {
@@ -380,12 +415,12 @@ class Head extends Component<DefaultProps, Props, State> {
 
 	render() {
 		const {
-			socialOnOff,
 			themeOnOff,
 			makeNoteLoading,
 		} = this.state;
 		const { full,
 			changeThemeColorDispatch,
+			changeNotePreviewSortDispatch,
 			themeColor,
 			pathname,
 			leftBar,
@@ -439,10 +474,13 @@ class Head extends Component<DefaultProps, Props, State> {
 						>
 							<div
 								className={css.Button}
+								onClick={() => { changeNotePreviewSortDispatch(true, true); }}
 								style={{
 									backgroundColor: pathname.slice(0, 5) === '/card' ? themeColor : 'white',
 									color: pathname.slice(0, 5) === '/card' ? 'white' : '#babac0',
 								}}
+								role="button"
+								tabIndex="-5"
 							>
 								<svg className={css.name} x="0px" y="0px" viewBox="0 0 54 29" enableBackground="new 0 0 54 29">
 									<g>
@@ -461,14 +499,17 @@ class Head extends Component<DefaultProps, Props, State> {
 						</Link>
 						<Link
 							className={css.changeLink}
-							to={!noteData.loading && noteData.getAllMyNotePreviewsByTags.notes[0] ? `/list/${noteData.getAllMyNotePreviewsByTags.notes[0]._id}` : '/list/none'}
+							to={!noteData.loading && noteData.getAllMyNotePreviewsByTags.notes.length > 0 ? `/list/${noteData.getAllMyNotePreviewsByTags.notes[0]._id}` : '/list/none'}
 						>
 							<div
 								className={css.Button}
+								onClick={() => { changeNotePreviewSortDispatch(true, true); }}
 								style={{
 									backgroundColor: pathname.slice(0, 5) === '/list' ? themeColor : 'white',
 									color: pathname.slice(0, 5) === '/list' ? 'white' : '#babac0',
 								}}
+								role="button"
+								tabIndex="-4"
 							>
 								<svg className={css.name} x="0px" y="0px" viewBox="0 0 54 29" enableBackground="new 0 0 54 29">
 									<g>

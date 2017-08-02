@@ -5,6 +5,7 @@ import {
   CHANGE_RENDER_TAGS,
   CHANGE_TIMELINE_LEFT_BAR_TAGS,
   CHANGE_THEME_COLOR,
+  CHANGE_NOTE_PREVEW_SORT,
 } from '../constants';
 
 type State = {
@@ -46,8 +47,8 @@ type State = {
 const ModeState = {
 	full: false,
 	themeColor: '#0088ff',
-	leftBar: true,
 	timelineLeftBar: true,
+	leftBar: true,
 	renderTags: [],
 	notePreviewSort: {
 		byUpdatedAt: true,
@@ -76,6 +77,13 @@ export default function App(state: State = ModeState, action: any): State {
 	case CHANGE_THEME_COLOR:
 		return Object.assign({}, state, {
 			themeColor: action.themeColor,
+		});
+	case CHANGE_NOTE_PREVEW_SORT:
+		return Object.assign({}, state, {
+			notePreviewSort: {
+				byUpdatedAt: action.byUpdatedAt,
+				byLatest: action.byLatest,
+			},
 		});
 	default:
 		return state;

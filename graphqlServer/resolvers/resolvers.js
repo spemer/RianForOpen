@@ -35,7 +35,7 @@ export const resolvers = {
 	NoteHead: {
 		notes(obj, args, context) {
 			const userId = context.userId ? context.userId._id : args.userId;
-			return getAllMyNotePreviewsByTagsCtrl(userId, args.tags);
+			return getAllMyNotePreviewsByTagsCtrl(userId, args.tags, args.byUpdatedAt, args.byLatest);
 		},
 	},
 

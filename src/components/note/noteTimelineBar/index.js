@@ -8,6 +8,7 @@ import ReactLoading from 'react-loading';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
 import TimelineSnippet from './TimelineSnippet';
+import { changeNotePreviewSort } from '../../../actions/AppActions';
 import { getAllMyNotePreviewsByTags } from '../../../graphqls/TimelineGraphQl';
 import css from './noteTimelineBar.css';
 import './scroll.global.css';
@@ -17,6 +18,8 @@ const getAllMyNotePreviewsByTagsQuery = graphql(getAllMyNotePreviewsByTags, {
 	options: props => ({
 		variables: {
 			tags: props.renderTags,
+			byUpdatedAt: props.byUpdatedAt,
+			byLatest: props.byLatest,
 		},
 		ssr: false,
 		fetchPolicy: 'network-only',
@@ -35,20 +38,46 @@ type Store = {
 		renderTags: Array<string>,
 		leftBar: boolean,
 		timelineLeftBar: boolean,
+		notePreviewSort: {
+			byUpdatedAt: boolean,
+			byLatest: boolean,
+		},
 	},
 };
 
-const mapToState = ({
-  User: { userId },
-  App: { full, themeColor, renderTags, leftBar, timelineLeftBar },
-}: Store) => ({
-	userId,
-	full,
-	themeColor,
-	renderTags,
-	leftBar,
-	timelineLeftBar,
-});
+function mapToState({
+	User: { userId },
+	App: {
+		full,
+		themeColor,
+		renderTags,
+		leftBar,
+		timelineLeftBar,
+		notePreviewSort: {
+			byUpdatedAt,
+			byLatest,
+		},
+	},
+}: Store) {
+	return {
+		userId,
+		full,
+		themeColor,
+		renderTags,
+		leftBar,
+		timelineLeftBar,
+		byUpdatedAt,
+		byLatest,
+	};
+}
+
+function mapToDispatch(dispatch) {
+	return {
+		changeNotePreviewSortDispatch(byUpdatedAt, byLatest) {
+			dispatch(changeNotePreviewSort(byUpdatedAt, byLatest));
+		},
+	};
+}
 
 type DefaultProps = {
 	full: boolean,
@@ -58,6 +87,9 @@ type DefaultProps = {
 	leftBar: boolean,
 	timelineLeftBar: boolean,
 	match: any,
+	byUpdatedAt: boolean,
+	byLatest: boolean,
+	changeNotePreviewSortDispatch: null,
 };
 
 type Props = {
@@ -72,17 +104,16 @@ type Props = {
 			noteId: string
 		}
 	},
+	byUpdatedAt: boolean,
+	byLatest: boolean,
+	changeNotePreviewSortDispatch: Function,
 };
 
 type State = {
   onSortList: boolean,
-  selectedSort: {
-	byUpdatedAt: boolean,
-	byLatest: boolean,
-  },
 };
 
-@connect(mapToState)
+@connect(mapToState, mapToDispatch)
 @compose(getAllMyNotePreviewsByTagsQuery)
 class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
@@ -99,6 +130,9 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 				notes: Mock,
 			},
 		},
+		byUpdatedAt: true,
+		byLatest: true,
+		changeNotePreviewSortDispatch: null,
 	};
 
 	constructor(props: Props) {
@@ -110,15 +144,10 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 
 	state = {
 		onSortList: false,
-		selectedSort: {
-			byUpdatedAt: true,
-			byLatest: true,
-		},
-		noteDataSorted: [],
 	};
 
 	componentWillReceiveProps(nextProps: Props) {
-    // hide menu on LeftBar Coming
+	// hide menu on LeftBar Coming
 		if (!this.props.timelineLeftBar && nextProps.timelineLeftBar) {
 			this.setState({
 				onSortList: false,
@@ -155,30 +184,24 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		);
 	}
 
-
-	changeClickedSortBox(byUpdatedAt: boolean, byLatest: boolean) {
-		this.setState({
-			selectedSort: {
-				byUpdatedAt,
-				byLatest,
-			},
-		});
-	}
-
-	changeOnSortState() {
+	changeOnSortState(e: any) {
+		e.preventDefault();
 		this.setState(prevState => ({
 			onSortList: !prevState.onSortList,
 		}));
 	}
 
 	render() {
-		const { onSortList, selectedSort } = this.state;
+		const { onSortList } = this.state;
 		const { full,
 			noteData,
 			leftBar,
 			renderTags,
 			timelineLeftBar,
 			themeColor,
+			byUpdatedAt,
+			byLatest,
+			changeNotePreviewSortDispatch,
 		} = this.props;
 		const tagName = renderTags.length === 0 ? '전체노트' : `#${renderTags.join('#')}`;
 
@@ -212,7 +235,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 								</div>
 							</div>
 							{noteData.loading && <ReactLoading className={css.loader} type="spinningBubbles" color={themeColor} height="15px" width="15px" />}
-							<div className={css.selectButton}>
+							<div className={css.selectButton} onClick={this.changeOnSortState} role="button" tabIndex="-2">
 								<div
 									className={css.button}
 									role="button"
@@ -262,54 +285,54 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 										<div
 											className={css.selectOne}
 											onClick={() => {
-												this.changeClickedSortBox(true, true);
+												changeNotePreviewSortDispatch(true, true);
 											}}
 											style={{
-												color: selectedSort.byUpdatedAt && selectedSort.byLatest && themeColor,
+												color: byUpdatedAt && byLatest && themeColor,
 											}}
 											role="button"
 											tabIndex="0"
-										>
-											<p>작성한 시간 순</p>
-										</div>
-										<div
-											className={css.selectOne}
-											onClick={() => {
-												this.changeClickedSortBox(true, false);
-											}}
-											style={{
-												color: selectedSort.byUpdatedAt && !selectedSort.byLatest && themeColor,
-											}}
-											role="button"
-											tabIndex="-3"
-										>
-											<p>작성한 시간 역순</p>
-										</div>
-										<div
-											className={css.selectOne}
-											onClick={() => {
-												this.changeClickedSortBox(false, true);
-											}}
-											style={{
-												color: !selectedSort.byUpdatedAt && selectedSort.byLatest && themeColor,
-											}}
-											role="button"
-											tabIndex="-7"
 										>
 											<p>수정한 시간 순</p>
 										</div>
 										<div
 											className={css.selectOne}
 											onClick={() => {
-												this.changeClickedSortBox(false, false);
+												changeNotePreviewSortDispatch(true, false);
 											}}
 											style={{
-												color: !selectedSort.byUpdatedAt && !selectedSort.byLatest && themeColor,
+												color: byUpdatedAt && !byLatest && themeColor,
+											}}
+											role="button"
+											tabIndex="-3"
+										>
+											<p>수정한 시간 역순</p>
+										</div>
+										<div
+											className={css.selectOne}
+											onClick={() => {
+												changeNotePreviewSortDispatch(false, false);
+											}}
+											style={{
+												color: !byUpdatedAt && !byLatest && themeColor,
 											}}
 											role="button"
 											tabIndex="-7"
 										>
-											<p>수정한 시간 역순</p>
+											<p>작성한 시간 순</p>
+										</div>
+										<div
+											className={css.selectOne}
+											onClick={() => {
+												changeNotePreviewSortDispatch(false, true);
+											}}
+											style={{
+												color: !byUpdatedAt && byLatest && themeColor,
+											}}
+											role="button"
+											tabIndex="-7"
+										>
+											<p>작성한 시간 역순</p>
 										</div>
 									</div>
 								</div>}

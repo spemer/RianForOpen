@@ -7,7 +7,7 @@ import { resolvers } from '../resolvers/resolvers';
 const RootQuery = `
   type Query {
      getTagsByCondition(condition: String userId: ID): TagList
-     getAllMyNotePreviewsByTags(tags: [String] userId: ID): NoteHead
+     getAllMyNotePreviewsByTags(userId: ID tags: [String] byUpdatedAt: Boolean byLatest: Boolean): NoteHead
      notePreviewUpdate(noteId: ID!): Note
      getSelectedMyNoteData(noteId: ID!): MyOneNote
   }

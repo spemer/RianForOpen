@@ -1,5 +1,12 @@
 // @flow
-import { CHANGE_FULL_SCREEN, CHANGE_LEFT_BAR, CHANGE_RENDER_TAGS, CHANGE_TIMELINE_LEFT_BAR_TAGS, CHANGE_THEME_COLOR } from '../constants';
+import {
+	CHANGE_FULL_SCREEN,
+	CHANGE_LEFT_BAR,
+	CHANGE_RENDER_TAGS,
+	CHANGE_TIMELINE_LEFT_BAR_TAGS,
+	CHANGE_THEME_COLOR,
+	CHANGE_NOTE_PREVEW_SORT,
+} from '../constants';
 
 type FullScreenChangeAction = {
 	type: CHANGE_FULL_SCREEN,
@@ -21,6 +28,10 @@ type changeTimelineLeftBarAction = {
 
 type changeThemeColorAction = {
 	type: CHANGE_THEME_COLOR,
+}
+
+type changeNotePreviewSortAction = {
+	type: CHANGE_NOTE_PREVEW_SORT,
 }
 
 export function fullScreenChange(full: boolean): FullScreenChangeAction {
@@ -54,6 +65,17 @@ export function changeThemeColor(themeColor: string): changeThemeColorAction {
 	return {
 		type: CHANGE_THEME_COLOR,
 		themeColor,
+	};
+}
+
+export function changeNotePreviewSort(
+	byUpdatedAt: boolean,
+	byLatest: boolean,
+): changeNotePreviewSortAction {
+	return {
+		type: CHANGE_NOTE_PREVEW_SORT,
+		byUpdatedAt,
+		byLatest,
 	};
 }
 

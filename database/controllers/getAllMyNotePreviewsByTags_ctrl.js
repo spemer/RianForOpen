@@ -1,14 +1,35 @@
 import Note from '../models/note_model';
 import getTagsObjectIDByTagNameCtrl from './getTagsObjectIDByTagName_ctrl';
 
-const getAllMyNotePreviewsByTagsCtrl = async (userId, tagList) => {
+const getAllMyNotePreviewsByTagsCtrl = async (userId, tagList, byUpdatedAt, byLatest) => {
 	let result = [];
+	let sortStandard;
+	if (byUpdatedAt && byLatest) {
+		sortStandard = {
+			updatedAt: -1,
+		};
+	}
+	if (byUpdatedAt && !byLatest) {
+		sortStandard = {
+			updatedAt: 1,
+		};
+	}
+	if (!byUpdatedAt && byLatest) {
+		sortStandard = {
+			createdAt: -1,
+		};
+	}
+	if (!byUpdatedAt && !byLatest) {
+		sortStandard = {
+			createdAt: 1,
+		};
+	}
 	try {
 		if (tagList.length === 0) {
 			const NoteList = await Note.find({ userId })
         .populate({ path: 'tags', select: 'name' })
         .lean()
-				.sort({ updatedAt: -1 })
+		.sort(sortStandard)
         .select(
           '_id title tags preImage preview isPublish createdAt updatedAt',
 				);
@@ -20,8 +41,8 @@ const getAllMyNotePreviewsByTagsCtrl = async (userId, tagList) => {
 		}
 		if (tagList.length > 0) {
 			const tagObjectIdList = await getTagsObjectIDByTagNameCtrl(
-        userId,
-        tagList,
+				userId,
+				tagList,
 			);
 			if (tagObjectIdList.length !== tagList.length) {
 				return [];
@@ -32,8 +53,9 @@ const getAllMyNotePreviewsByTagsCtrl = async (userId, tagList) => {
 			})
 			.populate({ path: 'tags', select: 'name' })
 			.lean()
+			.sort(sortStandard)
 			.select(
-        '_id title tags preImage preview isPublish createdAt updatedAt',
+				'_id title tags preImage preview isPublish createdAt updatedAt',
 			);
 			result = NoteList.map((note) => {
 				note.tags = note.tags.map(tag => tag.name);

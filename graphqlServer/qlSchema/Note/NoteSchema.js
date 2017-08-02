@@ -2,7 +2,7 @@ const Note = `
 	type NoteHead {
 		totalCount: Int
 		tags: [String]
-		notes(userId: ID tags: [String] after: String limit: Int sortby: String): [Note]
+		notes(userId: ID tags: [String] byUpdatedAt: Boolean byLatest: Boolean): [Note]
 		hasNext: Boolean		
 		cursor: String
 	}
