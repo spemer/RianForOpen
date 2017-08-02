@@ -1,36 +1,40 @@
 // @flow
 import React from 'react';
 import css from './login.css';
+import rianLogo from '../../../static/icons/rianLogo.svg';
 import facebookLogo from '../../../static/icons/fb.jpg';
 import naverLogo from '../../../static/icons/naver.png';
 import kakaoLogo from '../../../static/icons/kakao.png';
 
+
 const Login = () => (
 	<div id={css.mainLogin}>
 		<div className={css.box}>
+			<img src={rianLogo} className={css.icon} alt="logo" />
 			<div className={css.title}>
 				리안노트에 오신 것을 환영합니다.
 			</div>
 			<div className={css.subTitle}>
-				리안노트는 쉽고 가벼운 웹 노트 어플리케이션입니다.
+				제 인생에서 글쓰기는
 				<br />
-				SNS 계정을 통한 간편 회원가입으로
+				제가 믿는 것, 보는 것, 가치 있다고 여기는 것들을
 				<br />
-				세상에서 제일 편리한 노트를 경험해보세요.
+				더욱 명확히 하는 훈련입니다
 				<br />
+				-버락 오바마
 			</div>
 			<div className={css.socialTitle}>
 				리안과 함께할 계정을 선택해주세요
 			</div>
 			<div className={css.socialBox}>
 				<a className={css.loginButtonForm} href="/auth/facebook">
-					<img src={facebookLogo} alt="logo" />
+					<img src={facebookLogo} className={css.imgIcon} alt="logo" />
 				</a>
 				<a className={css.loginButtonForm} href="/auth/naver">
-					<img src={naverLogo} alt="logo" />
+					<img src={naverLogo} className={css.imgIcon} alt="logo" />
 				</a>
 				<a className={css.loginButtonForm} href="/oauth/kakao">
-					<img src={kakaoLogo} alt="logo" />
+					<img src={kakaoLogo} className={css.imgIcon} alt="logo" />
 				</a>
 			</div>
 			<div className={css.privacy}>

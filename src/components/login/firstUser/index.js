@@ -175,6 +175,7 @@ class FirstUser extends Component<DefaultProps, Props, State> {
 											style={formBorderstyle}
 											field="name"
 											placeholder="이름을 입력해주세요"
+											minLength="1"
 											maxLength="10"
 										/>
 										<svg

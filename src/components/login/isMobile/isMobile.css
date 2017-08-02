@@ -5,38 +5,50 @@
     & .box {
         position: absolute; top: 0; right:0; bottom: 0; left:0;
         margin: auto;
-        border: solid 1px #dfdfdf;
         width: 300px;
-        height: 300px;
-        border-radius: 4px;
-        background-color: #ffffff;
-        box-shadow: 0 8px 16px 0 rgba(53, 57, 70, 0.2);
+        height: 400px;
+            & .icon {
+                position: absolute;
+                left: 0; right: 0;
+                margin-left: auto; margin-right: auto;
+                width: 80px;
+                height: 80px;
+            }
             & .title {
                 position: absolute;
-                top: 85px;
+                top: 110px;
+                font-family: NotoSansCJKkr-Bold;
+                letter-spacing: -0.5px;
+                width: 100%;
+                text-align: center;
+                line-height: 20px;
+                font-size: 20px;
+                font-weight: bold;
+                color: #515861;
+            }
+            & .subTitle {
+                position: absolute;
+                top: 145px;
                 right: 0; left:0;
                 margin-left: auto; margin-right: auto;
                 line-height: 1.8;
-                font-weight: bold;
-                width: 270px;
+                width:100%;
                 font-family: NotoSansCJKkr-Regular;
-                font-size: 14px;
+                font-weight: 300;
+                font-size: 13px;
                 height: 70px;
                 letter-spacing: -0.3px;
                 text-align: center;
                 color: #515861;
             }
-            & .subTitle {
+            & .socialTitle {
                 position: absolute;
-                top: 150px;
-                right: 0; left:0;
+                top: 280px; right: 0; left:0;
                 margin-left: auto; margin-right: auto;
-                line-height: 1.8;
+                font-family: NotoSansCJKkr-Bold;
+                font-size: 13px;
                 font-weight: bold;
-                width: 270px;
-                font-family: NotoSansCJKkr-Regular;
-                font-size: 14px;
-                height: 70px;
+                height: 14px;
                 letter-spacing: -0.3px;
                 text-align: center;
                 color: #515861;
