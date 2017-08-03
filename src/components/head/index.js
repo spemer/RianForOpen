@@ -427,6 +427,10 @@ class Head extends Component<DefaultProps, Props, State> {
 			noteData,
 			photo,
 		} = this.props;
+		const pathName = pathname.slice(0, 5) === '/card';
+		const cardIconColor = pathName ? '#ffffff' : '#BABAC0';
+		const listIconColor = !pathName ? '#ffffff' : '#BABAC0';
+		const tagIconColor = leftBar ? themeColor : 'black';
 		return (
 			<div
 				className={parentCss.head}
@@ -482,17 +486,27 @@ class Head extends Component<DefaultProps, Props, State> {
 								role="button"
 								tabIndex="-5"
 							>
-								<svg className={css.name} x="0px" y="0px" viewBox="0 0 54 29" enableBackground="new 0 0 54 29">
+								<svg className={css.icon} viewBox="0 0 24 24">
+									<g>
+										<rect x="18" y="2" fill={cardIconColor} width="4" height="4" />
+										<rect x="18" y="10" fill={cardIconColor} width="4" height="4" />
+										<rect x="18" y="18" fill={cardIconColor} width="4" height="4" />
+										<rect x="10" y="2" fill={cardIconColor} width="4" height="4" />
+										<rect x="10" y="10" fill={cardIconColor} width="4" height="4" />
+										<rect x="10" y="18" fill={cardIconColor} width="4" height="4" />
+										<rect x="2" y="2" fill={cardIconColor} width="4" height="4" />
+										<rect x="2" y="10" fill={cardIconColor} width="4" height="4" />
+										<rect x="2" y="18" fill={cardIconColor} width="4" height="4" />
+									</g>
+								</svg>
+								<svg className={css.name} viewBox="0 0 26 14">
 									<g>
 										<path
-											fill={pathname.slice(0, 5) === '/card' ? '#ffffff' : '#BABAC0'}
-											d="M21.4,9.3c0,4-0.9,7.3-5.7,9.7l-1-1.4c2.1-1.1,3.4-2.3,4.1-3.7L15,14.3l-0.2-1.6l4.5-0.3
-											c0.1-0.5,0.2-1.1,0.3-1.7h-4.1V9.3H21.4z M26.7,14.5h-1.8v6.4H23V8.1h1.8V13h1.8V14.5z"
+											fill={cardIconColor}
+											d="M7.4,1.8c0,4-0.9,7.3-5.7,9.7l-1-1.4c2.1-1.1,3.4-2.3,4.1-3.7L1,6.8L0.8,5.2L5.3,5c0.1-0.5,0.2-1.1,0.3-1.7
+											H1.5V1.8H7.4z M12.7,7h-1.8v6.4H9V0.6h1.8v4.9h1.8V7z"
 										/>
-										<path
-											fill={pathname.slice(0, 5) === '/card' ? '#ffffff' : '#BABAC0'}
-											d="M39.3,17.9v1.5H27.6v-1.5H39.3z M38.1,15.5H29V9.1h9v1.5h-7.1V14h7.2V15.5z"
-										/>
+										<path fill={cardIconColor} d="M25.3,10.4v1.5H13.6v-1.5H25.3z M24.1,8H15V1.6h9v1.5h-7.1v3.4h7.2V8z" />
 									</g>
 								</svg>
 							</div>
@@ -511,18 +525,25 @@ class Head extends Component<DefaultProps, Props, State> {
 								role="button"
 								tabIndex="-4"
 							>
-								<svg className={css.name} x="0px" y="0px" viewBox="0 0 54 29" enableBackground="new 0 0 54 29">
+								<svg className={css.listName} viewBox="0 0 26 14">
 									<g>
 										<path
-											fill={pathname.slice(0, 5) === '/list' ? '#ffffff' : '#BABAC0'}
-											d="M26.4,14.2v1.5H14.7v-1.5h4.9V13h-3.5V8.4h8.8V13h-3.4v1.2H26.4z M16,16.6h9v4.2h-1.8v-2.8H16V16.6z
-											M18,11.5h5.1V9.9H18V11.5z"
+											fill={listIconColor}
+											d="M12.4,6.7v1.5H0.7V6.7h4.9V5.5H2.1V0.9h8.8v4.6H7.5v1.2H12.4z M2,9.1h9v4.2H9.1v-2.8H2V9.1z M4,4h5.1V2.4H4
+											V4z"
 										/>
 										<path
-											fill={pathname.slice(0, 5) === '/list' ? '#ffffff' : '#BABAC0'}
-											d="M39.3,14.8v1.5H27.6v-1.5h4.9v-0.9h-3.5v-3.5h7V9.6h-7V8.2h8.8v3.5h-7v0.8h7.2v1.4h-3.8v0.9H39.3z M28.9,17
-											h9v3.8h-1.8v-2.3h-7.2V17z"
+											fill={listIconColor}
+											d="M25.3,7.3v1.5H13.6V7.3h4.9V6.4h-3.5V2.9h7V2.1h-7V0.7h8.8v3.5h-7V5h7.2v1.4h-3.8v0.9H25.3z M14.9,9.5h9
+											v3.8h-1.8V11h-7.2V9.5z"
 										/>
+									</g>
+								</svg>
+								<svg className={css.listIcon} viewBox="0 0 24 24">
+									<g>
+										<rect x="2" y="2" fill={listIconColor} width="20" height="4" />
+										<rect x="2" y="10" fill={listIconColor} width="20" height="4" />
+										<rect x="2" y="18" fill={listIconColor} width="20" height="4" />
 									</g>
 								</svg>
 							</div>
@@ -534,53 +555,43 @@ class Head extends Component<DefaultProps, Props, State> {
 						role="button"
 						tabIndex="0"
 					>
-						<svg
-							className={css.name}
-							x="0px"
-							y="0px"
-							viewBox="0 0 54 29"
-							enableBackground="new 0 0 54 29"
-							opacity={leftBar ? '1' : '0.38'}
-						>
+						<svg className={css.icon} viewBox="0 0 24 24" opacity={leftBar ? '1' : '0.38'}>
 							<g>
 								<path
-									fill={leftBar ? themeColor : 'black'}
-									d="M16.7,16.5c1.4,0,2.5-0.1,3.7-0.3l0.2,1.5C19,18,17.8,18,15.8,18h-0.9V9.4h5.2v1.5h-3.5v1.9h3.2v1.4h-3.2
-									V16.5z M25.6,8V21h-1.8v-6.4h-1v5.9h-1.7V8.3h1.7V13h1V8H25.6z"
+									fill={tagIconColor}
+									d="M12,22.9c-0.3,0-0.5-0.1-0.7-0.3l-9.9-9.9c-0.2-0.2-0.3-0.4-0.3-0.7V2.1c0-0.6,0.4-1,1-1H12
+									c0.3,0,0.5,0.1,0.7,0.3l9.9,9.9c0.4,0.4,0.4,1,0,1.4l-9.9,9.9C12.5,22.8,12.3,22.9,12,22.9z M3.1,11.6l8.9,8.9l8.5-8.5l-8.9-8.9
+									H3.1V11.6z"
+								/>
+								<circle fill={tagIconColor} cx="6" cy="6" r="1.5" />
+								<path
+									fill={tagIconColor}
+									d="M14.6,15.6c-0.3,0-0.5-0.1-0.7-0.3l-5.1-5.1c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5.1,5.1c0.4,0.4,0.4,1,0,1.4
+									C15.1,15.5,14.9,15.6,14.6,15.6z"
 								/>
 								<path
-									fill={leftBar ? themeColor : 'black'}
-									d="M39.1,17.8v1.5H27.4v-1.5H39.1z M35.8,10.7h-7.2V9.2h9v1.5c0,1.8,0,3.6-0.5,6.2l-1.8-0.2
-									C35.8,14.4,35.8,12.5,35.8,10.7L35.8,10.7z"
+									fill={tagIconColor}
+									d="M16.8,13.5c-0.3,0-0.5-0.1-0.7-0.3L10.9,8c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5.2,5.2c0.4,0.4,0.4,1,0,1.4
+									C17.3,13.4,17.1,13.5,16.8,13.5z"
+								/>
+								<path
+									fill={tagIconColor}
+									d="M12.5,17.8c-0.3,0-0.5-0.1-0.7-0.3l-5.2-5.2c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5.2,5.2c0.4,0.4,0.4,1,0,1.4
+									C13,17.7,12.8,17.8,12.5,17.8z"
 								/>
 							</g>
 						</svg>
-					</div>
-					<div
-						className={css.social}
-						onClick={this.changeSocialState}
-						role="button"
-						tabIndex="-1"
-					>
-						<svg
-							className={css.name}
-							x="0px"
-							y="0px"
-							viewBox="0 0 54 29"
-							enableBackground="new 0 0 54 29"
-							opacity={'0.1'}
-						>
+						<svg className={css.name} viewBox="0 0 26 14" opacity={leftBar ? '1' : '0.38'}>
 							<g>
 								<path
-									fill={'black'}
-									d="M26.7,18v1.5H15V18h4.9v-2.9h1.8V18H26.7z M25.5,15.5c-2.3-0.4-3.9-1.6-4.8-3.2c-0.8,1.6-2.5,2.8-4.7,3.2
-									L15.3,14c2.9-0.5,4.5-2.5,4.5-4.2V8.8h2v0.9c0,1.8,1.6,3.8,4.5,4.2L25.5,15.5z"
+									fill={tagIconColor}
+									d="M2.7,9c1.4,0,2.5-0.1,3.7-0.3l0.2,1.5c-1.5,0.3-2.8,0.3-4.7,0.3H0.9V1.9h5.2v1.5H2.7v1.9h3.2v1.4H2.7V9z
+									M11.6,0.5v12.9H9.8V7h-1v5.9H7.1V0.8h1.7v4.8h1v-5H11.6z"
 								/>
 								<path
-									fill={'black'}
-									d="M34.6,14.8c-1.4-0.5-2.3-1.4-2.9-2.6c-0.6,1.3-1.6,2.3-3,2.8l-0.9-1.4c2.1-0.7,3-2.3,3-4V8.5h1.9v1.1
-									c0,1.6,0.9,3.2,2.9,3.8L34.6,14.8z M39,19.5v1.4h-8.9v-3.5h6.7v-0.7h-6.7v-1.4h8.5v3.4H32v0.8H39z M36.8,12.7h-2.1v-1.4h2.1v-0.8
-									h-2.1V9.1h2.1V8.1h1.8v6.7h-1.8V12.7z"
+									fill={tagIconColor}
+									d="M25.1,10.3v1.5H13.4v-1.5H25.1z M21.8,3.2h-7.2V1.7h9v1.5c0,1.8,0,3.6-0.5,6.2l-1.8-0.2
+									C21.8,6.9,21.8,5,21.8,3.2L21.8,3.2z"
 								/>
 							</g>
 						</svg>
@@ -591,27 +602,25 @@ class Head extends Component<DefaultProps, Props, State> {
 						role="button"
 						tabIndex="-5"
 					>
-						<svg
-							className={css.name}
-							x="0px"
-							y="0px"
-							viewBox="0 0 54 29"
-							enableBackground="new 0 0 54 29"
-							opacity={pathname.slice(0, 5) === '/card' ? '0.1' : '0.38'}
-						>
+						<svg className={css.icon} viewBox="0 0 24 24" opacity={pathName ? '0.1' : '0.38'}>
+							<circle fill="black" cx="12" cy="12" r="9" />
+							<circle fill="#FFFFFF" cx="12" cy="12" r="7" />
+							<circle fill="black" cx="12" cy="12" r="2" />
+						</svg>
+						<svg className={css.name} viewBox="0 0 26 14" opacity={pathName ? '0.1' : '0.38'}>
 							<g>
 								<path
 									fill="black"
-									d="M21.9,14.9c-1.5-0.4-2.5-1.3-3-2.4c-0.6,1.2-1.6,2.2-3.1,2.6l-0.9-1.5c2-0.6,3-2,3.1-3.5h-2.6V8.7h7v1.5
-									h-2.5c0.1,1.4,1.1,2.7,3,3.3L21.9,14.9z M23.6,15.6h1.8v5.2h-8.6v-5.2h1.8v1.2h4.9V15.6z M23.6,18.2h-4.9v1.1h4.9V18.2z M25.4,8v7
-									h-1.9V8H25.4z"
+									d="M7.9,7.4C6.4,7,5.4,6.1,4.8,5C4.2,6.2,3.2,7.1,1.7,7.6L0.8,6.2c2-0.6,3-2,3.1-3.5H1.3V1.2h7v1.5H5.7
+									c0.1,1.4,1.1,2.7,3,3.3L7.9,7.4z M9.6,8.1h1.8v5.2H2.9V8.1h1.8v1.2h4.9V8.1z M9.6,10.7H4.7v1.1h4.9V10.7z M11.4,0.5v7H9.6v-7H11.4z
+									"
 								/>
 								<path
 									fill="black"
-									d="M34.3,15.4v1c2.2,0.2,3.5,1,3.5,2.3c0,1.5-1.7,2.3-4.5,2.3c-2.8,0-4.5-0.9-4.5-2.3c0-1.3,1.3-2.1,3.6-2.3
-									v-0.9h-4.9v-1.5h11.7v1.5H34.3z M28.1,12c2.4-0.2,3.7-1.1,4-1.9h-3.4V8.6h9.5V10h-3.4c0.3,0.9,1.6,1.7,4,1.9l-0.6,1.4
-									c-2.4-0.2-4-1.1-4.7-2.3c-0.7,1.2-2.3,2.1-4.7,2.3L28.1,12z M33.4,17.7c-1.7,0-2.6,0.3-2.6,0.9c0,0.6,0.9,0.9,2.6,0.9
-									s2.6-0.3,2.6-0.9C36,18,35.1,17.7,33.4,17.7z"
+									d="M20.3,7.9v1c2.2,0.2,3.5,1,3.5,2.3c0,1.5-1.7,2.3-4.5,2.3c-2.8,0-4.5-0.9-4.5-2.3c0-1.3,1.3-2.1,3.6-2.3
+									V7.9h-4.9V6.4h11.7v1.5H20.3z M14.1,4.5c2.4-0.2,3.7-1.1,4-1.9h-3.4V1.1h9.5v1.5h-3.4c0.3,0.9,1.6,1.7,4,1.9l-0.6,1.4
+									c-2.4-0.2-4-1.1-4.7-2.3c-0.7,1.2-2.3,2.1-4.7,2.3L14.1,4.5z M19.4,10.2c-1.7,0-2.6,0.3-2.6,0.9c0,0.6,0.9,0.9,2.6,0.9
+									s2.6-0.3,2.6-0.9C22,10.5,21.1,10.2,19.4,10.2z"
 								/>
 							</g>
 						</svg>
@@ -622,24 +631,26 @@ class Head extends Component<DefaultProps, Props, State> {
 						role="button"
 						tabIndex="-5"
 					>
-						<svg
-							className={css.name}
-							x="0px"
-							y="0px"
-							viewBox="0 0 54 29"
-							enableBackground="new 0 0 54 29"
-							opacity={themeOnOff ? '1' : '0.38'}
-						>
+						<svg className={css.icon} viewBox="0 0 24 24" opacity={themeOnOff ? '1' : '0.38'}>
+							<path
+								fill={themeOnOff ? themeColor : 'black'}
+								d="M12,3c-5,0-9,4-9,9s4,9,9,9c0.8,0,1.5-0.7,1.5-1.5c0-0.4-0.1-0.7-0.4-1c-0.2-0.3-0.4-0.6-0.4-1
+								c0-0.8,0.7-1.5,1.5-1.5H16c2.8,0,5-2.2,5-5C21,6.6,17,3,12,3z M6.5,12C5.7,12,5,11.3,5,10.5S5.7,9,6.5,9S8,9.7,8,10.5S7.3,12,6.5,12
+								z M9.5,8C8.7,8,8,7.3,8,6.5S8.7,5,9.5,5S11,5.7,11,6.5S10.3,8,9.5,8z M14.5,8C13.7,8,13,7.3,13,6.5S13.7,5,14.5,5S16,5.7,16,6.5
+								S15.3,8,14.5,8z M17.5,12c-0.8,0-1.5-0.7-1.5-1.5S16.7,9,17.5,9S19,9.7,19,10.5S18.3,12,17.5,12z"
+							/>
+						</svg>
+
+						<svg className={css.name} viewBox="0 0 26 14" opacity={themeOnOff ? '1' : '0.38'}>
 							<g>
 								<path
 									fill={themeOnOff ? themeColor : 'black'}
-									d="M16.5,16.6c1.3,0,2.4-0.1,3.5-0.3l0.2,1.5c-1.5,0.2-2.7,0.3-4.5,0.3h-0.9V9.5h4.8v1.5h-3v2H19v1.4h-2.5
-									V16.6z M21,8.3h1.7v12.1H21v-6.1h-1.4v-1.5H21V8.3z M25.5,8v12.9h-1.8V8H25.5z"
+									d="M2.5,9.1c1.3,0,2.4-0.1,3.5-0.3l0.2,1.5c-1.5,0.2-2.7,0.3-4.5,0.3H0.8V2h4.8v1.5h-3v2H5v1.4H2.5V9.1z
+									M7,0.8h1.7v12.1H7V6.7H5.6V5.2H7V0.8z M11.5,0.5v12.9H9.7V0.5H11.5z"
 								/>
 								<path
 									fill={themeOnOff ? themeColor : 'black'}
-									d="M27.7,9.3h6.2v8.5h-6.2V9.3z M29.5,16.4H32v-5.6h-2.5V16.4z M39.2,14.4h-1.9V21h-1.8V8.1h1.8v4.8h1.9V14.4z
-									"
+									d="M13.7,1.8h6.2v8.5h-6.2V1.8z M15.5,8.9H18V3.2h-2.5V8.9z M25.2,6.9h-1.9v6.5h-1.8V0.6h1.8v4.8h1.9V6.9z"
 								/>
 							</g>
 						</svg>
@@ -732,6 +743,53 @@ class Head extends Component<DefaultProps, Props, State> {
 							</div>
 						</div>
 					</div>}
+					<div
+						className={css.social}
+						onClick={this.changeSocialState}
+						role="button"
+						tabIndex="-1"
+					>
+						<svg className={css.icon} viewBox="0 0 24 24" opacity="0.1">
+							<g>
+								<path
+									fill="black"
+									d="M17.5,12.6c1.8,0,3.2-1.5,3.2-3.3s-1.5-3.3-3.2-3.3c-1.8,0-3.2,1.5-3.2,3.3C14.3,11.1,15.8,12.6,17.5,12.6z
+									M15.6,9.4c0.1-1.1,1-1.9,1.9-1.9c1,0,1.9,0.9,1.9,1.9s-0.9,1.9-1.9,1.9C16.4,11.2,15.6,10.4,15.6,9.4z"
+								/>
+								<path
+									fill="black"
+									d="M17.5,14.3c-0.5,0-1.4,0.1-2.5,0.4h-0.1l0.1,0.1c0.3,0.3,0.5,0.8,0.7,1.2V16h0.1c0.8-0.1,1.3-0.2,1.7-0.2
+									c1.7,0,4.4,0.9,4.4,1.9v1.4H16v0.7c0,0.2-0.1,0.5-0.2,0.8v-0.1h7c0.5,0,0.8-0.3,0.8-0.8v-2.2C23.3,15.1,19.3,14.3,17.5,14.3z"
+								/>
+								<path
+									fill="black"
+									d="M7.5,11.4c2.2,0,4-1.8,4-4s-1.8-4-4-4c-2.2,0.1-3.9,1.8-3.9,4S5.3,11.4,7.5,11.4z M5.2,7.4
+									c0-1.2,1-2.3,2.3-2.3s2.3,1.1,2.3,2.3s-1,2.3-2.3,2.3S5.2,8.6,5.2,7.4z"
+								/>
+								<path
+									fill="black"
+									d="M13.7,15.2c-1.5-1.4-4.6-2-6.1-2c-2.4,0-7.1,1.2-7.1,4v2.6c0,0.4,0.4,0.9,0.9,0.9h12.5
+									c0.5,0,0.9-0.4,0.9-0.9v-2.4c0-0.3-0.1-0.7-0.2-1C14.2,15.8,14,15.4,13.7,15.2z M2.1,17.3C2.1,16,5.5,15,7.5,15
+									c1.3,0,3.4,0.5,4.7,1.2c0.5,0.3,0.8,0.6,0.8,1V19H2.1V17.3z"
+								/>
+							</g>
+						</svg>
+						<svg className={css.name} viewBox="0 0 26 14" opacity="0.1">
+							<g>
+								<path
+									fill="black"
+									d="M12.7,10.5V12H1v-1.5h4.9V7.6h1.8v2.9H12.7z M11.5,8C9.2,7.6,7.6,6.4,6.8,4.8C5.9,6.4,4.3,7.6,2,8L1.3,6.5
+									C4.2,6,5.8,4.1,5.8,2.3V1.3h2v0.9c0,1.8,1.6,3.8,4.5,4.2L11.5,8z"
+								/>
+								<path
+									fill="black"
+									d="M20.6,7.3c-1.4-0.5-2.3-1.4-2.9-2.6c-0.6,1.3-1.6,2.3-3,2.8L13.8,6c2.1-0.7,3-2.3,3-4V1h1.9v1.1
+									c0,1.6,0.9,3.2,2.9,3.8L20.6,7.3z M25,12v1.4h-8.9V9.9h6.7V9.2h-6.7V7.8h8.5v3.4H18V12H25z M22.8,5.2h-2.1V3.8h2.1V3h-2.1V1.6h2.1
+									V0.6h1.8v6.7h-1.8V5.2z"
+								/>
+							</g>
+						</svg>
+					</div>
 					<div className={css.profileBox}>
 						<div
 							className={css.photo}

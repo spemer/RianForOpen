@@ -35,18 +35,37 @@
     & .changeMode {
         position: absolute; top: 0; bottom: 0; left: 47%;
         height: 29px; margin-top: auto; margin-bottom: auto;
-        width: 110px;
         & .changeLink {
             display: inline-block;
             height: 100%;
             & .Button {
-                width: 52px;
+                width: 70px;
                 height: 100%;
                 border-radius: 4px;
                 letter-spacing: -0.3px;
                 outline: none;
+                & .icon {
+                    display: inline-block;
+                    margin-left: 11px;
+                    margin-right: 7px;
+                    width: 15px;
+                    height: 100%;
+                }
                 & .name {
-                    width: 100%;
+                    display: inline-block;
+                    width: 25px;
+                    height: 100%;
+                }
+                & .listIcon {
+                    display: inline-block;
+                    width: 15px;
+                    height: 100%;
+                }
+                & .listName {
+                    display: inline-block;
+                    margin-left: 11px;
+                    margin-right: 7px;
+                    width: 25px;
                     height: 100%;
                 }
             }
@@ -64,92 +83,144 @@
      & .tag {
             position: absolute;
             top: 0;
-            right: 240px; bottom:0;
+            right: 280px; bottom:0;
             height: 47px; margin-top:auto; margin-bottom:auto;
-            width: 48px;
+            width: 50px;
             outline: none;
             cursor: pointer;
-            & .name {
-                position: absolute; top: 0; right:0; bottom:0;
-                left:0;
-                margin-left:auto; margin-right:auto; 
+            & .icon {
+                display: inline-block;
+                height: 100%;
+                width: 15px;
+                margin-right: 2px;
                 margin-top:auto; margin-bottom:auto;
                 font-family: NotoSansCJKkr-Regular;
-                -webkit-user-select: none; /* Safari */
-                -khtml-user-select: none; /* Konqueror HTML */
-                -moz-user-select: none; /* Firefox */
-                -ms-user-select: none; /* Internet Explorer/Edge */
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none; /* Safari */ /* Konqueror HTML */ /* Firefox */ /* Internet Explorer/Edge */
+                user-select: none;                
+            }
+            & .name {
+                display: inline-block;
+                height: 100%;
+                width: 25px;
+                margin-top:auto; margin-bottom:auto;
+                font-family: NotoSansCJKkr-Regular;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none; /* Safari */ /* Konqueror HTML */ /* Firefox */ /* Internet Explorer/Edge */
                 user-select: none;
             }
-        }
-        & .social {
-            position: absolute; top: 0;
-            right: 90px;
-            height: 47px; margin-top:auto; margin-bottom:auto;
+        }      
+        & .theme {
+            position: absolute;
+            top: 0;
+            right: 220px;
+            height: 48px; margin-top:auto; margin-bottom:auto;
             width: 48px;
             outline: none;
             cursor: pointer;
-            & .name {
-                position: absolute; top: 0; right:0; bottom:0;
-                left:0;
-                margin-left:auto; margin-right:auto; 
+            & .icon {
+                display: inline-block;
+                height: 100%;
+                width: 15px;
+                margin-right: 2px;
                 margin-top:auto; margin-bottom:auto;
                 font-family: NotoSansCJKkr-Regular;
-                -webkit-user-select: none; /* Safari */
-                -khtml-user-select: none; /* Konqueror HTML */
-                -moz-user-select: none; /* Firefox */
-                -ms-user-select: none; /* Internet Explorer/Edge */
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none; /* Safari */ /* Konqueror HTML */ /* Firefox */ /* Internet Explorer/Edge */
+                user-select: none;                
+            }
+            & .name {
+                display: inline-block;
+                height: 100%;
+                width: 25px;
+                margin-top:auto; margin-bottom:auto;
+                font-family: NotoSansCJKkr-Regular;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none; /* Safari */ /* Konqueror HTML */ /* Firefox */ /* Internet Explorer/Edge */
                 user-select: none;
             }
         }
         & .focusFull {
             position: absolute;
             top: 0;
-            right: 190px;
+            right: 160px;
+            height: 47px; margin-top:auto; margin-bottom:auto;
+            width: 50px;
+            outline: none;
+            cursor: pointer;
+            & .icon {
+                display: inline-block;
+                height: 100%;
+                width: 17px;
+                margin-right: 1px;
+                margin-top:auto; margin-bottom:auto;
+                font-family: NotoSansCJKkr-Regular;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none; /* Safari */ /* Konqueror HTML */ /* Firefox */ /* Internet Explorer/Edge */
+                user-select: none;             
+            }            
+            & .name {
+                display: inline-block;
+                height: 100%;
+                width: 25px;
+                margin-top:auto; margin-bottom:auto;
+                font-family: NotoSansCJKkr-Regular;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none; /* Safari */ /* Konqueror HTML */ /* Firefox */ /* Internet Explorer/Edge */
+                user-select: none;
+            }
+        }     
+        & .social {
+            position: absolute; top: 0;
+            right: 100px;
             height: 47px; margin-top:auto; margin-bottom:auto;
             width: 48px;
             outline: none;
             cursor: pointer;
-            & .name {
-                position: absolute; top: 0; right:0; bottom:0;
-                left:0;
-                margin-left:auto; margin-right:auto; 
+            & .icon {
+                display: inline-block;
+                height: 100%;
+                width: 17px;
+                margin-right: 3px;
                 margin-top:auto; margin-bottom:auto;
                 font-family: NotoSansCJKkr-Regular;
-                -webkit-user-select: none; /* Safari */
-                -khtml-user-select: none; /* Konqueror HTML */
-                -moz-user-select: none; /* Firefox */
-                -ms-user-select: none; /* Internet Explorer/Edge */
-                user-select: none;
-            }
-        }
-        & .theme {
-            position: absolute;
-            top: 0;
-            right: 140px;
-            height: 48px; margin-top:auto; margin-bottom:auto;
-            width: 48px;
-            outline: none;
-            cursor: pointer;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none; /* Safari */ /* Konqueror HTML */ /* Firefox */ /* Internet Explorer/Edge */
+                user-select: none;             
+            }            
             & .name {
-                position: absolute; top: 0; right:0; bottom:0;
-                left:0;
-                margin-left:auto; margin-right:auto; 
+                display: inline-block;
+                height: 100%;
+                width: 25px;
                 margin-top:auto; margin-bottom:auto;
                 font-family: NotoSansCJKkr-Regular;
-                -webkit-user-select: none; /* Safari */
-                -khtml-user-select: none; /* Konqueror HTML */
-                -moz-user-select: none; /* Firefox */
-                -ms-user-select: none; /* Internet Explorer/Edge */
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none; /* Safari */ /* Konqueror HTML */ /* Firefox */ /* Internet Explorer/Edge */
                 user-select: none;
             }
-        }
+        }             
         & .selectList {
                 position: fixed;
                 display: flex;
                 flex-direction: column;
                 top: 40px;
-                right: 80px;
+                right: 135px;
                 border: solid 1px #dfdfdf;
                 width: 133px;
                 height: 290px;
@@ -197,12 +268,12 @@
                         }
                         & .circle {
                             position: absolute;
+                            top: 0;
                             right: 15px;
+                            bottom: 0;
                             border-radius: 50%;
                             width: 8px;
                             height: 8px;
-                            top: 0;
-                            bottom: 0;
                             margin-top: auto;
                             margin-bottom: auto;
                         }
@@ -219,9 +290,9 @@
             height: 47px; margin-top:auto; margin-bottom:auto;
             width: 32px;
         & .photo {
-            border: 1px solid #dfdfdf;
             position: absolute; top: 0; right:0; bottom:0;
             left:0;
+            border: 1px solid #dfdfdf;
             width: 32px; margin-left:auto; margin-right:auto; 
             height:32px; margin-top:auto; margin-bottom:auto;
             border-radius: 50%;
