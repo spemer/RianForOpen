@@ -308,8 +308,8 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		return (
 			<div
 				className={parentCss.container}
-				style={{ paddingTop: !full ? '0px' : '40px' }}
 			>
+				{!full &&
 				<div className={parentCss.sideLine}>
 					<div
 						className={parentCss.arrowBox}
@@ -318,10 +318,10 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 						tabIndex="-13"
 					>
 						{timelineLeftBar
-								? <div className={parentCss.leftArrow} />
-								: <div className={parentCss.rightArrow} />}
+									? <div className={parentCss.leftArrow} />
+									: <div className={parentCss.rightArrow} />}
 					</div>
-				</div>
+				</div>}
 				<div className={parentCss.editorBox}>
 					{loading && <ReactLoading className={parentCss.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 					<SideHead
