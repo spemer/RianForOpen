@@ -341,7 +341,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 						</div>
 						<div className={css.sortBox}>
 							<div
-								className={css.sortButtonRight}
+								className={css.sortButtonLeft}
 								style={{ color: !sortByhowMany ? themeColor : '#515861' }}
 								onClick={() => {
 									this.changeSortBy(false);
@@ -352,7 +352,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 								태그 이름순
 							</div>
 							<div
-								className={css.sortButtonLeft}
+								className={css.sortButtonRight}
 								style={{ color: sortByhowMany ? themeColor : '#515861' }}
 								onClick={() => {
 									this.changeSortBy(true);
