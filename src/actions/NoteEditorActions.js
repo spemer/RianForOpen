@@ -4,6 +4,7 @@ import {
   SAVE_COMPLETE,
   DELETE_REQUEST,
   DELETE_COMPLETE,
+  SAVE_REQUEST_CANCELLED,
 } from '../constants';
 
 type saveRequestAction = {
@@ -13,6 +14,10 @@ type saveRequestAction = {
 
 type saveCompleteAction = {
 	type: SAVE_COMPLETE,
+}
+
+type saveRequestCancleAction = {
+	type: SAVE_REQUEST_CANCELLED
 }
 
 type deleteRequestAction = {
@@ -34,6 +39,12 @@ export function saveRequest(method: any): saveRequestAction {
 export function saveComplete(): saveCompleteAction {
 	return {
 		type: SAVE_COMPLETE,
+	};
+}
+
+export function saveRequestCancle(): saveRequestCancleAction {
+	return {
+		type: SAVE_REQUEST_CANCELLED,
 	};
 }
 

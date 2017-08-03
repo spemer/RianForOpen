@@ -99,7 +99,7 @@ class NoteCardView extends Component<DefaultProps, Props, State> {
 
 	state = {
 	};
-	
+
 	cardRenderer: Function;
 
 	cardRenderer(noteData: Array<any>) {

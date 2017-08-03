@@ -25,7 +25,7 @@ type State = {
 	loading: boolean,
 	noteId: ?string,
 	title: string,
-	data: string,
+	data: ?string,
 	tags: Array<string>,
 };
 
@@ -62,17 +62,16 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 	}
 
 	state = {
-		loading: false,
+		loading: this.props.oneOfNoteData.loading,
 		noteId: null,
 		title: '',
-		data: '',
+		data: null,
 		tags: [],
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
 		// console.log('new props in list editor in Apollo', this.props, nextProps);
 		const { match: { params: { noteId } }, location: { pathname }, oneOfNoteData } = nextProps;
-
 		if (process.env.NODE_ENV === 'development' && !SERVER) return;
 		if (pathname === '/list/none') return;
 		// user click other note
@@ -82,7 +81,7 @@ class RianListEditor extends Component<DefaultProps, Props, State> {
 				loading: oneOfNoteData.loading,
 				noteId,
 				title: '',
-				data: '',
+				data: null,
 				tags: [],
 			});
 		}

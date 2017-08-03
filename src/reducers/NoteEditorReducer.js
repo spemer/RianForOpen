@@ -2,6 +2,7 @@
 import {
   SAVE_REQUEST,
   SAVE_COMPLETE,
+  SAVE_REQUEST_CANCELLED,
   DELETE_REQUEST,
   DELETE_COMPLETE,
 } from '../constants';
@@ -81,6 +82,10 @@ export default function NoteEditor(
 			save: true,
 		});
 	case SAVE_COMPLETE:
+		return Object.assign({}, state, {
+			save: false,
+		});
+	case SAVE_REQUEST_CANCELLED:
 		return Object.assign({}, state, {
 			save: false,
 		});

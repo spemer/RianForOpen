@@ -22,7 +22,7 @@ import { makeTagToString, makeStringToTagArray } from '../../../../util/handleDa
 import editorConfig from '../../editorConfig';
 import { changeTimelineLeftBar } from '../../../../../actions/AppActions';
 import { getTagsByCondition } from '../../../../../graphqls/TagGraphQl';
-import { saveRequest, deleteRequest } from '../../../../../actions/NoteEditorActions';
+import { saveRequest, saveRequestCancle, deleteRequest } from '../../../../../actions/NoteEditorActions';
 import { notePreviewUpdate } from '../../../../../graphqls/TimelineGraphQl';
 import SideHead from './sideHead';
 // css
@@ -59,6 +59,9 @@ function mapToDispatch(dispatch) {
 		saveRequestDispatch(method: Function) {
 			dispatch(saveRequest(method));
 		},
+		saveRequestCancleDispatch() {
+			dispatch(saveRequestCancle());
+		},
 		deleteRequestDispatch(noteId: string) {
 			dispatch(deleteRequest(noteId));
 		},
@@ -73,11 +76,12 @@ type DefaultProps = {
 	noteId: ?string,
 	saveMutate: Function,
 	title: string,
-	data: string,
+	data: ?string,
 	tags: Array<string>,
 	saveRequestDispatch: Function,
 	changeTimelineLeftBarDispatch: Function,
 	deleteRequestDispatch: Function,
+	saveRequestCancleDispatch: Function,
 };
 
 type Props = {
@@ -86,13 +90,14 @@ type Props = {
 	themeColor: string,
 	noteId: ?string,
 	saveMutate: Function,
-	title: ?string,
+	title: string,
 	loading: boolean,
 	data: ?string,
 	tags: Array<string>,
 	saveRequestDispatch: Function,
 	changeTimelineLeftBarDispatch: Function,
 	deleteRequestDispatch: Function,
+	saveRequestCancleDispatch: Function,
 };
 
 type SaveFormat = {
@@ -104,6 +109,7 @@ type SaveFormat = {
 };
 
 type State = {
+	saveDebounce: boolean,
 	loading: boolean,
 	noteId: ?string,
 	data: ?string,
@@ -119,13 +125,14 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		themeColor: '',
 		noteId: null,
 		saveMutate: () => {},
-		data: '',
+		data: null,
 		tags: [],
 		loading: false,
 		title: '',
 		saveRequestDispatch: () => {},
 		changeTimelineLeftBarDispatch: () => {},
 		deleteRequestDispatch: () => {},
+		saveRequestCancleDispatch: () => {},
 	};
 
 	constructor(props: Props) {
@@ -135,11 +142,18 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleTagChange = this.handleTagChange.bind(this);
 		this.saveDebounce = debounce(() => {
-			this.props.saveRequestDispatch(this.saveObservable);
+			if (this.state.saveDebounce) {
+				this.props.saveRequestDispatch(this.saveObservable);
+			} else {
+				this.setState(() => ({
+					saveDebounce: true,
+				}));
+			}
 		}, 1000);
 	}
 
 	state = {
+		saveDebounce: false,
 		loading: this.props.loading,
 		noteId: this.props.noteId,
 		tags: '',
@@ -178,7 +192,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
-		// console.log('editior get new Props', this.props, nextProps);
+		console.log('editior get new Props', this.props, nextProps);
 		if (process.env.NODE_ENV === 'production' && !SERVER) {
 			const {
 				loading,
@@ -188,10 +202,21 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 				title,
 				full,
 				timelineLeftBar,
+				saveRequestCancleDispatch,
 			} = nextProps;
 			if (this.props.full !== full) return;
 			if (this.props.timelineLeftBar !== timelineLeftBar) return;
+			if (this.props.noteId !== noteId) {
+				saveRequestCancleDispatch();
+			}
+			let saveDebounce = true;
+			if (loading) {
+				saveDebounce = false;
+			} else if (this.props.loading && !loading) {
+				saveDebounce = false;
+			}
 			this.setState({
+				saveDebounce,
 				loading,
 				noteId,
 				title,
@@ -223,7 +248,6 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			tags: makeStringToTagArray(tags),
 			preImage,
 		};
-		// console.log('variables', variables);
 		return saveMutate({
 			variables,
 			refetchQueries: [
@@ -239,8 +263,9 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 	}
 
 	handleModelChange(model: string) {
-		this.setState(() => ({ data: model }));
-		// this.saveDebounce();
+		this.setState({ data: model });
+		if (!model) return;
+		this.saveDebounce();
 	}
 
 	handleChange({ target: { value } }: any) {
