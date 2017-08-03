@@ -29,7 +29,7 @@ type State = {
 	loading: boolean,
 	noteId: ?string,
 	title: string,
-	data: string,
+	data: ?string,
 	tags: Array<string>,
 };
 
@@ -87,7 +87,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 				loading: oneOfNoteData.loading,
 				noteId,
 				title: '',
-				data: '',
+				data: null,
 				tags: [],
 			});
 		}
@@ -99,7 +99,7 @@ class ModalEditor extends Component<DefaultProps, Props, State> {
 					loading: oneOfNoteData.loading,
 					noteId,
 					title: '',
-					data: '',
+					data: null,
 					tags: [],
 				});
 			}
