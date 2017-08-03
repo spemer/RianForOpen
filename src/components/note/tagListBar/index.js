@@ -232,7 +232,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		return (
 			<Motion
 				style={{
-					x: spring(leftBar && !full ? 179 : 0),
+					x: spring(leftBar && !full ? 155 : 0),
 					y: spring(leftBar && !full ? 1 : 0),
 				}}
 			>

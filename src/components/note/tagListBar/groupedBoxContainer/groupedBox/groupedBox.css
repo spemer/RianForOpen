@@ -3,7 +3,7 @@
     & .titleBox {
         height: 20px;
         box-sizing: border-box;
-        padding-left: 24px;
+        padding-left: 20px;
         & .titleName {
             font-family: NotoSansCJKkr-Bold;
             font-weight: bold;
@@ -17,7 +17,7 @@
         & .tagBlock {
             cursor: pointer;
             display: flex;
-            padding-left: 24px;
+            padding-left: 20px;
             height: 28px;
             justify-content: flex-start;
             align-items: center;
