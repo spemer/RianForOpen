@@ -220,8 +220,7 @@ class Head extends Component<DefaultProps, Props, State> {
 
 	componentDidMount() {
 		$('head').append('<script id="fr-fek">try{(function (k){localStorage.FEK=k;t=document.getElementById(\'fr-fek\');t.parentNode.removeChild(t);})(\'cntD-16qnnvfH3fij==\')}catch(e){}</script>');
-
-		if (!SERVER && navigator.userAgent.match(
+		if (!SERVER && !navigator.userAgent.match(
 			/Android|Mobile|iP(hone|od|ad)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/)) {
 			screenfull.onchange(() => {
 				if (screenfull.isFullscreen) {
