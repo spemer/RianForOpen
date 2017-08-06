@@ -86,7 +86,7 @@ const ConnectedMainComponent = connect(mapToState)(MainComponent);
 
 export default () => {
 	if (!SERVER && navigator.userAgent.match(
-		/Android|Mobile|iP(hone|od|)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/)) {
+		/Android|iP(hone|od|)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/)) {
 		return (
 			<div id={css.app}>
 				<Helmet
