@@ -349,7 +349,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 								role="button"
 								tabIndex="-5"
 							>
-								태그 이름순
+								가나다순
 							</div>
 							<div
 								className={css.sortButtonRight}
@@ -360,7 +360,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 								role="button"
 								tabIndex="-4"
 							>
-								노트 개수순
+								개수순
 							</div>
 						</div>
 						<div

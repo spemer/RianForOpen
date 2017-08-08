@@ -72,7 +72,7 @@
             top: 0;
             right: 280px; bottom:0;
             height: 47px; margin-top:auto; margin-bottom:auto;
-            width: 50px;
+            width: 54px;
             outline: none;
             cursor: pointer;
             & .icon {
@@ -94,7 +94,7 @@
             top: 0;
             right: 220px;
             height: 48px; margin-top:auto; margin-bottom:auto;
-            width: 48px;
+            width: 54px;
             outline: none;
             cursor: pointer;
             & .icon {
@@ -128,7 +128,7 @@
             top: 0;
             right: 160px;
             height: 47px; margin-top:auto; margin-bottom:auto;
-            width: 50px;
+            width: 54px;
             outline: none;
             cursor: pointer;
             & .icon {
@@ -149,7 +149,7 @@
             position: absolute; top: 0;
             right: 100px;
             height: 47px; margin-top:auto; margin-bottom:auto;
-            width: 48px;
+            width: 54px;
             outline: none;
             cursor: pointer;
             & .icon {
@@ -195,14 +195,15 @@
                     flex: 0 0 32px;
                     position: relative;
                     box-sizing: border-box;
-                    width: 100%;
                     & .name {
-                        position: absolute; top: 15px; bottom:0;
-                        left: 14px;
+                        width: 100%;
                         color: #babac0;
                         font-family: NotoSansCJKkr-Regular;
                         font-size: 10px;
-                        letter-spacing: -0.2px; 
+                        letter-spacing: -.2px;
+                        box-sizing: border-box;
+                        padding-left: 14px;
+                        padding-top: 15px;
                     }
                 }
                 & .selectBox {
@@ -228,6 +229,7 @@
                             position: absolute; top: 0; bottom:0;
                             left: 14px;
                             height: 18px; margin-top:auto; margin-bottom:auto;
+                            width: 80px;
                         }
                         & .circle {
                             position: absolute;

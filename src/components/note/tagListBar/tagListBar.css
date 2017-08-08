@@ -144,7 +144,7 @@
         & .sortButtonRight {
             display: inline-block;
             position: absolute;
-            right: 20px;
+            right: 30px;
             height: 11px; margin-top:auto; margin-bottom:auto;
             font-family: NotoSansCJKkr-Regular;
             font-size: 11px;
