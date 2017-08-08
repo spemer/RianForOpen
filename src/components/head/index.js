@@ -489,19 +489,6 @@ class Head extends Component<DefaultProps, Props, State> {
 								role="button"
 								tabIndex="-5"
 							>
-								<svg className={css.icon} viewBox="0 0 24 24">
-									<g>
-										<rect x="18" y="2" fill={cardIconColor} width="4" height="4" />
-										<rect x="18" y="10" fill={cardIconColor} width="4" height="4" />
-										<rect x="18" y="18" fill={cardIconColor} width="4" height="4" />
-										<rect x="10" y="2" fill={cardIconColor} width="4" height="4" />
-										<rect x="10" y="10" fill={cardIconColor} width="4" height="4" />
-										<rect x="10" y="18" fill={cardIconColor} width="4" height="4" />
-										<rect x="2" y="2" fill={cardIconColor} width="4" height="4" />
-										<rect x="2" y="10" fill={cardIconColor} width="4" height="4" />
-										<rect x="2" y="18" fill={cardIconColor} width="4" height="4" />
-									</g>
-								</svg>
 								<svg className={css.name} viewBox="0 0 26 14">
 									<g>
 										<path
@@ -528,7 +515,7 @@ class Head extends Component<DefaultProps, Props, State> {
 								role="button"
 								tabIndex="-4"
 							>
-								<svg className={css.listName} viewBox="0 0 26 14">
+								<svg className={css.name} viewBox="0 0 26 14">
 									<g>
 										<path
 											fill={listIconColor}
@@ -542,13 +529,6 @@ class Head extends Component<DefaultProps, Props, State> {
 										/>
 									</g>
 								</svg>
-								<svg className={css.listIcon} viewBox="0 0 24 24">
-									<g>
-										<rect x="2" y="2" fill={listIconColor} width="20" height="4" />
-										<rect x="2" y="10" fill={listIconColor} width="20" height="4" />
-										<rect x="2" y="18" fill={listIconColor} width="20" height="4" />
-									</g>
-								</svg>
 							</div>
 						</Link>
 					</div>
@@ -558,73 +538,44 @@ class Head extends Component<DefaultProps, Props, State> {
 						role="button"
 						tabIndex="0"
 					>
-						<svg className={css.icon} viewBox="0 0 24 24" opacity={leftBar ? '1' : '0.38'}>
+						<svg className={css.icon} viewBox="0 0 58 24" opacity={leftBar ? '1' : '0.38'}>
 							<g>
-								<path
-									fill={tagIconColor}
-									d="M12,22.9c-0.3,0-0.5-0.1-0.7-0.3l-9.9-9.9c-0.2-0.2-0.3-0.4-0.3-0.7V2.1c0-0.6,0.4-1,1-1H12
-									c0.3,0,0.5,0.1,0.7,0.3l9.9,9.9c0.4,0.4,0.4,1,0,1.4l-9.9,9.9C12.5,22.8,12.3,22.9,12,22.9z M3.1,11.6l8.9,8.9l8.5-8.5l-8.9-8.9
-									H3.1V11.6z"
-								/>
-								<circle fill={tagIconColor} cx="6" cy="6" r="1.5" />
-								<path
-									fill={tagIconColor}
-									d="M14.6,15.6c-0.3,0-0.5-0.1-0.7-0.3l-5.1-5.1c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5.1,5.1c0.4,0.4,0.4,1,0,1.4
-									C15.1,15.5,14.9,15.6,14.6,15.6z"
-								/>
-								<path
-									fill={tagIconColor}
-									d="M16.8,13.5c-0.3,0-0.5-0.1-0.7-0.3L10.9,8c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5.2,5.2c0.4,0.4,0.4,1,0,1.4
-									C17.3,13.4,17.1,13.5,16.8,13.5z"
-								/>
-								<path
-									fill={tagIconColor}
-									d="M12.5,17.8c-0.3,0-0.5-0.1-0.7-0.3l-5.2-5.2c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5.2,5.2c0.4,0.4,0.4,1,0,1.4
-									C13,17.7,12.8,17.8,12.5,17.8z"
-								/>
-							</g>
-						</svg>
-						<svg className={css.name} viewBox="0 0 26 14" opacity={leftBar ? '1' : '0.38'}>
-							<g>
-								<path
-									fill={tagIconColor}
-									d="M2.7,9c1.4,0,2.5-0.1,3.7-0.3l0.2,1.5c-1.5,0.3-2.8,0.3-4.7,0.3H0.9V1.9h5.2v1.5H2.7v1.9h3.2v1.4H2.7V9z
-									M11.6,0.5v12.9H9.8V7h-1v5.9H7.1V0.8h1.7v4.8h1v-5H11.6z"
-								/>
-								<path
-									fill={tagIconColor}
-									d="M25.1,10.3v1.5H13.4v-1.5H25.1z M21.8,3.2h-7.2V1.7h9v1.5c0,1.8,0,3.6-0.5,6.2l-1.8-0.2
-									C21.8,6.9,21.8,5,21.8,3.2L21.8,3.2z"
-								/>
-							</g>
-						</svg>
-					</div>
-					<div
-						className={css.focusFull}
-						onClick={pathname.slice(0, 5) === '/list' && fullScreen}
-						role="button"
-						tabIndex="-5"
-					>
-						<svg className={css.icon} viewBox="0 0 24 24" opacity={pathName ? '0.1' : '0.38'}>
-							<circle fill="black" cx="12" cy="12" r="9" />
-							<circle fill="#FFFFFF" cx="12" cy="12" r="7" />
-							<circle fill="black" cx="12" cy="12" r="2" />
-						</svg>
-						<svg className={css.name} viewBox="0 0 26 14" opacity={pathName ? '0.1' : '0.38'}>
-							<g>
-								<path
-									fill="black"
-									d="M7.9,7.4C6.4,7,5.4,6.1,4.8,5C4.2,6.2,3.2,7.1,1.7,7.6L0.8,6.2c2-0.6,3-2,3.1-3.5H1.3V1.2h7v1.5H5.7
-									c0.1,1.4,1.1,2.7,3,3.3L7.9,7.4z M9.6,8.1h1.8v5.2H2.9V8.1h1.8v1.2h4.9V8.1z M9.6,10.7H4.7v1.1h4.9V10.7z M11.4,0.5v7H9.6v-7H11.4z
-									"
-								/>
-								<path
-									fill="black"
-									d="M20.3,7.9v1c2.2,0.2,3.5,1,3.5,2.3c0,1.5-1.7,2.3-4.5,2.3c-2.8,0-4.5-0.9-4.5-2.3c0-1.3,1.3-2.1,3.6-2.3
-									V7.9h-4.9V6.4h11.7v1.5H20.3z M14.1,4.5c2.4-0.2,3.7-1.1,4-1.9h-3.4V1.1h9.5v1.5h-3.4c0.3,0.9,1.6,1.7,4,1.9l-0.6,1.4
-									c-2.4-0.2-4-1.1-4.7-2.3c-0.7,1.2-2.3,2.1-4.7,2.3L14.1,4.5z M19.4,10.2c-1.7,0-2.6,0.3-2.6,0.9c0,0.6,0.9,0.9,2.6,0.9
-									s2.6-0.3,2.6-0.9C22,10.5,21.1,10.2,19.4,10.2z"
-								/>
+								<g>
+									<path
+										fill={tagIconColor}
+										d="M14,20c-0.2,0-0.4-0.1-0.5-0.2l-7.3-7.3C6,12.4,6,12.2,6,12V4.7C6,4.3,6.3,4,6.7,4H14
+			c0.2,0,0.4,0.1,0.5,0.2l7.3,7.3c0.3,0.3,0.3,0.8,0,1l-7.3,7.3C14.3,19.9,14.2,20,14,20z M7.4,11.7l6.5,6.5l6.2-6.2l-6.5-6.5H7.4
+			V11.7z"
+									/>
+									<circle fill={tagIconColor} cx="9.6" cy="7.6" r="1.1" />
+									<path
+										fill={tagIconColor}
+										d="M15.9,14.6c-0.2,0-0.4-0.1-0.5-0.2l-3.7-3.7c-0.3-0.3-0.3-0.8,0-1s0.8-0.3,1,0l3.7,3.7
+			c0.3,0.3,0.3,0.8,0,1C16.3,14.6,16.1,14.6,15.9,14.6z"
+									/>
+									<path
+										fill={tagIconColor}
+										d="M17.5,13.1c-0.2,0-0.4-0.1-0.5-0.2l-3.8-3.8c-0.3-0.3-0.3-0.8,0-1c0.3-0.3,0.8-0.3,1,0l3.8,3.8
+			c0.3,0.3,0.3,0.8,0,1C17.9,13,17.7,13.1,17.5,13.1z"
+									/>
+									<path
+										fill={tagIconColor}
+										d="M14.3,16.3c-0.2,0-0.4-0.1-0.5-0.2L10,12.2c-0.3-0.3-0.3-0.8,0-1s0.8-0.3,1,0l3.8,3.8c0.3,0.3,0.3,0.8,0,1
+			C14.7,16.2,14.5,16.3,14.3,16.3z"
+									/>
+								</g>
+								<g>
+									<path
+										fill={tagIconColor}
+										d="M29.7,14c1.4,0,2.5-0.1,3.7-0.3l0.2,1.5c-1.5,0.3-2.8,0.3-4.7,0.3h-0.9V6.9h5.2v1.5h-3.5v1.9h3.2v1.4h-3.2
+			V14z M38.5,5.5v12.9h-1.8V12h-1v5.9H34V5.8h1.7v4.8h1v-5H38.5z"
+									/>
+									<path
+										fill={tagIconColor}
+										d="M52,15.3v1.5H40.4v-1.5H52z M48.8,8.2h-7.2V6.7h9v1.5c0,1.8,0,3.6-0.5,6.2l-1.8-0.2
+			C48.8,11.9,48.8,10,48.8,8.2L48.8,8.2z"
+									/>
+								</g>
 							</g>
 						</svg>
 					</div>
@@ -634,162 +585,194 @@ class Head extends Component<DefaultProps, Props, State> {
 						role="button"
 						tabIndex="-5"
 					>
-						<svg className={css.icon} viewBox="0 0 24 24" opacity={themeOnOff ? '1' : '0.38'}>
-							<path
-								fill={themeOnOff ? themeColor : 'black'}
-								d="M12,3c-5,0-9,4-9,9s4,9,9,9c0.8,0,1.5-0.7,1.5-1.5c0-0.4-0.1-0.7-0.4-1c-0.2-0.3-0.4-0.6-0.4-1
-								c0-0.8,0.7-1.5,1.5-1.5H16c2.8,0,5-2.2,5-5C21,6.6,17,3,12,3z M6.5,12C5.7,12,5,11.3,5,10.5S5.7,9,6.5,9S8,9.7,8,10.5S7.3,12,6.5,12
-								z M9.5,8C8.7,8,8,7.3,8,6.5S8.7,5,9.5,5S11,5.7,11,6.5S10.3,8,9.5,8z M14.5,8C13.7,8,13,7.3,13,6.5S13.7,5,14.5,5S16,5.7,16,6.5
-								S15.3,8,14.5,8z M17.5,12c-0.8,0-1.5-0.7-1.5-1.5S16.7,9,17.5,9S19,9.7,19,10.5S18.3,12,17.5,12z"
-							/>
-						</svg>
-
-						<svg className={css.name} viewBox="0 0 26 14" opacity={themeOnOff ? '1' : '0.38'}>
+						<svg className={css.icon} viewBox="0 0 58 24" opacity={themeOnOff ? '1' : '0.38'}>
 							<g>
 								<path
 									fill={themeOnOff ? themeColor : 'black'}
-									d="M2.5,9.1c1.3,0,2.4-0.1,3.5-0.3l0.2,1.5c-1.5,0.2-2.7,0.3-4.5,0.3H0.8V2h4.8v1.5h-3v2H5v1.4H2.5V9.1z
-									M7,0.8h1.7v12.1H7V6.7H5.6V5.2H7V0.8z M11.5,0.5v12.9H9.7V0.5H11.5z"
+									d="M13.9,4c-4.4,0-8,3.6-8,8s3.6,8,8,8c0.7,0,1.3-0.6,1.3-1.3c0-0.3-0.1-0.7-0.3-0.9c-0.2-0.2-0.3-0.5-0.3-0.9
+		c0-0.7,0.6-1.3,1.3-1.3h1.6c2.5,0,4.4-2,4.4-4.4C21.9,7.2,18.3,4,13.9,4z M9,12c-0.7,0-1.3-0.6-1.3-1.3S8.3,9.3,9,9.3
+		s1.3,0.6,1.3,1.3S9.7,12,9,12z M11.7,8.4c-0.7,0-1.3-0.6-1.3-1.3s0.6-1.3,1.3-1.3S13,6.4,13,7.1S12.4,8.4,11.7,8.4z M16.1,8.4
+		c-0.7,0-1.3-0.6-1.3-1.3s0.6-1.3,1.3-1.3c0.7,0,1.3,0.6,1.3,1.3S16.8,8.4,16.1,8.4z M18.8,12c-0.7,0-1.3-0.6-1.3-1.3
+		s0.6-1.3,1.3-1.3s1.3,0.6,1.3,1.3S19.5,12,18.8,12z"
 								/>
-								<path
-									fill={themeOnOff ? themeColor : 'black'}
-									d="M13.7,1.8h6.2v8.5h-6.2V1.8z M15.5,8.9H18V3.2h-2.5V8.9z M25.2,6.9h-1.9v6.5h-1.8V0.6h1.8v4.8h1.9V6.9z"
-								/>
+								<g>
+									<path
+										fill={themeOnOff ? themeColor : 'black'}
+										d="M29.4,14.1c1.3,0,2.4-0.1,3.5-0.3l0.2,1.5c-1.5,0.2-2.7,0.3-4.5,0.3h-0.9V7h4.8v1.5h-3v2h2.5v1.4h-2.5
+			V14.1z M33.9,5.8h1.7v12.1h-1.7v-6.1h-1.4v-1.5h1.4V5.8z M38.3,5.5v12.9h-1.8V5.5H38.3z"
+									/>
+									<path
+										fill={themeOnOff ? themeColor : 'black'}
+										d="M40.5,6.8h6.2v8.5h-6.2V6.8z M42.4,13.9h2.5V8.2h-2.5V13.9z M52.1,11.9h-1.9v6.5h-1.8V5.6h1.8v4.8h1.9
+			V11.9z"
+									/>
+								</g>
+							</g>
+						</svg>
+						{themeOnOff &&
+						<div className={css.selectList} style={{ zIndex: '777' }}>
+							<div className={css.menuTitle}>
+								<div className={css.name}>색상선택</div>
+							</div>
+							<div className={css.selectBox}>
+								<div
+									className={css.selectOne}
+									onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#ff9ab2'); }}
+									style={{ borderLeft: themeColor === '#ff9ab2' && '4px solid #ff9ab2' }}
+									role="button"
+									tabIndex="0"
+								>
+									<div className={css.name} style={{ color: '#ff9ab2', left: themeColor === '#ff9ab2' && '10px' }}>베이비 핑크</div>
+									<div className={css.circle} style={{ backgroundColor: '#ff9ab2' }} />
+								</div>
+								<div
+									className={css.selectOne}
+									onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#ff3466'); }}
+									style={{ borderLeft: themeColor === '#ff3466' && '4px solid #ff3466' }}
+									role="button"
+									tabIndex="-7"
+								>
+									<div className={css.name} style={{ color: '#ff3466', left: themeColor === '#ff3466' && '10px' }}>레드 핑크</div>
+									<div className={css.circle} style={{ backgroundColor: '#ff3466' }} />
+								</div>
+								<div
+									className={css.selectOne}
+									onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#1ce8b5'); }}
+									style={{ borderLeft: themeColor === '#1ce8b5' && '4px solid #1ce8b5' }}
+									role="button"
+									tabIndex="-7"
+								>
+									<div className={css.name} style={{ color: '#1ce8b5', left: themeColor === '#1ce8b5' && '10px' }}>아쿠아마린</div>
+									<div className={css.circle} style={{ backgroundColor: '#1ce8b5' }} />
+								</div>
+								<div
+									className={css.selectOne}
+									onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#2dcc4f'); }}
+									style={{ borderLeft: themeColor === '#2dcc4f' && '4px solid #2dcc4f' }}
+									role="button"
+									tabIndex="-7"
+								>
+									<div className={css.name} style={{ color: '#2dcc4f', left: themeColor === '#2dcc4f' && '10px' }}>네츄럴 그린</div>
+									<div className={css.circle} style={{ backgroundColor: '#2dcc4f' }} />
+								</div>
+								<div
+									className={css.selectOne}
+									onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#0088ff'); }}
+									style={{ borderLeft: themeColor === '#0088ff' && '4px solid #0088ff' }}
+									role="button"
+									tabIndex="-7"
+								>
+									<div className={css.name} style={{ color: '#0088ff', left: themeColor === '#0088ff' && '10px' }}>라이트 블루</div>
+									<div className={css.circle} style={{ backgroundColor: '#0088ff' }} />
+								</div>
+								<div
+									className={css.selectOne}
+									onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#536dfe'); }}
+									style={{ borderLeft: themeColor === '#536dfe' && '4px solid #536dfe' }}
+									role="button"
+									tabIndex="-7"
+								>
+									<div className={css.name} style={{ color: '#536dfe', left: themeColor === '#536dfe' && '10px' }}>퍼플 블루</div>
+									<div className={css.circle} style={{ backgroundColor: '#536dfe' }} />
+								</div>
+								<div
+									className={css.selectOne}
+									onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#9f9f9f'); }}
+									style={{ borderLeft: themeColor === '#9f9f9f' && '4px solid #9f9f9f' }}
+									role="button"
+									tabIndex="-7"
+								>
+									<div className={css.name} style={{ color: '#9f9f9f', left: themeColor === '#9f9f9f' && '10px' }}>웜 그레이</div>
+									<div className={css.circle} style={{ backgroundColor: '#9f9f9f' }} />
+								</div>
+								<div
+									className={css.selectOne}
+									onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#353946'); }}
+									style={{ borderLeft: themeColor === '#353946' && '4px solid #353946' }}
+									role="button"
+									tabIndex="-7"
+								>
+									<div className={css.name} style={{ color: '#353946', left: themeColor === '#353946' && '10px' }}>클래식 다크</div>
+									<div className={css.circle} style={{ backgroundColor: '#353946' }} />
+								</div>
+							</div>
+						</div>}
+					</div>
+					<div
+						className={css.focusFull}
+						onClick={pathname.slice(0, 5) === '/list' && fullScreen}
+						role="button"
+						tabIndex="-5"
+					>
+						<svg className={css.icon} viewBox="0 0 58 24" opacity={pathName ? '0.1' : '0.38'}>
+							<g>
+								<g>
+									<circle fill="black" cx="13.9" cy="12" r="8" />
+									<circle fill="#FFFFFF" cx="13.9" cy="12" r="6.2" />
+									<circle fill="black" cx="13.9" cy="12" r="1.8" />
+								</g>
+								<g>
+									<path
+										fill="black"
+										d="M34.7,12.4c-1.5-0.4-2.5-1.3-3-2.4c-0.6,1.2-1.6,2.2-3.1,2.6l-0.9-1.5c2-0.6,3-2,3.1-3.5h-2.6V6.2h7v1.5
+			h-2.5c0.1,1.4,1.1,2.7,3,3.3L34.7,12.4z M36.5,13.1h1.8v5.2h-8.6v-5.2h1.8v1.2h4.9V13.1z M36.5,15.7h-4.9v1.1h4.9V15.7z M38.3,5.5
+			v7h-1.9v-7H38.3z"
+									/>
+									<path
+										fill="black"
+										d="M47.2,12.9v1c2.2,0.2,3.5,1,3.5,2.3c0,1.5-1.7,2.3-4.5,2.3c-2.8,0-4.5-0.9-4.5-2.3c0-1.3,1.3-2.1,3.6-2.3
+			v-0.9h-4.9v-1.5h11.7v1.5H47.2z M41,9.5c2.4-0.2,3.7-1.1,4-1.9h-3.4V6.1h9.5v1.5h-3.4c0.3,0.9,1.6,1.7,4,1.9L51,10.9
+			c-2.4-0.2-4-1.1-4.7-2.3c-0.7,1.2-2.3,2.1-4.7,2.3L41,9.5z M46.3,15.2c-1.7,0-2.6,0.3-2.6,0.9c0,0.6,0.9,0.9,2.6,0.9
+			s2.6-0.3,2.6-0.9C48.9,15.5,48,15.2,46.3,15.2z"
+									/>
+								</g>
 							</g>
 						</svg>
 					</div>
-					{themeOnOff &&
-					<div className={css.selectList} style={{ zIndex: '777' }}>
-						<div className={css.menuTitle}>
-							<div className={css.name}>색상선택</div>
-						</div>
-						<div className={css.selectBox}>
-							<div
-								className={css.selectOne}
-								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#ff9ab2'); }}
-								style={{ borderLeft: themeColor === '#ff9ab2' && '4px solid #ff9ab2' }}
-								role="button"
-								tabIndex="0"
-							>
-								<div className={css.name} style={{ color: '#ff9ab2', left: themeColor === '#ff9ab2' && '10px' }}>베이비 핑크</div>
-								<div className={css.circle} style={{ backgroundColor: '#ff9ab2' }} />
-							</div>
-							<div
-								className={css.selectOne}
-								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#ff3466'); }}
-								style={{ borderLeft: themeColor === '#ff3466' && '4px solid #ff3466' }}
-								role="button"
-								tabIndex="-7"
-							>
-								<div className={css.name} style={{ color: '#ff3466', left: themeColor === '#ff3466' && '10px' }}>레드 핑크</div>
-								<div className={css.circle} style={{ backgroundColor: '#ff3466' }} />
-							</div>
-							<div
-								className={css.selectOne}
-								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#1ce8b5'); }}
-								style={{ borderLeft: themeColor === '#1ce8b5' && '4px solid #1ce8b5' }}
-								role="button"
-								tabIndex="-7"
-							>
-								<div className={css.name} style={{ color: '#1ce8b5', left: themeColor === '#1ce8b5' && '10px' }}>아쿠아마린</div>
-								<div className={css.circle} style={{ backgroundColor: '#1ce8b5' }} />
-							</div>
-							<div
-								className={css.selectOne}
-								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#2dcc4f'); }}
-								style={{ borderLeft: themeColor === '#2dcc4f' && '4px solid #2dcc4f' }}
-								role="button"
-								tabIndex="-7"
-							>
-								<div className={css.name} style={{ color: '#2dcc4f', left: themeColor === '#2dcc4f' && '10px' }}>네츄럴 그린</div>
-								<div className={css.circle} style={{ backgroundColor: '#2dcc4f' }} />
-							</div>
-							<div
-								className={css.selectOne}
-								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#0088ff'); }}
-								style={{ borderLeft: themeColor === '#0088ff' && '4px solid #0088ff' }}
-								role="button"
-								tabIndex="-7"
-							>
-								<div className={css.name} style={{ color: '#0088ff', left: themeColor === '#0088ff' && '10px' }}>라이트 블루</div>
-								<div className={css.circle} style={{ backgroundColor: '#0088ff' }} />
-							</div>
-							<div
-								className={css.selectOne}
-								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#536dfe'); }}
-								style={{ borderLeft: themeColor === '#536dfe' && '4px solid #536dfe' }}
-								role="button"
-								tabIndex="-7"
-							>
-								<div className={css.name} style={{ color: '#536dfe', left: themeColor === '#536dfe' && '10px' }}>퍼플 블루</div>
-								<div className={css.circle} style={{ backgroundColor: '#536dfe' }} />
-							</div>
-							<div
-								className={css.selectOne}
-								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#9f9f9f'); }}
-								style={{ borderLeft: themeColor === '#9f9f9f' && '4px solid #9f9f9f' }}
-								role="button"
-								tabIndex="-7"
-							>
-								<div className={css.name} style={{ color: '#9f9f9f', left: themeColor === '#9f9f9f' && '10px' }}>웜 그레이</div>
-								<div className={css.circle} style={{ backgroundColor: '#9f9f9f' }} />
-							</div>
-							<div
-								className={css.selectOne}
-								onClick={() => { this.changeThemeState(); changeThemeColorDispatch('#353946'); }}
-								style={{ borderLeft: themeColor === '#353946' && '4px solid #353946' }}
-								role="button"
-								tabIndex="-7"
-							>
-								<div className={css.name} style={{ color: '#353946', left: themeColor === '#353946' && '10px' }}>클래식 다크</div>
-								<div className={css.circle} style={{ backgroundColor: '#353946' }} />
-							</div>
-						</div>
-					</div>}
 					<div
 						className={css.social}
 						onClick={this.changeSocialState}
 						role="button"
 						tabIndex="-1"
 					>
-						<svg className={css.icon} viewBox="0 0 24 24" opacity="0.1">
+						<svg className={css.icon} viewBox="0 0 58 24" opacity="0.1">
 							<g>
-								<path
-									fill="black"
-									d="M17.5,12.6c1.8,0,3.2-1.5,3.2-3.3s-1.5-3.3-3.2-3.3c-1.8,0-3.2,1.5-3.2,3.3C14.3,11.1,15.8,12.6,17.5,12.6z
-									M15.6,9.4c0.1-1.1,1-1.9,1.9-1.9c1,0,1.9,0.9,1.9,1.9s-0.9,1.9-1.9,1.9C16.4,11.2,15.6,10.4,15.6,9.4z"
-								/>
-								<path
-									fill="black"
-									d="M17.5,14.3c-0.5,0-1.4,0.1-2.5,0.4h-0.1l0.1,0.1c0.3,0.3,0.5,0.8,0.7,1.2V16h0.1c0.8-0.1,1.3-0.2,1.7-0.2
-									c1.7,0,4.4,0.9,4.4,1.9v1.4H16v0.7c0,0.2-0.1,0.5-0.2,0.8v-0.1h7c0.5,0,0.8-0.3,0.8-0.8v-2.2C23.3,15.1,19.3,14.3,17.5,14.3z"
-								/>
-								<path
-									fill="black"
-									d="M7.5,11.4c2.2,0,4-1.8,4-4s-1.8-4-4-4c-2.2,0.1-3.9,1.8-3.9,4S5.3,11.4,7.5,11.4z M5.2,7.4
-									c0-1.2,1-2.3,2.3-2.3s2.3,1.1,2.3,2.3s-1,2.3-2.3,2.3S5.2,8.6,5.2,7.4z"
-								/>
-								<path
-									fill="black"
-									d="M13.7,15.2c-1.5-1.4-4.6-2-6.1-2c-2.4,0-7.1,1.2-7.1,4v2.6c0,0.4,0.4,0.9,0.9,0.9h12.5
-									c0.5,0,0.9-0.4,0.9-0.9v-2.4c0-0.3-0.1-0.7-0.2-1C14.2,15.8,14,15.4,13.7,15.2z M2.1,17.3C2.1,16,5.5,15,7.5,15
-									c1.3,0,3.4,0.5,4.7,1.2c0.5,0.3,0.8,0.6,0.8,1V19H2.1V17.3z"
-								/>
-							</g>
-						</svg>
-						<svg className={css.name} viewBox="0 0 26 14" opacity="0.1">
-							<g>
-								<path
-									fill="black"
-									d="M12.7,10.5V12H1v-1.5h4.9V7.6h1.8v2.9H12.7z M11.5,8C9.2,7.6,7.6,6.4,6.8,4.8C5.9,6.4,4.3,7.6,2,8L1.3,6.5
-									C4.2,6,5.8,4.1,5.8,2.3V1.3h2v0.9c0,1.8,1.6,3.8,4.5,4.2L11.5,8z"
-								/>
-								<path
-									fill="black"
-									d="M20.6,7.3c-1.4-0.5-2.3-1.4-2.9-2.6c-0.6,1.3-1.6,2.3-3,2.8L13.8,6c2.1-0.7,3-2.3,3-4V1h1.9v1.1
-									c0,1.6,0.9,3.2,2.9,3.8L20.6,7.3z M25,12v1.4h-8.9V9.9h6.7V9.2h-6.7V7.8h8.5v3.4H18V12H25z M22.8,5.2h-2.1V3.8h2.1V3h-2.1V1.6h2.1
-									V0.6h1.8v6.7h-1.8V5.2z"
-								/>
+								<g>
+									<path
+										fill="black"
+										d="M19.4,12.5c1.8,0,3.1-1.4,3.1-3s-1.5-3-3.1-3c-1.8,0-3.1,1.4-3.1,3C16.3,11.2,17.7,12.5,19.4,12.5z
+			M17.5,9.6c0.1-1,0.9-1.8,1.8-1.8c1,0,1.8,0.8,1.8,1.8s-0.8,1.8-1.8,1.8C18.4,11.3,17.5,10.5,17.5,9.6z"
+									/>
+									<path
+										fill="black"
+										d="M19.4,14.1c-0.5,0-1.4,0.1-2.4,0.4h-0.1l0.1,0.1c0.3,0.3,0.5,0.7,0.6,1.1v0.1h0.1c0.7-0.1,1.3-0.2,1.7-0.2
+			c1.7,0,4.2,0.8,4.2,1.8v1.3h-5.7v0.6c0,0.2-0.1,0.4-0.2,0.7v-0.1h6.7c0.5,0,0.7-0.3,0.7-0.7v-2C25,14.8,21.1,14.1,19.4,14.1z"
+									/>
+									<path
+										fill="black"
+										d="M9.7,11.5c2.1,0,3.9-1.7,3.9-3.7S11.8,4,9.7,4C7.5,4.1,5.9,5.7,5.9,7.7S7.5,11.5,9.7,11.5z M7.5,7.7
+			c0-1.2,1-2.1,2.2-2.1s2.2,1,2.2,2.1s-1,2.1-2.2,2.1S7.5,8.9,7.5,7.7z"
+									/>
+									<path
+										fill="black"
+										d="M15.7,14.9c-1.5-1.3-4.4-1.9-5.9-1.9c-2.3,0-6.8,1.2-6.8,3.7v2.4c0,0.4,0.4,0.8,0.8,0.8h12.1
+			c0.5,0,0.8-0.4,0.8-0.8V17c0-0.3-0.1-0.6-0.2-0.9C16.2,15.6,16,15.2,15.7,14.9z M4.5,16.9c0-1.2,3.2-2.1,5.2-2.1
+			c1.3,0,3.3,0.4,4.5,1.2c0.5,0.3,0.7,0.5,0.7,0.9v1.7H4.5V16.9z"
+									/>
+								</g>
+								<g>
+									<path
+										fill="black"
+										d="M42.7,15.5V17H31v-1.5h4.9v-2.9h1.8v2.9H42.7z M41.6,13c-2.3-0.4-3.9-1.6-4.8-3.2
+			c-0.8,1.6-2.5,2.8-4.7,3.2l-0.8-1.5c2.9-0.5,4.5-2.5,4.5-4.2V6.3h2v0.9c0,1.8,1.6,3.8,4.5,4.2L41.6,13z"
+									/>
+									<path
+										fill="black"
+										d="M50.7,12.3c-1.4-0.5-2.3-1.4-2.9-2.6c-0.6,1.3-1.6,2.3-3,2.8L43.8,11c2.1-0.7,3-2.3,3-4V6h1.9v1.1
+			c0,1.6,0.9,3.2,2.9,3.8L50.7,12.3z M55.1,17v1.4h-8.9v-3.5h6.7v-0.7h-6.7v-1.4h8.5v3.4H48V17H55.1z M52.9,10.2h-2.1V8.8h2.1V8
+			h-2.1V6.6h2.1V5.6h1.8v6.7h-1.8V10.2z"
+									/>
+								</g>
 							</g>
 						</svg>
 					</div>
