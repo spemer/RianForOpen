@@ -360,7 +360,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 								role="button"
 								tabIndex="-4"
 							>
-								개수순
+								노트개수순
 							</div>
 						</div>
 						<div
