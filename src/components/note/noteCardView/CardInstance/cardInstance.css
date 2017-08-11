@@ -35,6 +35,8 @@
             }
             & .title {
                 font-family: 'Noto Sans KRBold', sans-serif;
+                font-weight: 800;
+                
                 max-height: 66px;
                 overflow: hidden;
                 font-size: 24px;
