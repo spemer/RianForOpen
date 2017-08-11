@@ -1,19 +1,20 @@
 // @flow
 import {
-  SAVE_REQUEST,
-  SAVE_COMPLETE,
-  SAVE_REQUEST_CANCELLED,
-  DELETE_REQUEST,
-  DELETE_COMPLETE,
+	SAVE_REQUEST,
+	SAVE_COMPLETE,
+	SAVE_REQUEST_CANCELLED,
+	DELETE_REQUEST,
+	DELETE_COMPLETE,
+	CHANGE_TRASH_BOX_ON,
 } from '../constants';
-
 
 type State = {
   save: boolean,
   deleteNoteState: {
-	progress: boolean,
-	noteId: ?string
-  },
+    progress: boolean,
+    trashBox: boolean,
+    noteId: ?string
+  }
 };
 
 // type AutoSaveRequestAction = {
@@ -68,6 +69,7 @@ const NoteEditorState: State = {
 	save: false,
 	deleteNoteState: {
 		progress: false,
+		trashBox: false,
 		noteId: null,
 	},
 };
@@ -89,6 +91,12 @@ export default function NoteEditor(
 		return Object.assign({}, state, {
 			save: false,
 		});
+	case CHANGE_TRASH_BOX_ON:
+		return Object.assign({}, state, {
+			deleteNoteState: {
+				trashBox: action.argu,
+			},
+		});
 	case DELETE_REQUEST:
 		return Object.assign({}, state, {
 			deleteNoteState: {
@@ -100,6 +108,7 @@ export default function NoteEditor(
 		return Object.assign({}, state, {
 			deleteNoteState: {
 				progress: false,
+				trashBox: false,
 				noteId: null,
 			},
 		});

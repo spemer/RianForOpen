@@ -9,6 +9,7 @@ import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
 import TimelineSnippet from './TimelineSnippet';
 import { changeNotePreviewSort } from '../../../actions/AppActions';
+import { changeTrashBoxOn } from '../../../actions/NoteEditorActions';
 import { getAllMyNotePreviewsByTags } from '../../../graphqls/TimelineGraphQl';
 import css from './noteTimelineBar.css';
 import './scroll.global.css';
@@ -76,6 +77,9 @@ function mapToDispatch(dispatch) {
 		changeNotePreviewSortDispatch(byUpdatedAt, byLatest) {
 			dispatch(changeNotePreviewSort(byUpdatedAt, byLatest));
 		},
+		changeTrashBoxOnDispatch() {
+			dispatch(changeTrashBoxOn(false));
+		},
 	};
 }
 
@@ -90,6 +94,7 @@ type DefaultProps = {
 	byUpdatedAt: boolean,
 	byLatest: boolean,
 	changeNotePreviewSortDispatch: null,
+	changeTrashBoxOnDispatch: Function,
 };
 
 type Props = {
@@ -107,6 +112,7 @@ type Props = {
 	byUpdatedAt: boolean,
 	byLatest: boolean,
 	changeNotePreviewSortDispatch: Function,
+	changeTrashBoxOnDispatch: Function,
 };
 
 type State = {
@@ -133,6 +139,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 		byUpdatedAt: true,
 		byLatest: true,
 		changeNotePreviewSortDispatch: null,
+		changeTrashBoxOnDispatch: () => {},
 	};
 
 	constructor(props: Props) {
@@ -180,6 +187,7 @@ class NoteTimelineBar extends Component<DefaultProps, Props, State> {
 				updatedAt={moment(data.updatedAt).format('LL')}
 				style={style}
 				themeColor={this.props.themeColor}
+				changeTrashBoxOnDispatch={this.props.changeTrashBoxOnDispatch}
 			/>
 		);
 	}

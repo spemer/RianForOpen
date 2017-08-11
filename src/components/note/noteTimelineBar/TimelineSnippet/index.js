@@ -10,6 +10,7 @@ type Props = {
     updatedAt: string,
     style: any,
 	selected: boolean,
+	changeTrashBoxOnDispatch: Function,
 	themeColor: string,
 };
 
@@ -20,6 +21,7 @@ const TimelineSnippet = ({
   updatedAt = '3일전',
   style = '',
   selected = false,
+  changeTrashBoxOnDispatch,
   themeColor = '',
 }: Props) => {
 	let boxStyle;
@@ -52,7 +54,7 @@ const TimelineSnippet = ({
 	};
 	return (
 		<Link to={`/list/${noteId}`}>
-			<div className={css.container} style={style}>
+			<div className={css.container} onClick={changeTrashBoxOnDispatch} style={style} role="button" tabIndex="-3">
 				<div className={css.box} style={boxStyle} role="button" tabIndex="0">
 					<div className={css.timestamp}>
 						{updatedAt}

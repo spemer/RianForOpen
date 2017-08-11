@@ -5,6 +5,7 @@ import {
   DELETE_REQUEST,
   DELETE_COMPLETE,
   SAVE_REQUEST_CANCELLED,
+  CHANGE_TRASH_BOX_ON,
 } from '../constants';
 
 type saveRequestAction = {
@@ -26,6 +27,11 @@ type deleteRequestAction = {
 
 type deleteCompleteAction = {
 	type: DELETE_COMPLETE,
+}
+
+type changeTrashBoxOnAction = {
+	type: CHANGE_TRASH_BOX_ON,
+	argu: boolean,
 }
 
 
@@ -58,5 +64,12 @@ export function deleteRequest(noteId: string): deleteRequestAction {
 export function deleteComplete(): deleteCompleteAction {
 	return {
 		type: DELETE_COMPLETE,
+	};
+}
+
+export function changeTrashBoxOn(argu: boolean): changeTrashBoxOnAction {
+	return {
+		type: CHANGE_TRASH_BOX_ON,
+		argu,
 	};
 }

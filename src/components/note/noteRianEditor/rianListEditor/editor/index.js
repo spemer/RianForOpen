@@ -22,9 +22,10 @@ import { makeTagToString, makeStringToTagArray } from '../../../../util/handleDa
 import editorConfig from '../../editorConfig';
 import { changeTimelineLeftBar } from '../../../../../actions/AppActions';
 import { getTagsByCondition } from '../../../../../graphqls/TagGraphQl';
-import { saveRequest, saveRequestCancle, deleteRequest } from '../../../../../actions/NoteEditorActions';
+import { saveRequest, saveRequestCancle, deleteRequest, changeTrashBoxOn } from '../../../../../actions/NoteEditorActions';
 import { notePreviewUpdate } from '../../../../../graphqls/TimelineGraphQl';
 import SideHead from './sideHead';
+import TrashBox from './trashBox';
 // css
 import parentCss from '../rianListEditor.css';
 import editorHeadCss from './style/editorHead.css';
@@ -40,14 +41,22 @@ type Store = {
 		full: boolean,
 		timelineLeftBar: boolean,
 		themeColor: string,
+	},
+	NoteEditor: {
+		deleteNoteState: {
+			trashBox: boolean,
+		}
 	}
 };
 
-function mapToState({ App: { full, timelineLeftBar, themeColor } }: Store) {
+function mapToState({
+	App: { full, timelineLeftBar, themeColor },
+	NoteEditor: { deleteNoteState: { trashBox } } }: Store) {
 	return {
 		full,
 		timelineLeftBar,
 		themeColor,
+		trashBox,
 	};
 }
 
@@ -65,6 +74,9 @@ function mapToDispatch(dispatch) {
 		deleteRequestDispatch(noteId: string) {
 			dispatch(deleteRequest(noteId));
 		},
+		changeTrashBoxOnDispatch(argu: boolean) {
+			dispatch(changeTrashBoxOn(argu));
+		},
 	};
 }
 
@@ -72,6 +84,7 @@ type DefaultProps = {
 	full: boolean,
 	timelineLeftBar: boolean,
 	themeColor: string,
+	trashBox: boolean,
 	loading: boolean,
 	noteId: ?string,
 	saveMutate: Function,
@@ -82,12 +95,14 @@ type DefaultProps = {
 	changeTimelineLeftBarDispatch: Function,
 	deleteRequestDispatch: Function,
 	saveRequestCancleDispatch: Function,
+	changeTrashBoxOnDispatch: Function,
 };
 
 type Props = {
 	full: boolean,
 	timelineLeftBar: boolean,
 	themeColor: string,
+	trashBox: boolean,
 	noteId: ?string,
 	saveMutate: Function,
 	title: string,
@@ -98,6 +113,7 @@ type Props = {
 	changeTimelineLeftBarDispatch: Function,
 	deleteRequestDispatch: Function,
 	saveRequestCancleDispatch: Function,
+	changeTrashBoxOnDispatch: Function,
 };
 
 type SaveFormat = {
@@ -123,6 +139,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		full: false,
 		timelineLeftBar: true,
 		themeColor: '',
+		trashBox: false,
 		noteId: null,
 		saveMutate: () => {},
 		data: null,
@@ -133,6 +150,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		changeTimelineLeftBarDispatch: () => {},
 		deleteRequestDispatch: () => {},
 		saveRequestCancleDispatch: () => {},
+		changeTrashBoxOnDispatch: () => {},
 	};
 
 	constructor(props: Props) {
@@ -204,10 +222,14 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 				title,
 				full,
 				timelineLeftBar,
+				trashBox,
 				saveRequestCancleDispatch,
+				themeColor,
 			} = nextProps;
 			if (this.props.full !== full) return;
 			if (this.props.timelineLeftBar !== timelineLeftBar) return;
+			if (this.props.themeColor !== themeColor) return;
+			if (this.props.trashBox !== trashBox) return;
 			// 만약 노트 아이디가 바뀌었으면 기존의 뮤테이션 프로미스를 캔슬
 			if (this.props.noteId !== noteId) {
 				saveRequestCancleDispatch();
@@ -230,6 +252,10 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 				data,
 			});
 		}
+	}
+
+	componentWillUnmount() {
+		this.props.changeTrashBoxOnDispatch(false);
 	}
 
 	saveObservable: Function;
@@ -295,6 +321,8 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			saveRequestDispatch,
 			changeTimelineLeftBarDispatch,
 			deleteRequestDispatch,
+			changeTrashBoxOnDispatch,
+			trashBox,
 		} = this.props;
 		const {
 			noteId,
@@ -308,6 +336,13 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			<div
 				className={parentCss.container}
 			>
+				{trashBox &&
+				<TrashBox
+					title={title}
+					noteId={noteId}
+					deleteRequestDispatch={deleteRequestDispatch}
+					changeTrashBoxOnDispatch={changeTrashBoxOnDispatch}
+				/>}
 				{!full &&
 				<div className={parentCss.sideLine}>
 					<div
@@ -330,7 +365,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 						changeTimelineLeftBarDispatch={changeTimelineLeftBarDispatch}
 						saveObservable={this.saveObservable}
 						saveRequestDispatch={saveRequestDispatch}
-						deleteRequestDispatch={deleteRequestDispatch}
+						changeTrashBoxOnDispatch={changeTrashBoxOnDispatch}
 					/>
 					<div className={parentCss.editorHead}>
 						<div className={editorHeadCss.container}>

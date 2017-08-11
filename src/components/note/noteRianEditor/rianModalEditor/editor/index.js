@@ -21,10 +21,11 @@ import ReactLoading from 'react-loading';
 import { makeTagToString, makeStringToTagArray } from '../../../../util/handleData';
 import editorConfig from '../../editorConfig';
 import { changeTimelineLeftBar } from '../../../../../actions/AppActions';
-import { saveRequest, saveRequestCancle, deleteRequest } from '../../../../../actions/NoteEditorActions';
+import { saveRequest, saveRequestCancle, deleteRequest, changeTrashBoxOn } from '../../../../../actions/NoteEditorActions';
 import { notePreviewUpdate } from '../../../../../graphqls/TimelineGraphQl';
 import { getTagsByCondition } from '../../../../../graphqls/TagGraphQl';
 import SideHead from './sideHead';
+import TrashBox from './trashBox';
 // css
 import parentCss from '../rianModalEditor.css';
 import editorHeadCss from './style/editorHead.css';
@@ -37,12 +38,18 @@ import '../../lineBreaker.global.css';
 type Store = {
 	App: {
 		themeColor: string,
-	}
+	},
+	NoteEditor: {
+		deleteNoteState: {
+			trashBox: boolean,
+		}
+	},
 };
 
-function mapToState({ App: { themeColor } }: Store) {
+function mapToState({ App: { themeColor }, NoteEditor: { deleteNoteState: { trashBox } } }: Store) {
 	return {
 		themeColor,
+		trashBox,
 	};
 }
 
@@ -60,11 +67,15 @@ function mapToDispatch(dispatch) {
 		deleteRequestDispatch(noteId: string) {
 			dispatch(deleteRequest(noteId));
 		},
+		changeTrashBoxOnDispatch(argu: boolean) {
+			dispatch(changeTrashBoxOn(argu));
+		},
 	};
 }
 
 type DefaultProps = {
 	themeColor: string,
+	trashBox: boolean,
 	loading: boolean,
 	noteId: ?string,
 	saveMutate: Function,
@@ -75,10 +86,12 @@ type DefaultProps = {
 	changeTimelineLeftBarDispatch: Function,
 	deleteRequestDispatch: Function,
 	saveRequestCancleDispatch: Function,
+	changeTrashBoxOnDispatch: Function,
 };
 
 type Props = {
 	themeColor: string,
+	trashBox: boolean,
 	noteId: ?string,
 	saveMutate: Function,
 	title: ?string,
@@ -89,6 +102,7 @@ type Props = {
 	changeTimelineLeftBarDispatch: Function,
 	deleteRequestDispatch: Function,
 	saveRequestCancleDispatch: Function,
+	changeTrashBoxOnDispatch: Function,
 };
 
 type SaveFormat = {
@@ -112,6 +126,7 @@ type State = {
 class EditorBox extends Component<DefaultProps, Props, State> {
 	static defaultProps = {
 		themeColor: '',
+		trashBox: false,
 		noteId: null,
 		saveMutate: () => {},
 		data: null,
@@ -122,6 +137,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		changeTimelineLeftBarDispatch: () => {},
 		deleteRequestDispatch: () => {},
 		saveRequestCancleDispatch: () => {},
+		changeTrashBoxOnDispatch: () => {},
 	};
 
 	constructor(props: Props) {
@@ -184,7 +200,11 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 				tags,
 				title,
 				saveRequestCancleDispatch,
+				themeColor,
+				trashBox,
 			} = nextProps;
+			if (this.props.themeColor !== themeColor) return;
+			if (this.props.trashBox !== trashBox) return;
 			// 만약 노트 아이디가 바뀌었으면 기존의 뮤테이션 프로미스를 캔슬
 			if (this.props.noteId !== noteId) {
 				saveRequestCancleDispatch();
@@ -275,6 +295,8 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			saveRequestDispatch,
 			changeTimelineLeftBarDispatch,
 			deleteRequestDispatch,
+			changeTrashBoxOnDispatch,
+			trashBox,
 		} = this.props;
 		const {
 			noteId,
@@ -288,14 +310,20 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			<div
 				className={parentCss.ModalContainer}
 			>
+				{trashBox &&
+					<TrashBox
+						title={title}
+						noteId={noteId}
+						deleteRequestDispatch={deleteRequestDispatch}
+						changeTrashBoxOnDispatch={changeTrashBoxOnDispatch}
+					/>}
 				<div className={parentCss.editorBox}>
 					{loading && <ReactLoading className={parentCss.loader} type="spinningBubbles" color={themeColor} height="20px" width="20px" />}
 					<SideHead
-						noteId={noteId}
 						changeTimelineLeftBarDispatch={changeTimelineLeftBarDispatch}
 						saveObservable={this.saveObservable}
 						saveRequestDispatch={saveRequestDispatch}
-						deleteRequestDispatch={deleteRequestDispatch}
+						changeTrashBoxOnDispatch={changeTrashBoxOnDispatch}
 					/>
 					<div className={parentCss.editorHead}>
 						<div className={editorHeadCss.container}>

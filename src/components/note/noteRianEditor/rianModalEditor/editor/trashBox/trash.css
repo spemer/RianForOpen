@@ -1,0 +1,74 @@
+.container {
+    position: absolute; top: 0; right: 0; bottom: 0;
+    left: 0;
+    width: 566px;
+    height: 250px;
+    margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;
+    & .title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #515861;
+        letter-spacing: -0.6px;        
+        text-align: center;
+        line-height: 35px;
+    }
+    & .subTitle {
+        font-size: 24px;
+        font-weight: 300;
+        color: #515861;
+        letter-spacing: -0.6px;        
+        text-align: center;
+        line-height: 35px;
+    }
+    & .ment {
+        font-size: 18px;
+        font-weight: 300;
+        letter-spacing: -0.4px;    
+        color: #515861;
+        text-align: center;
+        line-height: 40px;
+    }
+    & .trashLoader {
+        position: absolute; 
+        right: 0;
+        left: 0;
+        margin-left: auto; margin-right: auto;     
+    }
+    & .buttonBox {
+        position: absolute; 
+        right: 0;
+        left: 0;
+        margin-top: 50px;
+        margin-left: auto; margin-right: auto;
+        width: 310px;
+        height: 60px;
+        & .leftButton {
+            position: absolute;
+            display: inline-block;
+            left: 0;
+            border: solid 1px #9f9f9f;
+            cursor: pointer;
+            width: 134px;
+            border-radius: 4px;
+            font-size: 18px;
+            color: #9f9f9f;
+            font-weight: bold;
+            line-height: 50px;
+            text-align: center;
+        }
+        & .rightButton {
+            position: absolute;
+            display: inline-block;
+            right: 0;
+            cursor: pointer;
+            width: 134px;
+            border-radius: 4px;
+            background-color: #9f9f9f;            
+            font-size: 18px;
+            color: white;
+            font-weight: bold;
+            line-height: 50px;
+            text-align: center;
+        }
+    }
+}
