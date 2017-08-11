@@ -165,7 +165,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 		}
 		this.currentSelected = e.currentTarget;
 		this.currentSelected.style.backgroundColor = '#f4f4f4';
-		this.currentSelected.style.paddingLeft = '20px';
+		this.currentSelected.style.paddingLeft = '16px';
 		this.currentSelected.style.borderLeft = `4px solid ${this.props.themeColor}`;
 	}
 
@@ -189,7 +189,7 @@ class TagListBar extends Component<DefaultProps, Props, State> {
 	showAllNote() {
 		if (this.currentSelected) {
 			this.currentSelected.style.backgroundColor = null;
-			this.currentSelected.style.paddingLeft = '24px';
+			this.currentSelected.style.paddingLeft = '16px';
 			this.currentSelected.style.borderLeft = null;
 		}
 		if (this.currentSelectedSort) {

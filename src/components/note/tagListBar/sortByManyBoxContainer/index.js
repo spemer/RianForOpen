@@ -23,7 +23,7 @@ const SortByManyBoxContainer = ({ tagList, themeColor, changeClickedBox, selecte
 			const style = {};
 			if (tag.name === selectedTag) {
 				style.backgroundColor = '#f4f4f4';
-				style.paddingLeft = '20px';
+				style.paddingLeft = '16px';
 				style.borderLeft = `4px solid ${themeColor}`;
 			}
 			return (<div className={css.tagBlock} style={style} key={tag._id} onClick={(e) => { changeClickedBox(e, tag.name); }} role="button" tabIndex={index}>

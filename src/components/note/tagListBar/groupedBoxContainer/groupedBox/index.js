@@ -7,7 +7,7 @@ const tagMapToBox = (tagSet, changeClickedBox, themeColor, selectedTag) =>
 		const style = {};
 		if (tag.name === selectedTag) {
 			style.backgroundColor = '#f4f4f4';
-			style.paddingLeft = '20px';
+			style.paddingLeft = '16px';
 			style.borderLeft = `4px solid ${themeColor}`;
 		}
 		return (
