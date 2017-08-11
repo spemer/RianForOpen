@@ -69,6 +69,7 @@ export default function App(state: State = ModeState, action: any): State {
 	case CHANGE_RENDER_TAGS:
 		return Object.assign({}, state, {
 			renderTags: action.tags,
+			timelineLeftBar: true,
 		});
 	case CHANGE_TIMELINE_LEFT_BAR_TAGS:
 		return Object.assign({}, state, {

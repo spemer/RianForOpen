@@ -152,7 +152,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 					saveDebounce: true,
 				}));
 			}
-		}, 3000);
+		}, 1000);
 	}
 
 	state = {
