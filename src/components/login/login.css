@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Noto Sans KRBold';
+    src: url('../../../static/fonts/NotoSansKR-Bold-Hestia.woff') format('woff');
+}
+
 #mainLogin {
     height: 100%;
     width: 100%;
@@ -6,7 +11,7 @@
     & .box {
         position: absolute; top: 0; right:0; bottom: 0; left:0;
         margin: auto;
-        width: 400px;
+        width: 500px;
         height: 480px;
             & .icon {
                 position: absolute;
@@ -17,6 +22,8 @@
             }
             & .title {
                 position: absolute;
+                font-family: 'Noto Sans KRBold', sans-serif;
+                font-weight: bold;                
                 top: 110px;
                 letter-spacing: -0.5px;
                 width: 100%;
@@ -41,13 +48,13 @@
                 color: #515861;
             }
             & .socialTitle {
+                font-weight: 800;
                 position: absolute;
                 top: 300px; right: 0; left:0;
                 margin-left: auto; margin-right: auto;
                 font-size: 14px;
                 font-weight: bold;
                 height: 14px;
-                letter-spacing: -0.3px;
                 text-align: center;
                 color: #515861;
             }
