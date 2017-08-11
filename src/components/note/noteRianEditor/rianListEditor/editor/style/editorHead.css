@@ -68,12 +68,12 @@
             }
         }
         & .title {
-            font-family: 'Nanum Myeongjo', serif;           
+            font-family: 'Nanum Myeongjo', serif;  
+            font-weight: 800;         
             width: calc(100% - 33px);
             display: inline-block;
             border: none;
             font-size: 30px;
-            font-weight: bold;
             line-height: 1.62;
             letter-spacing: -0.9px;
             color: rgb(81, 88, 97);

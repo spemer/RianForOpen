@@ -8,10 +8,13 @@ html {
 }
 
 @font-face {
-font-family: 'Noto Sans KR';
-font-style: normal;
-src: url('../../../static/fonts/NotoSansKR-Regular-Hestia.woff') format('woff');
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  src: url('../../../static/fonts/NotoSansKR-Regular-Hestia.woff') format('woff');
 }
+
+@import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
 
 body {
   font-family: 'Noto Sans KR', sans-serif; 
