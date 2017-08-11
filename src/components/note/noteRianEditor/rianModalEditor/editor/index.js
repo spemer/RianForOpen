@@ -170,6 +170,8 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 	};
 
 	componentDidMount() {
+		$.FroalaEditor.RegisterShortcut(55, 'formatOL', null, null, false);
+		$.FroalaEditor.RegisterShortcut(56, 'formatUL', null, null, false);
 		$.FroalaEditor.RegisterShortcut(49, 'paragraphFormat', 'H1', 'H', false);
 		$.FroalaEditor.RegisterShortcut(50, 'paragraphFormat', 'H2', 'H', false);
 		$.FroalaEditor.RegisterShortcut(51, 'paragraphFormat', 'H3', 'H', false);

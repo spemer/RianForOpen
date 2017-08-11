@@ -37,8 +37,8 @@ const config = {
 		'codeView',
 		'file',
 	],
-	shortcutsEnabled: ['paragraphFormat', 'undo', 'redo'],
-	pastePlain: true,
+	htmlAllowedTags: ['h1', 'h2', 'h3', 'pre', 'li', 'ol', 'ul', 'blockquote', 'link', 'img'],
+	shortcutsEnabled: ['paragraphFormat', 'undo', 'redo', 'formatOL', 'formatUL'],
 	imageResize: true,
 	imageInsertButtons: ['imageBack', '|', 'imageByURL'],
 	imageEditButtons: [],
@@ -50,6 +50,7 @@ const config = {
 	toolbarButtonsSM: toolbarButton,
 	toolbarButtonsXS: toolbarButton,
 	toolbarButtons: toolbarButton,
+	shortcutsHint: true,
 	paragraphFormat: {
 		N: 'Normal',
 		PRE: 'Code',
