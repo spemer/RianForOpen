@@ -54,6 +54,8 @@
             width: 30px;
             height: 30px;
             cursor: pointer;
+            font-family: 'Noto Sans KRBold', sans-serif;
+            font-weight: 800;     
             & .button {
                 position: absolute; top: 0; right:0; bottom:0;
                 left:0;
@@ -155,6 +157,8 @@
         }        
     }
     & .showAllNote {
+        font-family: 'Noto Sans KRBold', sans-serif;
+        font-weight: 800;     
         cursor: pointer;
         outline: none;
         box-sizing: border-box;
