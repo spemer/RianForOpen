@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Noto Sans KRBold';
+    src: url('../../../../../../../static/fonts/NotoSansKR-Bold-Hestia.woff') format('woff');
+}
+
+@import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
 .container {
     width: 607px;
     min-width: 200px;
@@ -61,6 +68,7 @@
             }
         }
         & .title {
+            font-family: 'Nanum Myeongjo', serif;           
             width: calc(100% - 33px);
             display: inline-block;
             border: none;

@@ -1,6 +1,5 @@
 /* Regular @import url statements work as you'd expect them to -- alternatively
 you can import locally, and they wind up in the resulting bundle */
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 html {
   padding: 0;

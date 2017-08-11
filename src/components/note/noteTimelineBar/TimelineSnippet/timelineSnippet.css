@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Noto Sans KRBold';
+    src: url('../../../../../static/fonts/NotoSansKR-Bold-Hestia.woff') format('woff');
+}
+
 .container {
     border-bottom: solid 1px #eaeaea;
     & .box {
@@ -17,12 +22,12 @@
                 color: #515861;
             }
             & .title {
+                font-family: 'Noto Sans KRBold', sans-serif; 
                 flex: 0 0 26px;
                 margin-top: -4px;
                 margin-bottom: 8px;
                 overflow: hidden;
                 font-size: 18px;
-                font-weight: bold;
                 line-height: 1.62;
                 letter-spacing: -0.4px;
                 color: #515861;
