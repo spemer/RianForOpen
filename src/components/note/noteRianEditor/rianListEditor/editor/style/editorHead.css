@@ -16,7 +16,6 @@
             letter-spacing: -0.3px;
             text-align: right;
             margin-right: 6px;
-            font-family: NotoSansCJKkr-Regular;
         }
         & .gutter:hover {
             color: #515861;
@@ -28,7 +27,6 @@
             box-sizing: border-box;
             flex: 0 0 calc(100% - 36px);
             border: none;
-            font-family: NotoSansCJKkr-Regular;
             font-size: 12px;
             color: #babac0;
             letter-spacing: 1px;
@@ -49,14 +47,12 @@
         & .gutter {
             flex: 0 0 31px;
             opacity: 0.38;
-            font-family: NotoSansCJKkr-Bold;
             font-size: 14px;
             line-height: 1.62;
             letter-spacing: -0.3px;
             text-align: left;
             & .gutterName {
                 color: #babac0;
-                font-family: NotoSansCJKkr-Regular;
                 margin-bottom: 0px;
                 margin-top: 0px;
             }
@@ -68,7 +64,6 @@
             width: calc(100% - 33px);
             display: inline-block;
             border: none;
-            font-family: NotoSansCJKkr-Bold;
             font-size: 30px;
             font-weight: bold;
             line-height: 1.62;

@@ -1216,12 +1216,14 @@ span.fr-sr-only {
   clip: rect(0, 0, 0, 0);
 }
 
+.fr-view {
+  font-family: 'Noto Sans KR', sans-serif;
+}
 
 .fr-view p {
   margin: 1px 0 1px 0;
   line-height: 25px;
   font-weight: 400;
-  font-family: NotoSansCJKkr-Regular;
 }
 
 .fr-view pre {
@@ -1238,7 +1240,6 @@ span.fr-sr-only {
 }
 
 .fr-view h3 {
-  font-family: NotoSansCJKkr-Bold;
   font-size: 18px;
 	line-height: 1.62;
 	letter-spacing: -0.4px;
@@ -1248,7 +1249,6 @@ span.fr-sr-only {
 
 .fr-view h3:before {
   opacity: 0.38;
-  font-family: NotoSansCJKkr-Regular;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
@@ -1261,7 +1261,6 @@ span.fr-sr-only {
 
 .fr-view h3:hover:before {
   opacity: 0.38;
-  font-family: NotoSansCJKkr-Regular;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
@@ -1273,7 +1272,6 @@ span.fr-sr-only {
 }
 
 .fr-view h2 {
-  font-family: NotoSansCJKkr-Bold;
   font-size: 20px;
 	line-height: 1.22;
 	letter-spacing: -0.6px;
@@ -1283,7 +1281,6 @@ span.fr-sr-only {
 
 .fr-view h2:before {
   opacity: 0.38;
-  font-family: NotoSansCJKkr-Regular;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
@@ -1296,7 +1293,6 @@ span.fr-sr-only {
 
 .fr-view h2:hover:before {
   opacity: 0.38;
-  font-family: NotoSansCJKkr-Regular;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
@@ -1308,7 +1304,6 @@ span.fr-sr-only {
 }
 
 .fr-view h1 {
-  font-family: NotoSansCJKkr-Bold;
 	font-size: 25px;
 	line-height: 1.62;
 	letter-spacing: -0.8px;
@@ -1318,7 +1313,6 @@ span.fr-sr-only {
 
 .fr-view h1:before {
   opacity: 0.38;
-  font-family: NotoSansCJKkr-Regular;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
@@ -1331,7 +1325,6 @@ span.fr-sr-only {
 
 .fr-view h1:hover:before {
   opacity: 0.38;
-  font-family: NotoSansCJKkr-Regular;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
@@ -1358,6 +1351,7 @@ span.fr-sr-only {
   list-style-type:none;
   color: #545454;
   line-height: 25px;
+  font-weight: 400;
 }
 
 .fr-view ol {
@@ -1369,6 +1363,7 @@ span.fr-sr-only {
   padding-left: 8px;
   color: #545454;
   line-height: 25px;
+  font-weight: 400;
 }
 
 .fr-view blockquote {

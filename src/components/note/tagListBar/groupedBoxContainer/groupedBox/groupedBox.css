@@ -5,7 +5,6 @@
         box-sizing: border-box;
         padding-left: 20px;
         & .titleName {
-            font-family: NotoSansCJKkr-Bold;
             font-weight: bold;
             font-size: 18px;
             line-height: 1.08;
@@ -23,7 +22,6 @@
             align-items: center;
             outline: none;
             & .tagName {
-                font-family: NotoSansCJKkr-Regular;
                 font-size: 12px;
                 line-height: 1.62;
                 letter-spacing: -0.3px;
@@ -35,7 +33,6 @@
                 overflow: hidden;
             }
             & .tagHowMany {
-                font-family: NotoSansCJKkr-Regular;
                 font-size: 12px;
                 line-height: 1.62;
                 letter-spacing: -0.3px;

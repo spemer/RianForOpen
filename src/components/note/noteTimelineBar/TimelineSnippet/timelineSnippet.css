@@ -11,7 +11,6 @@
             justify-content: center;
             & .timestamp {
                 flex: 0 0 13px;
-                font-family: NotoSansCJKkr;
                 font-size: 12px;
                 line-height: 1.62;
                 letter-spacing: -0.3px;
@@ -23,7 +22,6 @@
                 margin-bottom: 8px;
                 overflow: hidden;
                 font-size: 18px;
-                font-family: NotoSansCJKkr-Bold;
                 font-weight: bold;
                 line-height: 1.62;
                 letter-spacing: -0.4px;
@@ -33,7 +31,6 @@
             & .preview{
                 flex: 0 0 60px;
                 overflow: hidden;
-                font-family: NotoSansCJKkr-Regular;
                 font-size: 12px;
                 line-height: 1.62;
                 letter-spacing: -0.3px;

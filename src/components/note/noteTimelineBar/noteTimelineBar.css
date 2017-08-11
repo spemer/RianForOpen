@@ -24,7 +24,6 @@
             width: 170px;
             overflow-x: hidden;
             & .title {
-                font-family: NotoSansCJKkr-Bold;
                 font-size: 24px;
                 overflow: hidden;
                 font-weight: bold;
@@ -33,7 +32,6 @@
                 color: rgb(81, 88, 97);
             }
             & .count{
-                font-family: NotoSansCJKkr-Regular;
                 font-size: 12px;
                 line-height: 1.62;
                 letter-spacing: 0.5px;
@@ -82,7 +80,6 @@
                     width: 100%;
                     flex: 0 0 32px;
                     opacity: 0.38;
-                    font-family: NotoSansCJKkr-Regular;
                     font-size: 10px;
                     line-height: 1.94;
                     letter-spacing: -0.2px; 
@@ -103,7 +100,6 @@
                         flex: 1;
                         padding-left: 10px;
                         object-fit: contain;
-                        font-family: NotoSansCJKkr-Regular;
                         font-size: 12px;
                         border: solid 1px #dfdfdf;
                         line-height: 1.62;
@@ -138,7 +134,6 @@
                     width: 100%;
                     flex: 0 0 32px;
                     opacity: 0.38;
-                    font-family: NotoSansCJKkr-Regular;
                     font-size: 10px;
                     line-height: 1.94;
                     letter-spacing: -0.2px; 
@@ -158,7 +153,6 @@
                         flex: 1;
                         padding-left: 10px;
                         object-fit: contain;
-                        font-family: NotoSansCJKkr-Regular;
                         font-size: 12px;
                         line-height: 1.62;
                         letter-spacing: -0.3px;

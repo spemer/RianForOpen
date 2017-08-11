@@ -6,7 +6,6 @@
     & .head {
          margin-bottom: 70px;
         & .headName {
-            font-family: NotoSansCJKkr-Bold;
             font-weight: Bold;
             font-size: 18px;
             font-weight: bold;
@@ -18,7 +17,6 @@
         }
         & .subName {
             text-align: center;
-            font-family: NotoSansCJKkr-Regular;
             font-size: 14px;
             line-height: 2.43;
             letter-spacing: -0.3px;
@@ -52,12 +50,10 @@
                     background-color: #f4f4f4;
                     padding-left: 18px;
                     outline: none; 
-                    font-family: NotoSansCJKkr-Bold;
                     font-weight: Bold;
                     font-size: 18px;
                 }
                 & .formInput::placeholder {
-                    font-family: NotoSansCJKkr-Bold;
                     font-size: 18px;
                     letter-spacing: -0.4px;
                     font-weight: Bold;

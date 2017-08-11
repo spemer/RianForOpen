@@ -9,6 +9,7 @@
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
     outline: none;
+    font-family: 'Noto Sans KR', sans-serif;
     & .head {
         box-sizing: border-box;
         width: 100%;
@@ -18,7 +19,6 @@
         padding-left: 24px;
         padding-right: 24px;
         & .tagTitle {
-            font-family: NotoSansCJKkr-Bold;
             font-size: 24px;
             font-weight: bold;
             line-height: 1.62;
@@ -26,7 +26,6 @@
             color: rgb(81, 88, 97);
         }
         & .noteCount {
-            font-family: NotoSansCJKkr-Regular;
             font-size: 12px;
             line-height: 1.62;
             letter-spacing: -0.3px;

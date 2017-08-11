@@ -12,14 +12,12 @@ const Login = () => (
 		<div className={css.box}>
 			<img src={rianLogo} className={css.icon} alt="logo" />
 			<div className={css.title}>
-				리안노트에 오신 것을 환영합니다.
+				리안노트에 오신 것을 환영합니다
 			</div>
 			<div className={css.subTitle}>
-				제 인생에서 글쓰기는
+				제 인생에서 글쓰기는 제가 믿는 것, 보는 것,
 				<br />
-				제가 믿는 것, 보는 것, 가치 있다고 여기는 것들을
-				<br />
-				더욱 명확히 하는 훈련입니다
+				가치 있다고 여기는 것들을 더욱 명확히 하는 훈련입니다
 				<br />
 				-버락 오바마
 			</div>

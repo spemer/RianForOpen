@@ -1,14 +1,6 @@
 /* Regular @import url statements work as you'd expect them to -- alternatively
 you can import locally, and they wind up in the resulting bundle */
-@font-face {
-  font-family: NotoSansCJKkr-Bold;
-  src: url(static/fonts/NotoSansCJKkr-Bold.woff) format('woff');
-}
-
-@font-face {
-  font-family: NotoSansCJKkr-Regular;
-  src: url(static/fonts/NotoSansCJKkr-Regular.woff) format('woff');
-}
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 html {
   padding: 0;

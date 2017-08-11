@@ -8,7 +8,6 @@
         align-items: center;
         outline: none;
         & .tagName {
-            font-family: NotoSansCJKkr-Regular;
             font-size: 12px;
             line-height: 1.62;
             letter-spacing: -0.3px;
@@ -20,7 +19,6 @@
             overflow: hidden;
         }
         & .tagHowMany {
-            font-family: NotoSansCJKkr-Regular;
             font-size: 12px;
             line-height: 1.62;
             letter-spacing: -0.3px;
