@@ -1217,12 +1217,13 @@ span.fr-sr-only {
 }
 
 .fr-view {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Nanum Myeongjo', serif; 
+  letter-spacing: 0.2px;
 }
 
 .fr-view p {
   margin: 1px 0 1px 0;
-  line-height: 25px;
+  line-height: calc(15*1.7px);
   font-weight: 400;
 }
 
@@ -1242,9 +1243,9 @@ span.fr-sr-only {
 .fr-view h3 {
   font-size: 18px;
 	line-height: 1.62;
-	letter-spacing: -0.4px;
   margin-top: 8px;
   margin-bottom: 8px;
+  font-weight: 800;
 }
 
 .fr-view h3:before {
@@ -1253,10 +1254,10 @@ span.fr-sr-only {
   font-size: 14px;
   line-height: 1.62;
   color: #babac0;
-  letter-spacing: -0.3px;
   content: 'H3';
   margin-right: 12px;
   margin-left: -30px;
+  font-weight: 800;
 }
 
 .fr-view h3:hover:before {
@@ -1264,11 +1265,11 @@ span.fr-sr-only {
   font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
-  letter-spacing: -0.3px;
   content: 'H3';
   color: #515861;
   margin-right: 12px;
   margin-left: -30px;
+  font-weight: 800;
 }
 
 .fr-view h2 {
@@ -1277,6 +1278,7 @@ span.fr-sr-only {
 	letter-spacing: -0.6px;
   margin-top: 8px;
   margin-bottom: 8px;
+  font-weight: 800;
 }
 
 .fr-view h2:before {
@@ -1285,10 +1287,10 @@ span.fr-sr-only {
   font-size: 14px;
   line-height: 1.62;
   color: #babac0;
-  letter-spacing: -0.3px;
   content: 'H2';
   margin-right: 11.7px;
   margin-left: -30px;
+  font-weight: 800;
 }
 
 .fr-view h2:hover:before {
@@ -1297,18 +1299,18 @@ span.fr-sr-only {
   font-size: 14px;
   line-height: 1.62;
   color: #515861;
-  letter-spacing: -0.3px;
   content: 'H2';
   margin-right: 11.7px;
   margin-left: -30px;
+  font-weight: 800;
 }
 
 .fr-view h1 {
 	font-size: 25px;
 	line-height: 1.62;
-	letter-spacing: -0.8px;
   margin-top: 8px;
   margin-bottom: 8px;
+  font-weight: 800;
 }
 
 .fr-view h1:before {
@@ -1316,11 +1318,11 @@ span.fr-sr-only {
   font-weight: 400;
   font-size: 14px;
   line-height: 1.62;
-  letter-spacing: -0.3px;
   color: #babac0;
   content: 'H1';
   margin-right: 11px;
   margin-left: -30px;
+  font-weight: 800;
 }
 
 .fr-view h1:hover:before {
@@ -1329,10 +1331,10 @@ span.fr-sr-only {
   font-size: 14px;
   line-height: 1.62;
   color: #515861;
-  letter-spacing: -0.3px;
   content: 'H1';
   margin-right: 11px;
   margin-left: -30px;
+  font-weight: 800;
 }
 
 
@@ -1350,7 +1352,6 @@ span.fr-sr-only {
   margin: 1px 10px 1px 0;
   list-style-type:none;
   color: #545454;
-  line-height: 25px;
   font-weight: 400;
 }
 
@@ -1362,7 +1363,7 @@ span.fr-sr-only {
   margin: 1px 10px 1px -8px;
   padding-left: 8px;
   color: #545454;
-  line-height: 25px;
+
   font-weight: 400;
 }
 

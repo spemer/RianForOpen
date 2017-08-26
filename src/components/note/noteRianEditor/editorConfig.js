@@ -37,7 +37,7 @@ const config = {
 		'codeView',
 		'file',
 	],
-	htmlAllowedTags: ['p', 'h1', 'h2', 'h3', 'pre', 'li', 'ol', 'ul', 'blockquote', 'link', 'img'],
+	htmlAllowedTags: ['s', 'strong', 'u', 'em', 'p', 'h1', 'h2', 'h3', 'pre', 'li', 'ol', 'ul', 'blockquote', 'link', 'img'],
 	shortcutsEnabled: ['paragraphFormat', 'undo', 'redo', 'formatOL', 'formatUL'],
 	imageResize: true,
 	imageInsertButtons: ['imageBack', '|', 'imageByURL'],

@@ -67,8 +67,8 @@
                 color: #515861;
             }
         }
-        & .title {
-            font-family: 'Nanum Myeongjo', serif;  
+        & .title {     
+            font-family: 'Noto Sans KRBold', sans-serif;
             font-weight: 800;         
             width: calc(100% - 33px);
             display: inline-block;
