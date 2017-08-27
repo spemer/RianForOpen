@@ -1245,7 +1245,8 @@ span.fr-sr-only {
 	line-height: 1.62;
   margin-top: 8px;
   margin-bottom: 8px;
-  font-weight: 800;
+  font-family: 'Noto Sans KRBold', sans-serif;
+  
 }
 
 .fr-view h3:before {
@@ -1257,7 +1258,8 @@ span.fr-sr-only {
   content: 'H3';
   margin-right: 12px;
   margin-left: -30px;
-  font-weight: 800;
+  font-family: 'Noto Sans KRBold', sans-serif;
+  
 }
 
 .fr-view h3:hover:before {
@@ -1269,7 +1271,8 @@ span.fr-sr-only {
   color: #515861;
   margin-right: 12px;
   margin-left: -30px;
-  font-weight: 800;
+  font-family: 'Noto Sans KRBold', sans-serif;
+  
 }
 
 .fr-view h2 {
@@ -1278,7 +1281,8 @@ span.fr-sr-only {
 	letter-spacing: -0.6px;
   margin-top: 8px;
   margin-bottom: 8px;
-  font-weight: 800;
+  font-family: 'Noto Sans KRBold', sans-serif;
+  
 }
 
 .fr-view h2:before {
@@ -1290,7 +1294,7 @@ span.fr-sr-only {
   content: 'H2';
   margin-right: 11.7px;
   margin-left: -30px;
-  font-weight: 800;
+  font-family: 'Noto Sans KRBold', sans-serif;
 }
 
 .fr-view h2:hover:before {
@@ -1302,7 +1306,8 @@ span.fr-sr-only {
   content: 'H2';
   margin-right: 11.7px;
   margin-left: -30px;
-  font-weight: 800;
+  font-family: 'Noto Sans KRBold', sans-serif;
+  
 }
 
 .fr-view h1 {
@@ -1310,7 +1315,7 @@ span.fr-sr-only {
 	line-height: 1.62;
   margin-top: 8px;
   margin-bottom: 8px;
-  font-weight: 800;
+  font-family: 'Noto Sans KRBold', sans-serif;  
 }
 
 .fr-view h1:before {
@@ -1322,7 +1327,7 @@ span.fr-sr-only {
   content: 'H1';
   margin-right: 11px;
   margin-left: -30px;
-  font-weight: 800;
+  font-family: 'Noto Sans KRBold', sans-serif;  
 }
 
 .fr-view h1:hover:before {
@@ -1333,8 +1338,7 @@ span.fr-sr-only {
   color: #515861;
   content: 'H1';
   margin-right: 11px;
-  margin-left: -30px;
-  font-weight: 800;
+  font-family: 'Noto Sans KRBold', sans-serif;  
 }
 
 

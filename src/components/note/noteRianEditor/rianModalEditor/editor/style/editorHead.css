@@ -68,7 +68,7 @@
             }
         }
         & .title {
-            font-family: 'Nanum Myeongjo', serif;      
+            font-family: 'Noto Sans KRBold', sans-serif;
             font-weight: 800;    
             padding-left: 8px;
             flex: 0 0 540px;
