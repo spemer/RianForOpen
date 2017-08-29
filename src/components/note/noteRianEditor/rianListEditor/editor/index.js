@@ -159,6 +159,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 		this.handleModelChange = this.handleModelChange.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleTagChange = this.handleTagChange.bind(this);
+		this.handleSpaceTag = this.handleSpaceTag.bind(this);
 		this.saveDebounce = debounce(() => {
 			if (this.state.saveDebounce) {
 				this.props.saveRequestDispatch(this.saveObservable);
@@ -265,6 +266,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 	handleModelChange: Function;
 	handleChange: Function;
 	handleTagChange: Function;
+	handleSpaceTag: Function;
 	saveDebounce: Function;
 	initControls: any;
 	Interval: any;
@@ -311,9 +313,21 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 	}
 
 	handleTagChange({ target: { value } }: any) {
+		if (!value) {
+			this.setState({
+				tags: '#',
+			});
+			return;
+		}
 		this.setState({
-			tags: value,
+			tags: value.replace(/(^\s*)|(\s*$)/gi, '')[0] === '#' ? value.replace(/(^\s*)|(\s*$)/gi, '') : `#${value.replace(/(^\s*)|(\s*$)/gi, '')}`,
 		});
+	}
+
+	handleSpaceTag() {
+		this.setState(prevState => ({
+			tags: prevState.tags[prevState.tags.length - 1] !== '#' ? `${prevState.tags}#`.replace(/(^\s*)|(\s*$)/gi, '') : `${prevState.tags}`.replace(/(^\s*)|(\s*$)/gi, ''),
+		}));
 	}
 
 	render() {
@@ -385,6 +399,11 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 									className={editorHeadCss.tagContainer}
 									value={tags}
 									onChange={this.handleTagChange}
+									onKeyPress={(e) => {
+										if (e.charCode === 32 || e.keyCode === 32) {
+											this.handleSpaceTag();
+										}
+									}}
 								/>
 							</div>
 							<div className={editorHeadCss.titleHead}>

@@ -55,6 +55,7 @@ class SearchBox extends Component<DefaultProps, Props, State> {
 		this.changeSearchMode = this.changeSearchMode.bind(this);
 		this.handleValue = this.handleValue.bind(this);
 		this.handleTag = this.handleTag.bind(this);
+		this.handleSpaceTag = this.handleSpaceTag.bind(this);
 	}
 
 	state = {
@@ -65,10 +66,17 @@ class SearchBox extends Component<DefaultProps, Props, State> {
 	changeSearchMode: Function;
 	handleValue: Function;
 	handleTag: Function;
+	handleSpaceTag: Function;
 
-	handleValue(e: any) {
+	handleValue({ target: { value } }: any) {
+		if (!value) {
+			this.setState({
+				value: '#',
+			});
+			return;
+		}
 		this.setState({
-			value: e.target.value,
+			value: value.replace(/(^\s*)|(\s*$)/gi, '')[0] === '#' ? value.replace(/(^\s*)|(\s*$)/gi, '') : `#${value.replace(/(^\s*)|(\s*$)/gi, '')}`,
 		});
 	}
 
@@ -79,6 +87,10 @@ class SearchBox extends Component<DefaultProps, Props, State> {
 	}
 
 	handleTag(e: any) {
+		console.log(e.charCode);
+		if (e.charCode === 32 || e.keyCode === 32) {
+			this.handleSpaceTag();
+		}
 		if (e.charCode == 13) {
 			this.setState({
 				value: '',
@@ -92,6 +104,16 @@ class SearchBox extends Component<DefaultProps, Props, State> {
 			return this.props.changeRenderTagsDispatch(makeStringToTagArray(e.target.value));
 		}
 		return null;
+	}
+
+	handleSpaceTag() {
+		this.setState((prevState) => {
+			console.log(prevState.value);
+			return {
+				value: prevState.value[prevState.value.length - 1] !== '#' ? `${prevState.value}#`.replace(/(^\s*)|(\s*$)/gi, '') : `${prevState.value}`.replace(/(^\s*)|(\s*$)/gi, ''),
+			}
+;
+		});
 	}
 
 	render() {
