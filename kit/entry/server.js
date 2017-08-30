@@ -129,7 +129,7 @@ const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(
 
 	await getDataFromTree(components);
 
-	// Full React HTML render
+	// Full React HTML render for Server Side Rendering
 	const html = ReactDOMServer.renderToString(components);
 
 	ctx.body = `<!DOCTYPE html>\n${ReactDOMServer.renderToStaticMarkup(<Html html={html} head={Helmet.rewind()} window={{ webpackManifest: chunkManifest, __STATE__: store.getState() }} scripts={scripts} css={manifest['browser.css']} />)}`;

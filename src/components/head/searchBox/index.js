@@ -87,7 +87,6 @@ class SearchBox extends Component<DefaultProps, Props, State> {
 	}
 
 	handleTag(e: any) {
-		console.log(e.charCode);
 		if (e.charCode === 32 || e.keyCode === 32) {
 			this.handleSpaceTag();
 		}
@@ -107,13 +106,9 @@ class SearchBox extends Component<DefaultProps, Props, State> {
 	}
 
 	handleSpaceTag() {
-		this.setState((prevState) => {
-			console.log(prevState.value);
-			return {
-				value: prevState.value[prevState.value.length - 1] !== '#' ? `${prevState.value}#`.replace(/(^\s*)|(\s*$)/gi, '') : `${prevState.value}`.replace(/(^\s*)|(\s*$)/gi, ''),
-			}
-;
-		});
+		this.setState(prevState => ({
+			value: prevState.value[prevState.value.length - 1] !== '#' ? `${prevState.value}#`.replace(/(^\s*)|(\s*$)/gi, '') : `${prevState.value}`.replace(/(^\s*)|(\s*$)/gi, ''),
+		}));
 	}
 
 	render() {

@@ -205,14 +205,6 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			'letter-spacing': '-0.4px',
 			color: '#515861',
 		});
-    // if (process.env.NODE_ENV === 'production') {
-    // 	this.Interval = setInterval(() => {
-    // 		// if compoennent has noteId, it will be saved
-    // 		console.log('setInterval');
-    // 		this.saveObservable();
-    // 	}, 8000);
-	// }
-			// when user scroll, it will hide inline toolbar
 	}
 
 	componentWillReceiveProps(nextProps: Props) {
@@ -234,17 +226,17 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 			if (this.props.timelineLeftBar !== timelineLeftBar) return;
 			if (this.props.themeColor !== themeColor) return;
 			if (this.props.trashBox !== trashBox) return;
-			// 만약 노트 아이디가 바뀌었으면 기존의 뮤테이션 프로미스를 캔슬
+			// if note id changed, cancel the past mutation promise
 			if (this.props.noteId !== noteId) {
 				saveRequestCancleDispatch();
 			}
-			// 오토 세이브 활성화 조건 지정
+			// Condition for autosave
 			let saveDebounce = true;
 			if (loading) {
-				// 만약 노트가 로딩중이면 오토세이브 비활성화
+				// if some note is loading, make autosave disable
 				saveDebounce = false;
 			} else if (this.props.loading && !loading) {
-				// 노트가 로딩을 끝내고 막 도착했을때, 최초의 오토세이브를 막는다.
+				// when note just loaded first time, make autosave disable
 				saveDebounce = false;
 			}
 			this.setState({
@@ -301,7 +293,7 @@ class EditorBox extends Component<DefaultProps, Props, State> {
 
 	handleModelChange(model: string) {
 		this.setState({ data: model });
-		// 만약 모델에 아무 값도 없으면(null or '') 세이브 자체를 실행시키지 않는다 ex.로딩중
+		// if there is nothing in model(null or ''), make autosave disable
 		if (!model) return;
 		this.saveDebounce();
 	}
