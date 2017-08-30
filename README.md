@@ -16,6 +16,7 @@ yarn start
 ```
 yarn install
 yarn build
+yarn server
 ```
 
 
